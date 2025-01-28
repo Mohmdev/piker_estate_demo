@@ -64,7 +64,7 @@ const BodyContent = () => {
                           </div>
                           <div className="media-body">
                             <h6>
-                              <a>https://www.sheltos.com</a>
+                              <a>https://www.nexweb.studio</a>
                             </h6>
                           </div>
                         </div>

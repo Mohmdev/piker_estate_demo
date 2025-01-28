@@ -9,7 +9,7 @@ const SubFooterTwo = () => {
         <Row>
           <div className="col-xl-6 col-md-6">
             <div className="copy-right">
-              <p className="mb-0">Copyright 2022, All Right Reserved Sheltos</p>
+              <p className="mb-0">Copyright 2025, All Right Reserved Nexweb Studio</p>
             </div>
           </div>
           <div className="col-xl-6 col-md-6 text-end">

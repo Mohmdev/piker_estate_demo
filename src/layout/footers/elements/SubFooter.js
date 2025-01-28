@@ -24,7 +24,7 @@ const SubFooter = ({ values }) => {
           <div className='col-xl-6 col-md-6 text-end'>
             <div className='copy-right'>
               <p className='mb-0'>
-                Copyright 2022 Sheltos By <Heart /> Pixelstrap
+                Copyright 2025 Nexweb Studio By @mohmdev
               </p>
             </div>
           </div>

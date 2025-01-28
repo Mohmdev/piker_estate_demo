@@ -60,7 +60,7 @@ const TermsAndConditions = () => {
                 <div className='terms-wrap'>
                   <div className='terms-wrapper' id='intro'>
                     <h4>Introduction</h4>
-                    <p>These Website Standard Terms and Conditions written on this webpage shall manage your use of our website, Sheltos accessible at sheltos.com.</p>
+                    <p>These Website Standard Terms and Conditions written on this webpage shall manage your use of our website, Nexweb Studio accessible at nexweb.studio.</p>
                     <p>These Terms will be applied fully and affect to your use of this Website. By using this Website, you agreed to accept all terms and conditions written in here. You must not use this Website if you disagree with any of these Website Standard Terms and Conditions.</p>
                   </div>
                   <div className='terms-wrapper' id='restriction'>

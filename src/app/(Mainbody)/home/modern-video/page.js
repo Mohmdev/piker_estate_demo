@@ -20,7 +20,7 @@ const ModernVideo = () => {
   return (
     <Fragment>
       <Head>
-        <title>sheltos</title>
+        <title>nexweb</title>
       </Head>
       <NavbarFour />
       <BodyContent />

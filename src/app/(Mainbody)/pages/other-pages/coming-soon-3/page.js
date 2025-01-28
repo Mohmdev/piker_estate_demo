@@ -61,7 +61,7 @@ const ComingSoon3 = () => {
                       </a>
                     </li>
                   </ul>
-                  <p>Copyright 2022, All Right Reserved Sheltos </p>
+                  <p>Copyright 2022, All Right Reserved Nexweb Studio </p>
                 </div>
               </div>
             </div>

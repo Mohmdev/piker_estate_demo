@@ -7,8 +7,8 @@ import { detectLanguage } from "./i18n/server";
 import { I18nProvider } from "./i18n/i18n-context";
 
 export const metadata = {
-  title: "Sheltos - Real Estate Next 14",
-  description: "Sheltos - Real Estate Next 14",
+  title: "Nexweb Studio - Real Estate Next 14",
+  description: "Nexweb Studio - Real Estate Next 14",
 };
 
 export default async function RootLayout({ children }) {

@@ -22,7 +22,7 @@ const GetInTouchSection = () => {
             <div className='row contact-detail theme-card'>
               <Col lg='12' className='p-0'>
                 <div className='contact-content'>
-                  <h2>Welcome to sheltos !!</h2>
+                  <h2>Welcome to Nexweb !!</h2>
                   <p className='font-roboto'>
                     Connected residences might be owned by a single entity and leased out, or owned separately with an agreement covering the relationship between units and common areas and concerns.
                   </p>
@@ -45,7 +45,7 @@ const GetInTouchSection = () => {
                   <Mail />
                   <h4>Online service</h4>
                   <ul>
-                    <li>Inquiries: sheltos@.in</li>
+                    <li>Inquiries: nexweb@.in</li>
                     <li>Support: help@.in</li>
                     <li>www.test.com</li>
                     <li>+86 163 - 451 - 7894</li>

@@ -27,7 +27,7 @@ const OfferSection = ({ value }) => {
                             <img src={data.img} alt="" />
                           </div>
                           <div className="media-body">
-                            <h6>Sheltos</h6>
+                            <h6>Nexweb Studio</h6>
                             <h3>{data.title}</h3>
                             <p>{data.details}</p>
                           </div>

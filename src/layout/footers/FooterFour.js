@@ -63,7 +63,7 @@ const FooterFour = () => {
             <div className="col-xl-6 col-md-6 text-end">
               <div className="copy-right">
                 <p className="mb-0">
-                  Copyright 2022 Sheltos By <i className="fas fa-heart"></i> Pixelstrap
+                  Copyright 2025 Nexweb Studio By @mohmdev
                 </p>
               </div>
             </div>

@@ -58,7 +58,7 @@ const BodyContent = () => {
                     <Mail />
                     <h4>Online service</h4>
                     <ul>
-                      <li>Inquiries: sheltos@.in</li>
+                      <li>Inquiries: nexweb@.in</li>
                       <li>Careers: hr@.in</li>
                       <li>Support: help@.in</li>
                       <li>+86 163 - 451 - 7894</li>

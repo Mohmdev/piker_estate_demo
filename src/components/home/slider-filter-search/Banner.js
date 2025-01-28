@@ -12,7 +12,7 @@
 import Link from "next/link";
 import React from "react";
 import { Col, Container, Row } from "reactstrap";
-import { BannerDetail, BrowseProperty, BuyOrSell, SheltosRealEstate, SubmitProperty } from "@/constValues/constValues";
+import { BannerDetail, BrowseProperty, BuyOrSell, NexwebRealEstate, SubmitProperty } from "@/constValues/constValues";
 
 const BannerSection = ({ purple }) => {
   return (
@@ -26,7 +26,7 @@ const BannerSection = ({ purple }) => {
             <div className="light-bg banner-1">
               <span className="big-gradient">*</span>
               <span className="small-white">*</span>
-              <h6>{SheltosRealEstate}</h6>
+              <h6>{NexwebRealEstate}</h6>
               <h2>{BannerDetail}</h2>
               <div className="button-banner">
                 <Link href="/agent/submit-property" className="btn btn-gradient">

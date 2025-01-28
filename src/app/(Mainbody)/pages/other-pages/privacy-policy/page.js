@@ -56,12 +56,12 @@ const PrivacyPolicy = () => {
             </div>
             <div className='col-xl-9 col-lg-8 col-12'>
               <div className='theme-card'>
-                <h2>Privacy policy for Sheltos</h2>
+                <h2>Privacy policy for Nexweb Studio</h2>
                 <div className='terms-wrap'>
                   <div className='terms-wrapper'>
-                    <p>At Sheltos, accessible at sheltos.com, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by sheltos and how we use it.</p>
+                    <p>At Nexweb Studio, accessible at nexweb.studio, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by Nexweb Studio and how we use it.</p>
                     <p>
-                      If you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us through email at <a>test@sheltos.com</a>
+                      If you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us through email at <a>mohmdev@nexweb.studio</a>
                     </p>
                   </div>
                   <div className='terms-wrapper' id='intro'>
@@ -80,14 +80,14 @@ const PrivacyPolicy = () => {
                   </div>
                   <div className='terms-wrapper' id='thirdparty'>
                     <h4>Third-Party Privacy Policies</h4>
-                    <p>Sheltos's Privacy Policy does not apply to other advertisers or websites. Thus, we are advising you to consult the respective Privacy Policies of these third-party ad servers for more detailed information. It may include their practices and instructions about how to opt-out of certain options. You may find a complete list of these Privacy Policies and their links here: Privacy Policy Links.</p>
-                    <p>You can choose to disable cookies through your individual browser options. To know more detailed information about cookie management with specific web browsers, it can be found at the browsers' respective websites. What Are Cookies?</p>
+                    <p>Nexweb Studio&apos;s Privacy Policy does not apply to other advertisers or websites. Thus, we are advising you to consult the respective Privacy Policies of these third-party ad servers for more detailed information. It may include their practices and instructions about how to opt-out of certain options. You may find a complete list of these Privacy Policies and their links here: Privacy Policy Links.</p>
+                    <p>You can choose to disable cookies through your individual browser options. To know more detailed information about cookie management with specific web browsers, it can be found at the browsers&apos; respective websites. What Are Cookies?</p>
                   </div>
                   <div className='terms-wrapper' id='advertising'>
                     <h4>Advertising Partners Privacy Policies</h4>
-                    <p>You may consult this list to find the Privacy Policy for each of the advertising partners of Sheltos.</p>
-                    <p>Third-party ad servers or ad networks uses technologies like cookies, JavaScript, or Web Beacons that are used in their respective advertisements and links that appear on Website Name, which are sent directly to users' browser. </p>
-                    <p>Note that Sheltos has no access to or control over these cookies that are used by third-party advertisers.</p>
+                    <p>You may consult this list to find the Privacy Policy for each of the advertising partners of Nexweb Studio.</p>
+                    <p>Third-party ad servers or ad networks uses technologies like cookies, JavaScript, or Web Beacons that are used in their respective advertisements and links that appear on Website Name, which are sent directly to users&apos; browser. </p>
+                    <p>Note that Nexweb Studio has no access to or control over these cookies that are used by third-party advertisers.</p>
                   </div>
                   <div className='terms-wrapper' id='dpr'>
                     <h4>GDPR Privacy Policy (Data Protection Rights)</h4>
