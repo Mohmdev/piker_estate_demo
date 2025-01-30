@@ -1,0 +1,15 @@
+{
+  "projectId": "prj_EC6eufRvDKL994jfhbizaYOBVziS",
+  "orgId": "team_jyImI0gIbotDlzc1op3nJjF7",
+  "settings": {
+    "createdAt": 1738066500622,
+    "framework": "nextjs",
+    "devCommand": null,
+    "installCommand": "pnpm i --no-frozen-lockfile",
+    "buildCommand": "next build",
+    "outputDirectory": null,
+    "rootDirectory": null,
+    "directoryListing": false,
+    "nodeVersion": "22.x"
+  }
+}
