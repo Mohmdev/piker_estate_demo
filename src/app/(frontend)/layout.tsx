@@ -1,5 +1,5 @@
-import { Footer } from '@CMS/globals/Footer/Component'
-import { Header } from '@CMS/globals/Header/Component'
+import { Footer } from '@CMS/design/Footer/Component'
+import { Header } from '@CMS/design/Header/Component'
 import { AdminBar } from '@components/AdminBar'
 import { Providers } from '@providers'
 import { InitTheme } from '@providers/Theme/InitTheme'

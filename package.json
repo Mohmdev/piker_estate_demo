@@ -1,13 +1,13 @@
 {
-  "name": "nexweb-b2b-template",
-  "version": "0.3.1",
+  "name": "nexweb-realestate-template",
+  "version": "0.4.0",
   "private": true,
   "license": "MIT",
   "type": "module",
   "author": "Mohmdev",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Mohmdev/nexweb-b2b"
+    "url": "https://github.com/Mohmdev/nexweb-realestate"
   },
   "scripts": {
     "ii": "cross-env NODE_OPTIONS=--no-deprecation pnpm --ignore-workspace install",
@@ -25,7 +25,8 @@
     "format:src": "biome format --write ./src",
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
     "generate:importmap": "payload generate:importmap",
-    "generate:schema": "payload-graphql generate:schema",
+    "generate:schema": "payload generate:db-schema",
+    "generate:graphql": "payload-graphql generate:schema",
     "generate:types": "payload generate:types",
     "migrate": "payload migrate",
     "migrate:status": "payload migrate:status",

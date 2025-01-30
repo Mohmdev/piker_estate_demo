@@ -1,12 +1,13 @@
 import path from 'path'
 import { fileURLToPath } from 'url'
-import { Categories } from '@CMS/collections/config.Categories'
-import { Pages } from '@CMS/collections/config.Pages'
-import { Posts } from '@CMS/collections/config.Posts'
-import { Tags } from '@CMS/collections/config.Tags'
-import { Footer } from '@CMS/globals/Footer/config'
-import { GlobalSettings } from '@CMS/globals/GlobalSettings/config'
-import { Header } from '@CMS/globals/Header/config'
+import { Footer } from '@CMS/design/Footer/config'
+import { GlobalSettings } from '@CMS/design/GlobalSettings/config'
+import { Header } from '@CMS/design/Header/config'
+import { Categories } from '@CMS/marketing/config.Categories'
+import { Pages } from '@CMS/marketing/config.Pages'
+import { Posts } from '@CMS/marketing/config.Posts'
+import { Tags } from '@CMS/marketing/config.Tags'
+import { Properties } from '@CMS/real-estate/config.Properties'
 import { Users } from '@auth/Users/config'
 import { adminConfig } from '@services/admin/config'
 import { collectionGroup, globalGroup } from '@services/admin/groupContent'
@@ -33,11 +34,12 @@ const dirname = path.dirname(filename)
 
 export default buildConfig({
   collections: [
-    ...collectionGroup('Content', [Pages, Posts, Categories, Tags]),
-    ...collectionGroup('Uploads', [Media, Assets, MetaMedia]),
-    ...collectionGroup('Access Control', [Users, UserPhotos]),
+    ...collectionGroup('Real Estate', [Properties]),
+    ...collectionGroup('Marketing', [Pages, Posts, Categories, Tags]),
+    ...collectionGroup('Resources', [Media, Assets, MetaMedia]),
+    ...collectionGroup('Accounts', [Users, UserPhotos]),
   ],
-  globals: [...globalGroup('Customize', [Header, Footer, GlobalSettings])],
+  globals: [...globalGroup('Design', [Header, Footer, GlobalSettings])],
   db: vercelPostgres,
   admin: adminConfig,
   editor: defaultLexical,

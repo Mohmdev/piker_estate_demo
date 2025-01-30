@@ -12,7 +12,7 @@ export const searchService: Plugin = searchPlugin({
       return [...defaultFields, ...searchFields]
     },
     admin: {
-      group: 'Settings',
+      group: 'Resources',
     },
   },
 })

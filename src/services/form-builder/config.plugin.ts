@@ -33,12 +33,12 @@ export const formBuilderService: Plugin = formBuilderPlugin({
       })
     },
     admin: {
-      group: 'Settings',
+      group: 'Marketing',
     },
   },
   formSubmissionOverrides: {
     admin: {
-      group: 'Settings',
+      group: 'Marketing',
     },
   },
 })

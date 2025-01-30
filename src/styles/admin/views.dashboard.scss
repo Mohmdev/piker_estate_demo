@@ -1,61 +1,76 @@
-.dashboard__wrap {
-  --card-list-height: 8rem;
-  --margin-block: 1.125rem;
+// Dashboard main wrapper
+.template-default__wrap {
+  --max-height-mobile: 42px;
+  --max-height-desktop: 64px;
+  //
+  background-color: transparent;
+  color: var(--theme-text);
+  font-family: var(--font-body);
 
-  .dashboard__group {
-    // 1. Custom Content
-    &:nth-of-type(1) {
-      order: 1;
-      margin-block: var(--margin-block);
+  .dashboard__card-list {
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    color: light-dark(hsl(220 10% 3% / 80%), hsl(220 10% 100% / 80%));
 
-      .dashboard__card-list {
-        min-height: var(--card-list-height);
-      }
+    @media (min-width: 768px) {
+      font-size: 14px;
     }
+  }
 
-    // 2. Content
-    &:nth-of-type(2) {
-      order: 2;
-      margin-block: var(--margin-block);
+  .card {
+    background-color: var(--dashboard-card-bg);
+    border: 1px solid var(--border-ui);
+    border-radius: 5px;
+    min-height: unset;
 
-      .dashboard__card-list {
-        min-height: var(--card-list-height);
-      }
+    @media (min-width: 768px) {
+      min-height: 75px;
     }
+  }
 
-    // 3. Uploads (hidden)
-    &:nth-of-type(3) {
-      order: 10;
-      display: none;
-    }
-
-    // 4. Settings (hidden)
-    &:nth-of-type(4) {
-      order: 20;
-      display: none;
-    }
-
-    // 5. Customize
-    &:nth-of-type(5) {
-      order: 2;
-      margin-block: var(--margin-block);
-
-      .dashboard__card-list {
-        min-height: var(--card-list-height);
-      }
-    }
+  // Background noise
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    //
+    background-repeat: repeat;
+    background-image: url("/assets/static-noise.png");
+    background-size: var(--noise-size, 6.2rem);
+    opacity: var(--noise-opacity, 0.025);
   }
 }
 
-// Dashboard main wrapper
-.template-default__wrap {
-  background-color: var(--dashboard-bg);
-  color: var(--theme-text);
-  font-family: var(--font-body);
-}
-
-.card {
-  background-color: var(--dashboard-card-bg);
-  border: 1px solid var(--border-ui);
-  border-radius: 5px;
+.dashboard__wrap {
+  .dashboard__group {
+    // 1. Real Estate
+    &:nth-of-type(1) {
+      order: 1;
+    }
+    // 2. Marketing
+    &:nth-of-type(2) {
+      order: 2;
+    }
+    // 3. Resources
+    &:nth-of-type(3) {
+      order: 3;
+    }
+    // 4. Accounts (hidden)
+    &:nth-of-type(4) {
+      order: 100;
+      display: none;
+    }
+    // 5. Design
+    &:nth-of-type(5) {
+      order: 10;
+    }
+  }
 }
