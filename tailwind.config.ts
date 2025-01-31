@@ -1,5 +1,5 @@
-import tailwindcssAnimate from 'tailwindcss-animate'
 import tailwindcssTypography from '@tailwindcss/typography'
+import tailwindcssAnimate from 'tailwindcss-animate'
 
 import type { Config } from 'tailwindcss'
 
@@ -57,6 +57,12 @@ export default {
         sm: 'calc(var(--radius) - 4px)',
       },
       colors: {
+        themeBlack: 'hsl(var(--theme-black))',
+        themeGray: 'hsl(var(--theme-gray))',
+        themeDarkGray: 'hsl(var(--theme-dark-gray))',
+        themeTextGray: 'hsl(var(--theme-text-gray))',
+        themeTextWhite: 'hsl(var(--theme-text-white))',
+        semiMuted: 'hsl(var(--semi-muted))',
         accent: {
           DEFAULT: 'hsl(var(--accent))',
           foreground: 'hsl(var(--accent-foreground))',

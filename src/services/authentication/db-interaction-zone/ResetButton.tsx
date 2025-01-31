@@ -1,8 +1,9 @@
 'use client'
 
-import React, { Fragment, useCallback, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 
 import { toast } from '@payloadcms/ui'
+import { InteractionButton } from './interaction-button'
 
 const RESET_DELAY = 5000
 
@@ -90,14 +91,13 @@ export const ResetButton: React.FC = () => {
   )
 
   return (
-    <Fragment>
-      <button
-        onClick={handleClick}
-        disabled={loading}
-        className={`db-interaction-zone__button ${loading ? 'loading' : ''} ${success ? 'success' : ''} ${error ? 'error' : ''}`}
-      >
-        {getButtonText()}
-      </button>
-    </Fragment>
+    <InteractionButton
+      onClick={handleClick}
+      loading={loading}
+      success={success}
+      error={!!error}
+    >
+      {getButtonText()}
+    </InteractionButton>
   )
 }
