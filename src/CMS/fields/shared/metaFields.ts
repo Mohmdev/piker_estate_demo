@@ -13,12 +13,15 @@ export const metaFields: Field[] = [
     titlePath: 'meta.title',
     descriptionPath: 'meta.description',
     imagePath: 'meta.image',
+    overrides: {
+      label: 'Status',
+    },
   }),
   MetaTitleField({
     hasGenerateFn: true,
   }),
   MetaImageField({
-    relationTo: 'meta-media',
+    relationTo: 'media',
   }),
 
   MetaDescriptionField({}),

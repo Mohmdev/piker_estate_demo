@@ -97,6 +97,9 @@ export const Users: CollectionConfig<'users'> = {
           Field: '@auth/db-interaction-zone/Component#DbInteractionZone',
         },
         position: 'sidebar',
+        condition: (_, siblingData) => {
+          return siblingData.role === 'admin'
+        },
       },
     },
   ],

@@ -4,7 +4,7 @@ import React, { Fragment, useCallback, useState } from 'react'
 
 import { toast } from '@payloadcms/ui'
 
-import type { User } from '@payload-types'
+const RESET_DELAY = 5000
 
 const SuccessMessage: React.FC = () => (
   <div>
@@ -14,90 +14,87 @@ const SuccessMessage: React.FC = () => (
     </a>
   </div>
 )
+const LoadingMessage: React.FC = () => <div>Seeding with demo data....</div>
+const ErrorMessage: React.FC = () => (
+  <div>An error occurred while seeding data.</div>
+)
 
-interface SeedButtonProps {
-  user: User | null
-}
-
-export const SeedButton: React.FC<SeedButtonProps> = ({ user }) => {
+export const SeedButton: React.FC = () => {
   const [loading, setLoading] = useState(false)
-  const [seeded, setSeeded] = useState(false)
+  const [success, setSuccess] = useState(false)
   const [error, setError] = useState<Error | null>(null)
 
   const getButtonText = () => {
-    if (user?.role !== 'admin')
-      return 'You need admin access level to perform this action'
     if (loading) return 'Seeding...'
-    if (seeded) return 'Database Seeded!'
-    if (error) return `Error: ${error}`
-    return 'Seed Database'
+    if (success) return 'Database seeded'
+    if (error) return 'Seeding failed - Click to retry'
+    return 'Seed demo data'
   }
-
-  const resetStates = useCallback(() => {
-    setLoading(false)
-    setSeeded(false)
-    setError(null)
-  }, [])
 
   const handleClick = useCallback(
     async (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault()
 
-      if (seeded) {
-        toast.info('Database already seeded.')
-        return
-      }
+      // Handle existing states
       if (loading) {
         toast.info('Seeding already in progress.')
         return
       }
-      if (error) {
-        toast.error(`An error occurred, please refresh and try again.`)
+
+      if (success) {
+        toast.info('Database already seeded.')
         return
+      }
+
+      // Clear any previous error state if user is retrying
+      if (error) {
+        setError(null)
       }
 
       setLoading(true)
 
-      try {
-        toast.promise(
-          fetch('/next/seed', {
-            method: 'POST',
-            credentials: 'include',
-          }).then((res) => {
-            if (!res.ok) {
-              throw new Error('An error occurred while seeding.')
-            }
-            setSeeded(true)
-            return res
-          }),
-          {
-            loading: 'Seeding with data....',
-            success: <SuccessMessage />,
-            error: 'An error occurred while seeding.',
-          },
-        )
+      const callDatabase = fetch('/next/seed', {
+        method: 'POST',
+        credentials: 'include',
+      }).then(async (response) => {
+        if (!response.ok) {
+          throw new Error('Failed to establish connection to the database')
+        }
+        return response.json()
+      })
 
-        const timeoutId = setTimeout(resetStates, 3000)
-        // Cleanup timeout if component unmounts
-        return () => clearTimeout(timeoutId)
-      } catch (err) {
-        setError(err as Error)
+      toast.promise(callDatabase, {
+        loading: <LoadingMessage />,
+        success: <SuccessMessage />,
+        error: <ErrorMessage />,
+      })
+
+      try {
+        await callDatabase
+
+        setSuccess(true)
         setLoading(false)
 
-        // Also reset states after error after 3 seconds
-        const timeoutId = setTimeout(resetStates, 3000)
-        return () => clearTimeout(timeoutId)
+        setTimeout(() => {
+          setSuccess(false)
+        }, RESET_DELAY)
+      } catch (err) {
+        setLoading(false)
+        setError(err as Error)
+        setTimeout(() => {
+          setError(null)
+        }, RESET_DELAY)
       }
     },
-    [loading, seeded, error, resetStates],
+    [loading, success, error],
   )
 
   return (
     <Fragment>
       <button
-        className="seedButton"
         onClick={handleClick}
-        disabled={loading || seeded || !!error || user?.role !== 'admin'}
+        disabled={loading}
+        className={`db-interaction-zone__button ${loading ? 'loading' : ''} ${success ? 'success' : ''} ${error ? 'error' : ''}`}
       >
         {getButtonText()}
       </button>

@@ -1,3 +1,4 @@
+import type { Footer, Header } from '@payload-types'
 import type {
   CollectionSlug,
   File,
@@ -25,7 +26,13 @@ const collections: CollectionSlug[] = [
   'form-submissions',
   'search',
 ]
-const globals: GlobalSlug[] = ['header', 'footer']
+
+type GlobalObjects = {
+  header: Partial<Header>
+  footer: Partial<Footer>
+}
+
+const globals: Array<keyof GlobalObjects> = ['header', 'footer']
 
 // Next.js revalidation errors are normal when seeding the database without a server running
 // i.e. running `yarn seed` locally instead of using the admin UI within an active app
@@ -53,7 +60,7 @@ export const seed = async ({
         slug: global,
         data: {
           navItems: [],
-        },
+        } as GlobalObjects[typeof global],
         depth: 0,
         context: {
           disableRevalidate: true,
@@ -85,7 +92,10 @@ export const seed = async ({
     depth: 0,
     where: {
       email: {
-        equals: 'demo-author@example.com',
+        equals: 'demo@nexweb.studio',
+      },
+      username: {
+        equals: 'nexeditor',
       },
     },
   })
@@ -128,7 +138,7 @@ export const seed = async ({
         lastName: 'Author',
         email: 'demo@nexweb.studio',
         password: 'password',
-        username: 'nexweb.demo',
+        username: 'nexeditor',
         role: 'editor',
       },
     }),
@@ -252,7 +262,7 @@ export const seed = async ({
   // This way we can sort them by `createdAt` or `publishedAt` and they will be in the expected order
   const post1Doc = await payload.create({
     collection: 'posts',
-    depth: 0,
+    depth: 1,
     context: {
       disableRevalidate: true,
     },
@@ -269,7 +279,7 @@ export const seed = async ({
 
   const post2Doc = await payload.create({
     collection: 'posts',
-    depth: 0,
+    depth: 1,
     context: {
       disableRevalidate: true,
     },
@@ -286,7 +296,7 @@ export const seed = async ({
 
   const post3Doc = await payload.create({
     collection: 'posts',
-    depth: 0,
+    depth: 1,
     context: {
       disableRevalidate: true,
     },
@@ -353,7 +363,7 @@ export const seed = async ({
   const [_, contactPage] = await Promise.all([
     payload.create({
       collection: 'pages',
-      depth: 0,
+      depth: 1,
       data: JSON.parse(
         JSON.stringify(home)
           .replace(/"\{\{IMAGE_1\}\}"/g, String(imageHomeID))

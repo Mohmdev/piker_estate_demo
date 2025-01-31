@@ -21,7 +21,7 @@ export const Header: GlobalConfig = {
       admin: {
         initCollapsed: true,
         components: {
-          RowLabel: '@CMS/globals/Header/RowLabel#RowLabel',
+          RowLabel: '@CMS/design/Header/RowLabel#RowLabel',
         },
       },
     },

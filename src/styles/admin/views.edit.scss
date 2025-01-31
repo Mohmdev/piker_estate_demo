@@ -118,6 +118,12 @@
 .document-fields__sidebar {
   padding-bottom: 100px;
   overflow: visible;
+
+  .render-fields {
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .document-fields__edit {

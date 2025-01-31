@@ -25,7 +25,7 @@
     min-height: unset;
 
     @media (min-width: 768px) {
-      min-height: 75px;
+      min-height: 80px;
     }
   }
 
@@ -45,7 +45,7 @@
     background-repeat: repeat;
     background-image: url("/assets/static-noise.png");
     background-size: var(--noise-size, 6.2rem);
-    opacity: var(--noise-opacity, 0.025);
+    opacity: var(--noise-opacity, 0.03);
   }
 }
 
@@ -59,18 +59,17 @@
     &:nth-of-type(2) {
       order: 2;
     }
-    // 3. Resources
+    // 3. Resources HIDDEN
     &:nth-of-type(3) {
-      order: 3;
+      display: none;
     }
-    // 4. Accounts (hidden)
+    // 4. Accounts HIDDEN
     &:nth-of-type(4) {
-      order: 100;
       display: none;
     }
     // 5. Design
     &:nth-of-type(5) {
-      order: 10;
+      order: 3;
     }
   }
 }
