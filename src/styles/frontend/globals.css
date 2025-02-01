@@ -92,10 +92,6 @@
   width: 100%;
   max-width: 100%;
   overflow-x: clip;
-  box-sizing: border-box;
-
-  display: flex;
-  flex-direction: column;
 
   @media (width >= --theme(--breakpoint-xxs)) {
     width: min(100%, calc(60vw + 40vh));
@@ -114,7 +110,7 @@
   /* Base styles */
   --tw-prose-body: var(--text);
   --tw-prose-headings: var(--text);
-  
+
   h1 {
     font-weight: normal;
     margin-bottom: 0.25em;
@@ -133,11 +129,11 @@
       font-size: 3rem;
     }
   }
-  
+
   h2 {
     font-size: 1.25rem;
     font-weight: 600;
-    
+
     @media (width >= --theme(--breakpoint-xl)) {
       font-size: 1.5rem;
     }

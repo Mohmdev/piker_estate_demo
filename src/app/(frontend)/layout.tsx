@@ -1,6 +1,6 @@
 import { Footer } from '@CMS/design/Footer/Component'
 import { Header } from '@CMS/design/Header/Component'
-import { AdminBar } from '@components/AdminBar'
+// import { AdminBar } from '@components/AdminBar'
 import { Providers } from '@providers'
 import { InitTheme } from '@providers/Theme/InitTheme'
 import { mergeOpenGraph } from '@services/seo/mergeOpenGraph'
@@ -9,15 +9,13 @@ import { cn } from '@utils/ui'
 import { GeistMono } from 'geist/font/mono'
 import { GeistSans } from 'geist/font/sans'
 import type { Metadata } from 'next'
-import { draftMode } from 'next/headers'
+// import { draftMode } from 'next/headers'
 import React from 'react'
 import '@styles/frontend/globals.css'
 
 export default async function RootLayout({
   children,
 }: { children: React.ReactNode }) {
-  const { isEnabled } = await draftMode()
-
   return (
     <html
       className={cn(GeistSans.variable, GeistMono.variable)}
@@ -31,11 +29,11 @@ export default async function RootLayout({
       </head>
       <body>
         <Providers>
-          <AdminBar
+          {/* <AdminBar
             adminBarProps={{
               preview: isEnabled,
             }}
-          />
+          /> */}
 
           <Header />
           {children}
