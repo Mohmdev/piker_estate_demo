@@ -1,6 +1,166 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@plugin 'tailwindcss-animate';
+@plugin '@tailwindcss/typography';
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@theme {
+  --text: var(--foreground);
+
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+
+  --color-theme-black: hsl(var(--theme-black));
+  --color-theme-gray: hsl(var(--theme-gray));
+  --color-theme-dark-gray: hsl(var(--theme-dark-gray));
+  --color-theme-text-gray: hsl(var(--theme-text-gray));
+  --color-theme-text-white: hsl(var(--theme-text-white));
+  --color-semi-muted: hsl(var(--semi-muted));
+
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+
+  --color-background: hsl(var(--background));
+  --color-border: hsla(var(--border));
+
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+
+  --color-foreground: hsl(var(--foreground));
+  --color-input: hsl(var(--input));
+
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+
+  --color-ring: hsl(var(--ring));
+
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+
+  --color-success: hsl(var(--success));
+  --color-error: hsl(var(--error));
+  --color-warning: hsl(var(--warning));
+
+  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-geist-sans);
+
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+
+  --breakpoint-*: initial;
+  --breakpoint-xxs: 23.438rem; /* 375px */
+  --breakpoint-xs: 30rem; /* 480px */
+  --breakpoint-sm: 40rem; /* 640px */
+  --breakpoint-md: 48rem; /* 768px */
+  --breakpoint-lg: 64rem; /* 1024px */
+  --breakpoint-xl: 80rem; /* 1280px */
+  --breakpoint-2xl: 86rem; /* 1376px */
+  --breakpoint-3xl: 96rem; /* 1536px */
+}
+
+.container {
+  margin-inline: auto;
+  padding-inline: 1rem;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+
+  @media (width >= --theme(--breakpoint-xxs)) {
+    width: min(100%, calc(60vw + 40vh));
+    padding-inline: calc(1rem + 2vw);
+  }
+  @media (width >= --theme(--breakpoint-md)) {
+    padding-inline: calc(1rem + 4vw);
+  }
+  @media (width >= 120rem) {
+    padding-inline: 3rem;
+    max-width: 120rem;
+  }
+}
+
+@utility prose {
+  /* Base styles */
+  --tw-prose-body: var(--text);
+  --tw-prose-headings: var(--text);
+  
+  h1 {
+    font-weight: normal;
+    margin-bottom: 0.25em;
+    font-size: 1.75rem;
+
+    @media (width >= --theme(--breakpoint-xxs)) {
+      font-size: 2.25rem;
+    }
+    @media (width >= --theme(--breakpoint-xs)) {
+      font-size: 2.5rem;
+    }
+    @media (width >= --theme(--breakpoint-md)) {
+      font-size: 2.75rem;
+    }
+    @media (width >= --theme(--breakpoint-xl)) {
+      font-size: 3rem;
+    }
+  }
+  
+  h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    
+    @media (width >= --theme(--breakpoint-xl)) {
+      font-size: 1.5rem;
+    }
+  }
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
 
 @layer base {
   h1,
@@ -42,7 +202,7 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
 
-    --radius: 0.2rem;
+    --radius: 0.5rem;
 
     --success: 196 52% 74%;
     --warning: 34 89% 85%;

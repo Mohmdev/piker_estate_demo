@@ -1,0 +1,68 @@
+@layer components {
+  /* Move this to sidebar.css later */
+  .nav-group__toggle {
+    @apply font-ui;
+  }
+
+  .dashboard__label {
+    @apply font-ui font-normal;
+  }
+
+  .dashboard__group {
+    @apply mb-4 md:mb-8;
+  }
+
+  .dashboard__group:first-child {
+    /* Real Estate */
+    @apply mt-8 order-1;
+  }
+
+  .dashboard__group:nth-child(2) {
+    /* Marketing */
+    @apply order-2;
+  }
+
+  .dashboard__group:nth-child(3) {
+    /* Resources */
+    @apply hidden;
+  }
+
+  .dashboard__group:nth-child(4) {
+    /* Accounts */
+    @apply hidden;
+  }
+
+  .dashboard__group:nth-child(5) {
+    /* Design */
+    @apply order-3;
+  }
+
+  .dashboard__card-list * {
+    @apply font-sans font-medium;
+  }
+
+  .dashboard__card-list .card {
+    @apply bg-card dark:bg-[hsl(var(--deep-blue))] min-h-[unset] rounded-lg md:min-h-[70px];
+  }
+
+  .template-default__wrap {
+    @apply bg-transparent;
+  }
+
+  .template-default__wrap::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    background-repeat: repeat;
+    background-image: url("/assets/static-noise.png");
+    background-size: var(--noise-size, 6.2rem);
+    opacity: var(--noise-opacity, 0.04);
+  }
+}

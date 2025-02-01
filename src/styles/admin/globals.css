@@ -1,6 +1,3 @@
-@tailwind components;
-@tailwind utilities;
-
 :root {
   --bg-default-primary: hsl(var(--deep-blue));
   --bg-default-secondary: hsl(var(--space-bg-less));
@@ -16,7 +13,7 @@
 
   /* ----------------------------------- // ----------------------------------- */
 
-  --font-body: "Poppins", Tahoma, Geneva, sans-serif;
+  --font-body: "Inter", Tahoma, Geneva, sans-serif;
   --theme-input-bg: hsl(var(--deep-blue));
   --theme-text: var(--text-default);
   --theme-overlay: rgba(5, 5, 5, 0.5);

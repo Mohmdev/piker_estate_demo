@@ -14,7 +14,7 @@ export const DbInteractionZone: React.FC = () => {
         'min-w-[80px] gap-4 mt-10 mb-4',
       )}
     >
-      <div className="flex flex-col flex-grow flex-shrink-0 gap-2">
+      <div className="flex flex-col grow shrink-0 gap-2">
         <h5 className="text-zinc-500">⚠ Use with caution</h5>
         <p>
           The following actions will reset the database and seed it with demo
