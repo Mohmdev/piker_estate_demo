@@ -16,32 +16,32 @@ export async function GET(
   const payload = await getPayload({ config: configPromise })
 
   const { searchParams } = new URL(req.url)
+
+  const previewSecret = searchParams.get('previewSecret')
   const path = searchParams.get('path')
   const collection = searchParams.get('collection') as CollectionSlug
   const slug = searchParams.get('slug')
 
-  const previewSecret = searchParams.get('previewSecret')
-
-  if (previewSecret) {
-    return new Response('You are not allowed to preview this page', {
+  if (!previewSecret || previewSecret !== process.env.PREVIEW_SECRET) {
+    return new Response('You are not allowed to preview this page.', {
       status: 403,
     })
   } else {
     if (!path) {
-      return new Response('No path provided', { status: 404 })
+      return new Response('No path provided.', { status: 404 })
     }
 
     if (!collection) {
-      return new Response('No path provided', { status: 404 })
+      return new Response('No collection provided.', { status: 404 })
     }
 
     if (!slug) {
-      return new Response('No path provided', { status: 404 })
+      return new Response('No slug provided.', { status: 404 })
     }
 
     if (!path.startsWith('/')) {
       return new Response(
-        'This endpoint can only be used for internal previews',
+        'This endpoint can only be used for internal previews.',
         { status: 500 },
       )
     }
@@ -56,9 +56,9 @@ export async function GET(
     } catch (error) {
       payload.logger.error(
         { err: error },
-        'Error verifying token for live preview',
+        'Error verifying token for live preview.',
       )
-      return new Response('You are not allowed to preview this page', {
+      return new Response('Error verifying token for live preview.', {
         status: 403,
       })
     }
@@ -68,7 +68,7 @@ export async function GET(
     // You can add additional checks here to see if the user is allowed to preview this page
     if (!user) {
       draft.disable()
-      return new Response('You are not allowed to preview this page', {
+      return new Response('You are not allowed to preview this page.', {
         status: 403,
       })
     }

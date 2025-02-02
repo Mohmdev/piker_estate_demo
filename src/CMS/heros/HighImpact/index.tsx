@@ -21,10 +21,10 @@ export const HighImpactHero: React.FC<Page['hero']> = ({
 
   return (
     <div
-      className="relative flex items-center justify-center text-white"
+      className="relative flex items-center justify-center text-white border-b-1 border-border/50"
       data-theme="dark"
     >
-      <div className="container z-10 relative flex items-center justify-between">
+      <div className="container z-10 relative grid place-content-center">
         <div className="max-w-[36.5rem] md:text-center">
           {richText && (
             <RichText className="mb-6" data={richText} enableGutter={false} />

@@ -19,7 +19,7 @@ export const homeStatic: Page = {
                 format: 0,
                 mode: 'normal',
                 style: '',
-                text: 'Nexweb B2B Content Management System',
+                text: 'Nexweb Content Management System',
                 version: 1,
               },
             ],

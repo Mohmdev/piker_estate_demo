@@ -55,6 +55,14 @@
   --color-error: hsl(var(--error));
   --color-warning: hsl(var(--warning));
 
+  --color-base-0: hsl(var(--theme-elevation-0));
+  --color-base-50: hsl(var(--theme-elevation-50));
+  --color-base-100: hsl(var(--theme-elevation-100));
+  --color-base-150: hsl(var(--theme-elevation-150));
+  --space-bg: hsl(var(--space-bg));
+  --space-bg-less: hsl(var(--space-bg-less));
+  --deep-blue: hsl(var(--deep-blue));
+
   --font-mono: var(--font-geist-mono);
   --font-sans: var(--font-geist-sans);
 
@@ -106,13 +114,96 @@
   }
 }
 
+@layer base {
+  html {
+    /* Keep other properties */
+    --scroll-behavior: smooth !important;
+    scroll-behavior: var(--scroll-behavior);
+    /* scrollbar-width: thin; */
+    scrollbar-gutter: stable;
+  }
+
+  [data-scroll-locked][data-scroll-locked] {
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
+  }
+
+  body {
+    @apply w-full min-h-screen;
+    @apply w-full bg-background text-foreground flex flex-col antialiased;
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 0.315em;
+    background-color: var(--background);
+  }
+  ::-webkit-scrollbar-track {
+    background-color: var(--background);
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 1rem;
+    background-color: light-dark(
+      hsla(199, 20%, 22%, 0.5),
+      hsla(200 10% 37% / 0.5)
+    );
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: light-dark(
+      hsla(199, 20%, 17%, 0.5),
+      hsla(200 10% 42% / 0.5)
+    );
+  }
+
+  input:-webkit-autofill {
+    -webkit-background-clip: text !important;
+    /* appearance: textfield !important; */
+    color: unset !important;
+    /* background-color: red !important; */
+    /* background-image: none !important; */
+    /* -webkit-text-fill-color: hsl(var(--foreground)) !important; */
+    box-shadow: 0 0 15px -3px rgba(0, 0, 0, 0.4) !important;
+    transition: background-color 300s ease-out;
+  }
+
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+
+  * {
+    @apply border-border;
+    @apply outline-0 hover:outline-0 focus:outline-0 focus-visible:outline-0 focus-visible:ring-0;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-size: unset;
+    font-weight: unset;
+    line-height: auto;
+  }
+
+  p {
+    font-size: 0.875rem;
+    line-height: auto;
+  }
+}
+
 @utility prose {
   /* Base styles */
   --tw-prose-body: var(--text);
   --tw-prose-headings: var(--text);
 
   h1 {
-    font-weight: normal;
+    font-weight: 600;
     margin-bottom: 0.25em;
     font-size: 1.75rem;
 
@@ -131,44 +222,61 @@
   }
 
   h2 {
-    font-size: 1.25rem;
-    font-weight: 600;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: hsl(var(--foreground) / 1);
+    line-height: 1;
+    text-transform: capitalize;
 
-    @media (width >= --theme(--breakpoint-xl)) {
+    @media (width >= --theme(--breakpoint-xxs)) {
       font-size: 1.5rem;
     }
+    @media (width >= --theme(--breakpoint-xs)) {
+      font-size: 1.625rem;
+    }
+    @media (width >= --theme(--breakpoint-md)) {
+      font-size: 1.75rem;
+    }
+    @media (width >= --theme(--breakpoint-xl)) {
+      font-size: 2rem;
+    }
+  }
+
+  h3 {
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1;
+
+    color: hsl(var(--foreground) / 1);
+
+    @media (width >= --theme(--breakpoint-xxs)) {
+      font-size: 1rem;
+    }
+    @media (width >= --theme(--breakpoint-xs)) {
+      font-size: 1rem;
+    }
+    @media (width >= --theme(--breakpoint-md)) {
+      font-size: 1.25rem;
+    }
+    @media (width >= --theme(--breakpoint-xl)) {
+      font-size: 1.375rem;
+    }
+  }
+
+  p {
+    color: hsl(var(--muted-foreground) / 1);
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
   }
 }
 
-/*
-  The default border color has changed to `currentColor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
-
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
 @layer base {
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: var(--color-gray-200, currentColor);
-  }
-}
-
-@layer base {
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-size: unset;
-    font-weight: unset;
-  }
-
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
@@ -203,6 +311,21 @@
     --success: 196 52% 74%;
     --warning: 34 89% 85%;
     --error: 10 100% 86%;
+
+    --color-base-50: #f5f5f5;
+    --theme-elevation-0: var(--color-base-0);
+    --theme-elevation-50: var(--color-base-50);
+    --space-bg: 0 0% 96%;
+    --space-bg-less: 0 0% 100%;
+    --deep-blue: 232.12 13% 98%;
+
+    --theme-black: 240 10% 4%;
+    --theme-gray: 240 4% 16%;
+    --theme-dark-gray: 240 4% 16%;
+    --theme-text-gray: 20 4% 69%;
+    --theme-text-white: 13 47% 94%;
+
+    --semi-muted: 210 11% 50%;
   }
 
   [data-theme="dark"] {
@@ -237,15 +360,23 @@
     --success: 196 100% 14%;
     --warning: 34 51% 25%;
     --error: 10 39% 43%;
-  }
-}
 
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground min-h-[100vh] flex flex-col;
+    --space-bg: 224 71.4% 4.1%;
+    --space-bg-less: 224 11% 6%;
+    --deep-blue: 220 14% 8%;
+
+    --theme-elevation-0: hsl(240, 10%, 2%);
+    --theme-elevation-50: hsl(240, 10%, 3%);
+    --theme-elevation-100: hsl(240, 10%, 8%);
+    --theme-elevation-150: hsl(240, 10%, 13%);
+
+    --theme-black: 240 10% 4%;
+    --theme-gray: 240 4% 16%;
+    --theme-dark-gray: 240 4% 16%;
+    --theme-text-gray: 20 4% 69%;
+    --theme-text-white: 13 47% 94%;
+
+    --semi-muted: 210 18% 13%;
   }
 }
 

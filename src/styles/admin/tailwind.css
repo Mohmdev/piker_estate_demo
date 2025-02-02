@@ -91,6 +91,10 @@
   }
 }
 
+.table {
+  width: 100%;
+}
+
 html {
   opacity: 0;
 }

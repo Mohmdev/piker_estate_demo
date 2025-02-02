@@ -423,17 +423,17 @@ export const seed = async ({
           {
             link: {
               type: 'custom',
-              label: 'Source Code',
+              label: 'Github',
               newTab: true,
-              url: 'https://github.com/payloadcms/payload/tree/main/templates/website',
+              url: 'https://github.com/Mohmdev/nexweb-realestate',
             },
           },
           {
             link: {
               type: 'custom',
-              label: 'Payload',
+              label: 'Nexweb',
               newTab: true,
-              url: 'https://payloadcms.com/',
+              url: 'https://nexweb.studio/',
             },
           },
         ],
