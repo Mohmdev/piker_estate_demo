@@ -12,7 +12,7 @@ import { useRouter } from 'next/navigation'
 import React, { useCallback, useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 
-import { getClientSideURL } from '@utils/getURL'
+import { getClientSideURL } from '@data/getURL'
 import { fields } from './fields'
 
 export type FormBlockType = {

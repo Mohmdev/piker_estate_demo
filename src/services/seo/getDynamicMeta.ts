@@ -1,5 +1,4 @@
-import { getCachedGlobals } from '@data/getGlobals'
-
+import { getCachedGlobalWithSelect } from '@data/getGlobalWithSelect'
 import type { GlobalSetting } from '@payload-types'
 
 export type DynamicMeta = {
@@ -11,16 +10,19 @@ export type DynamicMeta = {
 }
 
 export const getDynamicMeta = async (): Promise<DynamicMeta> => {
-  const globaldata: GlobalSetting = await getCachedGlobals('global-settings', {
-    depth: 1,
-    select: {
-      branding: { favicon: true },
-      siteIdentity: {
-        siteName: true,
-        siteDescription: true,
+  const globaldata: GlobalSetting = await getCachedGlobalWithSelect(
+    'global-settings',
+    {
+      depth: 1,
+      select: {
+        branding: { favicon: true },
+        siteIdentity: {
+          siteName: true,
+          siteDescription: true,
+        },
       },
     },
-  })()
+  )()
 
   const { siteName: cachedSiteName, siteDescription: cachedSiteDescription } =
     globaldata.siteIdentity || {}

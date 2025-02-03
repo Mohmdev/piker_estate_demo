@@ -2,7 +2,7 @@ import { headers } from 'next/headers'
 
 import config from '@payload-config'
 
-import { createLocalReq, getPayload, Payload } from 'payload'
+import { Payload, createLocalReq, getPayload } from 'payload'
 
 import type { CollectionSlug, PayloadRequest } from 'payload'
 
@@ -16,7 +16,6 @@ const collections: CollectionSlug[] = [
   'payload-locked-documents',
   'payload-preferences',
   'redirects',
-  'meta-media',
   'pages',
   'posts',
   'forms',

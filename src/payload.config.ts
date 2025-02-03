@@ -10,6 +10,7 @@ import { Posts } from '@CMS/marketing/config.Posts'
 import { Tags } from '@CMS/marketing/config.Tags'
 import { Properties } from '@CMS/real-estate/config.Properties'
 import { Users } from '@auth/Users/config'
+import { getServerSideURL } from '@data/getURL'
 import { adminConfig } from '@services/admin/config'
 import { collectionGroup, globalGroup } from '@services/admin/groupContent'
 import { vercelPostgres } from '@services/database/config.vercelPostgres'
@@ -23,10 +24,8 @@ import { searchService } from '@services/search/config.plugin'
 import { seoService } from '@services/seo/config.plugin'
 import { Assets } from '@services/storage/Assets/config.collection'
 import { Media } from '@services/storage/Media/config.collection'
-import { MetaMedia } from '@services/storage/MetaMedia/config.collection'
 import { UserPhotos } from '@services/storage/UserPhotos/config.collection'
 import { vercelBlob } from '@services/storage/config.plugin.vercelBlob'
-import { getServerSideURL } from '@utils/getURL'
 import { buildConfig } from 'payload'
 import sharp from 'sharp'
 
@@ -37,7 +36,7 @@ export default buildConfig({
   collections: [
     ...collectionGroup('Real Estate', [Properties]),
     ...collectionGroup('Marketing', [Pages, Posts, Categories, Tags]),
-    ...collectionGroup('Resources', [Media, Assets, MetaMedia]),
+    ...collectionGroup('Resources', [Media, Assets]),
     ...collectionGroup('Accounts', [Users, UserPhotos]),
   ],
   globals: [

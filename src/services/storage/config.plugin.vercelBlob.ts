@@ -17,9 +17,5 @@ export const vercelBlob: Plugin = vercelBlobStorage({
       prefix: 'user-photos',
       disableLocalStorage: true,
     },
-    'meta-media': {
-      prefix: 'meta-media',
-      disableLocalStorage: true,
-    },
   },
 })

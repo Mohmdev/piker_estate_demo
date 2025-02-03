@@ -1,14 +1,11 @@
+import { getServerSideURL } from '@data/getURL'
+import type { Page, Post, Property } from '@payload-types'
 import type { Metadata } from 'next'
-
-import { getServerSideURL } from '@utils/getURL'
-
-import type { Page, Post, Tattoo } from '@payload-types'
-
 import { getDynamicMeta } from './getDynamicMeta'
 import { mergeOpenGraph } from './mergeOpenGraph'
 
 export const generateMeta = async (args: {
-  doc: Partial<Page> | Partial<Post> | Partial<Tattoo>
+  doc: Partial<Page> | Partial<Post> | Partial<Property>
 }): Promise<Metadata> => {
   const { doc } = args || {}
 

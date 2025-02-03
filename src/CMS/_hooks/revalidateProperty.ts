@@ -16,20 +16,28 @@ export const revalidateProperty: CollectionAfterChangeHook<Property> = ({
     if (doc._status === 'published') {
       const path = `/properties/${doc.slug}`
 
-      payload.logger.info(`Revalidating property at path: ${path}`)
+      payload.logger.info(`Revalidating Property Cache - Path: ${path}`)
 
       revalidatePath(path)
       revalidateTag('properties-sitemap')
+
+      payload.logger.info(`✔ Property and Properties Sitemap were Revalidated`)
     }
 
     // If the post was previously published, we need to revalidate the old path
     if (previousDoc._status === 'published' && doc._status !== 'published') {
       const oldPath = `/properties/${previousDoc.slug}`
 
-      payload.logger.info(`Revalidating old property at path: ${oldPath}`)
+      payload.logger.info(
+        `Previous published version of Property was unpublished - Path: ${oldPath}`,
+      )
 
       revalidatePath(oldPath)
       revalidateTag('properties-sitemap')
+
+      payload.logger.info(
+        `✓ Old Property and Properties Sitemap were Revalidated`,
+      )
     }
   }
   return doc
@@ -37,13 +45,19 @@ export const revalidateProperty: CollectionAfterChangeHook<Property> = ({
 
 export const revalidateDelete: CollectionAfterDeleteHook<Property> = ({
   doc,
-  req: { context },
+  req: { payload, context },
 }) => {
   if (!context.disableRevalidate) {
     const path = `/properties/${doc?.slug}`
 
+    payload.logger.info(`Revalidating Deleted Property - Path: ${path}`)
+
     revalidatePath(path)
     revalidateTag('properties-sitemap')
+
+    payload.logger.info(
+      `✓ Deleted Property and Properties Sitemap were Revalidated`,
+    )
   }
 
   return doc

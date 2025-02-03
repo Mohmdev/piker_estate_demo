@@ -1,10 +1,7 @@
-import { unstable_cache } from 'next/cache'
-
 import configPromise from '@payload-config'
-
-import { getPayload } from 'payload'
-
 import type { Config } from '@payload-types'
+import { unstable_cache } from 'next/cache'
+import { getPayload } from 'payload'
 
 type Global = keyof Config['globals']
 
@@ -37,10 +34,10 @@ async function getGlobal<T extends Global>(
  *
  * Returns a unstable_cache function mapped with the cache tag for the slug
  */
-export const getCachedGlobals = <T extends Global>(
+export const getCachedGlobalWithSelect = <T extends Global>(
   slug: T,
   options: GlobalOptions<T> = {},
 ) =>
   unstable_cache(async () => getGlobal(slug, options), [slug], {
-    tags: [`globals_${slug}`],
+    tags: [`global_${slug}`],
   })

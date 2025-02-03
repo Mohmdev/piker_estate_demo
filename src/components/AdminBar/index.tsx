@@ -1,16 +1,14 @@
 'use client'
 
-import type { PayloadAdminBarProps, PayloadMeUser } from 'payload-admin-bar'
-
+import { getClientSideURL } from '@data/getURL'
 import { cn } from '@utils/ui'
 import { useSelectedLayoutSegments } from 'next/navigation'
 import { useRouter } from 'next/navigation'
+import type { PayloadAdminBarProps, PayloadMeUser } from 'payload-admin-bar'
 import { PayloadAdminBar } from 'payload-admin-bar'
 import React, { useState } from 'react'
 
 import './index.scss'
-
-import { getClientSideURL } from '@utils/getURL'
 
 const baseClass = 'admin-bar'
 

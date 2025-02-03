@@ -1,5 +1,5 @@
+import { getCachedGlobal } from '@data/getGlobal'
 import type { MainMenu as MainMenuType } from '@payload-types'
-import { getCachedGlobal } from '@utils/getGlobals'
 import React from 'react'
 import { MainMenuClient } from './index.client'
 

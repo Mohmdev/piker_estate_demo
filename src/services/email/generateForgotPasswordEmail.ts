@@ -1,4 +1,4 @@
-import { getServerSideURL } from '@utils/getURL'
+import { getServerSideURL } from '@data/getURL'
 
 import type { PayloadRequest } from 'payload'
 

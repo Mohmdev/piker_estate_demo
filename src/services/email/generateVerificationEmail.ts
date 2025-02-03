@@ -1,4 +1,4 @@
-import { getServerSideURL } from '@utils/getURL'
+import { getServerSideURL } from '@data/getURL'
 
 import { generateEmailHTML } from './generateEmailHTML'
 
@@ -23,6 +23,6 @@ export const generateVerificationEmail = async (
       buttonLabel: 'Verify',
       url: `${getServerSideURL()}/verify?token=${token}&email=${user.email}`,
     },
-    headline: 'Verify your account | Pikertattoos',
+    headline: 'Verify your account | Nexweb Technologies',
   })
 }

@@ -16,20 +16,26 @@ export const revalidatePage: CollectionAfterChangeHook<Page> = ({
     if (doc._status === 'published') {
       const path = doc.slug === 'home' ? '/' : `/${doc.slug}`
 
-      payload.logger.info(`Revalidating page at path: ${path}`)
+      payload.logger.info(`Revalidating Page Cache - Path: ${path}`)
 
       revalidatePath(path)
       revalidateTag('pages-sitemap')
+
+      payload.logger.info(`✔ Page and Pages Sitemap were Revalidated`)
     }
 
     // If the page was previously published, we need to revalidate the old path
     if (previousDoc?._status === 'published' && doc._status !== 'published') {
       const oldPath = previousDoc.slug === 'home' ? '/' : `/${previousDoc.slug}`
 
-      payload.logger.info(`Revalidating old page at path: ${oldPath}`)
+      payload.logger.info(
+        `Previous published version of Page was unpublished - Path: "${oldPath}"`,
+      )
 
       revalidatePath(oldPath)
       revalidateTag('pages-sitemap')
+
+      payload.logger.info(`✓ Old Page and Pages Sitemap Revalidated`)
     }
   }
   return doc
@@ -37,12 +43,17 @@ export const revalidatePage: CollectionAfterChangeHook<Page> = ({
 
 export const revalidateDelete: CollectionAfterDeleteHook<Page> = ({
   doc,
-  req: { context },
+  req: { payload, context },
 }) => {
   if (!context.disableRevalidate) {
     const path = doc?.slug === 'home' ? '/' : `/${doc?.slug}`
+
+    payload.logger.info(`Revalidating Deleted Page - Path: ${path}`)
+
     revalidatePath(path)
     revalidateTag('pages-sitemap')
+
+    payload.logger.info(`✓ Deleted Page and Pages Sitemap were Revalidated`)
   }
 
   return doc

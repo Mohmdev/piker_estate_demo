@@ -1,6 +1,5 @@
+import { getServerSideURL } from '@data/getURL'
 import type { Metadata } from 'next'
-
-import { getServerSideURL } from '@utils/getURL'
 
 const defaultImage = `${getServerSideURL()}/assets/website-template-OG.webp`
 

@@ -1,14 +1,11 @@
-import { unstable_cache } from 'next/cache'
-
 import configPromise from '@payload-config'
-
-import { getPayload } from 'payload'
-
 import type { Config } from '@payload-types'
+import { unstable_cache } from 'next/cache'
+import { getPayload } from 'payload'
 
 type Global = keyof Config['globals']
 
-export async function getGlobal(slug: Global, depth = 0) {
+async function getGlobal(slug: Global, depth = 0) {
   const payload = await getPayload({ config: configPromise })
 
   const global = await payload.findGlobal({
@@ -24,5 +21,5 @@ export async function getGlobal(slug: Global, depth = 0) {
  */
 export const getCachedGlobal = (slug: Global, depth = 0) =>
   unstable_cache(async () => getGlobal(slug, depth), [slug], {
-    tags: [`globals_${slug}`],
+    tags: [`global_${slug}`],
   })

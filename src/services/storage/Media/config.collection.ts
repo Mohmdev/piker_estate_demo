@@ -53,13 +53,6 @@ export const Media: CollectionConfig<'media'> = {
         description: 'Custom caption for the image',
       },
     },
-    // {
-    //   type: 'join',
-    //   name: 'relatedTattoo',
-    //   label: false,
-    //   collection: 'tattoo',
-    //   on: 'images',
-    // },
     tagsField,
   ],
   upload: {
