@@ -1,7 +1,7 @@
 import { AdminBar } from '@components/AdminBar'
 import { LivePreviewListener } from '@components/LivePreviewListener'
+import { getDynamicMeta } from '@data/getDynamicMeta'
 import configPromise from '@payload-config'
-import { getDynamicMeta } from '@services/seo/getDynamicMeta'
 import { mergeOpenGraph } from '@services/seo/mergeOpenGraph'
 import type { Metadata } from 'next'
 import { draftMode } from 'next/headers'

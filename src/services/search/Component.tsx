@@ -1,11 +1,14 @@
 'use client'
 import { Input } from '@components/ui/input'
 import { Label } from '@components/ui/label'
+import { cn } from '@utils/ui'
 import { useDebounce } from '@utils/useDebounce'
 import { useRouter } from 'next/navigation'
 import React, { useState, useEffect } from 'react'
 
-export const Search: React.FC = () => {
+export const SearchInput: React.FC<{ className?: string }> = ({
+  className,
+}) => {
   const [value, setValue] = useState('')
   const router = useRouter()
 
@@ -16,7 +19,7 @@ export const Search: React.FC = () => {
   }, [debouncedValue, router])
 
   return (
-    <div>
+    <div className={cn(className)}>
       <form
         onSubmit={(e) => {
           e.preventDefault()
@@ -31,6 +34,7 @@ export const Search: React.FC = () => {
             setValue(event.target.value)
           }}
           placeholder="Search"
+          className="rounded-full px-6"
         />
         <button type="submit" className="sr-only">
           submit

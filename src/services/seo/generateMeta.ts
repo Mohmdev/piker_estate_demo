@@ -1,7 +1,7 @@
 import { getServerSideURL } from '@data/getURL'
 import type { Page, Post, Property } from '@payload-types'
 import type { Metadata } from 'next'
-import { getDynamicMeta } from './getDynamicMeta'
+import { getDynamicMeta } from '../../_data/getDynamicMeta'
 import { mergeOpenGraph } from './mergeOpenGraph'
 
 export const generateMeta = async (args: {
@@ -40,7 +40,11 @@ export const generateMeta = async (args: {
       description: siteDescription,
       openGraph: {
         ...openGraphBase,
-        url: '/',
+        url: '/', // Ensure homepage URL is always '/'
+        type: 'website',
+      },
+      alternates: {
+        canonical: '/',
       },
     }
   }
@@ -74,7 +78,7 @@ export const generateMeta = async (args: {
   // All other docs
   const documentTitle = doc?.meta?.title
     ? `${doc.meta.title} | ${siteName}`
-    : siteName
+    : `${doc?.title} | ${siteName}` || siteName
   const documentDescription = doc?.meta?.description || siteDescription
   const documentUrl = doc?.slug
     ? Array.isArray(doc.slug)

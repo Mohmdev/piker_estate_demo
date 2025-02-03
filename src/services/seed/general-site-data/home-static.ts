@@ -80,8 +80,9 @@ export const homeStatic: Page = {
     },
   },
   meta: {
-    description: 'An open-source website built with Payload and Next.js.',
-    title: 'Payload Website Template',
+    title: 'Nexweb Content Management System',
+    description:
+      'Nexweb technologies a leading provider of highly secure and scalable content management systems.',
   },
   title: 'Home',
 }

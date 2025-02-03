@@ -3,8 +3,9 @@ import type { Metadata } from 'next/types'
 import { CollectionArchive } from '@components/CollectionArchive'
 import { PageRange } from '@components/PageRange'
 import { Pagination } from '@components/Pagination'
-import configPromise from '@payload-config'
-import { getPayload } from 'payload'
+import { getDynamicMeta } from '@data/getDynamicMeta'
+import { getPaginatedPosts } from '@data/getPost'
+import { mergeOpenGraph } from '@services/seo/mergeOpenGraph'
 import React from 'react'
 import PageClient from './page.client'
 
@@ -12,20 +13,7 @@ export const dynamic = 'force-static'
 export const revalidate = 600
 
 export default async function Page() {
-  const payload = await getPayload({ config: configPromise })
-
-  const posts = await payload.find({
-    collection: 'posts',
-    depth: 1,
-    limit: 12,
-    overrideAccess: false,
-    select: {
-      title: true,
-      slug: true,
-      categories: true,
-      meta: true,
-    },
-  })
+  const posts = await getPaginatedPosts()
 
   return (
     <div className="pt-24 pb-24">
@@ -56,8 +44,23 @@ export default async function Page() {
   )
 }
 
-export function generateMetadata(): Metadata {
+export async function generateMetadata(): Promise<Metadata> {
+  const { siteName, siteDescription } = await getDynamicMeta()
+  const title = `Blog | ${siteName}`
+
   return {
-    title: `Payload Website Template Posts`,
+    title,
+    description: siteDescription,
+    openGraph: mergeOpenGraph(
+      {
+        title,
+        description: siteDescription,
+        url: '/posts',
+      },
+      {
+        siteName,
+        description: siteDescription,
+      },
+    ),
   }
 }

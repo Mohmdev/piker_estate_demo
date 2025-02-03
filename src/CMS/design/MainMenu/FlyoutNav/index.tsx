@@ -4,6 +4,7 @@ import { useMotionValueEvent, useScroll } from 'motion/react'
 import { FaUserCircle } from 'react-icons/fa'
 
 import type { MainMenu as MainMenuType, Page, Post } from '@payload-types'
+import Link from 'next/link'
 import { useState } from 'react'
 import { LABEL_TO_FLYOUT_MAP, MobileMenu } from './mobile'
 import { NavLink } from './nav-links'
@@ -37,7 +38,9 @@ export const FlyoutNav: React.FC<{
         }`}
     >
       <div className="container flex-row flex flex-nowrap items-center justify-between">
-        <Logo />
+        <Link href="/">
+          <Logo />
+        </Link>
         <nav className="hidden gap-6 lg:flex">
           <div className="flex items-center gap-6">
             {navItems.map(({ link }, i) => (

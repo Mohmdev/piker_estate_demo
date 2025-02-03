@@ -13,8 +13,51 @@ import { RenderBlocks } from '@CMS/blocks/RenderBlocks'
 import { LivePreviewListener } from '@components/LivePreviewListener'
 import { RenderHero } from '@heros/RenderHero'
 
+import { getDynamicMeta } from '@data/getDynamicMeta'
+import { getPageBySlug } from '@data/getPage'
 import { generateMeta } from '@services/seo/generateMeta'
 import PageClient from './page.client'
+
+type Args = {
+  params: Promise<{
+    slug?: string
+  }>
+}
+
+export default async function Page({ params: paramsPromise }: Args) {
+  const { isEnabled: draft } = await draftMode()
+  const { slug = 'home' } = await paramsPromise
+  const url = '/' + slug
+
+  let page: PageType | null
+
+  page = await getPageBySlug({
+    slug,
+  })
+
+  if (!page && slug === 'home') {
+    page = homeStatic
+  }
+
+  if (!page) {
+    return <PayloadRedirects url={url} />
+  }
+
+  const { hero, layout } = page
+
+  return (
+    <article className="pb-24">
+      <PageClient />
+      {/* Allows redirects for valid pages too */}
+      <PayloadRedirects disableNotFound url={url} />
+
+      {draft && <LivePreviewListener />}
+
+      <RenderHero {...hero} />
+      <RenderBlocks blocks={layout} />
+    </article>
+  )
+}
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
@@ -40,76 +83,30 @@ export async function generateStaticParams() {
   return params
 }
 
-type Args = {
-  params: Promise<{
-    slug?: string
-  }>
-}
-
-export default async function Page({ params: paramsPromise }: Args) {
-  const { isEnabled: draft } = await draftMode()
-  const { slug = 'home' } = await paramsPromise
-  const url = '/' + slug
-
-  let page: PageType | null
-
-  page = await queryPageBySlug({
-    slug,
-  })
-
-  // Remove this code once your website is seeded
-  if (!page && slug === 'home') {
-    page = homeStatic
-  }
-
-  if (!page) {
-    return <PayloadRedirects url={url} />
-  }
-
-  const { hero, layout } = page
-
-  return (
-    <article className="pb-24">
-      <PageClient />
-      {/* Allows redirects for valid pages too */}
-      <PayloadRedirects disableNotFound url={url} />
-
-      {draft && <LivePreviewListener />}
-
-      <RenderHero {...hero} />
-      <RenderBlocks blocks={layout} />
-    </article>
-  )
-}
-
 export async function generateMetadata({
   params: paramsPromise,
 }: Args): Promise<Metadata> {
   const { slug = 'home' } = await paramsPromise
-  const page = await queryPageBySlug({
-    slug,
-  })
+
+  let page = await getPageBySlug({ slug })
+
+  // Handle homepage case
+  if (!page && slug === 'home') {
+    page = homeStatic
+  }
+
+  // Handle 404 case
+  if (!page) {
+    const { siteName, siteDescription } = await getDynamicMeta()
+    return {
+      title: `Not Found | ${siteName}`,
+      description: siteDescription,
+      robots: {
+        index: false,
+        follow: false,
+      },
+    }
+  }
 
   return generateMeta({ doc: page })
 }
-
-const queryPageBySlug = cache(async ({ slug }: { slug: string }) => {
-  const { isEnabled: draft } = await draftMode()
-
-  const payload = await getPayload({ config: configPromise })
-
-  const result = await payload.find({
-    collection: 'pages',
-    draft,
-    limit: 1,
-    pagination: false,
-    overrideAccess: draft,
-    where: {
-      slug: {
-        equals: slug,
-      },
-    },
-  })
-
-  return result.docs?.[0] || null
-})

@@ -12,7 +12,7 @@ import type { Metadata } from 'next'
 import React from 'react'
 import '@styles/frontend/globals.css'
 import { MainMenu } from '@CMS/design/MainMenu'
-import { getDynamicMeta } from '@services/seo/getDynamicMeta'
+import { getDynamicMeta } from '@data/getDynamicMeta'
 
 import classes from './layout.module.scss'
 
@@ -38,11 +38,26 @@ export default async function RootLayout({
       </head>
       <body className="relative">
         <Providers>
-          <main className="relative z-1 min-h-[100dvh] flex flex-col">
+          <main
+            className={cn(
+              'relative z-1 min-h-[100dvh]',
+              'flex flex-col',
+              //
+            )}
+          >
             <MainMenu />
-            {children}
+            <section
+              className={cn(
+                'flex-1',
+                'flex flex-col justify-center',
+                //
+              )}
+            >
+              {children}
+            </section>
             <Footer />
           </main>
+
           {noiseProperties.enable && (
             <div
               className="absolute inset-0 m-0 z-[-1]"

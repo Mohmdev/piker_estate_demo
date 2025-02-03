@@ -1,20 +1,18 @@
-import type { Metadata } from 'next'
-
 import { RelatedDocs } from '@CMS/blocks/RelatedDocs/Component'
+import { LivePreviewListener } from '@components/LivePreviewListener'
 import { PayloadRedirects } from '@components/PayloadRedirects'
 import RichText from '@components/RichText'
+import { getDynamicMeta } from '@data/getDynamicMeta'
+import { getPostBySlug } from '@data/getPost'
+import { PostHero } from '@heros/PostHero'
 import configPromise from '@payload-config'
+import type { Post } from '@payload-types'
+import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
+import { generateMeta } from '@services/seo/generateMeta'
+import type { Metadata } from 'next'
 import { draftMode } from 'next/headers'
 import { getPayload } from 'payload'
-import React, { cache } from 'react'
-
-import type { Post } from '@payload-types'
-
-import { LivePreviewListener } from '@components/LivePreviewListener'
-import { PostHero } from '@heros/PostHero'
-import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
-
-import { generateMeta } from '@services/seo/generateMeta'
+import React from 'react'
 import PageClient from './page.client'
 
 export async function generateStaticParams() {
@@ -47,7 +45,7 @@ export default async function Post({ params: paramsPromise }: Args) {
   const { isEnabled: draft } = await draftMode()
   const { slug = '' } = await paramsPromise
   const url = '/posts/' + slug
-  const post = await queryPostBySlug({ slug })
+  const post = await getPostBySlug({ slug })
 
   if (!post) return <PayloadRedirects url={url} />
 
@@ -85,28 +83,15 @@ export async function generateMetadata({
   params: paramsPromise,
 }: Args): Promise<Metadata> {
   const { slug = '' } = await paramsPromise
-  const post = await queryPostBySlug({ slug })
+  const post = await getPostBySlug({ slug })
+
+  if (!post) {
+    const { siteName, siteDescription } = await getDynamicMeta()
+    return {
+      title: `Not Found | ${siteName}`,
+      description: siteDescription,
+    }
+  }
 
   return generateMeta({ doc: post })
 }
-
-const queryPostBySlug = cache(async ({ slug }: { slug: string }) => {
-  const { isEnabled: draft } = await draftMode()
-
-  const payload = await getPayload({ config: configPromise })
-
-  const result = await payload.find({
-    collection: 'posts',
-    draft,
-    limit: 1,
-    overrideAccess: draft,
-    pagination: false,
-    where: {
-      slug: {
-        equals: slug,
-      },
-    },
-  })
-
-  return result.docs?.[0] || null
-})

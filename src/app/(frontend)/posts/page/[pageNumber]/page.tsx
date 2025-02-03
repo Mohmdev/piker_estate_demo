@@ -3,6 +3,7 @@ import type { Metadata } from 'next/types'
 import { CollectionArchive } from '@components/CollectionArchive'
 import { PageRange } from '@components/PageRange'
 import { Pagination } from '@components/Pagination'
+import { getDynamicMeta } from '@data/getDynamicMeta'
 import configPromise from '@payload-config'
 import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
@@ -66,8 +67,9 @@ export async function generateMetadata({
   params: paramsPromise,
 }: Args): Promise<Metadata> {
   const { pageNumber } = await paramsPromise
+  const { siteName } = await getDynamicMeta()
   return {
-    title: `Payload Website Template Posts Page ${pageNumber || ''}`,
+    title: `Blog - Page ${pageNumber || ''} | ${siteName}`,
   }
 }
 
