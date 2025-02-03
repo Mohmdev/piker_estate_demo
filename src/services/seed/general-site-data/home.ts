@@ -10,8 +10,8 @@ export const home: RequiredDataFromCollectionSlug<'pages'> = {
         link: {
           type: 'custom',
           appearance: 'default',
-          label: 'View Posts',
-          url: '/posts',
+          label: 'Visit Blog',
+          url: '/blog',
         },
       },
       {
@@ -647,7 +647,7 @@ export const home: RequiredDataFromCollectionSlug<'pages'> = {
                   format: 0,
                   mode: 'normal',
                   style: '',
-                  text: 'Recent posts',
+                  text: 'Recent Blog Posts',
                   version: 1,
                 },
               ],
@@ -694,8 +694,8 @@ export const home: RequiredDataFromCollectionSlug<'pages'> = {
           link: {
             type: 'custom',
             appearance: 'default',
-            label: 'All posts',
-            url: '/posts',
+            label: 'Visit Blog',
+            url: '/blog',
           },
         },
       ],

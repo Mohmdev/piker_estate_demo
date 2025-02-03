@@ -1,9 +1,9 @@
-import { getServerSideSitemap } from 'next-sitemap'
-import { getPayload } from 'payload'
 import config from '@payload-config'
+import { getServerSideSitemap } from 'next-sitemap'
 import { unstable_cache } from 'next/cache'
+import { getPayload } from 'payload'
 
-const getPostsSitemap = unstable_cache(
+const getBlogSitemap = unstable_cache(
   async () => {
     const payload = await getPayload({ config })
     const SITE_URL =
@@ -35,21 +35,21 @@ const getPostsSitemap = unstable_cache(
       ? results.docs
           .filter((post) => Boolean(post?.slug))
           .map((post) => ({
-            loc: `${SITE_URL}/posts/${post?.slug}`,
+            loc: `${SITE_URL}/blog/${post?.slug}`,
             lastmod: post.updatedAt || dateFallback,
           }))
       : []
 
     return sitemap
   },
-  ['posts-sitemap'],
+  ['blog-sitemap'],
   {
-    tags: ['posts-sitemap'],
+    tags: ['blog-sitemap'],
   },
 )
 
 export async function GET() {
-  const sitemap = await getPostsSitemap()
+  const sitemap = await getBlogSitemap()
 
   return getServerSideSitemap(sitemap)
 }

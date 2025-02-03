@@ -34,17 +34,20 @@ export const link: LinkType = ({
     type: 'group',
     admin: {
       hideGutter: true,
+      className: 'm-0',
     },
     fields: [
       {
         type: 'row',
         fields: [
           {
+            label: 'Link Type',
             name: 'type',
             type: 'radio',
             admin: {
               layout: 'horizontal',
               width: '50%',
+              className: '[&>label]:text-xl [&>label]:text-muted-foreground',
             },
             defaultValue: 'reference',
             options: [
@@ -62,9 +65,7 @@ export const link: LinkType = ({
             name: 'newTab',
             type: 'checkbox',
             admin: {
-              style: {
-                alignSelf: 'flex-end',
-              },
+              className: 'self-end',
               width: '50%',
             },
             label: 'Open in new tab',
@@ -82,7 +83,7 @@ export const link: LinkType = ({
         condition: (_, siblingData) => siblingData?.type === 'reference',
       },
       label: 'Document to link to',
-      relationTo: ['pages', 'posts'],
+      relationTo: ['pages', 'posts', 'properties'],
       required: true,
     },
     {

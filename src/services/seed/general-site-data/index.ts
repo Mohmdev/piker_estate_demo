@@ -1,4 +1,4 @@
-import type { Footer, Header } from '@payload-types'
+import type { Footer, Header, MainMenu } from '@payload-types'
 import type {
   CollectionSlug,
   File,
@@ -27,12 +27,7 @@ const collections: CollectionSlug[] = [
   'search',
 ]
 
-type GlobalObjects = {
-  header: Partial<Header>
-  footer: Partial<Footer>
-}
-
-const globals: Array<keyof GlobalObjects> = ['header', 'footer']
+const globals: GlobalSlug[] = ['main-menu', 'footer']
 
 // Next.js revalidation errors are normal when seeding the database without a server running
 // i.e. running `yarn seed` locally instead of using the admin UI within an active app
@@ -58,9 +53,7 @@ export const seed = async ({
     globals.map((global) =>
       payload.updateGlobal({
         slug: global,
-        data: {
-          navItems: [],
-        } as GlobalObjects[typeof global],
+        data: {},
         depth: 0,
         context: {
           disableRevalidate: true,
@@ -359,7 +352,6 @@ export const seed = async ({
 
   payload.logger.info(`— Seeding pages...`)
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, contactPage] = await Promise.all([
     payload.create({
       collection: 'pages',
@@ -386,29 +378,80 @@ export const seed = async ({
 
   await Promise.all([
     payload.updateGlobal({
-      slug: 'header',
+      slug: 'main-menu',
       data: {
-        navItems: [
+        tabs: [
           {
-            link: {
-              type: 'custom',
-              label: 'Posts',
-              url: '/posts',
-            },
-          },
-          {
+            label: 'Contact',
+            enableDirectLink: true,
+            enableDropdown: null,
+            description: null,
+            descriptionLinks: [],
+            items: [],
             link: {
               type: 'reference',
-              label: 'Contact',
+              newTab: null,
               reference: {
                 relationTo: 'pages',
                 value: contactPage.id,
               },
+              url: '/contact',
+            },
+          },
+          {
+            label: 'Blog',
+            enableDirectLink: true,
+            enableDropdown: null,
+            description: null,
+            descriptionLinks: [],
+            items: [],
+            link: {
+              type: 'custom',
+              newTab: null,
+              url: '/blog',
             },
           },
         ],
+        menuCta: {
+          enableCta: true,
+          link: {
+            type: 'reference',
+            newTab: true,
+            reference: {
+              relationTo: 'pages',
+              value: contactPage.id,
+            },
+            url: null,
+            label: 'Schedule a Demo!!',
+          },
+        },
+        _status: 'published',
       },
     }),
+    // payload.updateGlobal({
+    //   slug: 'header',
+    //   data: {
+    //     navItems: [
+    //       {
+    //         link: {
+    //           type: 'custom',
+    //           label: 'Blog',
+    //           url: '/blog',
+    //         },
+    //       },
+    //       {
+    //         link: {
+    //           type: 'reference',
+    //           label: 'Contact',
+    //           reference: {
+    //             relationTo: 'pages',
+    //             value: contactPage.id,
+    //           },
+    //         },
+    //       },
+    //     ],
+    //   },
+    // }),
     payload.updateGlobal({
       slug: 'footer',
       data: {

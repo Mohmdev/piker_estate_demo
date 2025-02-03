@@ -11,6 +11,7 @@ export const revalidateRedirects: CollectionAfterChangeHook = ({
   revalidateTag('redirects')
 
   payload.logger.info(`✔ Redirects Cache Revalidated`)
+  payload.logger.info(``)
 
   return doc
 }

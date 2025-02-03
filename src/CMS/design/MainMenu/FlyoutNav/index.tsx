@@ -1,31 +1,28 @@
 'use client'
 
-import { useMotionValueEvent, useScroll } from 'motion/react'
-import { FaUserCircle } from 'react-icons/fa'
-
 import type { MainMenu as MainMenuType, Page, Post } from '@payload-types'
+import { useMotionValueEvent, useScroll } from 'motion/react'
 import Link from 'next/link'
 import { useState } from 'react'
+import { FaUserCircle } from 'react-icons/fa'
 import { LABEL_TO_FLYOUT_MAP, MobileMenu } from './mobile'
 import { NavLink } from './nav-links'
 
 export const FlyoutNav: React.FC<{
-  data?: MainMenuType
+  data: MainMenuType
   scrollDistance?: number
 }> = ({ data, scrollDistance = 150 }) => {
   const [scrolled, setScrolled] = useState(false)
   const { scrollY } = useScroll()
-
-  const navItems = data?.tabs?.[0]?.navItems || []
-
+  useMotionValueEvent(scrollY, 'change', (latest) => {
+    setScrolled(latest > scrollDistance ? true : false)
+  })
   const getFlyoutContent = (label: string | null) => {
     if (!label) return undefined
     return LABEL_TO_FLYOUT_MAP[label as keyof typeof LABEL_TO_FLYOUT_MAP]
   }
 
-  useMotionValueEvent(scrollY, 'change', (latest) => {
-    setScrolled(latest > scrollDistance ? true : false)
-  })
+  const { tabs, menuCta } = data
 
   return (
     <header
@@ -43,15 +40,15 @@ export const FlyoutNav: React.FC<{
         </Link>
         <nav className="hidden gap-6 lg:flex">
           <div className="flex items-center gap-6">
-            {navItems.map(({ link }, i) => (
+            {tabs?.map((tab, i) => (
               <NavLink
+                {...tab}
                 key={i}
-                {...link}
-                FlyoutContent={getFlyoutContent(link.label)}
+                FlyoutContent={getFlyoutContent(tab.label)}
               />
             ))}
           </div>
-          <CTAs />
+          <CTAs {...menuCta} />
         </nav>
         <MobileMenu />
       </div>
@@ -59,16 +56,22 @@ export const FlyoutNav: React.FC<{
   )
 }
 
-export const CTAs = () => {
+type CTAProps = MainMenuType['menuCta']
+
+export const CTAs: React.FC<CTAProps> = (props) => {
+  const { enableCta, link } = props
+
   return (
     <div className="flex items-center gap-3 *:transition-colors *:duration-400 *:ease-in-out text-sm text-white">
       <button className="flex items-center gap-2 rounded-lg border-2 border-white px-4 py-1 font-medium  transition-colors hover:bg-white hover:text-black ">
         <FaUserCircle />
         <span>Sign in</span>
       </button>
-      <button className="rounded-lg border-2 border-rose-700 bg-rose-700 px-4 py-1 font-medium  transition-colors hover:border-rose-600 hover:bg-rose-600 hover:text-white ">
-        Schedule a Demo
-      </button>
+      {enableCta ? (
+        <button className="rounded-lg border-2 border-rose-700 bg-rose-700 px-4 py-1 font-medium  transition-colors hover:border-rose-600 hover:bg-rose-600 hover:text-white ">
+          {link?.label || 'Schedule a Demo'}
+        </button>
+      ) : null}
     </div>
   )
 }

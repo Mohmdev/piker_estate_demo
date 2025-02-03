@@ -622,6 +622,10 @@ export interface Page {
               | ({
                   relationTo: 'posts';
                   value: number | Post;
+                } | null)
+              | ({
+                  relationTo: 'properties';
+                  value: number | Property;
                 } | null);
             url?: string | null;
             label: string;
@@ -877,6 +881,10 @@ export interface CallToActionBlock {
             | ({
                 relationTo: 'posts';
                 value: number | Post;
+              } | null)
+            | ({
+                relationTo: 'properties';
+                value: number | Property;
               } | null);
           url?: string | null;
           label: string;
@@ -927,6 +935,10 @@ export interface ContentBlock {
             | ({
                 relationTo: 'posts';
                 value: number | Post;
+              } | null)
+            | ({
+                relationTo: 'properties';
+                value: number | Property;
               } | null);
           url?: string | null;
           label: string;
@@ -2225,6 +2237,10 @@ export interface MainMenu {
             | ({
                 relationTo: 'posts';
                 value: number | Post;
+              } | null)
+            | ({
+                relationTo: 'properties';
+                value: number | Property;
               } | null);
           url?: string | null;
         };
@@ -2242,6 +2258,10 @@ export interface MainMenu {
                   | ({
                       relationTo: 'posts';
                       value: number | Post;
+                    } | null)
+                  | ({
+                      relationTo: 'properties';
+                      value: number | Property;
                     } | null);
                 url?: string | null;
                 label: string;
@@ -2249,7 +2269,7 @@ export interface MainMenu {
               id?: string | null;
             }[]
           | null;
-        navItems?:
+        items?:
           | {
               style?: ('default' | 'featured' | 'list') | null;
               defaultLink?: {
@@ -2264,13 +2284,17 @@ export interface MainMenu {
                     | ({
                         relationTo: 'posts';
                         value: number | Post;
+                      } | null)
+                    | ({
+                        relationTo: 'properties';
+                        value: number | Property;
                       } | null);
                   url?: string | null;
                   label: string;
                 };
                 description?: string | null;
               };
-              featuredLink?: {
+              ftrdLink?: {
                 tag?: string | null;
                 label?: {
                   root: {
@@ -2300,6 +2324,10 @@ export interface MainMenu {
                           | ({
                               relationTo: 'posts';
                               value: number | Post;
+                            } | null)
+                          | ({
+                              relationTo: 'properties';
+                              value: number | Property;
                             } | null);
                         url?: string | null;
                         label: string;
@@ -2323,6 +2351,10 @@ export interface MainMenu {
                           | ({
                               relationTo: 'posts';
                               value: number | Post;
+                            } | null)
+                          | ({
+                              relationTo: 'properties';
+                              value: number | Property;
                             } | null);
                         url?: string | null;
                         label: string;
@@ -2338,20 +2370,28 @@ export interface MainMenu {
       }[]
     | null;
   menuCta: {
-    type?: ('reference' | 'custom') | null;
-    newTab?: boolean | null;
-    reference?:
-      | ({
-          relationTo: 'pages';
-          value: number | Page;
-        } | null)
-      | ({
-          relationTo: 'posts';
-          value: number | Post;
-        } | null);
-    url?: string | null;
-    label: string;
+    enableCta?: boolean | null;
+    link: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: number | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: number | Post;
+          } | null)
+        | ({
+            relationTo: 'properties';
+            value: number | Property;
+          } | null);
+      url?: string | null;
+      label: string;
+    };
   };
+  _status?: ('draft' | 'published') | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -2374,6 +2414,10 @@ export interface Header {
             | ({
                 relationTo: 'posts';
                 value: number | Post;
+              } | null)
+            | ({
+                relationTo: 'properties';
+                value: number | Property;
               } | null);
           url?: string | null;
           label: string;
@@ -2403,6 +2447,10 @@ export interface Footer {
             | ({
                 relationTo: 'posts';
                 value: number | Post;
+              } | null)
+            | ({
+                relationTo: 'properties';
+                value: number | Property;
               } | null);
           url?: string | null;
           label: string;
@@ -2496,7 +2544,7 @@ export interface MainMenuSelect<T extends boolean = true> {
                   };
               id?: T;
             };
-        navItems?:
+        items?:
           | T
           | {
               style?: T;
@@ -2514,7 +2562,7 @@ export interface MainMenuSelect<T extends boolean = true> {
                         };
                     description?: T;
                   };
-              featuredLink?:
+              ftrdLink?:
                 | T
                 | {
                     tag?: T;
@@ -2560,12 +2608,18 @@ export interface MainMenuSelect<T extends boolean = true> {
   menuCta?:
     | T
     | {
-        type?: T;
-        newTab?: T;
-        reference?: T;
-        url?: T;
-        label?: T;
+        enableCta?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
       };
+  _status?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -2684,7 +2738,7 @@ export interface TaskSchedulePublish {
           relationTo: 'posts';
           value: number | Post;
         } | null);
-    global?: string | null;
+    global?: 'main-menu' | null;
     user?: (number | null) | User;
   };
   output?: unknown;

@@ -22,6 +22,7 @@ export const revalidatePage: CollectionAfterChangeHook<Page> = ({
       revalidateTag('pages-sitemap')
 
       payload.logger.info(`✔ Page and Pages Sitemap were Revalidated`)
+      payload.logger.info(``)
     }
 
     // If the page was previously published, we need to revalidate the old path
@@ -36,6 +37,7 @@ export const revalidatePage: CollectionAfterChangeHook<Page> = ({
       revalidateTag('pages-sitemap')
 
       payload.logger.info(`✓ Old Page and Pages Sitemap Revalidated`)
+      payload.logger.info(``)
     }
   }
   return doc
@@ -54,6 +56,7 @@ export const revalidateDelete: CollectionAfterDeleteHook<Page> = ({
     revalidateTag('pages-sitemap')
 
     payload.logger.info(`✓ Deleted Page and Pages Sitemap were Revalidated`)
+    payload.logger.info(``)
   }
 
   return doc

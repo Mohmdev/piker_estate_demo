@@ -1,7 +1,7 @@
-import { getServerSideSitemap } from 'next-sitemap'
-import { getPayload } from 'payload'
 import config from '@payload-config'
+import { getServerSideSitemap } from 'next-sitemap'
 import { unstable_cache } from 'next/cache'
+import { getPayload } from 'payload'
 
 const getPagesSitemap = unstable_cache(
   async () => {
@@ -37,7 +37,7 @@ const getPagesSitemap = unstable_cache(
         lastmod: dateFallback,
       },
       {
-        loc: `${SITE_URL}/posts`,
+        loc: `${SITE_URL}/blog`,
         lastmod: dateFallback,
       },
     ]

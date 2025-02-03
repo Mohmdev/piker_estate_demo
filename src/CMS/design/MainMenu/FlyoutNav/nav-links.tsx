@@ -1,61 +1,43 @@
 'use client'
 
-import { Button, type ButtonProps } from '@components/ui/button'
-import type { Page, Post, Property } from '@payload-types'
+import type { MainMenu as MainMenuType } from '@payload-types'
 import { AnimatePresence, motion } from 'framer-motion'
 import Link from 'next/link'
 import React, { useState } from 'react'
 
-type NavLinkType = {
-  appearance?: 'inline' | ButtonProps['variant']
-  className?: string
-  label?: string | null
-  newTab?: boolean | null
-  reference?: {
-    relationTo: 'pages' | 'posts' | 'properties'
-    value: Page | Post | Property | string | number
-  } | null
-  size?: ButtonProps['size'] | null
-  type?: 'custom' | 'reference' | null
-  url?: string | null
-  //
+type MainMenuTab = NonNullable<MainMenuType['tabs']>[number]
+
+type NavLinkProps = {
   FlyoutContent?: React.ElementType
   children?: React.ReactNode
-}
+} & MainMenuTab
 
-export const NavLink: React.FC<NavLinkType> = (props) => {
+export const NavLink: React.FC<NavLinkProps> = (props) => {
+  const { children, FlyoutContent, ...tab } = props
+
   const {
-    children,
-    FlyoutContent,
-    url,
-    type,
-    size: sizeFromProps,
-    reference,
-    newTab,
     label,
-    appearance = 'inline',
-  } = props
+    link: { type, newTab, reference, url } = {},
+  } = tab
 
   const [open, setOpen] = useState(false)
-
   const showFlyout = FlyoutContent && open
 
-  console.log('NavLink render:', { label, FlyoutContent, open, showFlyout })
+  const getPathPrefix = (relationTo: string) => {
+    if (relationTo === 'posts') return '/blog'
+    if (relationTo === 'pages') return '' // home page
+    return `/${relationTo}`
+  }
 
   const href =
     type === 'reference' &&
     typeof reference?.value === 'object' &&
     reference.value.slug
-      ? `${reference?.relationTo !== 'pages' ? `/${reference?.relationTo}` : ''}/${
-          reference.value.slug
-        }`
+      ? `${getPathPrefix(reference?.relationTo)}/${reference.value.slug}`
       : url
-
-  console.log('Inside NavLink', href, url, type, reference)
 
   if (!href) return null
 
-  const size = appearance === 'link' ? 'clear' : sizeFromProps
   const newTabProps = newTab
     ? { rel: 'noopener noreferrer', target: '_blank' }
     : {}
@@ -66,41 +48,22 @@ export const NavLink: React.FC<NavLinkType> = (props) => {
       onMouseLeave={() => setOpen(false)}
       className="relative h-fit w-fit"
     >
-      {appearance === 'inline' ? (
-        <Link
-          href={href || url || ''}
-          {...newTabProps}
-          //
-          className="relative"
-        >
-          {label && label}
-          {children && children}
-          <span
-            style={{
-              transform: showFlyout ? 'scaleX(1)' : 'scaleX(0)',
-            }}
-            className="absolute -bottom-2 -left-2 -right-2 h-1 origin-left scale-x-0 rounded-full bg-indigo-300 transition-transform duration-300 ease-out"
-          />
-        </Link>
-      ) : (
-        <Button asChild size={size} variant={appearance}>
-          <Link
-            href={href || url || ''}
-            {...newTabProps}
-            //
-            className="relative"
-          >
-            {label && label}
-            {children && children}
-            <span
-              style={{
-                transform: showFlyout ? 'scaleX(1)' : 'scaleX(0)',
-              }}
-              className="absolute -bottom-2 -left-2 -right-2 h-1 origin-left scale-x-0 rounded-full bg-indigo-300 transition-transform duration-300 ease-out"
-            />
-          </Link>
-        </Button>
-      )}
+      <Link
+        href={href || url || ''}
+        {...newTabProps}
+        //
+        className="relative"
+      >
+        {label && label}
+        {children && children}
+        <span
+          style={{
+            transform: showFlyout ? 'scaleX(1)' : 'scaleX(0)',
+          }}
+          className="absolute -bottom-2 -left-2 -right-2 h-1 origin-left scale-x-0 rounded-full bg-indigo-300 transition-transform duration-300 ease-out"
+        />
+      </Link>
+
       <AnimatePresence>
         {showFlyout && (
           <motion.div

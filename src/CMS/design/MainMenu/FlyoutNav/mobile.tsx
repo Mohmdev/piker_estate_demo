@@ -286,7 +286,7 @@ export const CareersContent = () => {
 const LINKS = [
   {
     text: 'About us',
-    href: 'posts',
+    href: 'blog',
     component: AboutUsContent,
   },
   {

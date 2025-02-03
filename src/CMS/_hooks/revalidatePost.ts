@@ -14,28 +14,30 @@ export const revalidatePost: CollectionAfterChangeHook<Post> = ({
 }) => {
   if (!context.disableRevalidate) {
     if (doc._status === 'published') {
-      const path = `/posts/${doc.slug}`
+      const path = `/blog/${doc.slug}`
 
       payload.logger.info(`Revalidating Post Cache - Path: ${path}`)
 
       revalidatePath(path)
-      revalidateTag('posts-sitemap')
+      revalidateTag('blog-sitemap')
 
-      payload.logger.info(`✔ Post and Posts Sitemap were Revalidated`)
+      payload.logger.info(`✔ Post and Blog Sitemap were Revalidated`)
+      payload.logger.info(``)
     }
 
     // If the post was previously published, we need to revalidate the old path
     if (previousDoc._status === 'published' && doc._status !== 'published') {
-      const oldPath = `/posts/${previousDoc.slug}`
+      const oldPath = `/blog/${previousDoc.slug}`
 
       payload.logger.info(
         `Previous published version of Post was unpublished - Path: ${oldPath}`,
       )
 
       revalidatePath(oldPath)
-      revalidateTag('posts-sitemap')
+      revalidateTag('blog-sitemap')
 
-      payload.logger.info(`✓ Old Post and Posts Sitemap Revalidated`)
+      payload.logger.info(`✓ Old Post and Blog Sitemap Revalidated`)
+      payload.logger.info(``)
     }
   }
   return doc
@@ -46,14 +48,15 @@ export const revalidateDelete: CollectionAfterDeleteHook<Post> = ({
   req: { payload, context },
 }) => {
   if (!context.disableRevalidate) {
-    const path = `/posts/${doc?.slug}`
+    const path = `/blog/${doc?.slug}`
 
     payload.logger.info(`Revalidating Deleted Post - Path: ${path}`)
 
     revalidatePath(path)
-    revalidateTag('posts-sitemap')
+    revalidateTag('blog-sitemap')
 
-    payload.logger.info(`✓ Deleted Post and Posts Sitemap were Revalidated`)
+    payload.logger.info(`✓ Deleted Post and Blog Sitemap were Revalidated`)
+    payload.logger.info(``)
   }
 
   return doc

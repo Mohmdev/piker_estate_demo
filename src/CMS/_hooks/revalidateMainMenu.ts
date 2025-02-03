@@ -9,11 +9,11 @@ export const revalidateMainMenu: GlobalAfterChangeHook = ({
 }) => {
   if (!context.disableRevalidate) {
     if (doc._status === 'published') {
-      // const path = '/'
-      // revalidatePath(path)
-      // payload.logger.info(
-      //   `✓ Published Main Menu Revalidated at path: "${path}"`,
-      // )
+      const path = '/theme-editor'
+      revalidatePath(path)
+      payload.logger.info(
+        `✓ Published Main Menu Revalidated at path: "${path}"`,
+      )
 
       payload.logger.info(
         `Revalidating Main Menu Cache - Tag: "global_main-menu"`,
@@ -39,3 +39,21 @@ export const revalidateMainMenu: GlobalAfterChangeHook = ({
 
   return doc
 }
+
+// export const revalidateMainMenu: GlobalAfterChangeHook = ({
+//   doc,
+//   req: { payload, context },
+// }) => {
+//   if (!context.disableRevalidate) {
+//     payload.logger.info(
+//       `Revalidating Main Menu Cache - Tag: "global_main-menu"`,
+//     )
+
+//     revalidateTag('global_main-menu')
+
+//     payload.logger.info(`✔ Main Menu Revalidated`)
+//     payload.logger.info(``)
+//   }
+
+//   return doc
+// }

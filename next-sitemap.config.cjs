@@ -10,8 +10,8 @@ module.exports = {
   exclude: [
     '/pages-sitemap.xml',
     '/*',
-    '/posts-sitemap.xml',
-    '/posts/*',
+    '/blog-sitemap.xml',
+    '/blog/*',
     '/properties-sitemap.xml',
     '/properties/*',
   ],
@@ -24,7 +24,7 @@ module.exports = {
     ],
     additionalSitemaps: [
       `${SITE_URL}/pages-sitemap.xml`,
-      `${SITE_URL}/posts-sitemap.xml`,
+      `${SITE_URL}/blog-sitemap.xml`,
       `${SITE_URL}/properties-sitemap.xml`,
     ],
   },

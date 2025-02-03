@@ -22,6 +22,10 @@ import { getPreviewUrl } from '@services/live-preview/getPreviewUrl'
 
 export const Posts: CollectionConfig<'posts'> = {
   slug: 'posts',
+  labels: {
+    singular: 'Blog Post',
+    plural: 'Blog Posts',
+  },
   access: {
     read: publishedOnly,
     create: isAdminOrEditor,

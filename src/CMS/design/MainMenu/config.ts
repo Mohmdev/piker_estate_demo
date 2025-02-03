@@ -90,7 +90,7 @@ export const MainMenu: GlobalConfig = {
               ],
             },
             {
-              name: 'navItems',
+              name: 'items',
               type: 'array',
               admin: {
                 components: {
@@ -138,7 +138,7 @@ export const MainMenu: GlobalConfig = {
                   ],
                 },
                 {
-                  name: 'featuredLink',
+                  name: 'ftrdLink',
                   type: 'group',
                   admin: {
                     condition: (_, siblingData) =>
@@ -200,15 +200,46 @@ export const MainMenu: GlobalConfig = {
       ],
       label: 'Main Menu Items',
     },
-    link({
-      appearances: false,
-      overrides: {
-        name: 'menuCta',
-        label: 'Menu CTA Button',
-      },
-    }),
+    {
+      label: 'Call to Action Button',
+      type: 'group',
+      name: 'menuCta',
+
+      fields: [
+        {
+          name: 'enableCta',
+          type: 'checkbox',
+          label: 'Enable Button',
+          defaultValue: true,
+        },
+        {
+          type: 'collapsible',
+          label: 'Button Link',
+          admin: {
+            condition: (_, siblingData) => siblingData.enableCta,
+          },
+          fields: [
+            link({
+              appearances: false,
+              overrides: {
+                label: false,
+              },
+            }),
+          ],
+        },
+      ],
+    },
   ],
   hooks: {
     afterChange: [revalidateMainMenu],
+  },
+  versions: {
+    drafts: {
+      autosave: {
+        interval: 100,
+      },
+      schedulePublish: true,
+    },
+    max: 50,
   },
 }

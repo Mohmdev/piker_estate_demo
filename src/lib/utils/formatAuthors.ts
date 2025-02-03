@@ -17,12 +17,15 @@ export const formatAuthors = (
   const filteredAuthors = authors.filter((author) => Boolean(author.name))
 
   if (filteredAuthors.length === 0) return ''
+  // @ts-expect-error
   if (filteredAuthors.length === 1) return filteredAuthors[0].name
   if (filteredAuthors.length === 2)
+    // @ts-expect-error
     return `${filteredAuthors[0].name} and ${filteredAuthors[1].name}`
 
   return `${filteredAuthors
     .slice(0, -1)
     .map((author) => author?.name)
+    // @ts-expect-error
     .join(', ')} and ${filteredAuthors[authors.length - 1].name}`
 }

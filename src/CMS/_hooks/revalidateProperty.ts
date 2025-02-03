@@ -22,6 +22,7 @@ export const revalidateProperty: CollectionAfterChangeHook<Property> = ({
       revalidateTag('properties-sitemap')
 
       payload.logger.info(`✔ Property and Properties Sitemap were Revalidated`)
+      payload.logger.info(``)
     }
 
     // If the post was previously published, we need to revalidate the old path
@@ -38,6 +39,7 @@ export const revalidateProperty: CollectionAfterChangeHook<Property> = ({
       payload.logger.info(
         `✓ Old Property and Properties Sitemap were Revalidated`,
       )
+      payload.logger.info(``)
     }
   }
   return doc
@@ -58,6 +60,7 @@ export const revalidateDelete: CollectionAfterDeleteHook<Property> = ({
     payload.logger.info(
       `✓ Deleted Property and Properties Sitemap were Revalidated`,
     )
+    payload.logger.info(``)
   }
 
   return doc
