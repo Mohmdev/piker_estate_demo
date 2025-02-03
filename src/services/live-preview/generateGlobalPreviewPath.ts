@@ -10,7 +10,7 @@ export const generateGlobalPreviewPath = ({ global, slug, req }: Props) => {
   const encodedParams = new URLSearchParams({
     slug,
     global,
-    path: '/',
+    path: '/theme-editor',
     previewSecret: process.env.PREVIEW_SECRET || 'PREVIEW_KEY',
   })
 

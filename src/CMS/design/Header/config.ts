@@ -1,7 +1,7 @@
 import type { GlobalConfig } from 'payload'
 
+import { revalidateHeader } from '@CMS/_hooks/revalidateHeader'
 import { link } from '@CMS/fields/link'
-import { revalidateHeader } from './hooks/revalidateHeader'
 
 export const Header: GlobalConfig = {
   slug: 'header',

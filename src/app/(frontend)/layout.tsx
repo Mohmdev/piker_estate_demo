@@ -9,13 +9,22 @@ import { cn } from '@utils/ui'
 import { GeistMono } from 'geist/font/mono'
 import { GeistSans } from 'geist/font/sans'
 import type { Metadata } from 'next'
-// import { draftMode } from 'next/headers'
 import React from 'react'
 import '@styles/frontend/globals.css'
+import { MainMenu } from '@CMS/design/MainMenu'
+import { getDynamicMeta } from '@services/seo/getDynamicMeta'
+
+import classes from './layout.module.scss'
 
 export default async function RootLayout({
   children,
 }: { children: React.ReactNode }) {
+  const noiseProperties = {
+    enable: true,
+    size: 6.2,
+    opacity: 0.05,
+  }
+
   return (
     <html
       className={cn(GeistSans.variable, GeistMono.variable)}
@@ -27,28 +36,43 @@ export default async function RootLayout({
         <link href="/favicon.ico" rel="icon" sizes="32x32" />
         <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
       </head>
-      <body>
+      <body className="relative">
         <Providers>
-          {/* <AdminBar
-            adminBarProps={{
-              preview: isEnabled,
-            }}
-          /> */}
-
-          <Header />
-          {children}
-          <Footer />
+          <main className="relative z-1 min-h-[100dvh] flex flex-col">
+            <MainMenu />
+            {children}
+            <Footer />
+          </main>
+          {noiseProperties.enable && (
+            <div
+              className="absolute inset-0 m-0 z-[-1]"
+              style={
+                {
+                  '--noise-size': `${noiseProperties.size}rem`,
+                  '--noise-opacity': noiseProperties.opacity,
+                } as React.CSSProperties
+              }
+            >
+              <div className={classes.noiseBackground} />
+            </div>
+          )}
         </Providers>
       </body>
     </html>
   )
 }
 
-export const metadata: Metadata = {
-  metadataBase: new URL(getServerSideURL()),
-  openGraph: mergeOpenGraph(),
-  twitter: {
-    card: 'summary_large_image',
-    creator: '@payloadcms',
-  },
+export async function generateMetadata(): Promise<Metadata> {
+  const { siteName, siteDescription, favicon } = await getDynamicMeta()
+
+  return {
+    metadataBase: new URL(getServerSideURL()),
+    title: siteName,
+    description: siteDescription,
+    icons: favicon ? [{ rel: 'icon', url: favicon.url }] : undefined,
+    openGraph: mergeOpenGraph(undefined, {
+      siteName,
+      description: siteDescription,
+    }),
+  }
 }
