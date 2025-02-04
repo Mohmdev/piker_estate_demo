@@ -39,6 +39,7 @@ export const FlyoutNav: React.FC<{
           <Logo />
         </Link>
         <nav className="hidden gap-6 lg:flex">
+          {/* Links */}
           <div className="flex items-center gap-6">
             {tabs?.map((tab, i) => (
               <NavLink

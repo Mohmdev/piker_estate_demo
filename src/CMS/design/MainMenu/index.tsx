@@ -12,5 +12,5 @@ export const MainMenu = async () => {
     isDraft,
   )()) as MainMenuType
 
-  return <MainMenuClient data={mainMenuData} />
+  return <MainMenuClient mainMenuData={mainMenuData} />
 }

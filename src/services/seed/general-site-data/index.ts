@@ -379,6 +379,7 @@ export const seed = async ({
   await Promise.all([
     payload.updateGlobal({
       slug: 'main-menu',
+      depth: 0,
       data: {
         tabs: [
           {
@@ -425,7 +426,6 @@ export const seed = async ({
             label: 'Schedule a Demo!!',
           },
         },
-        _status: 'published',
       },
     }),
     // payload.updateGlobal({
