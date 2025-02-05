@@ -1,8 +1,8 @@
 ---
-description: General project rules
+description: General Project Guidelines
 globs: 
 ---
-# Rule content
+# General Project Guidelines
 
 - This project is a full-stack all-in-one repo Nextjs 15 project that uses app router. Meaning, that both the frontend and the backend are run by a single Nextjs instance within our project. The backend is handled by Payloadcms and is integrated into the project. Finally, the frontend and the app router are integrated in '/src/app/(frontend)/*'.
 
