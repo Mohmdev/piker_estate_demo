@@ -13,6 +13,7 @@ import { home } from './home'
 import { image1 } from './image-1'
 import { image2 } from './image-2'
 import { imageHero1 } from './image-hero-1'
+import { mainMenuMock } from './mainMenu'
 import { post1 } from './post-1'
 import { post2 } from './post-2'
 import { post3 } from './post-3'
@@ -352,6 +353,7 @@ export const seed = async ({
 
   payload.logger.info(`— Seeding pages...`)
 
+  // biome-ignore lint/correctness/noUnusedVariables: <explanation>
   const [_, contactPage] = await Promise.all([
     payload.create({
       collection: 'pages',
@@ -380,78 +382,8 @@ export const seed = async ({
     payload.updateGlobal({
       slug: 'main-menu',
       depth: 0,
-      data: {
-        tabs: [
-          {
-            label: 'Contact',
-            enableDirectLink: true,
-            enableDropdown: null,
-            description: null,
-            descriptionLinks: [],
-            items: [],
-            link: {
-              type: 'reference',
-              newTab: null,
-              reference: {
-                relationTo: 'pages',
-                value: contactPage.id,
-              },
-              url: '/contact',
-            },
-          },
-          {
-            label: 'Blog',
-            enableDirectLink: true,
-            enableDropdown: null,
-            description: null,
-            descriptionLinks: [],
-            items: [],
-            link: {
-              type: 'custom',
-              newTab: null,
-              url: '/blog',
-            },
-          },
-        ],
-        menuCta: {
-          enableCta: true,
-          link: {
-            type: 'reference',
-            newTab: true,
-            reference: {
-              relationTo: 'pages',
-              value: contactPage.id,
-            },
-            url: null,
-            label: 'Schedule a Demo!!',
-          },
-        },
-      },
+      data: mainMenuMock,
     }),
-    // payload.updateGlobal({
-    //   slug: 'header',
-    //   data: {
-    //     navItems: [
-    //       {
-    //         link: {
-    //           type: 'custom',
-    //           label: 'Blog',
-    //           url: '/blog',
-    //         },
-    //       },
-    //       {
-    //         link: {
-    //           type: 'reference',
-    //           label: 'Contact',
-    //           reference: {
-    //             relationTo: 'pages',
-    //             value: contactPage.id,
-    //           },
-    //         },
-    //       },
-    //     ],
-    //   },
-    // }),
     payload.updateGlobal({
       slug: 'footer',
       data: {

@@ -39,21 +39,3 @@ export const revalidateMainMenu: GlobalAfterChangeHook = ({
 
   return doc
 }
-
-// export const revalidateMainMenu: GlobalAfterChangeHook = ({
-//   doc,
-//   req: { payload, context },
-// }) => {
-//   if (!context.disableRevalidate) {
-//     payload.logger.info(
-//       `Revalidating Main Menu Cache - Tag: "global_main-menu"`,
-//     )
-
-//     revalidateTag('global_main-menu')
-
-//     payload.logger.info(`✔ Main Menu Revalidated`)
-//     payload.logger.info(``)
-//   }
-
-//   return doc
-// }
