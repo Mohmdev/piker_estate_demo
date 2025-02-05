@@ -1,8 +1,7 @@
-import type { GlobalConfig } from 'payload'
-
 import { revalidateGlobalSettings } from '@CMS/_hooks/revalidateGlobalSettings'
 import { isAdminOrEditor } from '@auth/access/isAdminOrEditor'
 import { publishedOnly } from '@auth/access/publishedOnly'
+import type { GlobalConfig } from 'payload'
 
 export const GlobalSettings: GlobalConfig = {
   slug: 'global-settings',

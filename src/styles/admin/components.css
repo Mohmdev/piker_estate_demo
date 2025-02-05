@@ -48,10 +48,11 @@
   border: 1px solid var(--border-ui);
   background-color: var(--bg-default-primary);
 
-  // .field-type.email input {
-  //   background-color: var(--bg-default-secondary);
-  // }
-  //  #field-password, #field-firstName, #field-lastName,
+  /* .field-type.email input {
+    background-color: var(--bg-default-secondary);
+  }
+   #field-password, #field-firstName, #field-lastName, */
+
   #field-email,
   #field-username {
     background-color: var(--bg-default-secondary);

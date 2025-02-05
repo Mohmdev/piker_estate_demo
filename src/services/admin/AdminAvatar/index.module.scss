@@ -9,6 +9,7 @@
   text-transform: uppercase;
   user-select: none;
   background-color: light-dark(hsl(217 12% 72%), hsl(235, 10%, 12.94%));
+  background-color: var(--bg-disabled);
   color: light-dark(white, var(--theme-elevation-400));
   border: 1px solid var(--border-ui);
   border-color: light-dark(hsl(217 12% 72%), var(--border-ui));

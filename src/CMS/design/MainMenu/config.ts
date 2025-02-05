@@ -2,7 +2,6 @@ import { revalidateMainMenu } from '@CMS/_hooks/revalidateMainMenu'
 import { isAdminOrEditor } from '@auth/access/isAdminOrEditor'
 import { publishedOnly } from '@auth/access/publishedOnly'
 import { link } from '@fields/link'
-import { generateGlobalPreviewPath } from '@services/live-preview/generateGlobalPreviewPath'
 import { getGlobalLivePreviewURL } from '@services/live-preview/getGlobalLivePreviewURL'
 import { getGlobalPreviewURL } from '@services/live-preview/getGlobalPreviewURL'
 import type { GlobalConfig } from 'payload'
@@ -18,25 +17,17 @@ export const MainMenu: GlobalConfig = {
   admin: {
     livePreview: getGlobalLivePreviewURL('main-menu'),
     preview: getGlobalPreviewURL('main-menu'),
-    // livePreview: {
-    //   url: ({ req }) => {
-    //     return generateGlobalPreviewPath({
-    //       global: 'main-menu',
-    //       slug: 'main-menu',
-    //       req,
-    //     })
-    //   },
-    // },
-    // preview: getGlobalPreviewURL('main-menu'),
   },
   fields: [
     {
+      label: 'Navigation Groups',
       name: 'tabs',
       type: 'array',
       admin: {
         components: {
           RowLabel: '@CMS/design/MainMenu/TabsRowLabel#TabsRowLabel',
         },
+        initCollapsed: true,
       },
       fields: [
         {
@@ -142,6 +133,7 @@ export const MainMenu: GlobalConfig = {
                 },
                 {
                   name: 'ftrdLink',
+                  label: 'Featured Link',
                   type: 'group',
                   admin: {
                     condition: (_, siblingData) =>
@@ -201,7 +193,6 @@ export const MainMenu: GlobalConfig = {
           label: 'Dropdown Menu',
         },
       ],
-      label: 'Main Menu Items',
     },
     {
       label: 'Call to Action Button',
