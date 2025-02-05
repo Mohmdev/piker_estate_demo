@@ -3,7 +3,8 @@ import { isAdminOrEditor } from '@auth/access/isAdminOrEditor'
 import { publishedOnly } from '@auth/access/publishedOnly'
 import { link } from '@fields/link'
 import { generateGlobalPreviewPath } from '@services/live-preview/generateGlobalPreviewPath'
-import { getGlobalPreviewUrl } from '@services/live-preview/getPreviewUrl'
+import { getGlobalLivePreviewURL } from '@services/live-preview/getGlobalLivePreviewURL'
+import { getGlobalPreviewURL } from '@services/live-preview/getGlobalPreviewURL'
 import type { GlobalConfig } from 'payload'
 
 export const MainMenu: GlobalConfig = {
@@ -15,16 +16,18 @@ export const MainMenu: GlobalConfig = {
     readDrafts: isAdminOrEditor,
   },
   admin: {
-    livePreview: {
-      url: ({ req }) => {
-        return generateGlobalPreviewPath({
-          global: 'main-menu',
-          slug: 'main-menu',
-          req,
-        })
-      },
-    },
-    preview: getGlobalPreviewUrl('main-menu'),
+    livePreview: getGlobalLivePreviewURL('main-menu'),
+    preview: getGlobalPreviewURL('main-menu'),
+    // livePreview: {
+    //   url: ({ req }) => {
+    //     return generateGlobalPreviewPath({
+    //       global: 'main-menu',
+    //       slug: 'main-menu',
+    //       req,
+    //     })
+    //   },
+    // },
+    // preview: getGlobalPreviewURL('main-menu'),
   },
   fields: [
     {

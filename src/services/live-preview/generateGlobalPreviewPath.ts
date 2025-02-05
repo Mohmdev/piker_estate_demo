@@ -7,11 +7,12 @@ type Props = {
 }
 
 export const generateGlobalPreviewPath = ({ global, slug, req }: Props) => {
+  // No need for a prefix map. All globals go to /theme-editor
   const encodedParams = new URLSearchParams({
     slug,
     global,
     path: '/theme-editor',
-    previewSecret: process.env.PREVIEW_SECRET || 'PREVIEW_KEY',
+    previewSecret: process.env.PREVIEW_SECRET || 'DUNE_3',
   })
 
   const isProduction =

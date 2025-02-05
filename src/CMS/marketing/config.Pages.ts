@@ -20,8 +20,8 @@ import { tagsField } from '@CMS/fields/shared/tagsField'
 import { isAdminOrEditor } from '@auth/access/isAdminOrEditor'
 import { isAdminOrSelf } from '@auth/access/isAdminOrSelf'
 import { publishedOnly } from '@auth/access/publishedOnly'
-import { getLivePreviewUrl } from '@services/live-preview/getLivePreviewUrl'
-import { getPreviewUrl } from '@services/live-preview/getPreviewUrl'
+import { getCollectionLivePreviewURL } from '@services/live-preview/getCollectionLivePreviewURL'
+import { getCollectionPreviewURL } from '@services/live-preview/getCollectionPreviewURL'
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -45,8 +45,8 @@ export const Pages: CollectionConfig<'pages'> = {
       'updatedAt',
       'createdAt',
     ],
-    livePreview: getLivePreviewUrl('pages'),
-    preview: getPreviewUrl('pages'),
+    livePreview: getCollectionLivePreviewURL('pages'),
+    preview: getCollectionPreviewURL('pages'),
   },
   fields: [
     {

@@ -10,14 +10,14 @@ export const ItemsRowLabel: PayloadClientReactComponent<
 > = () => {
   const { data } =
     useRowLabel<
-      NonNullable<NonNullable<MainMenu['tabs']>[number]['navItems']>[number]
+      NonNullable<NonNullable<MainMenu['tabs']>[number]['items']>[number]
     >()
 
   if (data?.style === 'default') {
     return data?.defaultLink?.link.label
   }
   if (data?.style === 'featured') {
-    return data?.featuredLink?.tag
+    return data?.ftrdLink?.tag
   }
   if (data?.style === 'list') {
     return data?.listLinks?.tag

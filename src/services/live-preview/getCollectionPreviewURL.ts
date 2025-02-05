@@ -1,17 +1,15 @@
 import { generateCollectionPreviewPath } from '@services/live-preview/generateCollectionPreviewPath'
 
-import type { CollectionSlug, LivePreviewConfig } from 'payload'
+import type { CollectionSlug, GeneratePreviewURL } from 'payload'
 
-export const getLivePreviewUrl = (
+export const getCollectionPreviewURL = (
   collection: CollectionSlug,
-): LivePreviewConfig => ({
-  url: ({ data, req }) => {
-    const path = generateCollectionPreviewPath({
+): GeneratePreviewURL => {
+  return (data, { req }) => {
+    return generateCollectionPreviewPath({
       slug: typeof data?.slug === 'string' ? data.slug : '',
       collection,
       req,
     })
-
-    return path
-  },
-})
+  }
+}

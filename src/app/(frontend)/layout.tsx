@@ -1,7 +1,5 @@
-import { Footer } from '@CMS/design/Footer/Component'
-import { Header } from '@CMS/design/Header/Component'
+import { Footer } from '@CMS/design/Footer'
 import { getServerSideURL } from '@data/getURL'
-// import { AdminBar } from '@components/AdminBar'
 import { Providers } from '@providers'
 import { InitTheme } from '@providers/Theme/InitTheme'
 import { mergeOpenGraph } from '@services/seo/mergeOpenGraph'
@@ -33,8 +31,6 @@ export default async function RootLayout({
     >
       <head>
         <InitTheme />
-        <link href="/favicon.ico" rel="icon" sizes="32x32" />
-        <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
       </head>
       <body className="relative">
         <Providers>

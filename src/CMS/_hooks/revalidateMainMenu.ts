@@ -1,5 +1,4 @@
 import { revalidatePath, revalidateTag } from 'next/cache'
-
 import type { GlobalAfterChangeHook } from 'payload'
 
 export const revalidateMainMenu: GlobalAfterChangeHook = ({
@@ -10,15 +9,20 @@ export const revalidateMainMenu: GlobalAfterChangeHook = ({
   if (!context.disableRevalidate) {
     if (doc._status === 'published') {
       const path = '/theme-editor'
+
+      payload.logger.info(
+        `Revalidating Main Menu Cache - Tag: "global_main-menu" Path: "${path}"`,
+      )
+      payload.logger.info(``)
+
       revalidatePath(path)
       payload.logger.info(
         `✓ Published Main Menu Revalidated at path: "${path}"`,
       )
-
+      revalidateTag('global_main-menu')
       payload.logger.info(
         `Revalidating Main Menu Cache - Tag: "global_main-menu"`,
       )
-      revalidateTag('global_main-menu')
       payload.logger.info(`✔ Main Menu Revalidated`)
       payload.logger.info(``)
     }

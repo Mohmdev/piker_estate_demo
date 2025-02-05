@@ -44,15 +44,15 @@ export const MainMenuClient: React.FC<{ mainMenuData: MainMenu }> = ({
 
   return (
     <header
-      className={`fixed top-0 z-50 w-full px-6 text-white 
-      transition-all duration-300 ease-out lg:px-12
+      className={`fixed top-0 z-50 w-full text-white 
+      transition-all duration-300 ease-out
       ${
         scrolled
           ? 'bg-neutral-950 py-3 shadow-xl'
           : 'bg-neutral-950/0 py-6 shadow-none'
       }`}
     >
-      <nav className="container mx-auto flex max-w-7xl items-center justify-between">
+      <nav className="container flex items-center justify-between">
         <Link href="/">
           <Logo />
         </Link>

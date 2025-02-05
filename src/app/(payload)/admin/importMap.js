@@ -21,8 +21,7 @@ import { LinkToDoc as LinkToDoc_aead06e4cbf6b2620c5c51c9ab283634 } from '@payloa
 import { ReindexButton as ReindexButton_aead06e4cbf6b2620c5c51c9ab283634 } from '@payloadcms/plugin-search/client'
 import { ItemsRowLabel as ItemsRowLabel_023d90d9b692b0a0cfaa8fe6fd1d0e5d } from '@CMS/design/MainMenu/ItemsRowLabel'
 import { TabsRowLabel as TabsRowLabel_194a223d66fc7ed6290fe556e7b56262 } from '@CMS/design/MainMenu/TabsRowLabel'
-import { RowLabel as RowLabel_14deb2d0af8ee6357896407669b9a819 } from '@CMS/design/Header/RowLabel'
-import { RowLabel as RowLabel_59d32114059627cd2b79e9c59015d263 } from '@CMS/design/Footer/RowLabel'
+import { FooterRowLabel as FooterRowLabel_3a8bec73fa75f7b1bb5851ec19ba70da } from '@CMS/design/Footer/FooterRowLabel'
 import { default as default_e6933a128dbf8190926ab0f5d1447c3d } from '@services/admin/AdminAvatar'
 import { NavbarLogo as NavbarLogo_6079976f3e2ff43eeff27beac4efdd62 } from '@services/admin/DynamicLogo'
 import { MainLogo as MainLogo_6079976f3e2ff43eeff27beac4efdd62 } from '@services/admin/DynamicLogo'
@@ -51,8 +50,7 @@ export const importMap = {
   "@payloadcms/plugin-search/client#ReindexButton": ReindexButton_aead06e4cbf6b2620c5c51c9ab283634,
   "@CMS/design/MainMenu/ItemsRowLabel#ItemsRowLabel": ItemsRowLabel_023d90d9b692b0a0cfaa8fe6fd1d0e5d,
   "@CMS/design/MainMenu/TabsRowLabel#TabsRowLabel": TabsRowLabel_194a223d66fc7ed6290fe556e7b56262,
-  "@CMS/design/Header/RowLabel#RowLabel": RowLabel_14deb2d0af8ee6357896407669b9a819,
-  "@CMS/design/Footer/RowLabel#RowLabel": RowLabel_59d32114059627cd2b79e9c59015d263,
+  "@CMS/design/Footer/FooterRowLabel#FooterRowLabel": FooterRowLabel_3a8bec73fa75f7b1bb5851ec19ba70da,
   "@services/admin/AdminAvatar#default": default_e6933a128dbf8190926ab0f5d1447c3d,
   "@services/admin/DynamicLogo#NavbarLogo": NavbarLogo_6079976f3e2ff43eeff27beac4efdd62,
   "@services/admin/DynamicLogo#MainLogo": MainLogo_6079976f3e2ff43eeff27beac4efdd62

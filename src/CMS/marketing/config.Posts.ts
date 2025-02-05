@@ -17,8 +17,8 @@ import { isAdminOrEditor } from '@auth/access/isAdminOrEditor'
 import { isAdminOrSelf } from '@auth/access/isAdminOrSelf'
 import { publishedOnly } from '@auth/access/publishedOnly'
 import { fullLexical } from '@services/editor/fullLexical'
-import { getLivePreviewUrl } from '@services/live-preview/getLivePreviewUrl'
-import { getPreviewUrl } from '@services/live-preview/getPreviewUrl'
+import { getCollectionLivePreviewURL } from '@services/live-preview/getCollectionLivePreviewURL'
+import { getCollectionPreviewURL } from '@services/live-preview/getCollectionPreviewURL'
 
 export const Posts: CollectionConfig<'posts'> = {
   slug: 'posts',
@@ -51,8 +51,8 @@ export const Posts: CollectionConfig<'posts'> = {
       'updatedAt',
       'createdAt',
     ],
-    livePreview: getLivePreviewUrl('posts'),
-    preview: getPreviewUrl('posts'),
+    livePreview: getCollectionLivePreviewURL('posts'),
+    preview: getCollectionPreviewURL('posts'),
   },
   fields: [
     {

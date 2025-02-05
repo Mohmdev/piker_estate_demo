@@ -42,7 +42,7 @@ export async function clearDBScript({
         const globalCases = (() => {
           switch (global) {
             case 'footer':
-              return { navItems: [] } as unknown as Footer
+              return { columns: [] } as unknown as Footer
             case 'main-menu':
               return {
                 tabs: [],

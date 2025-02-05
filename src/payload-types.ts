@@ -62,13 +62,11 @@ export interface Config {
   };
   globals: {
     'main-menu': MainMenu;
-    header: Header;
     footer: Footer;
     'global-settings': GlobalSetting;
   };
   globalsSelect: {
     'main-menu': MainMenuSelect<false> | MainMenuSelect<true>;
-    header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
     'global-settings': GlobalSettingsSelect<false> | GlobalSettingsSelect<true>;
   };
@@ -701,6 +699,10 @@ export interface Post {
             relationTo: 'categories';
             value: number | Category;
           }
+        | {
+            relationTo: 'properties';
+            value: number | Property;
+          }
       )[]
     | null;
   tags?: (number | Tag)[] | null;
@@ -1291,6 +1293,10 @@ export interface Redirect {
       | ({
           relationTo: 'posts';
           value: number | Post;
+        } | null)
+      | ({
+          relationTo: 'properties';
+          value: number | Property;
         } | null);
     url?: string | null;
   };
@@ -2397,67 +2403,41 @@ export interface MainMenu {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "header".
- */
-export interface Header {
-  id: number;
-  navItems?:
-    | {
-        link: {
-          type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: number | Page;
-              } | null)
-            | ({
-                relationTo: 'posts';
-                value: number | Post;
-              } | null)
-            | ({
-                relationTo: 'properties';
-                value: number | Property;
-              } | null);
-          url?: string | null;
-          label: string;
-        };
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "footer".
  */
 export interface Footer {
   id: number;
-  navItems?:
+  columns?:
     | {
-        link: {
-          type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: number | Page;
-              } | null)
-            | ({
-                relationTo: 'posts';
-                value: number | Post;
-              } | null)
-            | ({
-                relationTo: 'properties';
-                value: number | Property;
-              } | null);
-          url?: string | null;
-          label: string;
-        };
+        label: string;
+        navItems?:
+          | {
+              link: {
+                type?: ('reference' | 'custom') | null;
+                newTab?: boolean | null;
+                reference?:
+                  | ({
+                      relationTo: 'pages';
+                      value: number | Page;
+                    } | null)
+                  | ({
+                      relationTo: 'posts';
+                      value: number | Post;
+                    } | null)
+                  | ({
+                      relationTo: 'properties';
+                      value: number | Property;
+                    } | null);
+                url?: string | null;
+                label: string;
+              };
+              id?: string | null;
+            }[]
+          | null;
         id?: string | null;
       }[]
     | null;
+  _status?: ('draft' | 'published') | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -2626,46 +2606,30 @@ export interface MainMenuSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "header_select".
- */
-export interface HeaderSelect<T extends boolean = true> {
-  navItems?:
-    | T
-    | {
-        link?:
-          | T
-          | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              label?: T;
-            };
-        id?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "footer_select".
  */
 export interface FooterSelect<T extends boolean = true> {
-  navItems?:
+  columns?:
     | T
     | {
-        link?:
+        label?: T;
+        navItems?:
           | T
           | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              label?: T;
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                  };
+              id?: T;
             };
         id?: T;
       };
+  _status?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -2738,7 +2702,7 @@ export interface TaskSchedulePublish {
           relationTo: 'posts';
           value: number | Post;
         } | null);
-    global?: 'main-menu' | null;
+    global?: ('main-menu' | 'footer') | null;
     user?: (number | null) | User;
   };
   output?: unknown;

@@ -1,4 +1,3 @@
-import type { Footer, Header, MainMenu } from '@payload-types'
 import type {
   CollectionSlug,
   File,
@@ -6,9 +5,9 @@ import type {
   Payload,
   PayloadRequest,
 } from 'payload'
-
 import { contactForm as contactFormData } from './contact-form'
 import { contact as contactPageData } from './contact-page'
+import { footerMock } from './footer'
 import { home } from './home'
 import { image1 } from './image-1'
 import { image2 } from './image-2'
@@ -386,33 +385,7 @@ export const seed = async ({
     }),
     payload.updateGlobal({
       slug: 'footer',
-      data: {
-        navItems: [
-          {
-            link: {
-              type: 'custom',
-              label: 'Admin',
-              url: '/admin',
-            },
-          },
-          {
-            link: {
-              type: 'custom',
-              label: 'Github',
-              newTab: true,
-              url: 'https://github.com/Mohmdev/nexweb-realestate',
-            },
-          },
-          {
-            link: {
-              type: 'custom',
-              label: 'Nexweb',
-              newTab: true,
-              url: 'https://nexweb.studio/',
-            },
-          },
-        ],
-      },
+      data: footerMock,
     }),
   ])
 

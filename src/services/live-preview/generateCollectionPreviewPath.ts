@@ -27,7 +27,7 @@ export const generateCollectionPreviewPath = ({
     slug,
     collection,
     path: `${collectionPrefixMap[collection]}/${slug}`,
-    previewSecret: process.env.PREVIEW_SECRET || 'PREVIEW_KEY',
+    previewSecret: process.env.PREVIEW_SECRET || 'DUNE_3',
   })
 
   const isProduction =

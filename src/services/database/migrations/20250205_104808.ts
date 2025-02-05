@@ -54,8 +54,10 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE TYPE "public"."enum__main_menu_v_version_tabs_link_type" AS ENUM('reference', 'custom');
   CREATE TYPE "public"."enum__main_menu_v_version_menu_cta_link_type" AS ENUM('reference', 'custom');
   CREATE TYPE "public"."enum__main_menu_v_version_status" AS ENUM('draft', 'published');
-  CREATE TYPE "public"."enum_header_nav_items_link_type" AS ENUM('reference', 'custom');
-  CREATE TYPE "public"."enum_footer_nav_items_link_type" AS ENUM('reference', 'custom');
+  CREATE TYPE "public"."enum_footer_columns_nav_items_link_type" AS ENUM('reference', 'custom');
+  CREATE TYPE "public"."enum_footer_status" AS ENUM('draft', 'published');
+  CREATE TYPE "public"."enum__footer_v_version_columns_nav_items_link_type" AS ENUM('reference', 'custom');
+  CREATE TYPE "public"."enum__footer_v_version_status" AS ENUM('draft', 'published');
   CREATE TABLE IF NOT EXISTS "properties_populated_authors" (
   	"_order" integer NOT NULL,
   	"_parent_id" integer NOT NULL,
@@ -450,6 +452,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"categories_id" integer,
   	"pages_id" integer,
   	"posts_id" integer,
+  	"properties_id" integer,
   	"tags_id" integer,
   	"users_id" integer
   );
@@ -492,6 +495,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"categories_id" integer,
   	"pages_id" integer,
   	"posts_id" integer,
+  	"properties_id" integer,
   	"tags_id" integer,
   	"users_id" integer
   );
@@ -891,7 +895,8 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"parent_id" integer NOT NULL,
   	"path" varchar NOT NULL,
   	"pages_id" integer,
-  	"posts_id" integer
+  	"posts_id" integer,
+  	"properties_id" integer
   );
   
   CREATE TABLE IF NOT EXISTS "payload_jobs_log" (
@@ -1144,23 +1149,31 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"properties_id" integer
   );
   
-  CREATE TABLE IF NOT EXISTS "header_nav_items" (
+  CREATE TABLE IF NOT EXISTS "footer_columns_nav_items" (
+  	"_order" integer NOT NULL,
+  	"_parent_id" varchar NOT NULL,
+  	"id" varchar PRIMARY KEY NOT NULL,
+  	"link_type" "enum_footer_columns_nav_items_link_type" DEFAULT 'reference',
+  	"link_new_tab" boolean,
+  	"link_url" varchar,
+  	"link_label" varchar
+  );
+  
+  CREATE TABLE IF NOT EXISTS "footer_columns" (
   	"_order" integer NOT NULL,
   	"_parent_id" integer NOT NULL,
   	"id" varchar PRIMARY KEY NOT NULL,
-  	"link_type" "enum_header_nav_items_link_type" DEFAULT 'reference',
-  	"link_new_tab" boolean,
-  	"link_url" varchar,
-  	"link_label" varchar NOT NULL
+  	"label" varchar
   );
   
-  CREATE TABLE IF NOT EXISTS "header" (
+  CREATE TABLE IF NOT EXISTS "footer" (
   	"id" serial PRIMARY KEY NOT NULL,
+  	"_status" "enum_footer_status" DEFAULT 'draft',
   	"updated_at" timestamp(3) with time zone,
   	"created_at" timestamp(3) with time zone
   );
   
-  CREATE TABLE IF NOT EXISTS "header_rels" (
+  CREATE TABLE IF NOT EXISTS "footer_rels" (
   	"id" serial PRIMARY KEY NOT NULL,
   	"order" integer,
   	"parent_id" integer NOT NULL,
@@ -1170,23 +1183,37 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"properties_id" integer
   );
   
-  CREATE TABLE IF NOT EXISTS "footer_nav_items" (
+  CREATE TABLE IF NOT EXISTS "_footer_v_version_columns_nav_items" (
   	"_order" integer NOT NULL,
   	"_parent_id" integer NOT NULL,
-  	"id" varchar PRIMARY KEY NOT NULL,
-  	"link_type" "enum_footer_nav_items_link_type" DEFAULT 'reference',
+  	"id" serial PRIMARY KEY NOT NULL,
+  	"link_type" "enum__footer_v_version_columns_nav_items_link_type" DEFAULT 'reference',
   	"link_new_tab" boolean,
   	"link_url" varchar,
-  	"link_label" varchar NOT NULL
+  	"link_label" varchar,
+  	"_uuid" varchar
   );
   
-  CREATE TABLE IF NOT EXISTS "footer" (
+  CREATE TABLE IF NOT EXISTS "_footer_v_version_columns" (
+  	"_order" integer NOT NULL,
+  	"_parent_id" integer NOT NULL,
   	"id" serial PRIMARY KEY NOT NULL,
-  	"updated_at" timestamp(3) with time zone,
-  	"created_at" timestamp(3) with time zone
+  	"label" varchar,
+  	"_uuid" varchar
   );
   
-  CREATE TABLE IF NOT EXISTS "footer_rels" (
+  CREATE TABLE IF NOT EXISTS "_footer_v" (
+  	"id" serial PRIMARY KEY NOT NULL,
+  	"version__status" "enum__footer_v_version_status" DEFAULT 'draft',
+  	"version_updated_at" timestamp(3) with time zone,
+  	"version_created_at" timestamp(3) with time zone,
+  	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
+  	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
+  	"latest" boolean,
+  	"autosave" boolean
+  );
+  
+  CREATE TABLE IF NOT EXISTS "_footer_v_rels" (
   	"id" serial PRIMARY KEY NOT NULL,
   	"order" integer,
   	"parent_id" integer NOT NULL,
@@ -1599,6 +1626,12 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   END $$;
   
   DO $$ BEGIN
+   ALTER TABLE "posts_rels" ADD CONSTRAINT "posts_rels_properties_fk" FOREIGN KEY ("properties_id") REFERENCES "public"."properties"("id") ON DELETE cascade ON UPDATE no action;
+  EXCEPTION
+   WHEN duplicate_object THEN null;
+  END $$;
+  
+  DO $$ BEGIN
    ALTER TABLE "posts_rels" ADD CONSTRAINT "posts_rels_tags_fk" FOREIGN KEY ("tags_id") REFERENCES "public"."tags"("id") ON DELETE cascade ON UPDATE no action;
   EXCEPTION
    WHEN duplicate_object THEN null;
@@ -1654,6 +1687,12 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   
   DO $$ BEGIN
    ALTER TABLE "_posts_v_rels" ADD CONSTRAINT "_posts_v_rels_posts_fk" FOREIGN KEY ("posts_id") REFERENCES "public"."posts"("id") ON DELETE cascade ON UPDATE no action;
+  EXCEPTION
+   WHEN duplicate_object THEN null;
+  END $$;
+  
+  DO $$ BEGIN
+   ALTER TABLE "_posts_v_rels" ADD CONSTRAINT "_posts_v_rels_properties_fk" FOREIGN KEY ("properties_id") REFERENCES "public"."properties"("id") ON DELETE cascade ON UPDATE no action;
   EXCEPTION
    WHEN duplicate_object THEN null;
   END $$;
@@ -1846,6 +1885,12 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   
   DO $$ BEGIN
    ALTER TABLE "redirects_rels" ADD CONSTRAINT "redirects_rels_posts_fk" FOREIGN KEY ("posts_id") REFERENCES "public"."posts"("id") ON DELETE cascade ON UPDATE no action;
+  EXCEPTION
+   WHEN duplicate_object THEN null;
+  END $$;
+  
+  DO $$ BEGIN
+   ALTER TABLE "redirects_rels" ADD CONSTRAINT "redirects_rels_properties_fk" FOREIGN KEY ("properties_id") REFERENCES "public"."properties"("id") ON DELETE cascade ON UPDATE no action;
   EXCEPTION
    WHEN duplicate_object THEN null;
   END $$;
@@ -2067,37 +2112,13 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   END $$;
   
   DO $$ BEGIN
-   ALTER TABLE "header_nav_items" ADD CONSTRAINT "header_nav_items_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."header"("id") ON DELETE cascade ON UPDATE no action;
+   ALTER TABLE "footer_columns_nav_items" ADD CONSTRAINT "footer_columns_nav_items_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."footer_columns"("id") ON DELETE cascade ON UPDATE no action;
   EXCEPTION
    WHEN duplicate_object THEN null;
   END $$;
   
   DO $$ BEGIN
-   ALTER TABLE "header_rels" ADD CONSTRAINT "header_rels_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."header"("id") ON DELETE cascade ON UPDATE no action;
-  EXCEPTION
-   WHEN duplicate_object THEN null;
-  END $$;
-  
-  DO $$ BEGIN
-   ALTER TABLE "header_rels" ADD CONSTRAINT "header_rels_pages_fk" FOREIGN KEY ("pages_id") REFERENCES "public"."pages"("id") ON DELETE cascade ON UPDATE no action;
-  EXCEPTION
-   WHEN duplicate_object THEN null;
-  END $$;
-  
-  DO $$ BEGIN
-   ALTER TABLE "header_rels" ADD CONSTRAINT "header_rels_posts_fk" FOREIGN KEY ("posts_id") REFERENCES "public"."posts"("id") ON DELETE cascade ON UPDATE no action;
-  EXCEPTION
-   WHEN duplicate_object THEN null;
-  END $$;
-  
-  DO $$ BEGIN
-   ALTER TABLE "header_rels" ADD CONSTRAINT "header_rels_properties_fk" FOREIGN KEY ("properties_id") REFERENCES "public"."properties"("id") ON DELETE cascade ON UPDATE no action;
-  EXCEPTION
-   WHEN duplicate_object THEN null;
-  END $$;
-  
-  DO $$ BEGIN
-   ALTER TABLE "footer_nav_items" ADD CONSTRAINT "footer_nav_items_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."footer"("id") ON DELETE cascade ON UPDATE no action;
+   ALTER TABLE "footer_columns" ADD CONSTRAINT "footer_columns_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."footer"("id") ON DELETE cascade ON UPDATE no action;
   EXCEPTION
    WHEN duplicate_object THEN null;
   END $$;
@@ -2122,6 +2143,42 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   
   DO $$ BEGIN
    ALTER TABLE "footer_rels" ADD CONSTRAINT "footer_rels_properties_fk" FOREIGN KEY ("properties_id") REFERENCES "public"."properties"("id") ON DELETE cascade ON UPDATE no action;
+  EXCEPTION
+   WHEN duplicate_object THEN null;
+  END $$;
+  
+  DO $$ BEGIN
+   ALTER TABLE "_footer_v_version_columns_nav_items" ADD CONSTRAINT "_footer_v_version_columns_nav_items_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_footer_v_version_columns"("id") ON DELETE cascade ON UPDATE no action;
+  EXCEPTION
+   WHEN duplicate_object THEN null;
+  END $$;
+  
+  DO $$ BEGIN
+   ALTER TABLE "_footer_v_version_columns" ADD CONSTRAINT "_footer_v_version_columns_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_footer_v"("id") ON DELETE cascade ON UPDATE no action;
+  EXCEPTION
+   WHEN duplicate_object THEN null;
+  END $$;
+  
+  DO $$ BEGIN
+   ALTER TABLE "_footer_v_rels" ADD CONSTRAINT "_footer_v_rels_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."_footer_v"("id") ON DELETE cascade ON UPDATE no action;
+  EXCEPTION
+   WHEN duplicate_object THEN null;
+  END $$;
+  
+  DO $$ BEGIN
+   ALTER TABLE "_footer_v_rels" ADD CONSTRAINT "_footer_v_rels_pages_fk" FOREIGN KEY ("pages_id") REFERENCES "public"."pages"("id") ON DELETE cascade ON UPDATE no action;
+  EXCEPTION
+   WHEN duplicate_object THEN null;
+  END $$;
+  
+  DO $$ BEGIN
+   ALTER TABLE "_footer_v_rels" ADD CONSTRAINT "_footer_v_rels_posts_fk" FOREIGN KEY ("posts_id") REFERENCES "public"."posts"("id") ON DELETE cascade ON UPDATE no action;
+  EXCEPTION
+   WHEN duplicate_object THEN null;
+  END $$;
+  
+  DO $$ BEGIN
+   ALTER TABLE "_footer_v_rels" ADD CONSTRAINT "_footer_v_rels_properties_fk" FOREIGN KEY ("properties_id") REFERENCES "public"."properties"("id") ON DELETE cascade ON UPDATE no action;
   EXCEPTION
    WHEN duplicate_object THEN null;
   END $$;
@@ -2287,6 +2344,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX IF NOT EXISTS "posts_rels_categories_id_idx" ON "posts_rels" USING btree ("categories_id");
   CREATE INDEX IF NOT EXISTS "posts_rels_pages_id_idx" ON "posts_rels" USING btree ("pages_id");
   CREATE INDEX IF NOT EXISTS "posts_rels_posts_id_idx" ON "posts_rels" USING btree ("posts_id");
+  CREATE INDEX IF NOT EXISTS "posts_rels_properties_id_idx" ON "posts_rels" USING btree ("properties_id");
   CREATE INDEX IF NOT EXISTS "posts_rels_tags_id_idx" ON "posts_rels" USING btree ("tags_id");
   CREATE INDEX IF NOT EXISTS "posts_rels_users_id_idx" ON "posts_rels" USING btree ("users_id");
   CREATE INDEX IF NOT EXISTS "_posts_v_version_populated_authors_order_idx" ON "_posts_v_version_populated_authors" USING btree ("_order");
@@ -2309,6 +2367,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX IF NOT EXISTS "_posts_v_rels_categories_id_idx" ON "_posts_v_rels" USING btree ("categories_id");
   CREATE INDEX IF NOT EXISTS "_posts_v_rels_pages_id_idx" ON "_posts_v_rels" USING btree ("pages_id");
   CREATE INDEX IF NOT EXISTS "_posts_v_rels_posts_id_idx" ON "_posts_v_rels" USING btree ("posts_id");
+  CREATE INDEX IF NOT EXISTS "_posts_v_rels_properties_id_idx" ON "_posts_v_rels" USING btree ("properties_id");
   CREATE INDEX IF NOT EXISTS "_posts_v_rels_tags_id_idx" ON "_posts_v_rels" USING btree ("tags_id");
   CREATE INDEX IF NOT EXISTS "_posts_v_rels_users_id_idx" ON "_posts_v_rels" USING btree ("users_id");
   CREATE INDEX IF NOT EXISTS "categories_breadcrumbs_order_idx" ON "categories_breadcrumbs" USING btree ("_order");
@@ -2421,6 +2480,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX IF NOT EXISTS "redirects_rels_path_idx" ON "redirects_rels" USING btree ("path");
   CREATE INDEX IF NOT EXISTS "redirects_rels_pages_id_idx" ON "redirects_rels" USING btree ("pages_id");
   CREATE INDEX IF NOT EXISTS "redirects_rels_posts_id_idx" ON "redirects_rels" USING btree ("posts_id");
+  CREATE INDEX IF NOT EXISTS "redirects_rels_properties_id_idx" ON "redirects_rels" USING btree ("properties_id");
   CREATE INDEX IF NOT EXISTS "payload_jobs_log_order_idx" ON "payload_jobs_log" USING btree ("_order");
   CREATE INDEX IF NOT EXISTS "payload_jobs_log_parent_id_idx" ON "payload_jobs_log" USING btree ("_parent_id");
   CREATE INDEX IF NOT EXISTS "payload_jobs_completed_at_idx" ON "payload_jobs" USING btree ("completed_at");
@@ -2499,22 +2559,32 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX IF NOT EXISTS "_main_menu_v_rels_pages_id_idx" ON "_main_menu_v_rels" USING btree ("pages_id");
   CREATE INDEX IF NOT EXISTS "_main_menu_v_rels_posts_id_idx" ON "_main_menu_v_rels" USING btree ("posts_id");
   CREATE INDEX IF NOT EXISTS "_main_menu_v_rels_properties_id_idx" ON "_main_menu_v_rels" USING btree ("properties_id");
-  CREATE INDEX IF NOT EXISTS "header_nav_items_order_idx" ON "header_nav_items" USING btree ("_order");
-  CREATE INDEX IF NOT EXISTS "header_nav_items_parent_id_idx" ON "header_nav_items" USING btree ("_parent_id");
-  CREATE INDEX IF NOT EXISTS "header_rels_order_idx" ON "header_rels" USING btree ("order");
-  CREATE INDEX IF NOT EXISTS "header_rels_parent_idx" ON "header_rels" USING btree ("parent_id");
-  CREATE INDEX IF NOT EXISTS "header_rels_path_idx" ON "header_rels" USING btree ("path");
-  CREATE INDEX IF NOT EXISTS "header_rels_pages_id_idx" ON "header_rels" USING btree ("pages_id");
-  CREATE INDEX IF NOT EXISTS "header_rels_posts_id_idx" ON "header_rels" USING btree ("posts_id");
-  CREATE INDEX IF NOT EXISTS "header_rels_properties_id_idx" ON "header_rels" USING btree ("properties_id");
-  CREATE INDEX IF NOT EXISTS "footer_nav_items_order_idx" ON "footer_nav_items" USING btree ("_order");
-  CREATE INDEX IF NOT EXISTS "footer_nav_items_parent_id_idx" ON "footer_nav_items" USING btree ("_parent_id");
+  CREATE INDEX IF NOT EXISTS "footer_columns_nav_items_order_idx" ON "footer_columns_nav_items" USING btree ("_order");
+  CREATE INDEX IF NOT EXISTS "footer_columns_nav_items_parent_id_idx" ON "footer_columns_nav_items" USING btree ("_parent_id");
+  CREATE INDEX IF NOT EXISTS "footer_columns_order_idx" ON "footer_columns" USING btree ("_order");
+  CREATE INDEX IF NOT EXISTS "footer_columns_parent_id_idx" ON "footer_columns" USING btree ("_parent_id");
+  CREATE INDEX IF NOT EXISTS "footer__status_idx" ON "footer" USING btree ("_status");
   CREATE INDEX IF NOT EXISTS "footer_rels_order_idx" ON "footer_rels" USING btree ("order");
   CREATE INDEX IF NOT EXISTS "footer_rels_parent_idx" ON "footer_rels" USING btree ("parent_id");
   CREATE INDEX IF NOT EXISTS "footer_rels_path_idx" ON "footer_rels" USING btree ("path");
   CREATE INDEX IF NOT EXISTS "footer_rels_pages_id_idx" ON "footer_rels" USING btree ("pages_id");
   CREATE INDEX IF NOT EXISTS "footer_rels_posts_id_idx" ON "footer_rels" USING btree ("posts_id");
   CREATE INDEX IF NOT EXISTS "footer_rels_properties_id_idx" ON "footer_rels" USING btree ("properties_id");
+  CREATE INDEX IF NOT EXISTS "_footer_v_version_columns_nav_items_order_idx" ON "_footer_v_version_columns_nav_items" USING btree ("_order");
+  CREATE INDEX IF NOT EXISTS "_footer_v_version_columns_nav_items_parent_id_idx" ON "_footer_v_version_columns_nav_items" USING btree ("_parent_id");
+  CREATE INDEX IF NOT EXISTS "_footer_v_version_columns_order_idx" ON "_footer_v_version_columns" USING btree ("_order");
+  CREATE INDEX IF NOT EXISTS "_footer_v_version_columns_parent_id_idx" ON "_footer_v_version_columns" USING btree ("_parent_id");
+  CREATE INDEX IF NOT EXISTS "_footer_v_version_version__status_idx" ON "_footer_v" USING btree ("version__status");
+  CREATE INDEX IF NOT EXISTS "_footer_v_created_at_idx" ON "_footer_v" USING btree ("created_at");
+  CREATE INDEX IF NOT EXISTS "_footer_v_updated_at_idx" ON "_footer_v" USING btree ("updated_at");
+  CREATE INDEX IF NOT EXISTS "_footer_v_latest_idx" ON "_footer_v" USING btree ("latest");
+  CREATE INDEX IF NOT EXISTS "_footer_v_autosave_idx" ON "_footer_v" USING btree ("autosave");
+  CREATE INDEX IF NOT EXISTS "_footer_v_rels_order_idx" ON "_footer_v_rels" USING btree ("order");
+  CREATE INDEX IF NOT EXISTS "_footer_v_rels_parent_idx" ON "_footer_v_rels" USING btree ("parent_id");
+  CREATE INDEX IF NOT EXISTS "_footer_v_rels_path_idx" ON "_footer_v_rels" USING btree ("path");
+  CREATE INDEX IF NOT EXISTS "_footer_v_rels_pages_id_idx" ON "_footer_v_rels" USING btree ("pages_id");
+  CREATE INDEX IF NOT EXISTS "_footer_v_rels_posts_id_idx" ON "_footer_v_rels" USING btree ("posts_id");
+  CREATE INDEX IF NOT EXISTS "_footer_v_rels_properties_id_idx" ON "_footer_v_rels" USING btree ("properties_id");
   CREATE INDEX IF NOT EXISTS "global_settings_branding_branding_logo_idx" ON "global_settings" USING btree ("branding_logo_id");
   CREATE INDEX IF NOT EXISTS "global_settings_branding_branding_logo_square_idx" ON "global_settings" USING btree ("branding_logo_square_id");
   CREATE INDEX IF NOT EXISTS "global_settings_branding_branding_favicon_idx" ON "global_settings" USING btree ("branding_favicon_id");
@@ -2606,12 +2676,14 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   DROP TABLE "_main_menu_v_version_tabs" CASCADE;
   DROP TABLE "_main_menu_v" CASCADE;
   DROP TABLE "_main_menu_v_rels" CASCADE;
-  DROP TABLE "header_nav_items" CASCADE;
-  DROP TABLE "header" CASCADE;
-  DROP TABLE "header_rels" CASCADE;
-  DROP TABLE "footer_nav_items" CASCADE;
+  DROP TABLE "footer_columns_nav_items" CASCADE;
+  DROP TABLE "footer_columns" CASCADE;
   DROP TABLE "footer" CASCADE;
   DROP TABLE "footer_rels" CASCADE;
+  DROP TABLE "_footer_v_version_columns_nav_items" CASCADE;
+  DROP TABLE "_footer_v_version_columns" CASCADE;
+  DROP TABLE "_footer_v" CASCADE;
+  DROP TABLE "_footer_v_rels" CASCADE;
   DROP TABLE "global_settings" CASCADE;
   DROP TYPE "public"."enum_properties_location_country";
   DROP TYPE "public"."enum_properties_status";
@@ -2665,6 +2737,8 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   DROP TYPE "public"."enum__main_menu_v_version_tabs_link_type";
   DROP TYPE "public"."enum__main_menu_v_version_menu_cta_link_type";
   DROP TYPE "public"."enum__main_menu_v_version_status";
-  DROP TYPE "public"."enum_header_nav_items_link_type";
-  DROP TYPE "public"."enum_footer_nav_items_link_type";`)
+  DROP TYPE "public"."enum_footer_columns_nav_items_link_type";
+  DROP TYPE "public"."enum_footer_status";
+  DROP TYPE "public"."enum__footer_v_version_columns_nav_items_link_type";
+  DROP TYPE "public"."enum__footer_v_version_status";`)
 }

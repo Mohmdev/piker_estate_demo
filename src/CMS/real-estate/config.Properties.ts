@@ -13,8 +13,8 @@ import { isAdminOrEditor } from '@auth/access/isAdminOrEditor'
 import { isAdminOrSelf } from '@auth/access/isAdminOrSelf'
 import { publishedOnly } from '@auth/access/publishedOnly'
 import { minimalLexical } from '@services/editor/minimalLexical'
-import { getLivePreviewUrl } from '@services/live-preview/getLivePreviewUrl'
-import { getPreviewUrl } from '@services/live-preview/getPreviewUrl'
+import { getCollectionLivePreviewURL } from '@services/live-preview/getCollectionLivePreviewURL'
+import { getCollectionPreviewURL } from '@services/live-preview/getCollectionPreviewURL'
 import type { CollectionConfig } from 'payload'
 import { propertyGallery } from './fields/property.gallery'
 import { propertyLocation } from './fields/property.location'
@@ -41,8 +41,8 @@ export const Properties: CollectionConfig<'properties'> = {
       'createdAt',
       'updatedAt',
     ],
-    livePreview: getLivePreviewUrl('properties'),
-    preview: getPreviewUrl('properties'),
+    livePreview: getCollectionLivePreviewURL('properties'),
+    preview: getCollectionPreviewURL('properties'),
   },
   defaultPopulate: {
     title: true,

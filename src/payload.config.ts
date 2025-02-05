@@ -2,7 +2,6 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 import { Footer } from '@CMS/design/Footer/config'
 import { GlobalSettings } from '@CMS/design/GlobalSettings/config'
-import { Header } from '@CMS/design/Header/config'
 import { MainMenu } from '@CMS/design/MainMenu/config'
 import { Categories } from '@CMS/marketing/config.Categories'
 import { Pages } from '@CMS/marketing/config.Pages'
@@ -39,9 +38,7 @@ export default buildConfig({
     ...collectionGroup('Resources', [Media, Assets]),
     ...collectionGroup('Accounts', [Users, UserPhotos]),
   ],
-  globals: [
-    ...globalGroup('Design', [MainMenu, Header, Footer, GlobalSettings]),
-  ],
+  globals: [...globalGroup('Design', [MainMenu, Footer, GlobalSettings])],
   db: vercelPostgres,
   admin: adminConfig,
   editor: defaultLexical,

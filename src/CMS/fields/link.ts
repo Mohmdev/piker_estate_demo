@@ -75,6 +75,12 @@ export const link: LinkType = ({
     ],
   }
 
+  // TODO: Change link types: internal docs, internal pages, external links
+  // home:           https://${PUBLIC_URL}
+  // internal pages: https://${PUBLIC_URL}/${url}
+  // internal docs:  reference to doc field
+  // external links: https://${url}
+  // Feature:        Add validation for Protocol
   const linkTypes: Field[] = [
     {
       name: 'reference',
