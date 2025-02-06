@@ -1,39 +1,50 @@
+import { CMSLink } from '@components/CMSLink'
+import RichText from '@components/RichText'
+import type { MainMenu } from '@payload-types'
+import { cn } from '@utils/ui'
 import { AnimatePresence, motion } from 'motion/react'
 import { type Dispatch, type SetStateAction, useState } from 'react'
 import { FiArrowRight, FiChevronDown, FiMenu, FiX } from 'react-icons/fi'
+import { PiArrowUpRightLight } from 'react-icons/pi'
 import useMeasure from 'react-use-measure'
+import type { NavGroupProps, NavMenuProps } from '../index.client'
 import { CTAs, Logo } from './index'
 
-export const MobileMenuLink = ({
-  children,
-  href,
-  FoldContent,
-  setMenuOpen,
-}: {
-  children: React.ReactNode
-  href: string
-  FoldContent?: React.ElementType
+export type MobileNavGroupProps = {
+  group: NonNullable<MainMenu['navGroups']>[number]
+  children?: React.ReactNode
   setMenuOpen: Dispatch<SetStateAction<boolean>>
-}) => {
+}
+
+export const MobileNavGroup: React.FC<MobileNavGroupProps> = (props) => {
   const [ref, { height }] = useMeasure()
   const [open, setOpen] = useState(false)
 
+  const { children, group, setMenuOpen } = props
+  const {
+    groupLabel,
+    link: linkProps,
+    enableDirectLink = false,
+    enableDropdown = false,
+    dscrpArea: descriptionArea,
+    navItems,
+  } = group
+
   return (
     <div className="relative text-neutral-950">
-      {FoldContent ? (
+      {group ? (
         <div
           className="flex w-full cursor-pointer items-center justify-between border-b border-neutral-300 py-6 text-start text-2xl font-semibold"
           onClick={() => setOpen((pv) => !pv)}
         >
-          <a
+          <div
             onClick={(e) => {
               e.stopPropagation()
               setMenuOpen(false)
             }}
-            href={href}
           >
-            {children}
-          </a>
+            <CMSLink {...linkProps} />
+          </div>
           <motion.div
             animate={{ rotate: open ? '180deg' : '0deg' }}
             transition={{
@@ -45,19 +56,19 @@ export const MobileMenuLink = ({
           </motion.div>
         </div>
       ) : (
-        <a
+        <div
           onClick={(e) => {
             e.stopPropagation()
             setMenuOpen(false)
           }}
-          href="#"
           className="flex w-full cursor-pointer items-center justify-between border-b border-neutral-300 py-6 text-start text-2xl font-semibold"
         >
-          <span>{children}</span>
-          <FiArrowRight />
-        </a>
+          <CMSLink {...linkProps}>
+            {children} <FiArrowRight />
+          </CMSLink>
+        </div>
       )}
-      {FoldContent && (
+      {group && (
         <motion.div
           initial={false}
           animate={{
@@ -68,7 +79,7 @@ export const MobileMenuLink = ({
           className="overflow-hidden"
         >
           <div ref={ref}>
-            <FoldContent />
+            <GroupContent {...descriptionArea} navItems={navItems} />
           </div>
         </motion.div>
       )}
@@ -76,8 +87,10 @@ export const MobileMenuLink = ({
   )
 }
 
-export const MobileMenu = () => {
+export const MobileMenu: React.FC<NavMenuProps> = (props) => {
+  const { menuCta, navGroups } = props
   const [open, setOpen] = useState(false)
+
   return (
     <div className="block lg:hidden">
       <button onClick={() => setOpen(true)} className="block text-3xl">
@@ -99,19 +112,12 @@ export const MobileMenu = () => {
               </button>
             </div>
             <div className="h-screen overflow-y-scroll bg-neutral-100 p-6">
-              {LINKS.map((l) => (
-                <MobileMenuLink
-                  key={l.text}
-                  href={l.href}
-                  FoldContent={l.component}
-                  setMenuOpen={setOpen}
-                >
-                  {l.text}
-                </MobileMenuLink>
+              {(navGroups || []).map((navGroup, groupIndex) => (
+                <MobileNavGroup key={groupIndex} group={navGroup} setMenuOpen={setOpen} />
               ))}
             </div>
             <div className="flex justify-end bg-neutral-950 p-6">
-              <CTAs />
+              <CTAs {...menuCta} />
             </div>
           </motion.nav>
         )}
@@ -120,60 +126,128 @@ export const MobileMenu = () => {
   )
 }
 
-const AboutUsContent = () => {
+type GroupContentProps = Pick<
+  NonNullable<MainMenu['navGroups']>[number],
+  'dscrpArea' | 'navItems'
+>
+
+const GroupContent: React.FC<GroupContentProps> = (props) => {
+  const { dscrpArea: descriptionArea, navItems } = props
+  const { enable, text, links } = descriptionArea || {}
+
   return (
     <div className="grid h-fit w-full grid-cols-12 shadow-xl lg:h-72 lg:w-[600px] lg:shadow-none xl:w-[750px]">
-      <div className="col-span-12 flex flex-col justify-between bg-neutral-950 p-6 lg:col-span-4">
-        <div>
-          <h2 className="mb-2 text-xl font-semibold text-white">About us</h2>
-          <p className="mb-6 max-w-xs text-sm text-neutral-400">
-            Placeholder is the world's leading placeholder company.
-          </p>
+      {/* Description Area */}
+      {enable && (
+        <div className="col-span-12 flex flex-col justify-between bg-neutral-950 p-6 lg:col-span-4">
+          <div>
+            {text && (
+              <RichText
+                data={text}
+                enableGutter={false}
+                className="ml-0 text-left max-w-max select-none text-muted-foreground text-xl prose"
+              />
+            )}
+          </div>
+          {links?.map((link, linkIndex) => (
+            <CMSLink
+              key={linkIndex}
+              label={link.link.label}
+              type={link.link.type}
+              reference={link.link.reference}
+              url={link.link.url}
+              className={cn(
+                'flex items-center flex-row gap-2 w-full leading-none',
+                'transition-all duration-300 ease-out hover:text-indigo-400',
+                'not-prose',
+              )}
+            >
+              <PiArrowUpRightLight className="w-4 h-4" />
+            </CMSLink>
+          ))}
         </div>
-        <a
-          href="#"
-          className="flex items-center gap-1 text-xs text-indigo-300 hover:underline"
-        >
-          Learn more <FiArrowRight />
-        </a>
-      </div>
+      )}
+      {/* navItems */}
       <div className="col-span-12 grid grid-cols-2 grid-rows-2 gap-3 bg-white p-6 lg:col-span-8">
-        <a
-          href="#"
-          className="rounded border-2 border-neutral-200 bg-white p-3 transition-colors hover:bg-neutral-100"
-        >
-          <h3 className="mb-1 font-semibold">Features</h3>
-          <p className="text-xs">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed, quam?
-          </p>
-        </a>
-        <a
-          href="#"
-          className="rounded border-2 border-neutral-200 bg-white p-3 transition-colors hover:bg-neutral-100"
-        >
-          <h3 className="mb-1 font-semibold">Testimonials</h3>
-          <p className="text-xs">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed, quam?
-          </p>
-        </a>
-        <a
-          href="#"
-          className="rounded border-2 border-neutral-200 bg-white p-3 transition-colors hover:bg-neutral-100"
-        >
-          <h3 className="mb-1 font-semibold">Press</h3>
-          <p className="text-xs">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed, quam?
-          </p>
-        </a>
-        <a
-          href="#"
-          className="rounded border-2 border-neutral-200 bg-white p-3 transition-colors hover:bg-neutral-100"
-        >
-          <h3 className="mb-1 font-semibold">Blog</h3>
-          <p className="text-xs">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed, quam?
-          </p>
-        </a>
+        <div>
+          {navItems &&
+            navItems?.map((item, index) => (
+              <div key={index} className="relative">
+                {/* Default Links */}
+                {item.style === 'default' && item.defaultLink && (
+                  <CMSLink
+                    type={item.defaultLink?.link.type}
+                    reference={item.defaultLink?.link.reference}
+                    url={item.defaultLink?.link.url}
+                    label={item.defaultLink?.link.label}
+                    className="rounded border-2 border-neutral-200 bg-white p-3 transition-colors hover:bg-neutral-100 mb-1 font-semibold"
+                  >
+                    <p className="text-xs">{item.defaultLink?.description}</p>
+                    <PiArrowUpRightLight className="w-4 h-4" />
+                  </CMSLink>
+                )}
+
+                {/* List Links */}
+                {item.style === 'list' && item.listLinks && (
+                  <div className="flex flex-col gap-4">
+                    <div className="text-sm text-muted-foreground uppercase tracking-widest prose select-none">
+                      {item.listLinks.tag}
+                    </div>
+                    <div className="flex flex-col gap-4 font-light">
+                      {item.listLinks.links &&
+                        item.listLinks.links.map((link, linkIndex) => (
+                          <CMSLink
+                            key={linkIndex}
+                            {...link.link}
+                            className={cn(
+                              'flex flex-row justify-start items-center gap-2',
+                              'transition-colors duration-300 ease-out focus:decoration-none',
+                              'font-normal hover:text-violet-300 prose leading-none',
+                            )}
+                          >
+                            {link.link?.newTab && link.link?.type === 'custom' && (
+                              <PiArrowUpRightLight className="w-4 h-4" />
+                            )}
+                          </CMSLink>
+                        ))}
+                    </div>
+                  </div>
+                )}
+                {/* Featured Section and Links */}
+                {item.style === 'featured' && item.ftrdLink && (
+                  <div className="flex flex-col gap-4 items-end">
+                    <div className="text-sm m-0 uppercase font-medium tracking-widest select-none text-violet-500 prose">
+                      {item.ftrdLink.tag}
+                    </div>
+                    {item.ftrdLink?.label && (
+                      <RichText
+                        data={item.ftrdLink.label}
+                        enableGutter={false}
+                        className="mr-0 text-right max-w-max select-none text-muted-foreground "
+                      />
+                    )}
+                    <div className="flex flex-row gap-2">
+                      {item.ftrdLink.links &&
+                        item.ftrdLink.links.map((link, linkIndex) => (
+                          <CMSLink
+                            className={cn(
+                              ' flex items-center flex-row gap-2 focus:decoration-none',
+                              'text-muted-foreground hover:text-violet-400 prose',
+                              'transition-all duration-300 ease-out',
+                            )}
+                            key={linkIndex}
+                            {...link.link}
+                          >
+                            <PiArrowUpRightLight className="w-4 h-4" />
+                          </CMSLink>
+                        ))}
+                    </div>
+                  </div>
+                )}
+                {/*  */}
+              </div>
+            ))}
+        </div>
       </div>
     </div>
   )
@@ -212,7 +286,7 @@ const PricingContent = () => {
   )
 }
 
-export const CareersContent = () => {
+const CareersContent = () => {
   return (
     <div className="grid w-full grid-cols-12 shadow-xl lg:w-[750px]">
       <div className="col-span-12 flex flex-col justify-between bg-indigo-600 p-6 lg:col-span-4">
@@ -282,31 +356,3 @@ export const CareersContent = () => {
     </div>
   )
 }
-
-const LINKS = [
-  {
-    text: 'About us',
-    href: 'blog',
-    component: AboutUsContent,
-  },
-  {
-    text: 'Pricing',
-    href: 'contact',
-    component: PricingContent,
-  },
-  {
-    text: 'Careers',
-    href: '#',
-    component: CareersContent,
-  },
-  {
-    text: 'Documentation',
-    href: '#',
-  },
-]
-// First, let's create a mapping between CMS labels and their flyout components
-export const LABEL_TO_FLYOUT_MAP = {
-  Posts: AboutUsContent, // If you want Posts to show the About flyout
-  Contact: PricingContent, // If you want Contact to show the Pricing flyout
-  // Add more mappings as needed
-} as const

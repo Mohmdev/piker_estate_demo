@@ -1,10 +1,10 @@
 import type { MainMenu } from '@payload-types'
 
 export const mainMenuMock: Partial<MainMenu> = {
-  tabs: [
+  navGroups: [
     // Tab 1
     {
-      label: 'Product',
+      groupLabel: 'Product',
       enableDirectLink: true,
       enableDropdown: true,
       link: {
@@ -12,17 +12,87 @@ export const mainMenuMock: Partial<MainMenu> = {
         url: '/use-cases',
         newTab: null,
       },
-      description: 'Simplify your stack and build anything. Or everything.',
-      descriptionLinks: [
-        {
-          link: {
-            type: 'custom',
-            url: '/talk-to-us',
-            label: 'Schedule a Demo',
+      dscrpArea: {
+        enable: true,
+        text: {
+          root: {
+            type: 'root',
+            format: '',
+            indent: 0,
+            version: 1,
+
+            children: [
+              {
+                type: 'paragraph',
+                format: '',
+                indent: 0,
+                version: 1,
+                children: [
+                  {
+                    mode: 'normal',
+                    text: 'Simplify your stack and build ',
+                    type: 'text',
+                    style: '',
+                    detail: 0,
+                    format: 0,
+                    version: 1,
+                  },
+                  {
+                    mode: 'normal',
+                    text: 'anything',
+                    type: 'text',
+                    style: '',
+                    detail: 0,
+                    format: 1,
+                    version: 1,
+                  },
+                  {
+                    mode: 'normal',
+                    text: '. Or ',
+                    type: 'text',
+                    style: '',
+                    detail: 0,
+                    format: 0,
+                    version: 1,
+                  },
+                  {
+                    mode: 'normal',
+                    text: 'everything',
+                    type: 'text',
+                    style: '',
+                    detail: 0,
+                    format: 1,
+                    version: 1,
+                  },
+                  {
+                    mode: 'normal',
+                    text: '.',
+                    type: 'text',
+                    style: '',
+                    detail: 0,
+                    format: 0,
+                    version: 1,
+                  },
+                ],
+                direction: 'ltr',
+                textStyle: '',
+                textFormat: 0,
+              },
+            ],
+            direction: 'ltr',
           },
         },
-      ],
-      items: [
+        links: [
+          {
+            link: {
+              type: 'custom',
+              url: '/talk-to-us',
+              label: 'Schedule a Demo',
+            },
+          },
+        ],
+      },
+      navItems: [
         {
           style: 'list',
           defaultLink: {
@@ -139,32 +209,55 @@ export const mainMenuMock: Partial<MainMenu> = {
             tag: 'CASE STUDIES',
             label: {
               root: {
+                type: 'root',
+                format: '',
+                indent: 0,
+                version: 1,
+
                 children: [
                   {
+                    type: 'paragraph',
+                    format: '',
+                    indent: 0,
+                    version: 1,
+
                     children: [
                       {
+                        mode: 'normal',
+                        text: 'See what others are building with ',
+                        type: 'text',
+                        style: '',
                         detail: 0,
                         format: 0,
+                        version: 1,
+                      },
+
+                      {
                         mode: 'normal',
-                        style: '',
-                        text: 'See what others are building with Payload.',
+                        text: 'Payload',
                         type: 'text',
+                        style: '',
+                        detail: 0,
+                        format: 1,
+                        version: 1,
+                      },
+
+                      {
+                        mode: 'normal',
+                        text: '.',
+                        type: 'text',
+                        style: '',
+                        detail: 0,
+                        format: 0,
                         version: 1,
                       },
                     ],
                     direction: 'ltr',
-                    format: '',
-                    indent: 0,
-                    type: 'heading',
-                    version: 1,
-                    tag: 'h4',
+                    textStyle: '',
+                    textFormat: 0,
                   },
                 ],
                 direction: 'ltr',
-                format: '',
-                indent: 0,
-                type: 'root',
-                version: 1,
               },
             },
             links: [
@@ -185,15 +278,50 @@ export const mainMenuMock: Partial<MainMenu> = {
     },
     // Tab 2
     {
-      label: 'Why Payload',
+      groupLabel: 'Why Payload',
       enableDropdown: true,
       link: {
         type: 'reference',
         reference: null,
       },
-      description: 'Build tomorrow’s web with a modern solution you truly own.',
-      descriptionLinks: [],
-      items: [
+      dscrpArea: {
+        enable: true,
+        text: {
+          root: {
+            type: 'root',
+            format: '',
+            indent: 0,
+            version: 1,
+
+            children: [
+              {
+                type: 'paragraph',
+                format: '',
+                indent: 0,
+                version: 1,
+
+                children: [
+                  {
+                    mode: 'normal',
+                    text: 'Build tomorrow’s web with a modern solution you truly own.',
+                    type: 'text',
+                    style: '',
+                    detail: 0,
+                    format: 0,
+                    version: 1,
+                  },
+                ],
+                direction: 'ltr',
+                textStyle: '',
+                textFormat: 0,
+              },
+            ],
+            direction: 'ltr',
+          },
+        },
+        links: [],
+      },
+      navItems: [
         {
           style: 'list',
           defaultLink: {
@@ -308,32 +436,51 @@ export const mainMenuMock: Partial<MainMenu> = {
             tag: 'AGENCY TESTIMONIAL',
             label: {
               root: {
+                type: 'root',
+                format: '',
+                indent: 0,
+                version: 1,
                 children: [
                   {
+                    type: 'paragraph',
+                    format: '',
+                    indent: 0,
+                    version: 1,
                     children: [
                       {
+                        mode: 'normal',
+                        text: '"',
+                        type: 'text',
+                        style: '',
                         detail: 0,
                         format: 0,
+                        version: 1,
+                      },
+                      {
                         mode: 'normal',
-                        style: '',
-                        text: '"Payload has transformed the way our clients manage content. It\'s an indispensable tool for any modern agency."',
+                        text: 'Payload',
                         type: 'text',
+                        style: '',
+                        detail: 0,
+                        format: 1,
+                        version: 1,
+                      },
+                      {
+                        mode: 'normal',
+                        text: ' has transformed the way our clients manage content. It\'s an indispensable tool for any modern agency."',
+                        type: 'text',
+                        style: '',
+                        detail: 0,
+                        format: 0,
                         version: 1,
                       },
                     ],
                     direction: 'ltr',
-                    format: '',
-                    indent: 0,
-                    type: 'heading',
-                    version: 1,
-                    tag: 'h4',
+                    textStyle: '',
+                    textFormat: 0,
                   },
                 ],
                 direction: 'ltr',
-                format: '',
-                indent: 0,
-                type: 'root',
-                version: 1,
               },
             },
             links: [
@@ -362,17 +509,51 @@ export const mainMenuMock: Partial<MainMenu> = {
     },
     // Tab 3
     {
-      label: 'Developers',
+      groupLabel: 'Developers',
       enableDirectLink: true,
       enableDropdown: true,
       link: {
         type: 'custom',
         url: '/developers',
       },
-      description:
-        'Code-based nature means you can build on top of it to power anything.',
-      descriptionLinks: [],
-      items: [
+      dscrpArea: {
+        enable: true,
+        text: {
+          root: {
+            type: 'root',
+            format: '',
+            indent: 0,
+            version: 1,
+
+            children: [
+              {
+                type: 'paragraph',
+                format: '',
+                indent: 0,
+                version: 1,
+
+                children: [
+                  {
+                    mode: 'normal',
+                    text: 'Code-based nature means you can build on top of it to power anything.',
+                    type: 'text',
+                    style: '',
+                    detail: 0,
+                    format: 0,
+                    version: 1,
+                  },
+                ],
+                direction: 'ltr',
+                textStyle: '',
+                textFormat: 0,
+              },
+            ],
+            direction: 'ltr',
+          },
+        },
+        links: [],
+      },
+      navItems: [
         {
           style: 'list',
           defaultLink: {
@@ -501,31 +682,54 @@ export const mainMenuMock: Partial<MainMenu> = {
             label: {
               root: {
                 type: 'root',
+                format: '',
+                indent: 0,
+                version: 1,
+
                 children: [
                   {
-                    type: 'heading',
+                    type: 'paragraph',
+                    format: '',
+                    indent: 0,
+                    version: 1,
+
                     children: [
                       {
+                        mode: 'normal',
+                        text: 'Deploy your entire stack in one place with ',
                         type: 'text',
+                        style: '',
                         detail: 0,
                         format: 0,
+                        version: 1,
+                      },
+
+                      {
                         mode: 'normal',
+                        text: 'Payload',
+                        type: 'text',
                         style: '',
-                        text: 'Deploy your entire stack in one place with Payload Cloud.',
+                        detail: 0,
+                        format: 1,
+                        version: 1,
+                      },
+
+                      {
+                        mode: 'normal',
+                        text: ' Cloud.',
+                        type: 'text',
+                        style: '',
+                        detail: 0,
+                        format: 0,
                         version: 1,
                       },
                     ],
                     direction: 'ltr',
-                    format: '',
-                    indent: 0,
-                    tag: 'h4',
-                    version: 1,
+                    textStyle: '',
+                    textFormat: 0,
                   },
                 ],
                 direction: 'ltr',
-                format: '',
-                indent: 0,
-                version: 1,
               },
             },
             links: [
@@ -554,24 +758,57 @@ export const mainMenuMock: Partial<MainMenu> = {
     },
     // Tab 4
     {
-      label: 'Enterprise',
+      groupLabel: 'Enterprise',
       enableDirectLink: true,
       enableDropdown: true,
       link: {
         type: 'custom',
-        url: '/enterpr',
+        url: '/enterprise',
       },
-      description: 'It’s time to take back your content infrastructure.',
-      descriptionLinks: [
-        {
-          link: {
-            type: 'custom',
-            url: 'https://demo.payloadcms.com/',
-            label: 'Schedule a Demo',
+      dscrpArea: {
+        enable: true,
+        text: {
+          root: {
+            type: 'root',
+            format: '',
+            indent: 0,
+            version: 1,
+            children: [
+              {
+                type: 'paragraph',
+                format: '',
+                indent: 0,
+                version: 1,
+                children: [
+                  {
+                    mode: 'normal',
+                    text: 'It’s time to take back your content infrastructure.',
+                    type: 'text',
+                    style: '',
+                    detail: 0,
+                    format: 0,
+                    version: 1,
+                  },
+                ],
+                direction: 'ltr',
+                textStyle: '',
+                textFormat: 0,
+              },
+            ],
+            direction: 'ltr',
           },
         },
-      ],
-      items: [
+        links: [
+          {
+            link: {
+              type: 'custom',
+              url: 'https://demo.payloadcms.com/',
+              label: 'Schedule a Demo',
+            },
+          },
+        ],
+      },
+      navItems: [
         // Tab 4 - Item 1
         {
           style: 'list',
@@ -702,31 +939,51 @@ export const mainMenuMock: Partial<MainMenu> = {
             label: {
               root: {
                 type: 'root',
+                format: '',
+                indent: 0,
+                version: 1,
+
                 children: [
                   {
-                    type: 'heading',
+                    type: 'paragraph',
+                    format: '',
+                    indent: 0,
+                    version: 1,
                     children: [
                       {
+                        mode: 'normal',
+                        text: 'Microsoft chose ',
                         type: 'text',
+                        style: '',
                         detail: 0,
                         format: 0,
+                        version: 1,
+                      },
+                      {
                         mode: 'normal',
+                        text: 'Payload',
+                        type: 'text',
                         style: '',
-                        text: 'Microsoft chose Payload to tell the world about AI.',
+                        detail: 0,
+                        format: 1,
+                        version: 1,
+                      },
+                      {
+                        mode: 'normal',
+                        text: ' to tell the world about AI.',
+                        type: 'text',
+                        style: '',
+                        detail: 0,
+                        format: 0,
                         version: 1,
                       },
                     ],
                     direction: 'ltr',
-                    format: '',
-                    indent: 0,
-                    tag: 'h4',
-                    version: 1,
+                    textStyle: '',
+                    textFormat: 0,
                   },
                 ],
                 direction: 'ltr',
-                format: '',
-                indent: 0,
-                version: 1,
               },
             },
             links: [
@@ -754,16 +1011,21 @@ export const mainMenuMock: Partial<MainMenu> = {
     },
     // Tab 5
     {
-      label: 'Docs',
+      groupLabel: 'Docs',
       enableDirectLink: true,
+      enableDropdown: true,
       link: {
         type: 'custom',
         newTab: false,
         reference: null,
         url: '/docs',
       },
-      descriptionLinks: [],
-      items: [
+      dscrpArea: {
+        enable: true,
+        text: null,
+        links: [],
+      },
+      navItems: [
         {
           style: 'featured',
           defaultLink: {

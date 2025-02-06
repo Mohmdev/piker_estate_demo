@@ -38,20 +38,20 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE TYPE "public"."enum_payload_jobs_log_task_slug" AS ENUM('inline', 'schedulePublish');
   CREATE TYPE "public"."enum_payload_jobs_log_state" AS ENUM('failed', 'succeeded');
   CREATE TYPE "public"."enum_payload_jobs_task_slug" AS ENUM('inline', 'schedulePublish');
-  CREATE TYPE "public"."enum_main_menu_tabs_description_links_link_type" AS ENUM('reference', 'custom');
-  CREATE TYPE "public"."enum_main_menu_tabs_items_ftrd_link_links_link_type" AS ENUM('reference', 'custom');
-  CREATE TYPE "public"."enum_main_menu_tabs_items_list_links_links_link_type" AS ENUM('reference', 'custom');
-  CREATE TYPE "public"."enum_main_menu_tabs_items_style" AS ENUM('default', 'featured', 'list');
-  CREATE TYPE "public"."enum_main_menu_tabs_items_default_link_link_type" AS ENUM('reference', 'custom');
-  CREATE TYPE "public"."enum_main_menu_tabs_link_type" AS ENUM('reference', 'custom');
+  CREATE TYPE "public"."enum_navGroups_dscrp_area_links_link_type" AS ENUM('reference', 'custom');
+  CREATE TYPE "public"."enum_navItems_ftrd_link_links_link_type" AS ENUM('reference', 'custom');
+  CREATE TYPE "public"."enum_navItems_list_links_links_link_type" AS ENUM('reference', 'custom');
+  CREATE TYPE "public"."enum_navItems_style" AS ENUM('default', 'featured', 'list');
+  CREATE TYPE "public"."enum_navItems_default_link_link_type" AS ENUM('reference', 'custom');
+  CREATE TYPE "public"."enum_navGroups_link_type" AS ENUM('reference', 'custom');
   CREATE TYPE "public"."enum_main_menu_menu_cta_link_type" AS ENUM('reference', 'custom');
   CREATE TYPE "public"."enum_main_menu_status" AS ENUM('draft', 'published');
-  CREATE TYPE "public"."enum__main_menu_v_version_tabs_description_links_link_type" AS ENUM('reference', 'custom');
-  CREATE TYPE "public"."enum__main_menu_v_version_tabs_items_ftrd_link_links_link_type" AS ENUM('reference', 'custom');
-  CREATE TYPE "public"."enum__main_menu_v_version_tabs_items_list_links_links_link_type" AS ENUM('reference', 'custom');
-  CREATE TYPE "public"."enum__main_menu_v_version_tabs_items_style" AS ENUM('default', 'featured', 'list');
-  CREATE TYPE "public"."enum__main_menu_v_version_tabs_items_default_link_link_type" AS ENUM('reference', 'custom');
-  CREATE TYPE "public"."enum__main_menu_v_version_tabs_link_type" AS ENUM('reference', 'custom');
+  CREATE TYPE "public"."enum__navGroups_v_dscrp_area_links_link_type" AS ENUM('reference', 'custom');
+  CREATE TYPE "public"."enum__navItems_v_ftrd_link_links_link_type" AS ENUM('reference', 'custom');
+  CREATE TYPE "public"."enum__navItems_v_list_links_links_link_type" AS ENUM('reference', 'custom');
+  CREATE TYPE "public"."enum__navItems_v_style" AS ENUM('default', 'featured', 'list');
+  CREATE TYPE "public"."enum__navItems_v_default_link_link_type" AS ENUM('reference', 'custom');
+  CREATE TYPE "public"."enum__navGroups_v_link_type" AS ENUM('reference', 'custom');
   CREATE TYPE "public"."enum__main_menu_v_version_menu_cta_link_type" AS ENUM('reference', 'custom');
   CREATE TYPE "public"."enum__main_menu_v_version_status" AS ENUM('draft', 'published');
   CREATE TYPE "public"."enum_footer_columns_nav_items_link_type" AS ENUM('reference', 'custom');
@@ -980,42 +980,42 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
   );
   
-  CREATE TABLE IF NOT EXISTS "main_menu_tabs_description_links" (
+  CREATE TABLE IF NOT EXISTS "navGroups_dscrp_area_links" (
   	"_order" integer NOT NULL,
   	"_parent_id" varchar NOT NULL,
   	"id" varchar PRIMARY KEY NOT NULL,
-  	"link_type" "enum_main_menu_tabs_description_links_link_type" DEFAULT 'reference',
+  	"link_type" "enum_navGroups_dscrp_area_links_link_type" DEFAULT 'reference',
   	"link_new_tab" boolean,
   	"link_url" varchar,
   	"link_label" varchar
   );
   
-  CREATE TABLE IF NOT EXISTS "main_menu_tabs_items_ftrd_link_links" (
+  CREATE TABLE IF NOT EXISTS "navItems_ftrd_link_links" (
   	"_order" integer NOT NULL,
   	"_parent_id" varchar NOT NULL,
   	"id" varchar PRIMARY KEY NOT NULL,
-  	"link_type" "enum_main_menu_tabs_items_ftrd_link_links_link_type" DEFAULT 'reference',
+  	"link_type" "enum_navItems_ftrd_link_links_link_type" DEFAULT 'reference',
   	"link_new_tab" boolean,
   	"link_url" varchar,
   	"link_label" varchar
   );
   
-  CREATE TABLE IF NOT EXISTS "main_menu_tabs_items_list_links_links" (
+  CREATE TABLE IF NOT EXISTS "navItems_list_links_links" (
   	"_order" integer NOT NULL,
   	"_parent_id" varchar NOT NULL,
   	"id" varchar PRIMARY KEY NOT NULL,
-  	"link_type" "enum_main_menu_tabs_items_list_links_links_link_type" DEFAULT 'reference',
+  	"link_type" "enum_navItems_list_links_links_link_type" DEFAULT 'reference',
   	"link_new_tab" boolean,
   	"link_url" varchar,
   	"link_label" varchar
   );
   
-  CREATE TABLE IF NOT EXISTS "main_menu_tabs_items" (
+  CREATE TABLE IF NOT EXISTS "navItems" (
   	"_order" integer NOT NULL,
   	"_parent_id" varchar NOT NULL,
   	"id" varchar PRIMARY KEY NOT NULL,
-  	"style" "enum_main_menu_tabs_items_style" DEFAULT 'default',
-  	"default_link_link_type" "enum_main_menu_tabs_items_default_link_link_type" DEFAULT 'reference',
+  	"style" "enum_navItems_style" DEFAULT 'default',
+  	"default_link_link_type" "enum_navItems_default_link_link_type" DEFAULT 'reference',
   	"default_link_link_new_tab" boolean,
   	"default_link_link_url" varchar,
   	"default_link_link_label" varchar,
@@ -1025,17 +1025,18 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"list_links_tag" varchar
   );
   
-  CREATE TABLE IF NOT EXISTS "main_menu_tabs" (
+  CREATE TABLE IF NOT EXISTS "navGroups" (
   	"_order" integer NOT NULL,
   	"_parent_id" integer NOT NULL,
   	"id" varchar PRIMARY KEY NOT NULL,
-  	"label" varchar,
+  	"group_label" varchar,
   	"enable_direct_link" boolean,
   	"enable_dropdown" boolean,
-  	"link_type" "enum_main_menu_tabs_link_type" DEFAULT 'reference',
+  	"link_type" "enum_navGroups_link_type" DEFAULT 'reference',
   	"link_new_tab" boolean,
   	"link_url" varchar,
-  	"description" varchar
+  	"dscrp_area_enable" boolean,
+  	"dscrp_area_text" jsonb
   );
   
   CREATE TABLE IF NOT EXISTS "main_menu" (
@@ -1060,45 +1061,45 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"properties_id" integer
   );
   
-  CREATE TABLE IF NOT EXISTS "_main_menu_v_version_tabs_description_links" (
+  CREATE TABLE IF NOT EXISTS "_navGroups_v_dscrp_area_links" (
   	"_order" integer NOT NULL,
   	"_parent_id" integer NOT NULL,
   	"id" serial PRIMARY KEY NOT NULL,
-  	"link_type" "enum__main_menu_v_version_tabs_description_links_link_type" DEFAULT 'reference',
+  	"link_type" "enum__navGroups_v_dscrp_area_links_link_type" DEFAULT 'reference',
   	"link_new_tab" boolean,
   	"link_url" varchar,
   	"link_label" varchar,
   	"_uuid" varchar
   );
   
-  CREATE TABLE IF NOT EXISTS "_main_menu_v_version_tabs_items_ftrd_link_links" (
+  CREATE TABLE IF NOT EXISTS "_navItems_v_ftrd_link_links" (
   	"_order" integer NOT NULL,
   	"_parent_id" integer NOT NULL,
   	"id" serial PRIMARY KEY NOT NULL,
-  	"link_type" "enum__main_menu_v_version_tabs_items_ftrd_link_links_link_type" DEFAULT 'reference',
+  	"link_type" "enum__navItems_v_ftrd_link_links_link_type" DEFAULT 'reference',
   	"link_new_tab" boolean,
   	"link_url" varchar,
   	"link_label" varchar,
   	"_uuid" varchar
   );
   
-  CREATE TABLE IF NOT EXISTS "_main_menu_v_version_tabs_items_list_links_links" (
+  CREATE TABLE IF NOT EXISTS "_navItems_v_list_links_links" (
   	"_order" integer NOT NULL,
   	"_parent_id" integer NOT NULL,
   	"id" serial PRIMARY KEY NOT NULL,
-  	"link_type" "enum__main_menu_v_version_tabs_items_list_links_links_link_type" DEFAULT 'reference',
+  	"link_type" "enum__navItems_v_list_links_links_link_type" DEFAULT 'reference',
   	"link_new_tab" boolean,
   	"link_url" varchar,
   	"link_label" varchar,
   	"_uuid" varchar
   );
   
-  CREATE TABLE IF NOT EXISTS "_main_menu_v_version_tabs_items" (
+  CREATE TABLE IF NOT EXISTS "_navItems_v" (
   	"_order" integer NOT NULL,
   	"_parent_id" integer NOT NULL,
   	"id" serial PRIMARY KEY NOT NULL,
-  	"style" "enum__main_menu_v_version_tabs_items_style" DEFAULT 'default',
-  	"default_link_link_type" "enum__main_menu_v_version_tabs_items_default_link_link_type" DEFAULT 'reference',
+  	"style" "enum__navItems_v_style" DEFAULT 'default',
+  	"default_link_link_type" "enum__navItems_v_default_link_link_type" DEFAULT 'reference',
   	"default_link_link_new_tab" boolean,
   	"default_link_link_url" varchar,
   	"default_link_link_label" varchar,
@@ -1109,17 +1110,18 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"_uuid" varchar
   );
   
-  CREATE TABLE IF NOT EXISTS "_main_menu_v_version_tabs" (
+  CREATE TABLE IF NOT EXISTS "_navGroups_v" (
   	"_order" integer NOT NULL,
   	"_parent_id" integer NOT NULL,
   	"id" serial PRIMARY KEY NOT NULL,
-  	"label" varchar,
+  	"group_label" varchar,
   	"enable_direct_link" boolean,
   	"enable_dropdown" boolean,
-  	"link_type" "enum__main_menu_v_version_tabs_link_type" DEFAULT 'reference',
+  	"link_type" "enum__navGroups_v_link_type" DEFAULT 'reference',
   	"link_new_tab" boolean,
   	"link_url" varchar,
-  	"description" varchar,
+  	"dscrp_area_enable" boolean,
+  	"dscrp_area_text" jsonb,
   	"_uuid" varchar
   );
   
@@ -2004,31 +2006,31 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   END $$;
   
   DO $$ BEGIN
-   ALTER TABLE "main_menu_tabs_description_links" ADD CONSTRAINT "main_menu_tabs_description_links_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."main_menu_tabs"("id") ON DELETE cascade ON UPDATE no action;
+   ALTER TABLE "navGroups_dscrp_area_links" ADD CONSTRAINT "navGroups_dscrp_area_links_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."navGroups"("id") ON DELETE cascade ON UPDATE no action;
   EXCEPTION
    WHEN duplicate_object THEN null;
   END $$;
   
   DO $$ BEGIN
-   ALTER TABLE "main_menu_tabs_items_ftrd_link_links" ADD CONSTRAINT "main_menu_tabs_items_ftrd_link_links_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."main_menu_tabs_items"("id") ON DELETE cascade ON UPDATE no action;
+   ALTER TABLE "navItems_ftrd_link_links" ADD CONSTRAINT "navItems_ftrd_link_links_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."navItems"("id") ON DELETE cascade ON UPDATE no action;
   EXCEPTION
    WHEN duplicate_object THEN null;
   END $$;
   
   DO $$ BEGIN
-   ALTER TABLE "main_menu_tabs_items_list_links_links" ADD CONSTRAINT "main_menu_tabs_items_list_links_links_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."main_menu_tabs_items"("id") ON DELETE cascade ON UPDATE no action;
+   ALTER TABLE "navItems_list_links_links" ADD CONSTRAINT "navItems_list_links_links_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."navItems"("id") ON DELETE cascade ON UPDATE no action;
   EXCEPTION
    WHEN duplicate_object THEN null;
   END $$;
   
   DO $$ BEGIN
-   ALTER TABLE "main_menu_tabs_items" ADD CONSTRAINT "main_menu_tabs_items_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."main_menu_tabs"("id") ON DELETE cascade ON UPDATE no action;
+   ALTER TABLE "navItems" ADD CONSTRAINT "navItems_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."navGroups"("id") ON DELETE cascade ON UPDATE no action;
   EXCEPTION
    WHEN duplicate_object THEN null;
   END $$;
   
   DO $$ BEGIN
-   ALTER TABLE "main_menu_tabs" ADD CONSTRAINT "main_menu_tabs_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."main_menu"("id") ON DELETE cascade ON UPDATE no action;
+   ALTER TABLE "navGroups" ADD CONSTRAINT "navGroups_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."main_menu"("id") ON DELETE cascade ON UPDATE no action;
   EXCEPTION
    WHEN duplicate_object THEN null;
   END $$;
@@ -2058,31 +2060,31 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   END $$;
   
   DO $$ BEGIN
-   ALTER TABLE "_main_menu_v_version_tabs_description_links" ADD CONSTRAINT "_main_menu_v_version_tabs_description_links_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_main_menu_v_version_tabs"("id") ON DELETE cascade ON UPDATE no action;
+   ALTER TABLE "_navGroups_v_dscrp_area_links" ADD CONSTRAINT "_navGroups_v_dscrp_area_links_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_navGroups_v"("id") ON DELETE cascade ON UPDATE no action;
   EXCEPTION
    WHEN duplicate_object THEN null;
   END $$;
   
   DO $$ BEGIN
-   ALTER TABLE "_main_menu_v_version_tabs_items_ftrd_link_links" ADD CONSTRAINT "_main_menu_v_version_tabs_items_ftrd_link_links_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_main_menu_v_version_tabs_items"("id") ON DELETE cascade ON UPDATE no action;
+   ALTER TABLE "_navItems_v_ftrd_link_links" ADD CONSTRAINT "_navItems_v_ftrd_link_links_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_navItems_v"("id") ON DELETE cascade ON UPDATE no action;
   EXCEPTION
    WHEN duplicate_object THEN null;
   END $$;
   
   DO $$ BEGIN
-   ALTER TABLE "_main_menu_v_version_tabs_items_list_links_links" ADD CONSTRAINT "_main_menu_v_version_tabs_items_list_links_links_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_main_menu_v_version_tabs_items"("id") ON DELETE cascade ON UPDATE no action;
+   ALTER TABLE "_navItems_v_list_links_links" ADD CONSTRAINT "_navItems_v_list_links_links_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_navItems_v"("id") ON DELETE cascade ON UPDATE no action;
   EXCEPTION
    WHEN duplicate_object THEN null;
   END $$;
   
   DO $$ BEGIN
-   ALTER TABLE "_main_menu_v_version_tabs_items" ADD CONSTRAINT "_main_menu_v_version_tabs_items_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_main_menu_v_version_tabs"("id") ON DELETE cascade ON UPDATE no action;
+   ALTER TABLE "_navItems_v" ADD CONSTRAINT "_navItems_v_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_navGroups_v"("id") ON DELETE cascade ON UPDATE no action;
   EXCEPTION
    WHEN duplicate_object THEN null;
   END $$;
   
   DO $$ BEGIN
-   ALTER TABLE "_main_menu_v_version_tabs" ADD CONSTRAINT "_main_menu_v_version_tabs_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_main_menu_v"("id") ON DELETE cascade ON UPDATE no action;
+   ALTER TABLE "_navGroups_v" ADD CONSTRAINT "_navGroups_v_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_main_menu_v"("id") ON DELETE cascade ON UPDATE no action;
   EXCEPTION
    WHEN duplicate_object THEN null;
   END $$;
@@ -2521,16 +2523,16 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX IF NOT EXISTS "payload_preferences_rels_users_id_idx" ON "payload_preferences_rels" USING btree ("users_id");
   CREATE INDEX IF NOT EXISTS "payload_migrations_updated_at_idx" ON "payload_migrations" USING btree ("updated_at");
   CREATE INDEX IF NOT EXISTS "payload_migrations_created_at_idx" ON "payload_migrations" USING btree ("created_at");
-  CREATE INDEX IF NOT EXISTS "main_menu_tabs_description_links_order_idx" ON "main_menu_tabs_description_links" USING btree ("_order");
-  CREATE INDEX IF NOT EXISTS "main_menu_tabs_description_links_parent_id_idx" ON "main_menu_tabs_description_links" USING btree ("_parent_id");
-  CREATE INDEX IF NOT EXISTS "main_menu_tabs_items_ftrd_link_links_order_idx" ON "main_menu_tabs_items_ftrd_link_links" USING btree ("_order");
-  CREATE INDEX IF NOT EXISTS "main_menu_tabs_items_ftrd_link_links_parent_id_idx" ON "main_menu_tabs_items_ftrd_link_links" USING btree ("_parent_id");
-  CREATE INDEX IF NOT EXISTS "main_menu_tabs_items_list_links_links_order_idx" ON "main_menu_tabs_items_list_links_links" USING btree ("_order");
-  CREATE INDEX IF NOT EXISTS "main_menu_tabs_items_list_links_links_parent_id_idx" ON "main_menu_tabs_items_list_links_links" USING btree ("_parent_id");
-  CREATE INDEX IF NOT EXISTS "main_menu_tabs_items_order_idx" ON "main_menu_tabs_items" USING btree ("_order");
-  CREATE INDEX IF NOT EXISTS "main_menu_tabs_items_parent_id_idx" ON "main_menu_tabs_items" USING btree ("_parent_id");
-  CREATE INDEX IF NOT EXISTS "main_menu_tabs_order_idx" ON "main_menu_tabs" USING btree ("_order");
-  CREATE INDEX IF NOT EXISTS "main_menu_tabs_parent_id_idx" ON "main_menu_tabs" USING btree ("_parent_id");
+  CREATE INDEX IF NOT EXISTS "navGroups_dscrp_area_links_order_idx" ON "navGroups_dscrp_area_links" USING btree ("_order");
+  CREATE INDEX IF NOT EXISTS "navGroups_dscrp_area_links_parent_id_idx" ON "navGroups_dscrp_area_links" USING btree ("_parent_id");
+  CREATE INDEX IF NOT EXISTS "navItems_ftrd_link_links_order_idx" ON "navItems_ftrd_link_links" USING btree ("_order");
+  CREATE INDEX IF NOT EXISTS "navItems_ftrd_link_links_parent_id_idx" ON "navItems_ftrd_link_links" USING btree ("_parent_id");
+  CREATE INDEX IF NOT EXISTS "navItems_list_links_links_order_idx" ON "navItems_list_links_links" USING btree ("_order");
+  CREATE INDEX IF NOT EXISTS "navItems_list_links_links_parent_id_idx" ON "navItems_list_links_links" USING btree ("_parent_id");
+  CREATE INDEX IF NOT EXISTS "navItems_order_idx" ON "navItems" USING btree ("_order");
+  CREATE INDEX IF NOT EXISTS "navItems_parent_id_idx" ON "navItems" USING btree ("_parent_id");
+  CREATE INDEX IF NOT EXISTS "navGroups_order_idx" ON "navGroups" USING btree ("_order");
+  CREATE INDEX IF NOT EXISTS "navGroups_parent_id_idx" ON "navGroups" USING btree ("_parent_id");
   CREATE INDEX IF NOT EXISTS "main_menu__status_idx" ON "main_menu" USING btree ("_status");
   CREATE INDEX IF NOT EXISTS "main_menu_rels_order_idx" ON "main_menu_rels" USING btree ("order");
   CREATE INDEX IF NOT EXISTS "main_menu_rels_parent_idx" ON "main_menu_rels" USING btree ("parent_id");
@@ -2538,16 +2540,16 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX IF NOT EXISTS "main_menu_rels_pages_id_idx" ON "main_menu_rels" USING btree ("pages_id");
   CREATE INDEX IF NOT EXISTS "main_menu_rels_posts_id_idx" ON "main_menu_rels" USING btree ("posts_id");
   CREATE INDEX IF NOT EXISTS "main_menu_rels_properties_id_idx" ON "main_menu_rels" USING btree ("properties_id");
-  CREATE INDEX IF NOT EXISTS "_main_menu_v_version_tabs_description_links_order_idx" ON "_main_menu_v_version_tabs_description_links" USING btree ("_order");
-  CREATE INDEX IF NOT EXISTS "_main_menu_v_version_tabs_description_links_parent_id_idx" ON "_main_menu_v_version_tabs_description_links" USING btree ("_parent_id");
-  CREATE INDEX IF NOT EXISTS "_main_menu_v_version_tabs_items_ftrd_link_links_order_idx" ON "_main_menu_v_version_tabs_items_ftrd_link_links" USING btree ("_order");
-  CREATE INDEX IF NOT EXISTS "_main_menu_v_version_tabs_items_ftrd_link_links_parent_id_idx" ON "_main_menu_v_version_tabs_items_ftrd_link_links" USING btree ("_parent_id");
-  CREATE INDEX IF NOT EXISTS "_main_menu_v_version_tabs_items_list_links_links_order_idx" ON "_main_menu_v_version_tabs_items_list_links_links" USING btree ("_order");
-  CREATE INDEX IF NOT EXISTS "_main_menu_v_version_tabs_items_list_links_links_parent_id_idx" ON "_main_menu_v_version_tabs_items_list_links_links" USING btree ("_parent_id");
-  CREATE INDEX IF NOT EXISTS "_main_menu_v_version_tabs_items_order_idx" ON "_main_menu_v_version_tabs_items" USING btree ("_order");
-  CREATE INDEX IF NOT EXISTS "_main_menu_v_version_tabs_items_parent_id_idx" ON "_main_menu_v_version_tabs_items" USING btree ("_parent_id");
-  CREATE INDEX IF NOT EXISTS "_main_menu_v_version_tabs_order_idx" ON "_main_menu_v_version_tabs" USING btree ("_order");
-  CREATE INDEX IF NOT EXISTS "_main_menu_v_version_tabs_parent_id_idx" ON "_main_menu_v_version_tabs" USING btree ("_parent_id");
+  CREATE INDEX IF NOT EXISTS "_navGroups_v_dscrp_area_links_order_idx" ON "_navGroups_v_dscrp_area_links" USING btree ("_order");
+  CREATE INDEX IF NOT EXISTS "_navGroups_v_dscrp_area_links_parent_id_idx" ON "_navGroups_v_dscrp_area_links" USING btree ("_parent_id");
+  CREATE INDEX IF NOT EXISTS "_navItems_v_ftrd_link_links_order_idx" ON "_navItems_v_ftrd_link_links" USING btree ("_order");
+  CREATE INDEX IF NOT EXISTS "_navItems_v_ftrd_link_links_parent_id_idx" ON "_navItems_v_ftrd_link_links" USING btree ("_parent_id");
+  CREATE INDEX IF NOT EXISTS "_navItems_v_list_links_links_order_idx" ON "_navItems_v_list_links_links" USING btree ("_order");
+  CREATE INDEX IF NOT EXISTS "_navItems_v_list_links_links_parent_id_idx" ON "_navItems_v_list_links_links" USING btree ("_parent_id");
+  CREATE INDEX IF NOT EXISTS "_navItems_v_order_idx" ON "_navItems_v" USING btree ("_order");
+  CREATE INDEX IF NOT EXISTS "_navItems_v_parent_id_idx" ON "_navItems_v" USING btree ("_parent_id");
+  CREATE INDEX IF NOT EXISTS "_navGroups_v_order_idx" ON "_navGroups_v" USING btree ("_order");
+  CREATE INDEX IF NOT EXISTS "_navGroups_v_parent_id_idx" ON "_navGroups_v" USING btree ("_parent_id");
   CREATE INDEX IF NOT EXISTS "_main_menu_v_version_version__status_idx" ON "_main_menu_v" USING btree ("version__status");
   CREATE INDEX IF NOT EXISTS "_main_menu_v_created_at_idx" ON "_main_menu_v" USING btree ("created_at");
   CREATE INDEX IF NOT EXISTS "_main_menu_v_updated_at_idx" ON "_main_menu_v" USING btree ("updated_at");
@@ -2662,18 +2664,18 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   DROP TABLE "payload_preferences" CASCADE;
   DROP TABLE "payload_preferences_rels" CASCADE;
   DROP TABLE "payload_migrations" CASCADE;
-  DROP TABLE "main_menu_tabs_description_links" CASCADE;
-  DROP TABLE "main_menu_tabs_items_ftrd_link_links" CASCADE;
-  DROP TABLE "main_menu_tabs_items_list_links_links" CASCADE;
-  DROP TABLE "main_menu_tabs_items" CASCADE;
-  DROP TABLE "main_menu_tabs" CASCADE;
+  DROP TABLE "navGroups_dscrp_area_links" CASCADE;
+  DROP TABLE "navItems_ftrd_link_links" CASCADE;
+  DROP TABLE "navItems_list_links_links" CASCADE;
+  DROP TABLE "navItems" CASCADE;
+  DROP TABLE "navGroups" CASCADE;
   DROP TABLE "main_menu" CASCADE;
   DROP TABLE "main_menu_rels" CASCADE;
-  DROP TABLE "_main_menu_v_version_tabs_description_links" CASCADE;
-  DROP TABLE "_main_menu_v_version_tabs_items_ftrd_link_links" CASCADE;
-  DROP TABLE "_main_menu_v_version_tabs_items_list_links_links" CASCADE;
-  DROP TABLE "_main_menu_v_version_tabs_items" CASCADE;
-  DROP TABLE "_main_menu_v_version_tabs" CASCADE;
+  DROP TABLE "_navGroups_v_dscrp_area_links" CASCADE;
+  DROP TABLE "_navItems_v_ftrd_link_links" CASCADE;
+  DROP TABLE "_navItems_v_list_links_links" CASCADE;
+  DROP TABLE "_navItems_v" CASCADE;
+  DROP TABLE "_navGroups_v" CASCADE;
   DROP TABLE "_main_menu_v" CASCADE;
   DROP TABLE "_main_menu_v_rels" CASCADE;
   DROP TABLE "footer_columns_nav_items" CASCADE;
@@ -2721,20 +2723,20 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   DROP TYPE "public"."enum_payload_jobs_log_task_slug";
   DROP TYPE "public"."enum_payload_jobs_log_state";
   DROP TYPE "public"."enum_payload_jobs_task_slug";
-  DROP TYPE "public"."enum_main_menu_tabs_description_links_link_type";
-  DROP TYPE "public"."enum_main_menu_tabs_items_ftrd_link_links_link_type";
-  DROP TYPE "public"."enum_main_menu_tabs_items_list_links_links_link_type";
-  DROP TYPE "public"."enum_main_menu_tabs_items_style";
-  DROP TYPE "public"."enum_main_menu_tabs_items_default_link_link_type";
-  DROP TYPE "public"."enum_main_menu_tabs_link_type";
+  DROP TYPE "public"."enum_navGroups_dscrp_area_links_link_type";
+  DROP TYPE "public"."enum_navItems_ftrd_link_links_link_type";
+  DROP TYPE "public"."enum_navItems_list_links_links_link_type";
+  DROP TYPE "public"."enum_navItems_style";
+  DROP TYPE "public"."enum_navItems_default_link_link_type";
+  DROP TYPE "public"."enum_navGroups_link_type";
   DROP TYPE "public"."enum_main_menu_menu_cta_link_type";
   DROP TYPE "public"."enum_main_menu_status";
-  DROP TYPE "public"."enum__main_menu_v_version_tabs_description_links_link_type";
-  DROP TYPE "public"."enum__main_menu_v_version_tabs_items_ftrd_link_links_link_type";
-  DROP TYPE "public"."enum__main_menu_v_version_tabs_items_list_links_links_link_type";
-  DROP TYPE "public"."enum__main_menu_v_version_tabs_items_style";
-  DROP TYPE "public"."enum__main_menu_v_version_tabs_items_default_link_link_type";
-  DROP TYPE "public"."enum__main_menu_v_version_tabs_link_type";
+  DROP TYPE "public"."enum__navGroups_v_dscrp_area_links_link_type";
+  DROP TYPE "public"."enum__navItems_v_ftrd_link_links_link_type";
+  DROP TYPE "public"."enum__navItems_v_list_links_links_link_type";
+  DROP TYPE "public"."enum__navItems_v_style";
+  DROP TYPE "public"."enum__navItems_v_default_link_link_type";
+  DROP TYPE "public"."enum__navGroups_v_link_type";
   DROP TYPE "public"."enum__main_menu_v_version_menu_cta_link_type";
   DROP TYPE "public"."enum__main_menu_v_version_status";
   DROP TYPE "public"."enum_footer_columns_nav_items_link_type";

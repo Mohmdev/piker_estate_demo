@@ -19,8 +19,8 @@ import { BlocksFeatureClient as BlocksFeatureClient_e70f5e05f09f93e00b997edb1ef0
 import { DbInteractionZone as DbInteractionZone_491139b755bae3c2445e10f9ec001318 } from '@auth/db-interaction-zone/Component'
 import { LinkToDoc as LinkToDoc_aead06e4cbf6b2620c5c51c9ab283634 } from '@payloadcms/plugin-search/client'
 import { ReindexButton as ReindexButton_aead06e4cbf6b2620c5c51c9ab283634 } from '@payloadcms/plugin-search/client'
-import { ItemsRowLabel as ItemsRowLabel_023d90d9b692b0a0cfaa8fe6fd1d0e5d } from '@CMS/design/MainMenu/ItemsRowLabel'
-import { TabsRowLabel as TabsRowLabel_194a223d66fc7ed6290fe556e7b56262 } from '@CMS/design/MainMenu/TabsRowLabel'
+import { NavItemRowLabel as NavItemRowLabel_89630d85da8118b8e772cd055f9d4c52 } from '@CMS/design/MainMenu/NavItemRowLabel'
+import { NavGroupRowLabel as NavGroupRowLabel_f94ce73936521f063d446a42c84fc876 } from '@CMS/design/MainMenu/NavGroupRowLabel'
 import { FooterRowLabel as FooterRowLabel_3a8bec73fa75f7b1bb5851ec19ba70da } from '@CMS/design/Footer/FooterRowLabel'
 import { default as default_e6933a128dbf8190926ab0f5d1447c3d } from '@services/admin/AdminAvatar'
 import { NavbarLogo as NavbarLogo_6079976f3e2ff43eeff27beac4efdd62 } from '@services/admin/DynamicLogo'
@@ -48,8 +48,8 @@ export const importMap = {
   "@auth/db-interaction-zone/Component#DbInteractionZone": DbInteractionZone_491139b755bae3c2445e10f9ec001318,
   "@payloadcms/plugin-search/client#LinkToDoc": LinkToDoc_aead06e4cbf6b2620c5c51c9ab283634,
   "@payloadcms/plugin-search/client#ReindexButton": ReindexButton_aead06e4cbf6b2620c5c51c9ab283634,
-  "@CMS/design/MainMenu/ItemsRowLabel#ItemsRowLabel": ItemsRowLabel_023d90d9b692b0a0cfaa8fe6fd1d0e5d,
-  "@CMS/design/MainMenu/TabsRowLabel#TabsRowLabel": TabsRowLabel_194a223d66fc7ed6290fe556e7b56262,
+  "@CMS/design/MainMenu/NavItemRowLabel#NavItemRowLabel": NavItemRowLabel_89630d85da8118b8e772cd055f9d4c52,
+  "@CMS/design/MainMenu/NavGroupRowLabel#NavGroupRowLabel": NavGroupRowLabel_f94ce73936521f063d446a42c84fc876,
   "@CMS/design/Footer/FooterRowLabel#FooterRowLabel": FooterRowLabel_3a8bec73fa75f7b1bb5851ec19ba70da,
   "@services/admin/AdminAvatar#default": default_e6933a128dbf8190926ab0f5d1447c3d,
   "@services/admin/DynamicLogo#NavbarLogo": NavbarLogo_6079976f3e2ff43eeff27beac4efdd62,

@@ -45,7 +45,7 @@ export async function clearDBScript({
               return { columns: [] } as unknown as Footer
             case 'main-menu':
               return {
-                tabs: [],
+                navGroups: [],
                 menuCta: {
                   enableCta: false, // has to be manually set to false
                   link: {},
@@ -87,12 +87,8 @@ export async function clearDBScript({
 
     await Promise.all(
       collections
-        .filter((collection) =>
-          Boolean(payload.collections[collection].config.versions),
-        )
-        .map((collection) =>
-          payload.db.deleteVersions({ collection, req, where: {} }),
-        ),
+        .filter((collection) => Boolean(payload.collections[collection].config.versions))
+        .map((collection) => payload.db.deleteVersions({ collection, req, where: {} })),
     )
 
     payload.logger.info('✓ Successfully cleared all data')

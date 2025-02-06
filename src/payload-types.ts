@@ -2227,10 +2227,16 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface MainMenu {
   id: number;
-  tabs?:
+  navGroups?:
     | {
-        label: string;
+        groupLabel: string;
+        /**
+         * If enabled, this group will link directly to the provided URL.
+         */
         enableDirectLink?: boolean | null;
+        /**
+         * If enabled, this group will display a dropdown menu with multiple options & links.
+         */
         enableDropdown?: boolean | null;
         link?: {
           type?: ('reference' | 'custom') | null;
@@ -2250,32 +2256,58 @@ export interface MainMenu {
               } | null);
           url?: string | null;
         };
-        description?: string | null;
-        descriptionLinks?:
-          | {
-              link: {
-                type?: ('reference' | 'custom') | null;
-                newTab?: boolean | null;
-                reference?:
-                  | ({
-                      relationTo: 'pages';
-                      value: number | Page;
-                    } | null)
-                  | ({
-                      relationTo: 'posts';
-                      value: number | Post;
-                    } | null)
-                  | ({
-                      relationTo: 'properties';
-                      value: number | Property;
-                    } | null);
-                url?: string | null;
-                label: string;
-              };
-              id?: string | null;
-            }[]
-          | null;
-        items?:
+        dscrpArea?: {
+          /**
+           * If enabled, this group will display a dropdown menu with multiple options & links.
+           */
+          enable?: boolean | null;
+          /**
+           * Describe the group and its contents.
+           */
+          text?: {
+            root: {
+              type: string;
+              children: {
+                type: string;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
+            [k: string]: unknown;
+          } | null;
+          /**
+           * Add links inside the description area.
+           */
+          links?:
+            | {
+                link: {
+                  type?: ('reference' | 'custom') | null;
+                  newTab?: boolean | null;
+                  reference?:
+                    | ({
+                        relationTo: 'pages';
+                        value: number | Page;
+                      } | null)
+                    | ({
+                        relationTo: 'posts';
+                        value: number | Post;
+                      } | null)
+                    | ({
+                        relationTo: 'properties';
+                        value: number | Property;
+                      } | null);
+                  url?: string | null;
+                  label: string;
+                };
+                id?: string | null;
+              }[]
+            | null;
+        };
+        navItems?:
           | {
               style?: ('default' | 'featured' | 'list') | null;
               defaultLink?: {
@@ -2495,10 +2527,10 @@ export interface GlobalSetting {
  * via the `definition` "main-menu_select".
  */
 export interface MainMenuSelect<T extends boolean = true> {
-  tabs?:
+  navGroups?:
     | T
     | {
-        label?: T;
+        groupLabel?: T;
         enableDirectLink?: T;
         enableDropdown?: T;
         link?:
@@ -2509,22 +2541,27 @@ export interface MainMenuSelect<T extends boolean = true> {
               reference?: T;
               url?: T;
             };
-        description?: T;
-        descriptionLinks?:
+        dscrpArea?:
           | T
           | {
-              link?:
+              enable?: T;
+              text?: T;
+              links?:
                 | T
                 | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    label?: T;
+                    link?:
+                      | T
+                      | {
+                          type?: T;
+                          newTab?: T;
+                          reference?: T;
+                          url?: T;
+                          label?: T;
+                        };
+                    id?: T;
                   };
-              id?: T;
             };
-        items?:
+        navItems?:
           | T
           | {
               style?: T;

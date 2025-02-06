@@ -2,6 +2,7 @@ import { revalidateMainMenu } from '@CMS/_hooks/revalidateMainMenu'
 import { isAdminOrEditor } from '@auth/access/isAdminOrEditor'
 import { publishedOnly } from '@auth/access/publishedOnly'
 import { link } from '@fields/link'
+import { essentialsLexical } from '@services/editor/essentialsLexical'
 import { getGlobalLivePreviewURL } from '@services/live-preview/getGlobalLivePreviewURL'
 import { getGlobalPreviewURL } from '@services/live-preview/getGlobalPreviewURL'
 import type { GlobalConfig } from 'payload'
@@ -20,18 +21,22 @@ export const MainMenu: GlobalConfig = {
   },
   fields: [
     {
-      label: 'Navigation Groups',
-      name: 'tabs',
+      labels: {
+        singular: 'Navigation Group',
+        plural: 'Navigation Groups',
+      },
+      name: 'navGroups',
+      dbName: 'navGroups',
       type: 'array',
       admin: {
         components: {
-          RowLabel: '@CMS/design/MainMenu/TabsRowLabel#TabsRowLabel',
+          RowLabel: '@CMS/design/MainMenu/NavGroupRowLabel#NavGroupRowLabel',
         },
         initCollapsed: true,
       },
       fields: [
         {
-          name: 'label',
+          name: 'groupLabel',
           type: 'text',
           required: true,
         },
@@ -41,10 +46,18 @@ export const MainMenu: GlobalConfig = {
             {
               name: 'enableDirectLink',
               type: 'checkbox',
+              admin: {
+                description:
+                  'If enabled, this group will link directly to the provided URL.',
+              },
             },
             {
               name: 'enableDropdown',
               type: 'checkbox',
+              admin: {
+                description:
+                  'If enabled, this group will display a dropdown menu with multiple options & links.',
+              },
             },
           ],
         },
@@ -62,33 +75,75 @@ export const MainMenu: GlobalConfig = {
           label: 'Direct Link',
         },
         {
+          // Dropdown Config collapible
           type: 'collapsible',
           admin: {
             condition: (_, siblingData) => siblingData.enableDropdown,
           },
           fields: [
             {
-              name: 'description',
-              type: 'textarea',
-            },
-            {
-              name: 'descriptionLinks',
-              type: 'array',
+              name: 'dscrpArea',
+              label: 'Description Area',
+              type: 'group',
               fields: [
-                link({
-                  appearances: false,
-                  overrides: {
-                    label: false,
+                {
+                  name: 'enable',
+                  type: 'checkbox',
+                  admin: {
+                    description:
+                      'If enabled, this group will display a dropdown menu with multiple options & links.',
                   },
-                }),
+                },
+                {
+                  type: 'collapsible',
+                  label: 'Customize',
+                  admin: {
+                    condition: (_, siblingData) => siblingData.enableDescriptionArea,
+                  },
+                  fields: [
+                    {
+                      name: 'text',
+                      label: 'Group Description Area',
+                      type: 'richText',
+                      editor: essentialsLexical,
+                      admin: {
+                        description: 'Describe the group and its contents.',
+                      },
+                    },
+                    {
+                      name: 'links',
+                      labels: {
+                        singular: 'Additonal Link',
+                        plural: 'Additonal Links',
+                      },
+                      type: 'array',
+                      fields: [
+                        link({
+                          appearances: false,
+                          overrides: {
+                            label: false,
+                          },
+                        }),
+                      ],
+                      admin: {
+                        description: 'Add links inside the description area.',
+                      },
+                    },
+                  ],
+                },
               ],
             },
             {
-              name: 'items',
+              name: 'navItems',
+              dbName: 'navItems',
+              labels: {
+                singular: 'Navigation Item',
+                plural: 'Navigation Items',
+              },
               type: 'array',
               admin: {
                 components: {
-                  RowLabel: '@CMS/design/MainMenu/ItemsRowLabel#ItemsRowLabel',
+                  RowLabel: '@CMS/design/MainMenu/NavItemRowLabel#NavItemRowLabel',
                 },
               },
               fields: [
@@ -113,10 +168,10 @@ export const MainMenu: GlobalConfig = {
                 },
                 {
                   name: 'defaultLink',
+                  label: 'Default Link',
                   type: 'group',
                   admin: {
-                    condition: (_, siblingData) =>
-                      siblingData.style === 'default',
+                    condition: (_, siblingData) => siblingData.style === 'default',
                   },
                   fields: [
                     link({
@@ -136,8 +191,7 @@ export const MainMenu: GlobalConfig = {
                   label: 'Featured Link',
                   type: 'group',
                   admin: {
-                    condition: (_, siblingData) =>
-                      siblingData.style === 'featured',
+                    condition: (_, siblingData) => siblingData.style === 'featured',
                   },
                   fields: [
                     {
@@ -147,9 +201,14 @@ export const MainMenu: GlobalConfig = {
                     {
                       name: 'label',
                       type: 'richText',
+                      editor: essentialsLexical,
                     },
                     {
                       name: 'links',
+                      labels: {
+                        singular: 'Additional Link',
+                        plural: 'Additional Links',
+                      },
                       type: 'array',
                       fields: [
                         link({
@@ -175,6 +234,10 @@ export const MainMenu: GlobalConfig = {
                     },
                     {
                       name: 'links',
+                      labels: {
+                        singular: 'List Link',
+                        plural: 'List Links',
+                      },
                       type: 'array',
                       fields: [
                         link({

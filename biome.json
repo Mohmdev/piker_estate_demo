@@ -1,7 +1,10 @@
 {
   "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
-  "vcs": { "enabled": false, "clientKind": "git", "useIgnoreFile": false },
-  "files": { "ignoreUnknown": false, "ignore": [] },
+  "vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true },
+  "files": {
+    "ignoreUnknown": false,
+    "ignore": []
+  },
   "formatter": {
     "enabled": true,
     "useEditorconfig": true,
@@ -9,8 +12,8 @@
     "indentStyle": "space",
     "indentWidth": 2,
     "lineEnding": "lf",
-    "lineWidth": 80,
-    "attributePosition": "auto",
+    "lineWidth": 90,
+    "attributePosition": "multiline",
     "bracketSpacing": true,
     "ignore": [
       "**/payload-types.ts",
@@ -23,14 +26,31 @@
       "**/build",
       "**/dist/**",
       "**/node_modules",
-      "**/temp",
       "src/services/database/migrations/**/*",
-      "src/app/(payload)/**/*.{js,jsx,ts,tsx,json,md}",
+      "src/app/(payload)/**/*",
       "**/pnpm-lock.yaml",
       "**/package-lock.json"
     ]
   },
-  "organizeImports": { "enabled": true },
+  "organizeImports": {
+    "enabled": true,
+    "ignore": [
+      "**/payload-types.ts",
+      "**/.tmp",
+      "**/.git",
+      "**/.hg",
+      "**/.pnp.*",
+      "**/.svn",
+      "**/.yarn/**",
+      "**/build",
+      "**/dist/**",
+      "**/node_modules",
+      "src/services/database/migrations/**/*",
+      "src/app/(payload)/**/*",
+      "**/pnpm-lock.yaml",
+      "**/package-lock.json"
+    ]
+  },
   "linter": {
     "enabled": true,
     "rules": {

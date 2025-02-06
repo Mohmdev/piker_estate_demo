@@ -3,16 +3,11 @@
 import type { MainMenu } from '@payload-types'
 import { useHeaderTheme } from '@providers/HeaderTheme'
 import { cn } from '@utils/ui'
-import {
-  AnimatePresence,
-  motion,
-  useMotionValueEvent,
-  useScroll,
-} from 'motion/react'
+import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'motion/react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
-import { PiArrowUpRightDuotone } from 'react-icons/pi'
+import { PiArrowUpRightLight } from 'react-icons/pi'
 import { CTAs, Logo } from './FlyoutNav'
 import { MobileMenu } from './FlyoutNav/mobile'
 
@@ -35,112 +30,114 @@ export const MainMenuClient: React.FC<{ mainMenuData: MainMenu }> = ({
   const [scrolled, setScrolled] = useState(false)
   const { scrollY } = useScroll()
   useMotionValueEvent(scrollY, 'change', (latest) => {
-    setScrolled(latest > 250 ? true : false)
+    setScrolled(latest > 100 ? true : false)
   })
   // const { headerTheme } = useHeaderObserver()
   //
   //
-  const { tabs, menuCta } = mainMenuData
+  const { navGroups, menuCta } = mainMenuData
 
   return (
     <header
-      className={`fixed top-0 z-50 w-full text-white 
-      transition-all duration-300 ease-out
-      ${
+      className={cn(
+        'flex',
+        // 'h-full',
+        'fixed top-0 z-50 w-full text-white',
+        'transition-all duration-300 ease-out',
+        // scrolled ? 'bg-neutral-950 py-3 shadow-xl' : 'bg-neutral-950/0 py-6 shadow-none',
         scrolled
-          ? 'bg-neutral-950 py-3 shadow-xl'
-          : 'bg-neutral-950/0 py-6 shadow-none'
-      }`}
+          ? 'bg-neutral-950 h-[63px] shadow-xl'
+          : 'bg-neutral-950/0 h-[87px] shadow-none',
+      )}
     >
       <nav className="container flex items-center justify-between">
         <Link href="/">
           <Logo />
         </Link>
-        <DesktopNav menuCta={menuCta} tabs={tabs} />
-        <MobileMenu />
+        <DesktopNav menuCta={menuCta} {...navGroups} />
+        <MobileMenu menuCta={menuCta} {...navGroups} />
       </nav>
     </header>
   )
 }
 
-type DesktopNavType = Pick<MainMenu, 'menuCta' | 'tabs'>
-export const DesktopNav: React.FC<DesktopNavType> = ({ menuCta, tabs }) => {
+export type NavMenuProps = Pick<MainMenu, 'menuCta' | 'navGroups'>
+
+export const DesktopNav: React.FC<NavMenuProps> = (props) => {
+  const { menuCta, navGroups } = props
+
   return (
-    <div className="hidden gap-6 lg:flex">
-      {(tabs || []).map((tab, tabIndex) => (
-        <NavItem item={tab} key={tabIndex} />
+    <div className="hidden lg:flex gap-6 h-full">
+      {(navGroups || []).map((navGroup, groupIndex) => (
+        <DesktopNavGroup group={navGroup} key={groupIndex} />
       ))}
       <CTAs {...menuCta} />
     </div>
   )
 }
 
-type NavItemProps = {
-  item: NonNullable<MainMenu['tabs']>[number]
+export type NavGroupProps = {
+  group: NonNullable<MainMenu['navGroups']>[number]
   children?: React.ReactNode
-  // DropdownContent?: React.ElementType
 }
 
-const NavItem: React.FC<NavItemProps> = (props) => {
-  // Data
-  const { children, item } = props
+const DesktopNavGroup: React.FC<NavGroupProps> = (props) => {
+  const { children, group } = props
   const {
-    label,
-    link: { type, newTab, reference, url } = {},
+    groupLabel,
+    link: linkProps,
     enableDirectLink = false,
     enableDropdown = false,
-    description,
-    descriptionLinks,
-    items: subItems,
-  } = item
-  //
-  //
-  //
+    dscrpArea: descriptionArea,
+    navItems,
+  } = group
 
-  //
-  // Nav States
-  //
   const [open, setOpen] = useState(false)
   const activateDropdown = open
-  //
-  // Get the href
-  //
-  const getPathPrefix = (relationTo: string) => {
-    if (relationTo === 'posts') return '/blog'
-    if (relationTo === 'pages') return '' // home page
-    return `/${relationTo}`
-  }
-  const href =
-    type === 'reference' &&
-    typeof reference?.value === 'object' &&
-    reference.value.slug
-      ? `${getPathPrefix(reference?.relationTo)}/${reference.value.slug}`
-      : url
-  if (!href) return null
-  //
-  // New Tab Props
-  //
-  const newTabProps = newTab
-    ? { rel: 'noopener noreferrer', target: '_blank' }
-    : {}
 
   return (
     <div className="flex items-center gap-6">
       <div
         onMouseEnter={() => setOpen(true)}
         onMouseLeave={() => setOpen(false)}
-        // className="relative h-fit w-fit"
-        className="w-fit h-fit"
+        className="w-fit h-full"
       >
-        {/* Tab */}
+        {/* Nav Group */}
         {enableDirectLink ? (
-          <Link
-            className="relative"
-            //
-            href={href || url || ''}
-            {...newTabProps}
+          <CMSLink
+            {...linkProps}
+            className={cn(
+              'relative h-full flex items-center',
+              'group',
+              'after:absolute after:bottom-0 after:left-0 after:h-0.5',
+              'after:w-full after:bg-violet-600',
+
+              // // 1. Fade In/Out
+              // 'after:opacity-0 after:transition-opacity after:duration-200',
+              // activateDropdown ? 'after:opacity-100' : 'after:opacity-0',
+
+              // // 2. Slide Left to Right
+              // 'after:origin-left after:transition-transform after:duration-200',
+              // activateDropdown ? 'after:scale-x-100' : 'after:scale-x-0',
+
+              // // 3. Center Expand
+              // 'after:origin-center after:transition-transform after:duration-200',
+              // activateDropdown ? 'after:scale-x-100' : 'after:scale-x-0',
+
+              // 4. Gradient Sweep
+              'after:bg-gradient-to-r after:from-violet-600 after:to-violet-400',
+              'after:transition-all after:duration-300',
+              'after:bg-[length:200%_100%] after:opacity-0 after:rounded-lg',
+              activateDropdown
+                ? 'after:bg-left after:opacity-100'
+                : 'after:bg-right after:opacity-0',
+
+              // // 5. Expand from Center
+              // 'after:transition-transform after:duration-200',
+              // activateDropdown ? 'after:scale-x-100' : 'after:scale-x-0',
+            )}
           >
-            {label && label}
+            {groupLabel && groupLabel}
             {children && children}
             <span
               style={{
@@ -148,47 +145,33 @@ const NavItem: React.FC<NavItemProps> = (props) => {
               }}
               className="absolute -bottom-2 -left-2 -right-2 h-1 origin-left scale-x-0 rounded-full bg-indigo-300 transition-transform duration-300 ease-out"
             />
-          </Link>
+          </CMSLink>
         ) : (
-          <>{label && label}</>
+          <>{groupLabel && groupLabel}</>
         )}
         {/*  */}
-        {/* Dropdown */}
+        {/* Dropdown Wrapper */}
         {enableDropdown && (
           <AnimatePresence>
             {activateDropdown && (
-              <div>
-                {/* <motion.div
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 15 }}
-                  style={{ translateX: '-50%' }}
-                  transition={{ duration: 0.3, ease: 'easeOut' }}
-                  className="absolute left-1/2 top-12 bg-white text-black"
-                >
-                  <div className="absolute -top-6 left-0 right-0 h-6 bg-transparent" />
-                  <div className="absolute left-1/2 top-0 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rotate-45 bg-white" />
-                </motion.div> */}
-                <motion.div
-                  initial={{ opacity: 0, y: -15 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -15 }}
-                  // style={{ translateX: '-50%' }}
-                  // style={{ left: '0', right: '0' }}
-                  transition={{
-                    duration: 0.4,
-                    ease: [0.165, 0.84, 0.44, 1],
-                  }}
-                  // className="absolute left-1/2 top-12 bg-white text-black"
-                  className="fixed inset-x-0 top-0 pt-28 pb-6 bg-neutral-950 z-[-1]"
-                >
-                  <DropdownContent
-                    description={description}
-                    descriptionLinks={descriptionLinks}
-                    items={subItems}
-                  />
-                </motion.div>
-              </div>
+              <motion.div
+                initial={{ opacity: 0, y: -15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{
+                  duration: 0.4,
+                  ease: [0.165, 0.84, 0.44, 1],
+                }}
+                className="fixed inset-x-0 top-0 pt-28 pb-6 bg-neutral-950 z-[-1]"
+              >
+                <DropdownContent
+                  // descriptionArea={descriptionArea}
+                  // descriptionAreaLinks={descriptionAreaLinks}
+                  {...descriptionArea}
+                  navItems={navItems}
+                  // {...navItems}
+                />
+              </motion.div>
             )}
           </AnimatePresence>
         )}
@@ -199,45 +182,14 @@ const NavItem: React.FC<NavItemProps> = (props) => {
 
 import { CMSLink } from '@components/CMSLink'
 import RichText from '@components/RichText'
-import { FaArrowUpRightDots } from 'react-icons/fa6'
 type DropdownContentProps = Pick<
-  NonNullable<MainMenu['tabs']>[number],
-  'description' | 'descriptionLinks' | 'items'
+  NonNullable<MainMenu['navGroups']>[number],
+  'dscrpArea' | 'navItems'
 >
 
 export const DropdownContent: React.FC<DropdownContentProps> = (props) => {
-  const { description, descriptionLinks, items } = props
-
-  // .grid {
-  //     display: grid;
-  //     grid-template-columns: repeat(16,1fr);
-  //     grid-row-gap: 0;
-  //     grid-column-gap: 0
-  // }
-
-  // @media(max-width: 1600px) {
-  //     .grid {
-  //         grid-template-columns:repeat(16,1fr)
-  //     }
-  // }
-
-  // @media(max-width: 1024px) {
-  //     .grid {
-  //         grid-template-columns:repeat(8,1fr)
-  //     }
-  // }
-
-  // @media(max-width: 768px) {
-  //     .grid {
-  //         grid-template-columns:repeat(8,1fr)
-  //     }
-  // }
-
-  // @media(max-width: 400px) {
-  //     .grid {
-  //         grid-template-columns:repeat(8,1fr)
-  //     }
-  // }
+  const { dscrpArea: descriptionArea, navItems } = props
+  const { enable, text, links } = descriptionArea || {}
 
   return (
     <div
@@ -245,116 +197,130 @@ export const DropdownContent: React.FC<DropdownContentProps> = (props) => {
         'grid grid-cols-8 lg:grid-cols-16',
         'relative container h-full',
         'pointer-events-all',
-        //
-        // 'w-screen left-0',
-        // 'border-t-1 border-border/50',
-        '',
       )}
     >
-      <div className="grid [grid-column-end:span_4] max-w-[300px]">
-        {description}
-        {descriptionLinks && (
-          <div className="flex flex-col gap-4 py-8 px-0">
-            {descriptionLinks.map((link, linkIndex) => (
-              <CMSLink
-                // {...link}
-                key={linkIndex}
-                label={link.link.label}
-                type={link.link.type}
-                reference={link.link.reference}
-                url={link.link.url}
-                className={cn(
-                  'flex items-center flex-row gap-2 w-full leading-none',
-                  ' transition-all duration-300 ease-out hover:text-indigo-300',
-                )}
-              >
-                <FaArrowUpRightDots className="w-4 h-4" />
-              </CMSLink>
-            ))}
+      {/* Column 1 / Description Area */}
+      {enable && (
+        <div className="grid [grid-column-end:span_5]">
+          <div className="flex flex-col gap-5 max-w-[300px] prose">
+            {text && (
+              <RichText
+                data={text}
+                enableGutter={false}
+                className="ml-0 text-left max-w-max select-none text-muted-foreground text-xl prose"
+              />
+            )}
+            <div className="flex flex-col gap-4 py-8 px-0">
+              {links?.map((link, linkIndex) => (
+                <CMSLink
+                  key={linkIndex}
+                  label={link.link.label}
+                  type={link.link.type}
+                  reference={link.link.reference}
+                  url={link.link.url}
+                  className={cn(
+                    'flex items-center flex-row gap-2 w-full leading-none',
+                    'transition-all duration-300 ease-out hover:text-indigo-400',
+                    'not-prose',
+                  )}
+                >
+                  <PiArrowUpRightLight className="w-4 h-4" />
+                </CMSLink>
+              ))}
+            </div>
           </div>
-        )}
-      </div>
-      {items &&
-        items?.map((item, index) => {
-          let columnSpan = 12 / (items?.length || 1)
-          const containsFeatured = items?.some(
+        </div>
+      )}
+      {/* Column 2 / ITEMS  */}
+      {navItems &&
+        navItems?.map((item, index) => {
+          let columnSpan = 12 / (navItems?.length || 1)
+          const containsFeatured = navItems?.some(
             (navItem) => navItem.style === 'featured',
           )
 
           if (containsFeatured) {
-            columnSpan = item.style === 'featured' ? 6 : 3
+            columnSpan = item.style === 'featured' ? 5 : 3
           }
           return (
             <div
               key={index}
-              className={cn(
-                'grid relative',
-                ' border border-blue-500',
-                // `[grid-column-end:span_${columnSpan}]`,
-                // `col-span-${columnSpan}`,
-                // `[grid-column-end:span_${columnSpan}]`,
-              )}
+              className="grid relative"
               style={{ gridColumnEnd: `span ${columnSpan}` }}
             >
+              {/* Default Links */}
               {item.style === 'default' && item.defaultLink && (
                 <CMSLink
-                  // {...item.defaultLink.link}
-                  // label={item.defaultLink.link.label}
                   type={item.defaultLink.link.type}
                   reference={item.defaultLink.link.reference}
                   url={item.defaultLink.link.url}
-                  className="flex flex-col gap-4 justify-between border border-red-500"
+                  label={item.defaultLink.link.label}
+                  className="flex flex-col gap-4 justify-between"
                 >
-                  <div className="m-0 grow-1 text-lg font-medium">
-                    {item.defaultLink.link.label}
-                  </div>
                   <div className="text-sm min-h-20 flex flex-col justify-between gap-4">
                     {item.defaultLink.description}
-                    <PiArrowUpRightDuotone size={16} />
+                    <PiArrowUpRightLight className="w-4 h-4" />
                   </div>
                 </CMSLink>
               )}
+              {/* List Links */}
               {item.style === 'list' && item.listLinks && (
-                <div className="flex flex-col gap-2">
-                  <div className="text-sm m-0 uppercase">
+                <div className="flex flex-col gap-4">
+                  <div className="text-sm text-muted-foreground uppercase tracking-widest prose select-none">
                     {item.listLinks.tag}
                   </div>
-                  {item.listLinks.links &&
-                    item.listLinks.links.map((link, linkIndex) => (
-                      <CMSLink
-                        className="font-medium transition-all duration-300 ease-out hover:opacity-80 focus:decoration-none"
-                        key={linkIndex}
-                        {...link.link}
-                      >
-                        {link.link?.newTab && link.link?.type === 'custom' && (
-                          <PiArrowUpRightDuotone className="w-4 h-4 ml-2" />
-                        )}
-                      </CMSLink>
-                    ))}
-                </div>
-              )}
-              {item.style === 'featured' && item.ftrdLink && (
-                <div className="flex flex-col gap-4">
-                  <div className="text-sm m-0 uppercase">
-                    {item.ftrdLink.tag}
-                  </div>
-                  {item.ftrdLink?.label && (
-                    <RichText data={item.ftrdLink.label} />
-                  )}
-                  <div className="flex flex-row gap-2">
-                    {item.ftrdLink.links &&
-                      item.ftrdLink.links.map((link, linkIndex) => (
+                  <div className="flex flex-col gap-4 font-light">
+                    {item.listLinks.links &&
+                      item.listLinks.links.map((link, linkIndex) => (
                         <CMSLink
-                          className="transition-all duration-300 ease-out flex items-center flex-row gap-2 hover:opacity-80 focus:decoration-none"
                           key={linkIndex}
                           {...link.link}
+                          className={cn(
+                            'flex flex-row justify-start items-center gap-2',
+                            'transition-colors duration-300 ease-out focus:decoration-none',
+                            'font-normal hover:text-violet-300 prose leading-none',
+                          )}
                         >
-                          <PiArrowUpRightDuotone className="w-4 h-4 ml-2" />
+                          {link.link?.newTab && link.link?.type === 'custom' && (
+                            <PiArrowUpRightLight className="w-4 h-4" />
+                          )}
                         </CMSLink>
                       ))}
                   </div>
                 </div>
               )}
+              {/* Featured Section and Links */}
+              {item.style === 'featured' && item.ftrdLink && (
+                <div className="flex flex-col gap-4 items-end">
+                  <div className="text-sm m-0 uppercase font-medium tracking-widest select-none text-violet-500 prose">
+                    {item.ftrdLink.tag}
+                  </div>
+                  {item.ftrdLink?.label && (
+                    <RichText
+                      data={item.ftrdLink.label}
+                      enableGutter={false}
+                      className="mr-0 text-right max-w-max select-none text-muted-foreground "
+                    />
+                  )}
+                  <div className="flex flex-row gap-2">
+                    {item.ftrdLink.links &&
+                      item.ftrdLink.links.map((link, linkIndex) => (
+                        <CMSLink
+                          className={cn(
+                            ' flex items-center flex-row gap-2 focus:decoration-none',
+                            'text-muted-foreground hover:text-violet-400 prose',
+                            'transition-all duration-300 ease-out',
+                          )}
+                          key={linkIndex}
+                          {...link.link}
+                        >
+                          <PiArrowUpRightLight className="w-4 h-4" />
+                        </CMSLink>
+                      ))}
+                  </div>
+                </div>
+              )}
+              {/*  */}
             </div>
           )
         })}

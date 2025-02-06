@@ -5,12 +5,10 @@ import { useRowLabel } from '@payloadcms/ui'
 
 import type { PayloadClientReactComponent, RowLabelComponent } from 'payload'
 
-export const ItemsRowLabel: PayloadClientReactComponent<
-  RowLabelComponent
-> = () => {
+export const NavItemRowLabel: PayloadClientReactComponent<RowLabelComponent> = () => {
   const { data } =
     useRowLabel<
-      NonNullable<NonNullable<MainMenu['tabs']>[number]['items']>[number]
+      NonNullable<NonNullable<MainMenu['navGroups']>[number]['navItems']>[number]
     >()
 
   if (data?.style === 'default') {
