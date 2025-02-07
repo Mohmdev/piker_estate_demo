@@ -1013,46 +1013,15 @@ export const mainMenuMock: Partial<MainMenu> = {
     {
       groupLabel: 'Docs',
       enableDirectLink: true,
-      enableDropdown: true,
+      enableDropdown: false,
       link: {
         type: 'custom',
         newTab: false,
         reference: null,
         url: '/docs',
       },
-      dscrpArea: {
-        enable: true,
-        text: null,
-        links: [],
-      },
-      navItems: [
-        {
-          style: 'featured',
-          defaultLink: {
-            link: {
-              type: 'custom',
-              reference: null,
-              url: 'https://github.com/payloadcms/payload',
-              label: 'GitHub',
-            },
-          },
-          ftrdLink: {
-            links: [
-              {
-                link: {
-                  type: 'custom',
-                  reference: null,
-                  url: 'https://github.com/payloadcms/payload',
-                  label: 'GitHub',
-                },
-              },
-            ],
-          },
-          listLinks: {
-            links: [],
-          },
-        },
-      ],
+      // dscrpArea: {},
+      // navItems: [],
     },
   ],
   menuCta: {

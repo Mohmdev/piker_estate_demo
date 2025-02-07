@@ -6,8 +6,18 @@
     "ghcr.io/devcontainers/features/node:1": {
       "version": "22",
       "nodeGypDependencies": true
+    },
+    "ghcr.io/devcontainers/features/sshd:1": {
+      "version": "latest"
+    },
+    "ghcr.io/devcontainers-extra/features/pnpm": {
+      "version": "latest"
     }
   },
+
+  "postCreateCommand": "npm install -g vercel railway prettier @biomejs/biome@1.9.4",
+
+  "remoteUser": "node",
 
   "customizations": {
     "vscode": {
@@ -42,15 +52,18 @@
         "vscode-icons-team.vscode-icons",
         "WakaTime.vscode-wakatime",
         "biomejs.biome",
+        "esbenp.prettier-vscode",
         "jock.svg",
         "henoc.svgeditor",
         "matt-meyers.vscode-dbml",
         "tomoki1207.pdf"
-      ]
+      ],
+
+      "settings": {
+        "workbench.iconTheme": "vscode-icons",
+        "workbench.editor.scrollToSwitchTabs": true,
+        "workbench.colorTheme": "Andromeda Mariana - Italic Bordered"
+      }
     }
-  },
-
-  "postCreateCommand": "npm install -g pnpm vercel railway prettier @biomejs/biome@1.9.4",
-
-  "remoteUser": "node"
+  }
 }

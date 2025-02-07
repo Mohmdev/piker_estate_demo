@@ -7,8 +7,9 @@ import { type Dispatch, type SetStateAction, useState } from 'react'
 import { FiArrowRight, FiChevronDown, FiMenu, FiX } from 'react-icons/fi'
 import { PiArrowUpRightLight } from 'react-icons/pi'
 import useMeasure from 'react-use-measure'
-import type { NavGroupProps, NavMenuProps } from '../index.client'
-import { CTAs, Logo } from './index'
+import type { NavMenuProps } from '../index.client'
+import { CTAs } from './CTAs'
+import { Logo } from './Logo'
 
 export type MobileNavGroupProps = {
   group: NonNullable<MainMenu['navGroups']>[number]

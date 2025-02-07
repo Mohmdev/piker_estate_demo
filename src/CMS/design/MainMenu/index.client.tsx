@@ -8,7 +8,6 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import { PiArrowUpRightLight } from 'react-icons/pi'
-import { CTAs, Logo } from './FlyoutNav'
 import { MobileMenu } from './FlyoutNav/mobile'
 
 export const MainMenuClient: React.FC<{ mainMenuData: MainMenu }> = ({
@@ -46,16 +45,16 @@ export const MainMenuClient: React.FC<{ mainMenuData: MainMenu }> = ({
         'transition-all duration-300 ease-out',
         // scrolled ? 'bg-neutral-950 py-3 shadow-xl' : 'bg-neutral-950/0 py-6 shadow-none',
         scrolled
-          ? 'bg-neutral-950 h-[63px] shadow-xl'
-          : 'bg-neutral-950/0 h-[87px] shadow-none',
+          ? 'bg-zinc-950/90 backdrop-blur-md py-3 shadow-xl'
+          : 'bg-zinc-950/0 backdrop-blur-none py-6 shadow-none',
       )}
     >
       <nav className="container flex items-center justify-between">
         <Link href="/">
           <Logo />
         </Link>
-        <DesktopNav menuCta={menuCta} {...navGroups} />
-        <MobileMenu menuCta={menuCta} {...navGroups} />
+        <DesktopNav menuCta={menuCta} navGroups={navGroups} />
+        <MobileMenu menuCta={menuCta} navGroups={navGroups} />
       </nav>
     </header>
   )
@@ -100,7 +99,7 @@ const DesktopNavGroup: React.FC<NavGroupProps> = (props) => {
       <div
         onMouseEnter={() => setOpen(true)}
         onMouseLeave={() => setOpen(false)}
-        className="w-fit h-full"
+        className="w-fit h-full flex items-center"
       >
         {/* Nav Group */}
         {enableDirectLink ? (
@@ -162,15 +161,12 @@ const DesktopNavGroup: React.FC<NavGroupProps> = (props) => {
                   duration: 0.4,
                   ease: [0.165, 0.84, 0.44, 1],
                 }}
-                className="fixed inset-x-0 top-0 pt-28 pb-6 bg-neutral-950 z-[-1]"
+                className={cn(
+                  'fixed inset-x-0 top-0 pt-30 pb-10 z-[-1]',
+                  'bg-zinc-950/90 backdrop-blur-md ',
+                )}
               >
-                <DropdownContent
-                  // descriptionArea={descriptionArea}
-                  // descriptionAreaLinks={descriptionAreaLinks}
-                  {...descriptionArea}
-                  navItems={navItems}
-                  // {...navItems}
-                />
+                <DropdownContent dscrpArea={descriptionArea} navItems={navItems} />
               </motion.div>
             )}
           </AnimatePresence>
@@ -182,6 +178,8 @@ const DesktopNavGroup: React.FC<NavGroupProps> = (props) => {
 
 import { CMSLink } from '@components/CMSLink'
 import RichText from '@components/RichText'
+import { CTAs } from './FlyoutNav/CTAs'
+import { Logo } from './FlyoutNav/Logo'
 type DropdownContentProps = Pick<
   NonNullable<MainMenu['navGroups']>[number],
   'dscrpArea' | 'navItems'
@@ -194,15 +192,15 @@ export const DropdownContent: React.FC<DropdownContentProps> = (props) => {
   return (
     <div
       className={cn(
-        'grid grid-cols-8 lg:grid-cols-16',
+        'grid grid-cols-8 lg:grid-cols-18 justify-between',
         'relative container h-full',
         'pointer-events-all',
       )}
     >
       {/* Column 1 / Description Area */}
       {enable && (
-        <div className="grid [grid-column-end:span_5]">
-          <div className="flex flex-col gap-5 max-w-[300px] prose">
+        <div className="grid [grid-column-end:span_4]">
+          <div className="flex flex-col gap-5 max-w-[85%] prose">
             {text && (
               <RichText
                 data={text}
@@ -210,7 +208,7 @@ export const DropdownContent: React.FC<DropdownContentProps> = (props) => {
                 className="ml-0 text-left max-w-max select-none text-muted-foreground text-xl prose"
               />
             )}
-            <div className="flex flex-col gap-4 py-8 px-0">
+            <div className="flex flex-col gap-4 py-4 px-0">
               {links?.map((link, linkIndex) => (
                 <CMSLink
                   key={linkIndex}
@@ -240,7 +238,7 @@ export const DropdownContent: React.FC<DropdownContentProps> = (props) => {
           )
 
           if (containsFeatured) {
-            columnSpan = item.style === 'featured' ? 5 : 3
+            columnSpan = item.style === 'featured' ? 6 : 4
           }
           return (
             <div
@@ -250,49 +248,58 @@ export const DropdownContent: React.FC<DropdownContentProps> = (props) => {
             >
               {/* Default Links */}
               {item.style === 'default' && item.defaultLink && (
-                <CMSLink
-                  type={item.defaultLink.link.type}
-                  reference={item.defaultLink.link.reference}
-                  url={item.defaultLink.link.url}
-                  label={item.defaultLink.link.label}
-                  className="flex flex-col gap-4 justify-between"
-                >
-                  <div className="text-sm min-h-20 flex flex-col justify-between gap-4">
-                    {item.defaultLink.description}
-                    <PiArrowUpRightLight className="w-4 h-4" />
+                <div className="flex flex-col items-center ml-4">
+                  <div className="flex flex-col gap-4 max-w-max">
+                    <CMSLink
+                      type={item.defaultLink.link.type}
+                      reference={item.defaultLink.link.reference}
+                      url={item.defaultLink.link.url}
+                      label={item.defaultLink.link.label}
+                      className={cn(
+                        'flex flex-row justify-start items-center gap-2',
+                        'transition-colors duration-300 ease-out focus:decoration-none',
+                        'font-normal text-sm xl:text-md hover:text-violet-300 prose leading-none',
+                      )}
+                    >
+                      <div className="text-sm min-h-16 flex flex-col justify-between gap-4">
+                        {item.defaultLink.description}
+                      </div>
+                    </CMSLink>
                   </div>
-                </CMSLink>
+                </div>
               )}
               {/* List Links */}
               {item.style === 'list' && item.listLinks && (
-                <div className="flex flex-col gap-4">
-                  <div className="text-sm text-muted-foreground uppercase tracking-widest prose select-none">
-                    {item.listLinks.tag}
-                  </div>
-                  <div className="flex flex-col gap-4 font-light">
-                    {item.listLinks.links &&
-                      item.listLinks.links.map((link, linkIndex) => (
-                        <CMSLink
-                          key={linkIndex}
-                          {...link.link}
-                          className={cn(
-                            'flex flex-row justify-start items-center gap-2',
-                            'transition-colors duration-300 ease-out focus:decoration-none',
-                            'font-normal hover:text-violet-300 prose leading-none',
-                          )}
-                        >
-                          {link.link?.newTab && link.link?.type === 'custom' && (
-                            <PiArrowUpRightLight className="w-4 h-4" />
-                          )}
-                        </CMSLink>
-                      ))}
+                <div className="flex flex-col items-center ml-4">
+                  <div className="flex flex-col gap-4 max-w-max">
+                    <div className="text-sm text-muted-foreground uppercase tracking-widest prose select-none">
+                      {item.listLinks.tag}
+                    </div>
+                    <div className="flex flex-col gap-4 font-light">
+                      {item.listLinks.links &&
+                        item.listLinks.links.map((link, linkIndex) => (
+                          <CMSLink
+                            key={linkIndex}
+                            {...link.link}
+                            className={cn(
+                              'flex flex-row justify-start items-center gap-2',
+                              'transition-colors duration-300 ease-out focus:decoration-none',
+                              'font-normal text-sm xl:text-md hover:text-violet-300 prose leading-none',
+                            )}
+                          >
+                            {link.link?.newTab && link.link?.type === 'custom' && (
+                              <PiArrowUpRightLight className="w-4 h-4" />
+                            )}
+                          </CMSLink>
+                        ))}
+                    </div>
                   </div>
                 </div>
               )}
               {/* Featured Section and Links */}
               {item.style === 'featured' && item.ftrdLink && (
-                <div className="flex flex-col gap-4 items-end">
-                  <div className="text-sm m-0 uppercase font-medium tracking-widest select-none text-violet-500 prose">
+                <div className="flex flex-col gap-4 items-end prose">
+                  <div className="text-sm m-0 uppercase font-medium tracking-widest select-none text-violet-500 prose text-end">
                     {item.ftrdLink.tag}
                   </div>
                   {item.ftrdLink?.label && (
@@ -302,19 +309,19 @@ export const DropdownContent: React.FC<DropdownContentProps> = (props) => {
                       className="mr-0 text-right max-w-max select-none text-muted-foreground "
                     />
                   )}
-                  <div className="flex flex-row gap-2">
+                  <div className="flex flex-col  max-w-max justify-end items-end gap-2">
                     {item.ftrdLink.links &&
                       item.ftrdLink.links.map((link, linkIndex) => (
                         <CMSLink
-                          className={cn(
-                            ' flex items-center flex-row gap-2 focus:decoration-none',
-                            'text-muted-foreground hover:text-violet-400 prose',
-                            'transition-all duration-300 ease-out',
-                          )}
                           key={linkIndex}
                           {...link.link}
+                          className={cn(
+                            'flex flex-row justify-start items-center gap-2',
+                            'transition-colors duration-300 ease-out focus:decoration-none',
+                            'font-normal text-md text-foreground hover:text-violet-300 prose leading-none',
+                          )}
                         >
-                          <PiArrowUpRightLight className="w-4 h-4" />
+                          <PiArrowUpRightLight className="w-3 h-3" />
                         </CMSLink>
                       ))}
                   </div>
