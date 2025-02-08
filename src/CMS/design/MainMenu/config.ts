@@ -98,7 +98,7 @@ export const MainMenu: GlobalConfig = {
                   type: 'collapsible',
                   label: 'Customize',
                   admin: {
-                    condition: (_, siblingData) => siblingData.enableDescriptionArea,
+                    condition: (_, siblingData) => siblingData.enable,
                   },
                   fields: [
                     {

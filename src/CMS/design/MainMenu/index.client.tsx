@@ -8,7 +8,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import { PiArrowUpRightLight } from 'react-icons/pi'
-import { MobileMenu } from './FlyoutNav/mobile'
+import { Hamburger, MobileMenu } from './FlyoutNav/mobile'
 
 export const MainMenuClient: React.FC<{ mainMenuData: MainMenu }> = ({
   mainMenuData,
@@ -40,21 +40,21 @@ export const MainMenuClient: React.FC<{ mainMenuData: MainMenu }> = ({
     <header
       className={cn(
         'flex',
-        // 'h-full',
+        'h-full',
         'fixed top-0 z-50 w-full text-white',
         'transition-all duration-300 ease-out',
-        // scrolled ? 'bg-neutral-950 py-3 shadow-xl' : 'bg-neutral-950/0 py-6 shadow-none',
         scrolled
-          ? 'bg-zinc-950/90 backdrop-blur-md py-3 shadow-xl'
-          : 'bg-zinc-950/0 backdrop-blur-none py-6 shadow-none',
+          ? 'h-[63px] bg-zinc-950/90 backdrop-blur-md shadow-xl'
+          : 'h-[74px] bg-zinc-950/0 backdrop-blur-[0px] shadow-none',
       )}
     >
-      <nav className="container flex items-center justify-between">
-        <Link href="/">
+      <nav className="container flex items-center flex-row justify-between">
+        <Link href="/" className="z-50">
           <Logo />
         </Link>
-        <DesktopNav menuCta={menuCta} navGroups={navGroups} />
-        <MobileMenu menuCta={menuCta} navGroups={navGroups} />
+
+        <DesktopNav menuCta={menuCta} navGroups={navGroups} className="z-40" />
+        <MobileMenu menuCta={menuCta} navGroups={navGroups} className="z-25" />
       </nav>
     </header>
   )
@@ -62,11 +62,11 @@ export const MainMenuClient: React.FC<{ mainMenuData: MainMenu }> = ({
 
 export type NavMenuProps = Pick<MainMenu, 'menuCta' | 'navGroups'>
 
-export const DesktopNav: React.FC<NavMenuProps> = (props) => {
-  const { menuCta, navGroups } = props
+export const DesktopNav: React.FC<NavMenuProps & { className?: string }> = (props) => {
+  const { menuCta, navGroups, className } = props
 
   return (
-    <div className="hidden lg:flex gap-6 h-full">
+    <div className={cn('hidden lg:flex gap-6 h-full', className)}>
       {(navGroups || []).map((navGroup, groupIndex) => (
         <DesktopNavGroup group={navGroup} key={groupIndex} />
       ))}
@@ -146,7 +146,25 @@ const DesktopNavGroup: React.FC<NavGroupProps> = (props) => {
             />
           </CMSLink>
         ) : (
-          <>{groupLabel && groupLabel}</>
+          <span
+            className={cn(
+              'select-none',
+              //
+              'relative h-full flex items-center',
+              'group',
+              'after:absolute after:bottom-0 after:left-0 after:h-0.5',
+              'after:w-full after:bg-violet-600',
+              //
+              'after:bg-gradient-to-r after:from-violet-600 after:to-violet-400',
+              'after:transition-all after:duration-300',
+              'after:bg-[length:200%_100%] after:opacity-0 after:rounded-lg',
+              activateDropdown
+                ? 'after:bg-left after:opacity-100'
+                : 'after:bg-right after:opacity-0',
+            )}
+          >
+            {groupLabel && groupLabel}
+          </span>
         )}
         {/*  */}
         {/* Dropdown Wrapper */}
@@ -162,7 +180,7 @@ const DesktopNavGroup: React.FC<NavGroupProps> = (props) => {
                   ease: [0.165, 0.84, 0.44, 1],
                 }}
                 className={cn(
-                  'fixed inset-x-0 top-0 pt-30 pb-10 z-[-1]',
+                  'fixed inset-x-0 top-0 pt-25 pb-10 z-[-1]',
                   'bg-zinc-950/90 backdrop-blur-md ',
                 )}
               >

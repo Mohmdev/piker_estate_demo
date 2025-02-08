@@ -5,13 +5,8 @@ export const mainMenuMock: Partial<MainMenu> = {
     // Tab 1
     {
       groupLabel: 'Product',
-      enableDirectLink: true,
+      enableDirectLink: false,
       enableDropdown: true,
-      link: {
-        type: 'custom',
-        url: '/use-cases',
-        newTab: null,
-      },
       dscrpArea: {
         enable: true,
         text: {
@@ -280,10 +275,11 @@ export const mainMenuMock: Partial<MainMenu> = {
     {
       groupLabel: 'Why Payload',
       enableDropdown: true,
-      link: {
-        type: 'reference',
-        reference: null,
-      },
+      enableDirectLink: false,
+      // link: {
+      //   type: 'reference',
+      //   reference: null,
+      // },
       dscrpArea: {
         enable: true,
         text: {
@@ -510,12 +506,12 @@ export const mainMenuMock: Partial<MainMenu> = {
     // Tab 3
     {
       groupLabel: 'Developers',
-      enableDirectLink: true,
+      enableDirectLink: false,
       enableDropdown: true,
-      link: {
-        type: 'custom',
-        url: '/developers',
-      },
+      // link: {
+      //   type: 'custom',
+      //   url: '/developers',
+      // },
       dscrpArea: {
         enable: true,
         text: {
@@ -759,12 +755,12 @@ export const mainMenuMock: Partial<MainMenu> = {
     // Tab 4
     {
       groupLabel: 'Enterprise',
-      enableDirectLink: true,
+      enableDirectLink: false,
       enableDropdown: true,
-      link: {
-        type: 'custom',
-        url: '/enterprise',
-      },
+      // link: {
+      //   type: 'custom',
+      //   url: '/enterprise',
+      // },
       dscrpArea: {
         enable: true,
         text: {
