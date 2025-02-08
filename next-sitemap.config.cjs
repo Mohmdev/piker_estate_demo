@@ -14,6 +14,8 @@ module.exports = {
     '/blog/*',
     '/properties-sitemap.xml',
     '/properties/*',
+    '/features-sitemap.xml',
+    '/features/*',
   ],
   robotsTxtOptions: {
     policies: [

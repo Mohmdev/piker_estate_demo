@@ -7,6 +7,9 @@ import { Categories } from '@CMS/marketing/config.Categories'
 import { Pages } from '@CMS/marketing/config.Pages'
 import { Posts } from '@CMS/marketing/config.Posts'
 import { Tags } from '@CMS/marketing/config.Tags'
+import { Features } from '@CMS/real-estate/config.Features'
+import { ListingStatus } from '@CMS/real-estate/config.ListingStatus'
+import { ListingTypes } from '@CMS/real-estate/config.ListingTypes'
 import { Properties } from '@CMS/real-estate/config.Properties'
 import { Users } from '@auth/Users/config'
 import { getServerSideURL } from '@data/getURL'
@@ -33,7 +36,12 @@ const dirname = path.dirname(filename)
 
 export default buildConfig({
   collections: [
-    ...collectionGroup('Real Estate', [Properties]),
+    ...collectionGroup('Real Estate', [
+      Properties,
+      Features,
+      ListingStatus,
+      ListingTypes,
+    ]),
     ...collectionGroup('Marketing', [Pages, Posts, Categories, Tags]),
     ...collectionGroup('Resources', [Media, Assets]),
     ...collectionGroup('Accounts', [Users, UserPhotos]),

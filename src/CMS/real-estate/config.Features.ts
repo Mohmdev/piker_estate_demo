@@ -1,7 +1,6 @@
 import { populateAuthors } from '@CMS/_hooks/populateAuthors'
 import { populatePublishedAt } from '@CMS/_hooks/populatePublishedAt'
-import { revalidateDelete } from '@CMS/_hooks/revalidateProperty'
-import { revalidateProperty } from '@CMS/_hooks/revalidateProperty'
+import { revalidateDelete, revalidateFeature } from '@CMS/_hooks/revalidateFeature'
 import { authorsField } from '@CMS/fields/shared/authorsField'
 import { noindexField } from '@CMS/fields/shared/noindexField'
 import { populateAuthorsField } from '@CMS/fields/shared/populatedAuthorsField'
@@ -13,18 +12,13 @@ import { isAdminOrEditor } from '@auth/access/isAdminOrEditor'
 import { isAdminOrSelf } from '@auth/access/isAdminOrSelf'
 import { publishedOnly } from '@auth/access/publishedOnly'
 import { minimalLexical } from '@services/editor/minimalLexical'
-import { getCollectionLivePreviewURL } from '@services/live-preview/getCollectionLivePreviewURL'
-import { getCollectionPreviewURL } from '@services/live-preview/getCollectionPreviewURL'
 import type { CollectionConfig } from 'payload'
-import { propertyGallery } from './fields/property.gallery'
-import { propertyLocation } from './fields/property.location'
-import { propertySpecifications } from './fields/property.specs'
 
-export const Properties: CollectionConfig<'properties'> = {
-  slug: 'properties',
+export const Features: CollectionConfig<'features'> = {
+  slug: 'features',
   labels: {
-    singular: 'Property',
-    plural: 'Properties',
+    singular: 'Feature',
+    plural: 'Features',
   },
   access: {
     read: publishedOnly,
@@ -41,8 +35,6 @@ export const Properties: CollectionConfig<'properties'> = {
       'createdAt',
       'updatedAt',
     ],
-    livePreview: getCollectionLivePreviewURL('properties'),
-    preview: getCollectionPreviewURL('properties'),
   },
   defaultPopulate: {
     title: true,
@@ -67,40 +59,22 @@ export const Properties: CollectionConfig<'properties'> = {
               name: 'description',
               editor: minimalLexical,
             },
-            propertyLocation,
-            propertySpecifications,
             {
-              type: 'relationship',
-              name: 'features',
-              relationTo: 'features',
-              hasMany: true,
-              label: {
-                singular: 'Feature',
-                plural: 'Features',
-              },
-              index: true,
-            },
-            tagsField,
-          ],
-        },
-        {
-          label: 'Listing Details',
-          fields: [
-            {
-              type: 'relationship',
-              name: 'listingStatus',
-              relationTo: 'listing-status',
+              type: 'upload',
+              name: 'image',
+              relationTo: 'media',
             },
             {
-              type: 'relationship',
-              name: 'listingType',
-              relationTo: 'listing-types',
+              type: 'join',
+              name: 'properties',
+              collection: 'properties',
+              on: 'features',
             },
           ],
         },
         {
-          label: 'Gallery',
-          fields: [propertyGallery],
+          label: 'Options',
+          fields: [tagsField],
         },
         seoTab,
       ],
@@ -112,17 +86,14 @@ export const Properties: CollectionConfig<'properties'> = {
     ...slugField(),
   ],
   hooks: {
-    afterChange: [revalidateProperty],
-    afterRead: [populateAuthors],
+    afterChange: [revalidateFeature],
     afterDelete: [revalidateDelete],
+    afterRead: [populateAuthors],
     beforeChange: [populatePublishedAt],
   },
   versions: {
     drafts: {
-      autosave: {
-        interval: 100,
-      },
-      schedulePublish: true,
+      autosave: true,
     },
     maxPerDoc: 50,
   },
