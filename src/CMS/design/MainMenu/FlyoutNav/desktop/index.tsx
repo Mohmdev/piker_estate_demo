@@ -1,6 +1,8 @@
 import { type MainMenu as MainMenuType } from '@payload-types'
 import { cn } from '@utils/ui'
+import Link from 'next/link'
 import type { Dispatch, SetStateAction } from 'react'
+import { FiSearch } from 'react-icons/fi'
 import { CTAs } from '../CTAs'
 import { DesktopNavGroup } from './nav-group'
 
@@ -23,6 +25,10 @@ export const DesktopNav: React.FC<
           hovered={hovered}
         />
       ))}
+      <Link href="/search" className="h-full flex items-center">
+        <span className="sr-only">Search</span>
+        <FiSearch className="w-5 text-primary" />
+      </Link>
       <CTAs {...menuCta} />
     </div>
   )

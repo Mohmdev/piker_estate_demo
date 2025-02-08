@@ -1,6 +1,6 @@
 {
   "name": "nexweb-realestate-template",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "private": true,
   "license": "MIT",
   "type": "module",
@@ -11,6 +11,8 @@
   },
   "scripts": {
     "ii": "cross-env NODE_OPTIONS=--no-deprecation pnpm --ignore-workspace install",
+    "ci": "NODE_OPTIONS=--no-deprecation pnpm --ignore-workspace install --frozen-lockfile",
+    "update-deps": "rm node_modules pnpm-lock.yaml -rf && pnpm i",
     "reinstall": "cross-env NODE_OPTIONS=--no-deprecation rm -rf node_modules && rm pnpm-lock.yaml && pnpm --ignore-workspace install",
     "build": "cross-env NODE_OPTIONS=--no-deprecation next build",
     "postbuild": "next-sitemap --config next-sitemap.config.cjs",
@@ -35,9 +37,7 @@
     "migrate:reset": "payload migrate:reset",
     "migrate:fresh": "payload migrate:fresh",
     "migrate:create": "payload migrate:create",
-    "ci": "NODE_OPTIONS=--no-deprecation pnpm --ignore-workspace install --frozen-lockfile",
-    "seed:all": "payload run src/app/next/seedScript.ts",
-    "update-deps": "rm node_modules pnpm-lock.yaml -rf && pnpm i"
+    "seed:all": "payload run src/app/next/seedScript.ts"
   },
   "dependencies": {
     "@payloadcms/db-vercel-postgres": "latest",

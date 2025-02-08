@@ -46,7 +46,7 @@ export default async function Page({ params: paramsPromise }: Args) {
   const { hero, layout } = page
 
   return (
-    <article className="pb-24">
+    <article className="flex-1 flex flex-col justify-center">
       <PageClient />
       {/* Allows redirects for valid pages too */}
       <PayloadRedirects disableNotFound url={url} />

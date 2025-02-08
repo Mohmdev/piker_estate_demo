@@ -8,7 +8,7 @@ export const App: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       className={cn(
         'relative z-1',
         'min-h-[100dvh] max-w-[100vw]',
-        'flex flex-col',
+        'flex flex-col justify-between',
         //
       )}
     >

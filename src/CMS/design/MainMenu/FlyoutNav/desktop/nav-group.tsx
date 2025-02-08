@@ -117,8 +117,9 @@ export const DesktopNavGroup: React.FC<NavGroupProps> = (props) => {
                   'bg-zinc-950/100',
                   'bg-navigation',
                   'border-border/50 border-1',
-                  'rounded-t-4xl',
-                  'rounded-b-lg',
+                  // 'rounded-t-4xl',
+                  // 'rounded-b-lg',
+                  'rounded-lg',
                 )}
               >
                 <DropdownContent dscrpArea={descriptionArea} navItems={navItems} />

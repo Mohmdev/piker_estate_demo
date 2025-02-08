@@ -14,6 +14,7 @@ export const revalidate = 600
 
 export default async function Page() {
   const posts = await getPaginatedPosts()
+  const { docs, totalDocs, totalPages, page } = posts
 
   return (
     <div className="pt-24 pb-24">
@@ -27,18 +28,20 @@ export default async function Page() {
       <div className="container mb-8">
         <PageRange
           collection="posts"
-          currentPage={posts.page}
+          currentPage={page}
           limit={12}
-          totalDocs={posts.totalDocs}
+          totalDocs={totalDocs}
         />
       </div>
 
-      <CollectionArchive posts={posts.docs} />
+      {posts && totalDocs > 0 ? (
+        <CollectionArchive posts={docs} />
+      ) : (
+        <p className="text-sm text-muted-foreground prose">Blog is empty.</p>
+      )}
 
       <div className="container">
-        {posts.totalPages > 1 && posts.page && (
-          <Pagination page={posts.page} totalPages={posts.totalPages} />
-        )}
+        {totalPages > 1 && page && <Pagination page={page} totalPages={totalPages} />}
       </div>
     </div>
   )

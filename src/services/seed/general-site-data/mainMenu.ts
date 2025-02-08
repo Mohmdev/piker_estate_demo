@@ -1007,14 +1007,14 @@ export const mainMenuMock: Partial<MainMenu> = {
     },
     // Tab 5
     {
-      groupLabel: 'Docs',
+      groupLabel: 'Search',
       enableDirectLink: true,
       enableDropdown: false,
       link: {
         type: 'custom',
         newTab: false,
         reference: null,
-        url: '/docs',
+        url: '/search',
       },
       // dscrpArea: {},
       // navItems: [],

@@ -38,7 +38,7 @@ export const FlyoutNav: React.FC<MainMenuType> = (navData) => {
     <header
       className={cn(
         'flex',
-        'h-full',
+        'h-max',
         'fixed top-0 z-50 w-full text-white',
         //
       )}
@@ -67,7 +67,7 @@ export const FlyoutNav: React.FC<MainMenuType> = (navData) => {
           className={cn(
             'container',
             'flex-1 h-full flex flex-row items-center justify-between',
-            'rounded-0 lg:rounded-full border-1 border-border/60',
+            'rounded-0 lg:rounded-full border-0 border-border/60',
             'mt-0 lg:mt-2',
           )}
         >
@@ -105,21 +105,18 @@ const variants = {
     height: 63,
     backdropFilter: 'blur(8px)',
     backgroundColor: 'hsla(var(--navigation) / 0.9)',
-    marginTop: window.innerWidth >= 1024 ? 8 : 0,
   },
   scrolledMobileNavOpen: {
     opacity: 1,
     height: 63,
     backdropFilter: 'blur(8px)',
     backgroundColor: 'hsla(var(--navigation) / 0)',
-    marginTop: window.innerWidth >= 1024 ? 8 : 0,
   },
   notScrolled: {
     opacity: 1,
     height: 74,
     backdropFilter: 'blur(0px)',
     backgroundColor: 'hsla(var(--navigation) / 0)',
-    marginTop: window.innerWidth >= 1024 ? 8 : 0,
     borderColor: 'transparent',
   },
 }
