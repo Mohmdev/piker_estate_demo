@@ -28,7 +28,7 @@ export const GroupContent: React.FC<GroupContentProps> = (props) => {
           className={cn(
             'col-span-12 lg:col-span-4',
             'flex flex-col justify-between gap-3 p-6',
-            'bg-neutral-200 dark:bg-neutral-950 ',
+            'bg-neutral-200 dark:bg-neutral-950',
             'border-1 border-border/50 rounded-lg',
             '',
           )}

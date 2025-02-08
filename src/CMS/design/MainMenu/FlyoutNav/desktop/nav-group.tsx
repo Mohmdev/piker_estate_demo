@@ -2,12 +2,14 @@ import { CMSLink } from '@components/CMSLink'
 import type { MainMenu } from '@payload-types'
 import { cn } from '@utils/ui'
 import { AnimatePresence, motion } from 'motion/react'
-import React, { useState } from 'react'
+import React, { useState, type Dispatch, type SetStateAction } from 'react'
 import { DropdownContent } from './group-content'
 
 export type NavGroupProps = {
   group: NonNullable<MainMenu['navGroups']>[number]
   children?: React.ReactNode
+  hovered: string | null
+  setHovered: Dispatch<SetStateAction<string | null>>
 }
 
 export const DesktopNavGroup: React.FC<NavGroupProps> = (props) => {
@@ -111,7 +113,12 @@ export const DesktopNavGroup: React.FC<NavGroupProps> = (props) => {
                 }}
                 className={cn(
                   'fixed inset-x-0 top-0 pt-25 pb-10 z-[-1]',
-                  'bg-zinc-950/90 backdrop-blur-md ',
+                  'backdrop-blur-md',
+                  'bg-zinc-950/100',
+                  'bg-navigation',
+                  'border-border/50 border-1',
+                  'rounded-t-4xl',
+                  'rounded-b-lg',
                 )}
               >
                 <DropdownContent dscrpArea={descriptionArea} navItems={navItems} />

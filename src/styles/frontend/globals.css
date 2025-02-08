@@ -59,9 +59,11 @@
   --color-base-50: hsl(var(--theme-elevation-50));
   --color-base-100: hsl(var(--theme-elevation-100));
   --color-base-150: hsl(var(--theme-elevation-150));
-  --space-bg: hsl(var(--space-bg));
-  --space-bg-less: hsl(var(--space-bg-less));
-  --deep-blue: hsl(var(--deep-blue));
+  --color-space-bg: hsl(var(--space-bg));
+  --color-space-bg-less: hsl(var(--space-bg-less));
+  --color-deep-blue: hsl(var(--deep-blue));
+  --color-semi-muted: hsl(var(--semi-muted));
+  --color-navigation: hsl(var(--navigation));
 
   --font-mono: var(--font-geist-mono);
   --font-sans: var(--font-geist-sans);
@@ -326,6 +328,7 @@
     --theme-text-white: 13 47% 94%;
 
     --semi-muted: 210 11% 50%;
+    --navigation: 240 10% 97.92%;
   }
 
   [data-theme="dark"] {
@@ -377,6 +380,7 @@
     --theme-text-white: 13 47% 94%;
 
     --semi-muted: 210 18% 13%;
+    --navigation: 240 10% 3.92%;
   }
 }
 

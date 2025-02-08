@@ -9,7 +9,7 @@ import { GroupContent } from './group-content'
 
 export type MobileNavGroupProps = {
   group: NonNullable<MainMenu['navGroups']>[number]
-  setMenuOpen: Dispatch<SetStateAction<boolean>>
+  // setMenuOpen: Dispatch<SetStateAction<boolean>>
 }
 
 export const MobileNavGroup: React.FC<MobileNavGroupProps> = (props) => {
