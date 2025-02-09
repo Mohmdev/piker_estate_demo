@@ -85,6 +85,8 @@
     }
   }
 
+  --base-header-height: 63px;
+
   --breakpoint-*: initial;
   --breakpoint-xxs: 23.438rem; /* 375px */
   --breakpoint-xs: 30rem; /* 480px */
