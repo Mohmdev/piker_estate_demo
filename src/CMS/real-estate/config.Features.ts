@@ -1,6 +1,9 @@
 import { populateAuthors } from '@CMS/_hooks/populateAuthors'
 import { populatePublishedAt } from '@CMS/_hooks/populatePublishedAt'
-import { revalidateDelete, revalidateFeature } from '@CMS/_hooks/revalidateFeature'
+import {
+  revalidateDelete,
+  revalidateFeature,
+} from '@CMS/_hooks/revalidateFeature'
 import { authorsField } from '@CMS/fields/shared/authorsField'
 import { noindexField } from '@CMS/fields/shared/noindexField'
 import { populateAuthorsField } from '@CMS/fields/shared/populatedAuthorsField'

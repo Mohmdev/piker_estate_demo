@@ -107,9 +107,10 @@ export const GroupContent: React.FC<GroupContentProps> = (props) => {
                             'font-normal hover:text-violet-300 prose leading-none',
                           )}
                         >
-                          {link.link?.newTab && link.link?.type === 'custom' && (
-                            <PiArrowUpRightLight className="w-4 h-4" />
-                          )}
+                          {link.link?.newTab &&
+                            link.link?.type === 'custom' && (
+                              <PiArrowUpRightLight className="w-4 h-4" />
+                            )}
                         </CMSLink>
                       ))}
                   </div>

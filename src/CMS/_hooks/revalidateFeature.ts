@@ -1,6 +1,9 @@
 import type { Feature } from '@payload-types'
 import { revalidatePath, revalidateTag } from 'next/cache'
-import type { CollectionAfterChangeHook, CollectionAfterDeleteHook } from 'payload'
+import type {
+  CollectionAfterChangeHook,
+  CollectionAfterDeleteHook,
+} from 'payload'
 
 export const revalidateFeature: CollectionAfterChangeHook<Feature> = ({
   doc,
@@ -50,7 +53,9 @@ export const revalidateDelete: CollectionAfterDeleteHook<Feature> = ({
     revalidatePath(path)
     revalidateTag('features-sitemap')
 
-    payload.logger.info(`✓ Deleted Feature and Features Sitemap were Revalidated`)
+    payload.logger.info(
+      `✓ Deleted Feature and Features Sitemap were Revalidated`,
+    )
     payload.logger.info(``)
   }
 

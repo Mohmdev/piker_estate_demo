@@ -87,8 +87,12 @@ export async function clearDBScript({
 
     await Promise.all(
       collections
-        .filter((collection) => Boolean(payload.collections[collection].config.versions))
-        .map((collection) => payload.db.deleteVersions({ collection, req, where: {} })),
+        .filter((collection) =>
+          Boolean(payload.collections[collection].config.versions),
+        )
+        .map((collection) =>
+          payload.db.deleteVersions({ collection, req, where: {} }),
+        ),
     )
 
     payload.logger.info('✓ Successfully cleared all data')

@@ -87,7 +87,11 @@ export const FlyoutNav: React.FC<MainMenuType> = (navData) => {
           />
         </motion.nav>
       </div>
-      <MobileMenu {...navData} open={mobileNavOpen} className="lg:hidden z-25" />
+      <MobileMenu
+        {...navData}
+        open={mobileNavOpen}
+        className="lg:hidden z-25"
+      />
     </header>
   )
 }

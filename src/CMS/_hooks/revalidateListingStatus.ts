@@ -1,12 +1,13 @@
 import type { ListingStatus } from '@payload-types'
 import { revalidatePath, revalidateTag } from 'next/cache'
-import type { CollectionAfterChangeHook, CollectionAfterDeleteHook } from 'payload'
+import type {
+  CollectionAfterChangeHook,
+  CollectionAfterDeleteHook,
+} from 'payload'
 
-export const revalidateListingStatus: CollectionAfterChangeHook<ListingStatus> = ({
-  doc,
-  previousDoc,
-  req: { payload, context },
-}) => {
+export const revalidateListingStatus: CollectionAfterChangeHook<
+  ListingStatus
+> = ({ doc, previousDoc, req: { payload, context } }) => {
   if (!context.disableRevalidate) {
     if (doc._status === 'published') {
       const path = `/listing-status/${doc.slug}`

@@ -14,7 +14,9 @@ import { NoiseBackground } from './App/noise-background'
 
 import '@styles/frontend/globals.css'
 
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({
+  children,
+}: { children: React.ReactNode }) {
   return (
     <html
       className={cn(GeistSans.variable, GeistMono.variable)}

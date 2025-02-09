@@ -1,7 +1,6 @@
-import React from 'react'
 import { getCachedGlobal } from '@data/getGlobal'
-
 import type { Asset, GlobalSetting } from '@payload-types'
+import React from 'react'
 
 const Favicon: React.FC = async () => {
   const graphics = (await getCachedGlobal(

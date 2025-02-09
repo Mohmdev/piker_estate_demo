@@ -1,6 +1,9 @@
 import type { ListingType } from '@payload-types'
 import { revalidatePath, revalidateTag } from 'next/cache'
-import type { CollectionAfterChangeHook, CollectionAfterDeleteHook } from 'payload'
+import type {
+  CollectionAfterChangeHook,
+  CollectionAfterDeleteHook,
+} from 'payload'
 
 export const revalidateListingType: CollectionAfterChangeHook<ListingType> = ({
   doc,
@@ -16,7 +19,9 @@ export const revalidateListingType: CollectionAfterChangeHook<ListingType> = ({
       revalidatePath(path)
       revalidateTag('listing-types-sitemap')
 
-      payload.logger.info(`✔ Listing Type and Listing Types Sitemap were Revalidated`)
+      payload.logger.info(
+        `✔ Listing Type and Listing Types Sitemap were Revalidated`,
+      )
       payload.logger.info(``)
     }
 
@@ -31,7 +36,9 @@ export const revalidateListingType: CollectionAfterChangeHook<ListingType> = ({
       revalidatePath(oldPath)
       revalidateTag('properties-sitemap')
 
-      payload.logger.info(`✓ Old Listing Type and Listing Types Sitemap were Revalidated`)
+      payload.logger.info(
+        `✓ Old Listing Type and Listing Types Sitemap were Revalidated`,
+      )
       payload.logger.info(``)
     }
   }

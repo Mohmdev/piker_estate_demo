@@ -143,7 +143,8 @@ export const MainMenu: GlobalConfig = {
               type: 'array',
               admin: {
                 components: {
-                  RowLabel: '@CMS/design/MainMenu/NavItemRowLabel#NavItemRowLabel',
+                  RowLabel:
+                    '@CMS/design/MainMenu/NavItemRowLabel#NavItemRowLabel',
                 },
               },
               fields: [
@@ -171,7 +172,8 @@ export const MainMenu: GlobalConfig = {
                   label: 'Default Link',
                   type: 'group',
                   admin: {
-                    condition: (_, siblingData) => siblingData.style === 'default',
+                    condition: (_, siblingData) =>
+                      siblingData.style === 'default',
                   },
                   fields: [
                     link({
@@ -191,7 +193,8 @@ export const MainMenu: GlobalConfig = {
                   label: 'Featured Link',
                   type: 'group',
                   admin: {
-                    condition: (_, siblingData) => siblingData.style === 'featured',
+                    condition: (_, siblingData) =>
+                      siblingData.style === 'featured',
                   },
                   fields: [
                     {

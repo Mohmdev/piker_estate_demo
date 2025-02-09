@@ -26,6 +26,7 @@
     "lint:fix": "cross-env NODE_OPTIONS=--no-deprecation pnpm biome lint --write ./src",
     "lint:next": "cross-env NODE_OPTIONS=--no-deprecation next lint",
     "format:src": "biome format --write ./src",
+    "fix:ci": "biome ci --formatter-enabled=true --linter-enabled=true --organize-imports-enabled=true --assists-enabled=true",
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
     "generate:importmap": "payload generate:importmap",
     "generate:schema": "payload generate:db-schema",

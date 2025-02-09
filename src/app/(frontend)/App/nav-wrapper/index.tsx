@@ -1,7 +1,10 @@
 import { Footer } from '@CMS/design/Footer'
 import { FlyoutNav } from '@CMS/design/MainMenu/FlyoutNav'
 import { getCachedGlobal } from '@data/getGlobal'
-import type { Footer as FooterType, MainMenu as MainMenuType } from '@payload-types'
+import type {
+  Footer as FooterType,
+  MainMenu as MainMenuType,
+} from '@payload-types'
 import { cn } from '@utils/ui'
 import { draftMode } from 'next/headers'
 import React from 'react'
