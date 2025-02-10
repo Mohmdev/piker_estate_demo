@@ -1,10 +1,11 @@
 import type { Field } from 'payload'
 
-export const searchFiltersHeroConfig: Field = {
-  name: 'searchFiltersConfig',
+export const heroSearchComponent: Field = {
+  name: 'searchComponent',
+  label: 'Search Component',
   type: 'group',
   admin: {
-    condition: (_, { type } = {}) => type === 'filtersSearchSlider',
+    condition: (_, { type } = {}) => type === 'advancedComponents',
   },
   fields: [
     {

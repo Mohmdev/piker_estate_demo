@@ -656,7 +656,7 @@ export interface Page {
   id: number;
   title: string;
   hero: {
-    type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact' | 'filtersSearchSlider';
+    type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact' | 'advancedComponents';
     richText?: {
       root: {
         type: string;
@@ -701,7 +701,7 @@ export interface Page {
         }[]
       | null;
     media?: (number | null) | Media;
-    searchFiltersConfig?: {
+    searchComponent?: {
       enablePropertyStatus?: boolean | null;
       enablePropertyType?: boolean | null;
       enableRooms?: boolean | null;
@@ -1910,7 +1910,7 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
             };
         media?: T;
-        searchFiltersConfig?:
+        searchComponent?:
           | T
           | {
               enablePropertyStatus?: T;

@@ -6,8 +6,8 @@ import {
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
 import type { Field } from 'payload'
-import { searchFiltersHeroConfig } from './RealEstate/filters-search-slider/config.field'
-import { iconGridComponent } from './RealEstate/icon-grid/config.field'
+import { iconGridComponent } from './RealEstate/components/icon-grid/config.field'
+import { heroSearchComponent } from './RealEstate/components/search-component/config.field'
 
 export const hero: Field = {
   name: 'hero',
@@ -16,7 +16,7 @@ export const hero: Field = {
     {
       name: 'type',
       type: 'select',
-      defaultValue: 'lowImpact',
+      defaultValue: 'advancedComponents',
       label: 'Type',
       options: [
         {
@@ -36,8 +36,8 @@ export const hero: Field = {
           value: 'lowImpact',
         },
         {
-          label: 'Filters Search Slider',
-          value: 'filtersSearchSlider',
+          label: 'Advanced Components',
+          value: 'advancedComponents',
         },
       ],
       required: true,
@@ -67,12 +67,12 @@ export const hero: Field = {
       type: 'upload',
       admin: {
         condition: (_, { type } = {}) =>
-          ['highImpact', 'mediumImpact', 'filtersSearchSlider'].includes(type),
+          ['highImpact', 'mediumImpact', 'advancedComponents'].includes(type),
       },
       relationTo: 'media',
       required: true,
     },
-    searchFiltersHeroConfig,
+    heroSearchComponent,
     iconGridComponent,
   ],
   label: false,

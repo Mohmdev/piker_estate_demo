@@ -12,16 +12,38 @@ import { Slider } from '@components/ui/slider'
 import type { Page } from '@payload-types'
 import { cn } from '@utils/ui'
 import { motion } from 'motion/react'
+import { useCallback, useState } from 'react'
 
 type SearchFiltersFormProps = {
-  searchFiltersConfig: NonNullable<Page['hero']['searchFiltersConfig']>
+  searchComponent: NonNullable<Page['hero']['searchComponent']>
   className?: string
 }
 
 export const SearchFiltersForm: React.FC<SearchFiltersFormProps> = ({
-  searchFiltersConfig,
+  searchComponent,
   className,
 }) => {
+  // State for Price Range
+  const [priceRange, setPriceRange] = useState<number[]>([
+    searchComponent.priceRange?.min || 2500,
+    searchComponent.priceRange?.max || 8500,
+  ])
+
+  // State for Area Range
+  const [areaRange, setAreaRange] = useState<number[]>([
+    searchComponent.areaRange?.min || 2500,
+    searchComponent.areaRange?.max || 8500,
+  ])
+
+  // useCallback for onValueChange to prevent unnecessary re-renders
+  const handlePriceChange = useCallback((value: number[]) => {
+    setPriceRange(value)
+  }, [])
+
+  const handleAreaChange = useCallback((value: number[]) => {
+    setAreaRange(value)
+  }, [])
+
   return (
     <div
       className={cn(
@@ -36,7 +58,7 @@ export const SearchFiltersForm: React.FC<SearchFiltersFormProps> = ({
         className="mt-8 p-6 bg-background/80 backdrop-blur rounded-lg max-w-2xl mx-0"
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-          {searchFiltersConfig.enablePropertyStatus && (
+          {searchComponent.enablePropertyStatus && (
             <Select>
               <SelectTrigger>
                 <SelectValue placeholder="Property Status" />
@@ -48,7 +70,7 @@ export const SearchFiltersForm: React.FC<SearchFiltersFormProps> = ({
               </SelectContent>
             </Select>
           )}
-          {searchFiltersConfig.enablePropertyType && (
+          {searchComponent.enablePropertyType && (
             <Select>
               <SelectTrigger>
                 <SelectValue placeholder="Property Type" />
@@ -61,7 +83,7 @@ export const SearchFiltersForm: React.FC<SearchFiltersFormProps> = ({
               </SelectContent>
             </Select>
           )}
-          {searchFiltersConfig.enableRooms && (
+          {searchComponent.enableRooms && (
             <Select>
               <SelectTrigger>
                 <SelectValue placeholder="Rooms" />
@@ -74,7 +96,7 @@ export const SearchFiltersForm: React.FC<SearchFiltersFormProps> = ({
               </SelectContent>
             </Select>
           )}
-          {searchFiltersConfig.enableBeds && (
+          {searchComponent.enableBeds && (
             <Select>
               <SelectTrigger>
                 <SelectValue placeholder="Bed" />
@@ -87,7 +109,7 @@ export const SearchFiltersForm: React.FC<SearchFiltersFormProps> = ({
               </SelectContent>
             </Select>
           )}
-          {searchFiltersConfig.enableBaths && (
+          {searchComponent.enableBaths && (
             <Select>
               <SelectTrigger>
                 <SelectValue placeholder="Bath" />
@@ -102,37 +124,31 @@ export const SearchFiltersForm: React.FC<SearchFiltersFormProps> = ({
           )}
         </div>
         {/* Price Range Slider */}
-        {searchFiltersConfig.priceRange?.enabled && (
+        {searchComponent.priceRange?.enabled && (
           <div className="mb-4">
             <p className="text-sm mb-2">
-              Price: ${searchFiltersConfig.priceRange.min} - $
-              {searchFiltersConfig.priceRange.max}
+              Price: ${priceRange[0]} - ${priceRange[1]}
             </p>
             <Slider
-              defaultValue={[
-                searchFiltersConfig.priceRange.min || 2500,
-                searchFiltersConfig.priceRange.max || 8500,
-              ]}
-              max={searchFiltersConfig.priceRange.max || 8500}
-              min={searchFiltersConfig.priceRange.min || 2500}
+              value={priceRange}
+              onValueChange={handlePriceChange}
+              max={searchComponent.priceRange?.max || 8500}
+              min={searchComponent.priceRange?.min || 2500}
               step={100}
             />
           </div>
         )}
         {/* Area Range Slider */}
-        {searchFiltersConfig.areaRange?.enabled && (
+        {searchComponent.areaRange?.enabled && (
           <div className="mb-6">
             <p className="text-sm mb-2">
-              Area: {searchFiltersConfig.areaRange.min} -{' '}
-              {searchFiltersConfig.areaRange.max} sq ft
+              Area: {areaRange[0]} - {areaRange[1]} sq ft
             </p>
             <Slider
-              defaultValue={[
-                searchFiltersConfig.areaRange.min || 2500,
-                searchFiltersConfig.areaRange.max || 8500,
-              ]}
-              max={searchFiltersConfig.areaRange.max || 8500}
-              min={searchFiltersConfig.areaRange.min || 2500}
+              value={areaRange}
+              onValueChange={handleAreaChange}
+              max={searchComponent.areaRange?.max || 8500}
+              min={searchComponent.areaRange?.min || 2500}
               step={100}
             />
           </div>

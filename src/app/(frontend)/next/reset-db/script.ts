@@ -1,4 +1,3 @@
-import config from '@payload-config'
 import type { Footer, GlobalSetting, MainMenu } from '@payload-types'
 
 import { Payload } from 'payload'

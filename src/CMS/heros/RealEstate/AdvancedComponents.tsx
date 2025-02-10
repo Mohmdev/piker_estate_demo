@@ -3,16 +3,16 @@ import type { Page } from '@payload-types'
 import { useHeaderTheme } from '@providers/HeaderTheme'
 import { cn } from '@utils/ui'
 import React, { useEffect } from 'react'
-import { IconGrid } from '../icon-grid'
-import { BackgroundMedia } from './background-media'
-import { MiniSlider } from './mini-slider'
-import { SearchFiltersForm } from './search-filters-form'
+import { BackgroundMedia } from './components/background-media'
+import { IconGrid } from './components/icon-grid'
+import { MiniSlider } from './components/mini-slider'
+import { SearchFiltersForm } from './components/search-component/search-filters-form'
 
-export const FiltersSearchSlider: React.FC<Page['hero']> = ({
+export const AdvancedComponentsHero: React.FC<Page['hero']> = ({
   links,
   media,
   richText,
-  searchFiltersConfig,
+  searchComponent,
   iconGrid,
 }) => {
   const { setHeaderTheme } = useHeaderTheme()
@@ -34,14 +34,10 @@ export const FiltersSearchSlider: React.FC<Page['hero']> = ({
       <div
         className={cn(
           'container z-10 relative flex flex-1',
-          // 'flex-row flex-wrap gap-6 lg:gap-22',
-          // 'justify-start items-start',
           'flex-col justify-start gap-6',
           'md:flex-row md:justify-between lg:gap-22',
-          // 'md:text-center space-y-4',
         )}
       >
-        {/* Mini Slider */}
         {links && (
           <MiniSlider
             richText={richText}
@@ -50,20 +46,19 @@ export const FiltersSearchSlider: React.FC<Page['hero']> = ({
           />
         )}
 
-        {/* Search Filters Form */}
-        {searchFiltersConfig && (
+        {searchComponent && (
           <SearchFiltersForm
-            searchFiltersConfig={searchFiltersConfig}
+            searchComponent={searchComponent}
             className="min-w-max"
           />
         )}
 
-        {/* Icon Grid */}
         {iconGrid && iconGrid.length > 0 && <IconGrid iconGrid={iconGrid} />}
       </div>
+      {/*  */}
 
-      {/* Background Image */}
       <BackgroundMedia media={media} />
+      {/*  */}
     </div>
   )
 }

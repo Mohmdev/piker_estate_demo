@@ -5,7 +5,7 @@ export const iconGridComponent: Field = {
   name: 'iconGrid',
   type: 'array',
   admin: {
-    condition: (_, { type } = {}) => type === 'filtersSearchSlider',
+    condition: (_, { type } = {}) => type === 'advancedComponents',
   },
   fields: [
     {

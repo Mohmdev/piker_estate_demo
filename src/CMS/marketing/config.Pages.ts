@@ -1,5 +1,3 @@
-import type { CollectionConfig } from 'payload'
-
 import { populateAuthors } from '@CMS/_hooks/populateAuthors'
 import { populatePublishedAt } from '@CMS/_hooks/populatePublishedAt'
 import { revalidateDelete, revalidatePage } from '@CMS/_hooks/revalidatePage'
@@ -8,20 +6,20 @@ import { CallToAction } from '@CMS/blocks/CallToAction/config'
 import { Content } from '@CMS/blocks/Content/config'
 import { FormBlock } from '@CMS/blocks/Form/config'
 import { MediaBlock } from '@CMS/blocks/MediaBlock/config'
-import { slugField } from '@CMS/fields/shared/slug/config'
-import { hero } from '@CMS/heros/config'
-
 import { authorsField } from '@CMS/fields/shared/authorsField'
 import { noindexField } from '@CMS/fields/shared/noindexField'
 import { populateAuthorsField } from '@CMS/fields/shared/populatedAuthorsField'
 import { publishedAtField } from '@CMS/fields/shared/publishedAtField'
 import { seoTab } from '@CMS/fields/shared/seoTab'
+import { slugField } from '@CMS/fields/shared/slug/config'
 import { tagsField } from '@CMS/fields/shared/tagsField'
+import { hero } from '@CMS/heros/config.field.heros'
 import { isAdminOrEditor } from '@auth/access/isAdminOrEditor'
 import { isAdminOrSelf } from '@auth/access/isAdminOrSelf'
 import { publishedOnly } from '@auth/access/publishedOnly'
 import { getCollectionLivePreviewURL } from '@services/live-preview/getCollectionLivePreviewURL'
 import { getCollectionPreviewURL } from '@services/live-preview/getCollectionPreviewURL'
+import type { CollectionConfig } from 'payload'
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
