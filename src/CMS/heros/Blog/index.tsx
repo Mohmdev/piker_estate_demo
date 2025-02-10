@@ -1,13 +1,11 @@
-import React from 'react'
-
-import type { Post } from '@payload-types'
-
 import { Media } from '@components/Media'
+import type { Post } from '@payload-types'
 import { formatAuthors } from '@utils/formatAuthors'
 import { formatDateTime } from '@utils/formatDateTime'
 import { cn } from '@utils/ui'
+import React from 'react'
 
-export const PostHero: React.FC<{
+export const BlogHero: React.FC<{
   post: Post
 }> = ({ post }) => {
   const { categories, heroImage, populatedAuthors, publishedAt, title } = post

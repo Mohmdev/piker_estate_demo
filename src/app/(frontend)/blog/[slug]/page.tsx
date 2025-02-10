@@ -1,10 +1,10 @@
 import { RelatedDocs } from '@CMS/blocks/RelatedDocs/Component'
+import { BlogHero } from '@CMS/heros/Blog'
 import { LivePreviewListener } from '@components/LivePreviewListener'
 import { PayloadRedirects } from '@components/PayloadRedirects'
 import RichText from '@components/RichText'
 import { getDynamicMeta } from '@data/getDynamicMeta'
 import { getPostBySlug } from '@data/getPost'
-import { PostHero } from '@heros/PostHero'
 import configPromise from '@payload-config'
 import type { Post } from '@payload-types'
 import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
@@ -58,7 +58,7 @@ export default async function Post({ params: paramsPromise }: Args) {
 
       {draft && <LivePreviewListener />}
 
-      <PostHero post={post} />
+      <BlogHero post={post} />
 
       <div className="flex flex-col items-center gap-4 pt-8">
         <div className="container">

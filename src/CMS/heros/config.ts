@@ -1,13 +1,13 @@
-import type { Field } from 'payload'
-
+import { linkGroup } from '@fields/linkGroup'
 import {
   FixedToolbarFeature,
   HeadingFeature,
   InlineToolbarFeature,
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
-
-import { linkGroup } from '@fields/linkGroup'
+import type { Field } from 'payload'
+import { searchFiltersHeroConfig } from './RealEstate/filters-search-slider/config.field'
+import { iconGridComponent } from './RealEstate/icon-grid/config.field'
 
 export const hero: Field = {
   name: 'hero',
@@ -34,6 +34,10 @@ export const hero: Field = {
         {
           label: 'Low Impact',
           value: 'lowImpact',
+        },
+        {
+          label: 'Filters Search Slider',
+          value: 'filtersSearchSlider',
         },
       ],
       required: true,
@@ -63,11 +67,13 @@ export const hero: Field = {
       type: 'upload',
       admin: {
         condition: (_, { type } = {}) =>
-          ['highImpact', 'mediumImpact'].includes(type),
+          ['highImpact', 'mediumImpact', 'filtersSearchSlider'].includes(type),
       },
       relationTo: 'media',
       required: true,
     },
+    searchFiltersHeroConfig,
+    iconGridComponent,
   ],
   label: false,
 }

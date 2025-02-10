@@ -656,7 +656,7 @@ export interface Page {
   id: number;
   title: string;
   hero: {
-    type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact';
+    type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact' | 'filtersSearchSlider';
     richText?: {
       root: {
         type: string;
@@ -701,6 +701,72 @@ export interface Page {
         }[]
       | null;
     media?: (number | null) | Media;
+    searchFiltersConfig?: {
+      enablePropertyStatus?: boolean | null;
+      enablePropertyType?: boolean | null;
+      enableRooms?: boolean | null;
+      enableBeds?: boolean | null;
+      enableBaths?: boolean | null;
+      priceRange?: {
+        enabled?: boolean | null;
+        min?: number | null;
+        max?: number | null;
+      };
+      areaRange?: {
+        enabled?: boolean | null;
+        min?: number | null;
+        max?: number | null;
+      };
+      button?: {
+        label?: string | null;
+        style?: ('primary' | 'secondary') | null;
+        icon?: ('house' | 'booking' | 'garage') | null;
+      };
+    };
+    iconGrid?:
+      | {
+          icon?:
+            | (
+                | 'house'
+                | 'booking'
+                | 'garage'
+                | 'bath'
+                | 'bed'
+                | 'area'
+                | 'price'
+                | 'rooms'
+                | 'parking'
+                | 'pool'
+                | 'garden'
+                | 'land'
+                | 'other'
+              )
+            | null;
+          label?: string | null;
+          /**
+           * Optional link when clicking the icon
+           */
+          link?: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: number | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: number | Post;
+                } | null)
+              | ({
+                  relationTo: 'properties';
+                  value: number | Property;
+                } | null);
+            url?: string | null;
+          };
+          id?: string | null;
+        }[]
+      | null;
   };
   layout?: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock)[] | null;
   meta?: Meta;
@@ -1844,6 +1910,51 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
             };
         media?: T;
+        searchFiltersConfig?:
+          | T
+          | {
+              enablePropertyStatus?: T;
+              enablePropertyType?: T;
+              enableRooms?: T;
+              enableBeds?: T;
+              enableBaths?: T;
+              priceRange?:
+                | T
+                | {
+                    enabled?: T;
+                    min?: T;
+                    max?: T;
+                  };
+              areaRange?:
+                | T
+                | {
+                    enabled?: T;
+                    min?: T;
+                    max?: T;
+                  };
+              button?:
+                | T
+                | {
+                    label?: T;
+                    style?: T;
+                    icon?: T;
+                  };
+            };
+        iconGrid?:
+          | T
+          | {
+              icon?: T;
+              label?: T;
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                  };
+              id?: T;
+            };
       };
   layout?:
     | T
