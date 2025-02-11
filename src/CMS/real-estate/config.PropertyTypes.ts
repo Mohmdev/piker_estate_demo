@@ -2,8 +2,8 @@ import { populateAuthors } from '@CMS/_hooks/populateAuthors'
 import { populatePublishedAt } from '@CMS/_hooks/populatePublishedAt'
 import {
   revalidateDelete,
-  revalidateListingType,
-} from '@CMS/_hooks/revalidateListingType'
+  revalidatePropertyType,
+} from '@CMS/_hooks/revalidatePropertyType'
 import { authorsField } from '@CMS/fields/shared/authorsField'
 import { noindexField } from '@CMS/fields/shared/noindexField'
 import { populateAuthorsField } from '@CMS/fields/shared/populatedAuthorsField'
@@ -17,11 +17,11 @@ import { publishedOnly } from '@auth/access/publishedOnly'
 import { essentialsLexical } from '@services/editor/essentialsLexical'
 import type { CollectionConfig } from 'payload'
 
-export const ListingTypes: CollectionConfig<'listing-types'> = {
-  slug: 'listing-types',
+export const PropertyTypes: CollectionConfig<'property-types'> = {
+  slug: 'property-types',
   labels: {
-    singular: 'Listing Type',
-    plural: 'Listing Types',
+    singular: 'Property Type',
+    plural: 'Property Types',
   },
   access: {
     read: publishedOnly,
@@ -89,7 +89,7 @@ export const ListingTypes: CollectionConfig<'listing-types'> = {
     ...slugField(),
   ],
   hooks: {
-    afterChange: [revalidateListingType],
+    afterChange: [revalidatePropertyType],
     afterDelete: [revalidateDelete],
     afterRead: [populateAuthors],
     beforeChange: [populatePublishedAt],

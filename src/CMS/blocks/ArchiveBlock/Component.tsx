@@ -1,11 +1,9 @@
-import type { ArchiveBlock as ArchiveBlockProps, Post } from '@payload-types'
-
+import { CollectionArchive } from '@components/CollectionArchive'
 import RichText from '@components/RichText'
 import configPromise from '@payload-config'
+import type { ArchiveBlock as ArchiveBlockProps, Post } from '@payload-types'
 import { getPayload } from 'payload'
 import React from 'react'
-
-import { CollectionArchive } from '@components/CollectionArchive'
 
 export const ArchiveBlock: React.FC<
   ArchiveBlockProps & {
@@ -66,7 +64,12 @@ export const ArchiveBlock: React.FC<
           <RichText className="ml-0" data={introContent} enableGutter={false} />
         </div>
       )}
-      <CollectionArchive posts={posts} />
+      <CollectionArchive
+        posts={posts.map((post) => ({
+          ...post,
+          categories: post.categories?.map((category) => category.value),
+        }))}
+      />
     </div>
   )
 }

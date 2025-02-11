@@ -3,6 +3,7 @@ import { populatePublishedAt } from '@CMS/_hooks/populatePublishedAt'
 import { revalidateDelete } from '@CMS/_hooks/revalidateProperty'
 import { revalidateProperty } from '@CMS/_hooks/revalidateProperty'
 import { authorsField } from '@CMS/fields/shared/authorsField'
+import { categoriesField } from '@CMS/fields/shared/categoriesField'
 import { noindexField } from '@CMS/fields/shared/noindexField'
 import { populateAuthorsField } from '@CMS/fields/shared/populatedAuthorsField'
 import { publishedAtField } from '@CMS/fields/shared/publishedAtField'
@@ -80,22 +81,39 @@ export const Properties: CollectionConfig<'properties'> = {
               },
               index: true,
             },
-            tagsField,
           ],
         },
         {
-          label: 'Listing Details',
+          label: 'Listing Options',
           fields: [
             {
-              type: 'relationship',
-              name: 'listingStatus',
-              relationTo: 'listing-status',
+              type: 'checkbox',
+              name: 'isFeatured',
+              label: 'Featured',
+              defaultValue: false,
             },
             {
-              type: 'relationship',
-              name: 'listingType',
-              relationTo: 'listing-types',
+              type: 'row',
+              fields: [
+                {
+                  type: 'relationship',
+                  name: 'propertyType',
+                  relationTo: 'property-types',
+                },
+                {
+                  type: 'relationship',
+                  name: 'listingStatus',
+                  relationTo: 'listing-status',
+                },
+                {
+                  type: 'relationship',
+                  name: 'listingType',
+                  relationTo: 'listing-types',
+                },
+              ],
             },
+            categoriesField,
+            tagsField,
           ],
         },
         {

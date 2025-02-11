@@ -3,10 +3,10 @@ import type { Page } from '@payload-types'
 export const contact: Partial<Page> = {
   slug: 'contact',
   _status: 'published',
-  hero: {
+  heros: {
     type: 'none',
   },
-  layout: [
+  blocks: [
     {
       blockType: 'formBlock',
       enableIntro: true,

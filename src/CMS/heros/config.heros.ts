@@ -5,13 +5,15 @@ import {
   InlineToolbarFeature,
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
+import { hasSiblingField } from '@utils/siblingFieldCondition'
 import type { Field } from 'payload'
 import { iconGridComponent } from './RealEstate/components/icon-grid/config.field'
 import { heroSearchComponent } from './RealEstate/components/search-component/config.field'
 
-export const hero: Field = {
-  name: 'hero',
+export const herosInterface: Field = {
+  name: 'heros',
   type: 'group',
+  interfaceName: 'herosInterface',
   fields: [
     {
       name: 'type',
@@ -66,8 +68,11 @@ export const hero: Field = {
       name: 'media',
       type: 'upload',
       admin: {
-        condition: (_, { type } = {}) =>
-          ['highImpact', 'mediumImpact', 'advancedComponents'].includes(type),
+        condition: hasSiblingField('type', [
+          'highImpact',
+          'mediumImpact',
+          'advancedComponents',
+        ]),
       },
       relationTo: 'media',
       required: true,

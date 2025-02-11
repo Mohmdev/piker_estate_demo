@@ -1,10 +1,9 @@
 import type { Page } from '@payload-types'
 
-// @ts-expect-error Used for pre-seeded content so that the homepage is not empty
-export const homeStatic: Page = {
+export const homeStatic: Partial<Page> = {
   slug: 'home',
   _status: 'published',
-  hero: {
+  heros: {
     type: 'lowImpact',
     richText: {
       root: {

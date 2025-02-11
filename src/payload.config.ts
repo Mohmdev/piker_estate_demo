@@ -3,7 +3,7 @@ import { fileURLToPath } from 'url'
 import { Footer } from '@CMS/design/Footer/config'
 import { GlobalSettings } from '@CMS/design/GlobalSettings/config'
 import { MainMenu } from '@CMS/design/MainMenu/config'
-import { Categories } from '@CMS/marketing/config.Categories'
+import { BlogCategories } from '@CMS/marketing/config.BlogCategories'
 import { Pages } from '@CMS/marketing/config.Pages'
 import { Posts } from '@CMS/marketing/config.Posts'
 import { Tags } from '@CMS/marketing/config.Tags'
@@ -11,6 +11,7 @@ import { Features } from '@CMS/real-estate/config.Features'
 import { ListingStatus } from '@CMS/real-estate/config.ListingStatus'
 import { ListingTypes } from '@CMS/real-estate/config.ListingTypes'
 import { Properties } from '@CMS/real-estate/config.Properties'
+import { PropertyTypes } from '@CMS/real-estate/config.PropertyTypes'
 import { Users } from '@auth/Users/config'
 import { getServerSideURL } from '@data/getURL'
 import { adminConfig } from '@services/admin/config'
@@ -38,11 +39,12 @@ export default buildConfig({
   collections: [
     ...collectionGroup('Real Estate', [
       Properties,
+      PropertyTypes,
       Features,
       ListingStatus,
       ListingTypes,
     ]),
-    ...collectionGroup('Marketing', [Pages, Posts, Categories, Tags]),
+    ...collectionGroup('Marketing', [Pages, Posts, BlogCategories, Tags]),
     ...collectionGroup('Resources', [Media, Assets]),
     ...collectionGroup('Accounts', [Users, UserPhotos]),
   ],

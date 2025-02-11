@@ -1,3 +1,4 @@
+import { hasSiblingField } from '@utils/siblingFieldCondition'
 import type { Field } from 'payload'
 
 export const heroSearchComponent: Field = {
@@ -5,7 +6,7 @@ export const heroSearchComponent: Field = {
   label: 'Search Component',
   type: 'group',
   admin: {
-    condition: (_, { type } = {}) => type === 'advancedComponents',
+    condition: hasSiblingField('type', 'advancedComponents'),
   },
   fields: [
     {

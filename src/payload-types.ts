@@ -12,12 +12,13 @@ export interface Config {
   };
   collections: {
     properties: Property;
+    'property-types': PropertyType;
     features: Feature;
     'listing-status': ListingStatus;
     'listing-types': ListingType;
     pages: Page;
     posts: Post;
-    categories: Category;
+    'blog-categories': BlogCategory;
     tags: Tag;
     media: Media;
     assets: Asset;
@@ -33,6 +34,9 @@ export interface Config {
     'payload-migrations': PayloadMigration;
   };
   collectionsJoins: {
+    'property-types': {
+      properties: 'properties';
+    };
     features: {
       properties: 'properties';
     };
@@ -41,6 +45,9 @@ export interface Config {
     };
     'listing-types': {
       properties: 'properties';
+    };
+    'blog-categories': {
+      records: 'posts';
     };
     tags: {
       pages: 'pages';
@@ -52,12 +59,13 @@ export interface Config {
   };
   collectionsSelect: {
     properties: PropertiesSelect<false> | PropertiesSelect<true>;
+    'property-types': PropertyTypesSelect<false> | PropertyTypesSelect<true>;
     features: FeaturesSelect<false> | FeaturesSelect<true>;
     'listing-status': ListingStatusSelect<false> | ListingStatusSelect<true>;
     'listing-types': ListingTypesSelect<false> | ListingTypesSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
-    categories: CategoriesSelect<false> | CategoriesSelect<true>;
+    'blog-categories': BlogCategoriesSelect<false> | BlogCategoriesSelect<true>;
     tags: TagsSelect<false> | TagsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     assets: AssetsSelect<false> | AssetsSelect<true>;
@@ -421,9 +429,27 @@ export interface Property {
     num_carspaces?: number | null;
   };
   features?: (number | Feature)[] | null;
-  tags?: (number | Tag)[] | null;
+  isFeatured?: boolean | null;
+  propertyType?: (number | null) | PropertyType;
   listingStatus?: (number | null) | ListingStatus;
   listingType?: (number | null) | ListingType;
+  categories?:
+    | (
+        | {
+            relationTo: 'blog-categories';
+            value: number | BlogCategory;
+          }
+        | {
+            relationTo: 'property-types';
+            value: number | PropertyType;
+          }
+        | {
+            relationTo: 'listing-types';
+            value: number | ListingType;
+          }
+      )[]
+    | null;
+  tags?: (number | Tag)[] | null;
   gallery?: {
     /**
      * Up to 24 images; The first image will be used as the main image.
@@ -655,120 +681,10 @@ export interface Tag {
 export interface Page {
   id: number;
   title: string;
-  hero: {
-    type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact' | 'advancedComponents';
-    richText?: {
-      root: {
-        type: string;
-        children: {
-          type: string;
-          version: number;
-          [k: string]: unknown;
-        }[];
-        direction: ('ltr' | 'rtl') | null;
-        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-        indent: number;
-        version: number;
-      };
-      [k: string]: unknown;
-    } | null;
-    links?:
-      | {
-          link: {
-            type?: ('reference' | 'custom') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: number | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: number | Post;
-                } | null)
-              | ({
-                  relationTo: 'properties';
-                  value: number | Property;
-                } | null);
-            url?: string | null;
-            label: string;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline') | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
-    media?: (number | null) | Media;
-    searchComponent?: {
-      enablePropertyStatus?: boolean | null;
-      enablePropertyType?: boolean | null;
-      enableRooms?: boolean | null;
-      enableBeds?: boolean | null;
-      enableBaths?: boolean | null;
-      priceRange?: {
-        enabled?: boolean | null;
-        min?: number | null;
-        max?: number | null;
-      };
-      areaRange?: {
-        enabled?: boolean | null;
-        min?: number | null;
-        max?: number | null;
-      };
-      button?: {
-        label?: string | null;
-        style?: ('primary' | 'secondary') | null;
-        icon?: ('house' | 'booking' | 'garage') | null;
-      };
-    };
-    iconGrid?:
-      | {
-          icon?:
-            | (
-                | 'house'
-                | 'booking'
-                | 'garage'
-                | 'bath'
-                | 'bed'
-                | 'area'
-                | 'price'
-                | 'rooms'
-                | 'parking'
-                | 'pool'
-                | 'garden'
-                | 'land'
-                | 'other'
-              )
-            | null;
-          label?: string | null;
-          /**
-           * Optional link when clicking the icon
-           */
-          link?: {
-            type?: ('reference' | 'custom') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: number | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: number | Post;
-                } | null)
-              | ({
-                  relationTo: 'properties';
-                  value: number | Property;
-                } | null);
-            url?: string | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
-  };
-  layout?: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock)[] | null;
+  heros: HerosInterface;
+  blocks?:
+    | (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | ListingBlock | ListingArchive)[]
+    | null;
   meta?: Meta;
   /**
    * When checked, this page will not appear in search engines like Google. Use this for private pages or temporary content that should not be publicly searchable.
@@ -788,6 +704,123 @@ export interface Page {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "herosInterface".
+ */
+export interface HerosInterface {
+  type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact' | 'advancedComponents';
+  richText?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: number | Post;
+              } | null)
+            | ({
+                relationTo: 'properties';
+                value: number | Property;
+              } | null);
+          url?: string | null;
+          label: string;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'outline') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  media?: (number | null) | Media;
+  searchComponent?: {
+    enablePropertyStatus?: boolean | null;
+    enablePropertyType?: boolean | null;
+    enableRooms?: boolean | null;
+    enableBeds?: boolean | null;
+    enableBaths?: boolean | null;
+    priceRange?: {
+      enabled?: boolean | null;
+      min?: number | null;
+      max?: number | null;
+    };
+    areaRange?: {
+      enabled?: boolean | null;
+      min?: number | null;
+      max?: number | null;
+    };
+    button?: {
+      label?: string | null;
+      style?: ('primary' | 'secondary') | null;
+      icon?: ('house' | 'booking' | 'garage') | null;
+    };
+  };
+  iconGrid?:
+    | {
+        icon?:
+          | (
+              | 'house'
+              | 'booking'
+              | 'garage'
+              | 'bath'
+              | 'bed'
+              | 'area'
+              | 'price'
+              | 'rooms'
+              | 'parking'
+              | 'pool'
+              | 'garden'
+              | 'land'
+              | 'other'
+            )
+          | null;
+        label?: string | null;
+        /**
+         * Optional link when clicking the icon
+         */
+        link?: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: number | Post;
+              } | null)
+            | ({
+                relationTo: 'properties';
+                value: number | Property;
+              } | null);
+          url?: string | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -812,7 +845,22 @@ export interface Post {
     };
     [k: string]: unknown;
   } | null;
-  categories?: (number | Category)[] | null;
+  categories?:
+    | (
+        | {
+            relationTo: 'blog-categories';
+            value: number | BlogCategory;
+          }
+        | {
+            relationTo: 'property-types';
+            value: number | PropertyType;
+          }
+        | {
+            relationTo: 'listing-types';
+            value: number | ListingType;
+          }
+      )[]
+    | null;
   /**
    * Content that are related to this one. Could be a page, or post, that you would like to feature in this document.
    */
@@ -827,12 +875,24 @@ export interface Post {
             value: number | Post;
           }
         | {
-            relationTo: 'categories';
-            value: number | Category;
+            relationTo: 'blog-categories';
+            value: number | BlogCategory;
           }
         | {
             relationTo: 'properties';
             value: number | Property;
+          }
+        | {
+            relationTo: 'property-types';
+            value: number | PropertyType;
+          }
+        | {
+            relationTo: 'listing-types';
+            value: number | ListingType;
+          }
+        | {
+            relationTo: 'listing-status';
+            value: number | ListingStatus;
           }
       )[]
     | null;
@@ -858,9 +918,9 @@ export interface Post {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "categories".
+ * via the `definition` "blog-categories".
  */
-export interface Category {
+export interface BlogCategory {
   id: number;
   title: string;
   /**
@@ -881,12 +941,16 @@ export interface Category {
     };
     [k: string]: unknown;
   } | null;
+  records?: {
+    docs?: (number | Post)[] | null;
+    hasNextPage?: boolean | null;
+  } | null;
   slug?: string | null;
   slugLock?: boolean | null;
-  parent?: (number | null) | Category;
+  parent?: (number | null) | BlogCategory;
   breadcrumbs?:
     | {
-        doc?: (number | null) | Category;
+        doc?: (number | null) | BlogCategory;
         url?: string | null;
         label?: string | null;
         id?: string | null;
@@ -894,6 +958,62 @@ export interface Category {
     | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "property-types".
+ */
+export interface PropertyType {
+  id: number;
+  title: string;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  image?: (number | null) | Media;
+  properties?: {
+    docs?: (number | Property)[] | null;
+    hasNextPage?: boolean | null;
+  } | null;
+  tags?: (number | Tag)[] | null;
+  meta?: Meta;
+  /**
+   * When checked, this page will not appear in search engines like Google. Use this for private pages or temporary content that should not be publicly searchable.
+   */
+  noindex?: boolean | null;
+  authors?: (number | User)[] | null;
+  populatedAuthors?:
+    | {
+        id?: string | null;
+        name?: string | null;
+      }[]
+    | null;
+  publishedAt?: string | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  parent?: (number | null) | PropertyType;
+  breadcrumbs?:
+    | {
+        doc?: (number | null) | PropertyType;
+        url?: string | null;
+        label?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -980,6 +1100,109 @@ export interface UserPhoto {
       filename?: string | null;
     };
   };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "listing-types".
+ */
+export interface ListingType {
+  id: number;
+  title: string;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  image?: (number | null) | Media;
+  properties?: {
+    docs?: (number | Property)[] | null;
+    hasNextPage?: boolean | null;
+  } | null;
+  tags?: (number | Tag)[] | null;
+  meta?: Meta;
+  /**
+   * When checked, this page will not appear in search engines like Google. Use this for private pages or temporary content that should not be publicly searchable.
+   */
+  noindex?: boolean | null;
+  authors?: (number | User)[] | null;
+  populatedAuthors?:
+    | {
+        id?: string | null;
+        name?: string | null;
+      }[]
+    | null;
+  publishedAt?: string | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  parent?: (number | null) | ListingType;
+  breadcrumbs?:
+    | {
+        doc?: (number | null) | ListingType;
+        url?: string | null;
+        label?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "listing-status".
+ */
+export interface ListingStatus {
+  id: number;
+  title: string;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  image?: (number | null) | Media;
+  properties?: {
+    docs?: (number | Property)[] | null;
+    hasNextPage?: boolean | null;
+  } | null;
+  tags?: (number | Tag)[] | null;
+  meta?: Meta;
+  /**
+   * When checked, this page will not appear in search engines like Google. Use this for private pages or temporary content that should not be publicly searchable.
+   */
+  noindex?: boolean | null;
+  authors?: (number | User)[] | null;
+  populatedAuthors?:
+    | {
+        id?: string | null;
+        name?: string | null;
+      }[]
+    | null;
+  publishedAt?: string | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1119,7 +1342,7 @@ export interface ArchiveBlock {
   } | null;
   populateBy?: ('collection' | 'selection') | null;
   relationTo?: 'posts' | null;
-  categories?: (number | Category)[] | null;
+  categories?: (number | BlogCategory)[] | null;
   limit?: number | null;
   selectedDocs?:
     | {
@@ -1332,59 +1555,72 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "listing-status".
+ * via the `definition` "ListingBlock".
  */
-export interface ListingStatus {
-  id: number;
-  title: string;
-  description?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  image?: (number | null) | Media;
-  properties?: {
-    docs?: (number | Property)[] | null;
-    hasNextPage?: boolean | null;
-  } | null;
-  tags?: (number | Tag)[] | null;
-  meta?: Meta;
+export interface ListingBlock {
   /**
-   * When checked, this page will not appear in search engines like Google. Use this for private pages or temporary content that should not be publicly searchable.
+   * The properties that you would like to feature. Pick a minimum of 1 and a maximum of 36 listings.
    */
-  noindex?: boolean | null;
-  authors?: (number | User)[] | null;
-  populatedAuthors?:
-    | {
-        id?: string | null;
-        name?: string | null;
-      }[]
-    | null;
-  publishedAt?: string | null;
-  slug?: string | null;
-  slugLock?: boolean | null;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
+  listings?: (number | Property)[] | null;
+  displayOptions?: ('gridView' | 'listView' | 'featured' | 'carousel') | null;
+  gridView?: {
+    columns?: number | null;
+    CardOptions?: ListingCardOptions;
+  };
+  listView?: {
+    columns?: number | null;
+    CardOptions?: ListingCardOptions;
+  };
+  featured?: {
+    columns?: number | null;
+    CardOptions?: ListingCardOptions;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'listingBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "listing-types".
+ * via the `definition` "ListingCardOptions".
  */
-export interface ListingType {
-  id: number;
-  title: string;
-  description?: {
+export interface ListingCardOptions {
+  /**
+   * Select the fields that should be displayed in the listing card.
+   */
+  enabledFields?:
+    | (
+        | 'price'
+        | 'bedrooms'
+        | 'bathrooms'
+        | 'lotSize'
+        | 'yearBuilt'
+        | 'areaSize'
+        | 'parkingSpaces'
+        | 'description'
+        | 'categories'
+        | 'thumbnail'
+        | 'tags'
+      )[]
+    | null;
+  buttonStyle?: ('primary' | 'secondary' | 'outline') | null;
+  fit?: ('cover' | 'contain' | 'fill') | null;
+  position?: ('top' | 'center' | 'bottom') | null;
+  size?: ('small' | 'medium' | 'large') | null;
+  decimals?: ('none' | 'one' | 'two') | null;
+  currencyFormat?: ('text' | 'symbol') | null;
+  overrideGlobalCurrency?: ('yes' | 'no') | null;
+  currency?: ('USD' | 'EUR' | 'GBP' | 'CAD') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ListingArchive".
+ */
+export interface ListingArchive {
+  mainTitle?: string | null;
+  /**
+   * Optional
+   */
+  subTitle?: {
     root: {
       type: string;
       children: {
@@ -1399,30 +1635,48 @@ export interface ListingType {
     };
     [k: string]: unknown;
   } | null;
-  image?: (number | null) | Media;
-  properties?: {
-    docs?: (number | Property)[] | null;
-    hasNextPage?: boolean | null;
-  } | null;
-  tags?: (number | Tag)[] | null;
-  meta?: Meta;
-  /**
-   * When checked, this page will not appear in search engines like Google. Use this for private pages or temporary content that should not be publicly searchable.
-   */
-  noindex?: boolean | null;
-  authors?: (number | User)[] | null;
-  populatedAuthors?:
-    | {
-        id?: string | null;
-        name?: string | null;
-      }[]
-    | null;
-  publishedAt?: string | null;
-  slug?: string | null;
-  slugLock?: boolean | null;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
+  behavior?: {
+    populateBy?: ('latest' | 'custom') | null;
+    /**
+     * Select the listings to display
+     */
+    selection?: (number | Property)[] | null;
+    /**
+     * Select the categories to display
+     */
+    categories?:
+      | (
+          | {
+              relationTo: 'blog-categories';
+              value: number | BlogCategory;
+            }
+          | {
+              relationTo: 'property-types';
+              value: number | PropertyType;
+            }
+          | {
+              relationTo: 'listing-status';
+              value: number | ListingStatus;
+            }
+          | {
+              relationTo: 'listing-types';
+              value: number | ListingType;
+            }
+        )[]
+      | null;
+    /**
+     * Limit the number of listings to display. (Min: 1, Max: 54)
+     */
+    limit?: number | null;
+    /**
+     * Pagination behavior
+     */
+    pagination?: ('paginated' | 'loadMore') | null;
+  };
+  displayOptions?: ('grid' | 'list' | 'carousel') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'listingArchiveBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1632,6 +1886,10 @@ export interface PayloadLockedDocument {
         value: number | Property;
       } | null)
     | ({
+        relationTo: 'property-types';
+        value: number | PropertyType;
+      } | null)
+    | ({
         relationTo: 'features';
         value: number | Feature;
       } | null)
@@ -1652,8 +1910,8 @@ export interface PayloadLockedDocument {
         value: number | Post;
       } | null)
     | ({
-        relationTo: 'categories';
-        value: number | Category;
+        relationTo: 'blog-categories';
+        value: number | BlogCategory;
       } | null)
     | ({
         relationTo: 'tags';
@@ -1771,9 +2029,12 @@ export interface PropertiesSelect<T extends boolean = true> {
         num_carspaces?: T;
       };
   features?: T;
-  tags?: T;
+  isFeatured?: T;
+  propertyType?: T;
   listingStatus?: T;
   listingType?: T;
+  categories?: T;
+  tags?: T;
   gallery?:
     | T
     | {
@@ -1804,6 +2065,41 @@ export interface MetaSelect<T extends boolean = true> {
   title?: T;
   image?: T;
   description?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "property-types_select".
+ */
+export interface PropertyTypesSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  image?: T;
+  properties?: T;
+  tags?: T;
+  meta?: T | MetaSelect<T>;
+  noindex?: T;
+  authors?: T;
+  populatedAuthors?:
+    | T
+    | {
+        id?: T;
+        name?: T;
+      };
+  publishedAt?: T;
+  slug?: T;
+  slugLock?: T;
+  parent?: T;
+  breadcrumbs?:
+    | T
+    | {
+        doc?: T;
+        url?: T;
+        label?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1879,6 +2175,15 @@ export interface ListingTypesSelect<T extends boolean = true> {
   publishedAt?: T;
   slug?: T;
   slugLock?: T;
+  parent?: T;
+  breadcrumbs?:
+    | T
+    | {
+        doc?: T;
+        url?: T;
+        label?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
@@ -1889,74 +2194,8 @@ export interface ListingTypesSelect<T extends boolean = true> {
  */
 export interface PagesSelect<T extends boolean = true> {
   title?: T;
-  hero?:
-    | T
-    | {
-        type?: T;
-        richText?: T;
-        links?:
-          | T
-          | {
-              link?:
-                | T
-                | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    label?: T;
-                    appearance?: T;
-                  };
-              id?: T;
-            };
-        media?: T;
-        searchComponent?:
-          | T
-          | {
-              enablePropertyStatus?: T;
-              enablePropertyType?: T;
-              enableRooms?: T;
-              enableBeds?: T;
-              enableBaths?: T;
-              priceRange?:
-                | T
-                | {
-                    enabled?: T;
-                    min?: T;
-                    max?: T;
-                  };
-              areaRange?:
-                | T
-                | {
-                    enabled?: T;
-                    min?: T;
-                    max?: T;
-                  };
-              button?:
-                | T
-                | {
-                    label?: T;
-                    style?: T;
-                    icon?: T;
-                  };
-            };
-        iconGrid?:
-          | T
-          | {
-              icon?: T;
-              label?: T;
-              link?:
-                | T
-                | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                  };
-              id?: T;
-            };
-      };
-  layout?:
+  heros?: T | HerosInterfaceSelect<T>;
+  blocks?:
     | T
     | {
         cta?: T | CallToActionBlockSelect<T>;
@@ -1964,6 +2203,8 @@ export interface PagesSelect<T extends boolean = true> {
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
+        listingBlock?: T | ListingBlockSelect<T>;
+        listingArchiveBlock?: T | ListingArchiveSelect<T>;
       };
   meta?: T | MetaSelect<T>;
   noindex?: T;
@@ -1981,6 +2222,75 @@ export interface PagesSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "herosInterface_select".
+ */
+export interface HerosInterfaceSelect<T extends boolean = true> {
+  type?: T;
+  richText?: T;
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              appearance?: T;
+            };
+        id?: T;
+      };
+  media?: T;
+  searchComponent?:
+    | T
+    | {
+        enablePropertyStatus?: T;
+        enablePropertyType?: T;
+        enableRooms?: T;
+        enableBeds?: T;
+        enableBaths?: T;
+        priceRange?:
+          | T
+          | {
+              enabled?: T;
+              min?: T;
+              max?: T;
+            };
+        areaRange?:
+          | T
+          | {
+              enabled?: T;
+              min?: T;
+              max?: T;
+            };
+        button?:
+          | T
+          | {
+              label?: T;
+              style?: T;
+              icon?: T;
+            };
+      };
+  iconGrid?:
+    | T
+    | {
+        icon?: T;
+        label?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+            };
+        id?: T;
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2068,6 +2378,69 @@ export interface FormBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ListingBlock_select".
+ */
+export interface ListingBlockSelect<T extends boolean = true> {
+  listings?: T;
+  displayOptions?: T;
+  gridView?:
+    | T
+    | {
+        columns?: T;
+        CardOptions?: T | ListingCardOptionsSelect<T>;
+      };
+  listView?:
+    | T
+    | {
+        columns?: T;
+        CardOptions?: T | ListingCardOptionsSelect<T>;
+      };
+  featured?:
+    | T
+    | {
+        columns?: T;
+        CardOptions?: T | ListingCardOptionsSelect<T>;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ListingCardOptions_select".
+ */
+export interface ListingCardOptionsSelect<T extends boolean = true> {
+  enabledFields?: T;
+  buttonStyle?: T;
+  fit?: T;
+  position?: T;
+  size?: T;
+  decimals?: T;
+  currencyFormat?: T;
+  overrideGlobalCurrency?: T;
+  currency?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ListingArchive_select".
+ */
+export interface ListingArchiveSelect<T extends boolean = true> {
+  mainTitle?: T;
+  subTitle?: T;
+  behavior?:
+    | T
+    | {
+        populateBy?: T;
+        selection?: T;
+        categories?: T;
+        limit?: T;
+        pagination?: T;
+      };
+  displayOptions?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "posts_select".
  */
 export interface PostsSelect<T extends boolean = true> {
@@ -2095,11 +2468,12 @@ export interface PostsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "categories_select".
+ * via the `definition` "blog-categories_select".
  */
-export interface CategoriesSelect<T extends boolean = true> {
+export interface BlogCategoriesSelect<T extends boolean = true> {
   title?: T;
   description?: T;
+  records?: T;
   slug?: T;
   slugLock?: T;
   parent?: T;

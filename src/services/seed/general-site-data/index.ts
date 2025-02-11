@@ -18,7 +18,7 @@ import { post2 } from './post-2'
 import { post3 } from './post-3'
 
 const collections: CollectionSlug[] = [
-  'categories',
+  'blog-categories',
   'media',
   'pages',
   'posts',
@@ -157,7 +157,7 @@ export const seed = async ({
     }),
 
     payload.create({
-      collection: 'categories',
+      collection: 'blog-categories',
       data: {
         title: 'Technology',
         breadcrumbs: [
@@ -170,7 +170,7 @@ export const seed = async ({
     }),
 
     payload.create({
-      collection: 'categories',
+      collection: 'blog-categories',
       data: {
         title: 'News',
         breadcrumbs: [
@@ -183,7 +183,7 @@ export const seed = async ({
     }),
 
     payload.create({
-      collection: 'categories',
+      collection: 'blog-categories',
       data: {
         title: 'Finance',
         breadcrumbs: [
@@ -195,7 +195,7 @@ export const seed = async ({
       },
     }),
     payload.create({
-      collection: 'categories',
+      collection: 'blog-categories',
       data: {
         title: 'Design',
         breadcrumbs: [
@@ -208,7 +208,7 @@ export const seed = async ({
     }),
 
     payload.create({
-      collection: 'categories',
+      collection: 'blog-categories',
       data: {
         title: 'Software',
         breadcrumbs: [
@@ -221,7 +221,7 @@ export const seed = async ({
     }),
 
     payload.create({
-      collection: 'categories',
+      collection: 'blog-categories',
       data: {
         title: 'Engineering',
         breadcrumbs: [

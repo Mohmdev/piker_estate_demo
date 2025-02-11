@@ -5,8 +5,12 @@ import { anyone } from '@auth/access/anyone'
 import { isUser } from '@auth/access/isUser'
 import { minimalLexical } from '@services/editor/minimalLexical'
 
-export const Categories: CollectionConfig<'categories'> = {
-  slug: 'categories',
+export const BlogCategories: CollectionConfig<'blog-categories'> = {
+  slug: 'blog-categories',
+  labels: {
+    singular: 'Blog Category',
+    plural: 'Blog Categories',
+  },
   access: {
     create: isUser,
     delete: isUser,
@@ -30,6 +34,13 @@ export const Categories: CollectionConfig<'categories'> = {
       admin: {
         description: 'Optional',
       },
+    },
+    {
+      label: 'Blog Posts',
+      name: 'records',
+      type: 'join',
+      collection: 'posts',
+      on: 'categories',
     },
     ...slugField(),
   ],

@@ -6,6 +6,8 @@ import { CallToAction } from '@CMS/blocks/CallToAction/config'
 import { Content } from '@CMS/blocks/Content/config'
 import { FormBlock } from '@CMS/blocks/Form/config'
 import { MediaBlock } from '@CMS/blocks/MediaBlock/config'
+import { ListingArchiveBlock } from '@CMS/blocks/real-estate/ListingArchive/config'
+import { ListingBlock } from '@CMS/blocks/real-estate/ListingBlock/config'
 import { authorsField } from '@CMS/fields/shared/authorsField'
 import { noindexField } from '@CMS/fields/shared/noindexField'
 import { populateAuthorsField } from '@CMS/fields/shared/populatedAuthorsField'
@@ -13,7 +15,7 @@ import { publishedAtField } from '@CMS/fields/shared/publishedAtField'
 import { seoTab } from '@CMS/fields/shared/seoTab'
 import { slugField } from '@CMS/fields/shared/slug/config'
 import { tagsField } from '@CMS/fields/shared/tagsField'
-import { hero } from '@CMS/heros/config.field.heros'
+import { herosInterface } from '@CMS/heros/config.heros'
 import { isAdminOrEditor } from '@auth/access/isAdminOrEditor'
 import { isAdminOrSelf } from '@auth/access/isAdminOrSelf'
 import { publishedOnly } from '@auth/access/publishedOnly'
@@ -58,21 +60,29 @@ export const Pages: CollectionConfig<'pages'> = {
       type: 'tabs',
       tabs: [
         {
-          fields: [hero],
-          label: 'Hero',
+          label: 'Hero Section',
+          fields: [herosInterface],
         },
         {
+          label: 'Blocks',
           fields: [
             {
-              name: 'layout',
+              name: 'blocks',
               type: 'blocks',
-              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock],
+              blocks: [
+                CallToAction,
+                Content,
+                MediaBlock,
+                Archive,
+                FormBlock,
+                ListingBlock,
+                ListingArchiveBlock,
+              ],
               admin: {
-                initCollapsed: true,
+                initCollapsed: false,
               },
             },
           ],
-          label: 'Content',
         },
         seoTab,
       ],

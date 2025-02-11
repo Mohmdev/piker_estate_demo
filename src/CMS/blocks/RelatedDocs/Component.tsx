@@ -1,12 +1,9 @@
-import RichText from '@components/RichText'
-
-import React from 'react'
-
-import type { Post } from '@payload-types'
-
 import { Card } from '@components/Card'
+import RichText from '@components/RichText'
+import type { Post } from '@payload-types'
 import { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
 import { cn } from '@utils/ui'
+import React from 'react'
 
 export type RelatedDocsProps = {
   className?: string

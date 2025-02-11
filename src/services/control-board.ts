@@ -19,8 +19,11 @@ export const PREVIEWABLE_COLLECTIONS: CollectionSlug[] = [
 export const RELATABLE_COLLECTIONS: CollectionSlug[] = [
   'pages',
   'posts',
-  'categories',
+  'blog-categories',
   'properties',
+  'property-types',
+  'listing-types',
+  'listing-status',
 ] as const
 export type RELATABLE_COLLECTIONS_TYPES = 'posts'
 
@@ -53,7 +56,12 @@ export const REDIRECTABLE_COLLECTIONS: CollectionSlug[] = [
   'properties',
 ] as const
 /* ------------------------------- Nested Docs ------------------------------ */
-export const NESTED_COLLECTIONS: CollectionSlug[] = ['categories'] as const
+export const NESTED_COLLECTIONS: CollectionSlug[] = [
+  //
+  'blog-categories',
+  'property-types',
+  'listing-types',
+] as const
 /* ------------------------------- Page Blocks ------------------------------ */
 // export const ENABLED_PAGE_BLOCKS = {
 //   CardGrid: false,

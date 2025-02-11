@@ -6,6 +6,7 @@ import {
   InlineToolbarFeature,
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
+import { hasSiblingField } from '@utils/siblingFieldCondition'
 
 export const Archive: Block = {
   slug: 'archive',
@@ -45,7 +46,7 @@ export const Archive: Block = {
       name: 'relationTo',
       type: 'select',
       admin: {
-        condition: (_, siblingData) => siblingData.populateBy === 'collection',
+        condition: hasSiblingField('populateBy', 'collection'),
       },
       defaultValue: 'posts',
       label: 'Collections To Show',
@@ -60,17 +61,17 @@ export const Archive: Block = {
       name: 'categories',
       type: 'relationship',
       admin: {
-        condition: (_, siblingData) => siblingData.populateBy === 'collection',
+        condition: hasSiblingField('populateBy', 'collection'),
       },
       hasMany: true,
       label: 'Categories To Show',
-      relationTo: 'categories',
+      relationTo: 'blog-categories',
     },
     {
       name: 'limit',
       type: 'number',
       admin: {
-        condition: (_, siblingData) => siblingData.populateBy === 'collection',
+        condition: hasSiblingField('populateBy', 'collection'),
         step: 1,
       },
       defaultValue: 10,
@@ -80,7 +81,7 @@ export const Archive: Block = {
       name: 'selectedDocs',
       type: 'relationship',
       admin: {
-        condition: (_, siblingData) => siblingData.populateBy === 'selection',
+        condition: hasSiblingField('populateBy', 'selection'),
       },
       hasMany: true,
       label: 'Selection',

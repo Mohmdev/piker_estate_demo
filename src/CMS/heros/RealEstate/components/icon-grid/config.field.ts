@@ -1,11 +1,12 @@
 import { link } from '@fields/link'
+import { hasSiblingField } from '@utils/siblingFieldCondition'
 import type { Field } from 'payload'
 
 export const iconGridComponent: Field = {
   name: 'iconGrid',
   type: 'array',
   admin: {
-    condition: (_, { type } = {}) => type === 'advancedComponents',
+    condition: hasSiblingField('type', 'advancedComponents'),
   },
   fields: [
     {
