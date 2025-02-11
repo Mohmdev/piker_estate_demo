@@ -1,8 +1,10 @@
 import { hasSiblingField } from '@utils/siblingFieldCondition'
 import type { Field } from 'payload'
+import { currencySelect } from './config.currencySelect'
 
 export const listingCardOptions: Field = {
-  name: 'CardOptions',
+  name: 'card',
+  label: 'Card Settings',
   type: 'group',
   interfaceName: 'ListingCardOptions',
   fields: [
@@ -180,20 +182,7 @@ export const listingCardOptions: Field = {
           admin: {
             condition: hasSiblingField('overrideGlobalCurrency', 'yes'),
           },
-          fields: [
-            {
-              type: 'select',
-              name: 'currency',
-              label: 'Currency',
-              hasMany: false,
-              options: [
-                { label: 'USD', value: 'USD' },
-                { label: 'EUR', value: 'EUR' },
-                { label: 'GBP', value: 'GBP' },
-                { label: 'CAD', value: 'CAD' },
-              ],
-            },
-          ],
+          fields: [currencySelect],
         },
       ],
     },

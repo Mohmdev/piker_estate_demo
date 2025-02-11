@@ -683,7 +683,7 @@ export interface Page {
   title: string;
   heros: HerosInterface;
   blocks?:
-    | (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | ListingBlock | ListingArchive)[]
+    | (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | ListingBlock | ListingArchiveBlock)[]
     | null;
   categories?:
     | (
@@ -1515,18 +1515,18 @@ export interface ListingBlock {
    * The properties that you would like to feature. Pick a minimum of 1 and a maximum of 36 listings.
    */
   listings?: (number | Property)[] | null;
-  displayOptions?: ('gridView' | 'listView' | 'featured' | 'carousel') | null;
-  gridView?: {
+  displayOptions?: ('grid' | 'list' | 'ftrd' | 'crsl') | null;
+  grid?: {
     columns?: number | null;
-    CardOptions?: ListingCardOptions;
+    card?: ListingCardOptions;
   };
-  listView?: {
+  list?: {
     columns?: number | null;
-    CardOptions?: ListingCardOptions;
+    card?: ListingCardOptions;
   };
-  featured?: {
+  ftrd?: {
     columns?: number | null;
-    CardOptions?: ListingCardOptions;
+    card?: ListingCardOptions;
   };
   id?: string | null;
   blockName?: string | null;
@@ -1562,13 +1562,35 @@ export interface ListingCardOptions {
   decimals?: ('none' | 'one' | 'two') | null;
   currencyFormat?: ('text' | 'symbol') | null;
   overrideGlobalCurrency?: ('yes' | 'no') | null;
-  currency?: ('USD' | 'EUR' | 'GBP' | 'CAD') | null;
+  currencySelect?:
+    | (
+        | 'د.إ'
+        | 'AU$'
+        | 'R$'
+        | 'CA$'
+        | 'CHF'
+        | 'CN¥'
+        | '€'
+        | '£'
+        | 'HK$'
+        | '₹'
+        | '¥'
+        | 'MX$'
+        | 'NZ$'
+        | '₽'
+        | 'SG$'
+        | '฿'
+        | 'US$'
+        | '₫'
+        | 'R'
+      )
+    | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ListingArchive".
+ * via the `definition` "ListingArchiveBlock".
  */
-export interface ListingArchive {
+export interface ListingArchiveBlock {
   mainTitle?: string | null;
   /**
    * Optional
@@ -1588,7 +1610,10 @@ export interface ListingArchive {
     };
     [k: string]: unknown;
   } | null;
-  behavior?: {
+  layout?: {
+    layoutType?: ('grid' | 'list' | 'carousel') | null;
+  };
+  archive?: {
     populateBy?: ('latest' | 'custom') | null;
     /**
      * Select the listings to display
@@ -1626,7 +1651,7 @@ export interface ListingArchive {
      */
     pagination?: ('paginated' | 'loadMore') | null;
   };
-  displayOptions?: ('grid' | 'list' | 'carousel') | null;
+  card?: ListingCardOptions;
   id?: string | null;
   blockName?: string | null;
   blockType: 'listingArchiveBlock';
@@ -2204,7 +2229,7 @@ export interface PagesSelect<T extends boolean = true> {
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
         listingBlock?: T | ListingBlockSelect<T>;
-        listingArchiveBlock?: T | ListingArchiveSelect<T>;
+        listingArchiveBlock?: T | ListingArchiveBlockSelect<T>;
       };
   categories?: T;
   tags?: T;
@@ -2384,23 +2409,23 @@ export interface FormBlockSelect<T extends boolean = true> {
 export interface ListingBlockSelect<T extends boolean = true> {
   listings?: T;
   displayOptions?: T;
-  gridView?:
+  grid?:
     | T
     | {
         columns?: T;
-        CardOptions?: T | ListingCardOptionsSelect<T>;
+        card?: T | ListingCardOptionsSelect<T>;
       };
-  listView?:
+  list?:
     | T
     | {
         columns?: T;
-        CardOptions?: T | ListingCardOptionsSelect<T>;
+        card?: T | ListingCardOptionsSelect<T>;
       };
-  featured?:
+  ftrd?:
     | T
     | {
         columns?: T;
-        CardOptions?: T | ListingCardOptionsSelect<T>;
+        card?: T | ListingCardOptionsSelect<T>;
       };
   id?: T;
   blockName?: T;
@@ -2418,16 +2443,21 @@ export interface ListingCardOptionsSelect<T extends boolean = true> {
   decimals?: T;
   currencyFormat?: T;
   overrideGlobalCurrency?: T;
-  currency?: T;
+  currencySelect?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ListingArchive_select".
+ * via the `definition` "ListingArchiveBlock_select".
  */
-export interface ListingArchiveSelect<T extends boolean = true> {
+export interface ListingArchiveBlockSelect<T extends boolean = true> {
   mainTitle?: T;
   subTitle?: T;
-  behavior?:
+  layout?:
+    | T
+    | {
+        layoutType?: T;
+      };
+  archive?:
     | T
     | {
         populateBy?: T;
@@ -2436,7 +2466,7 @@ export interface ListingArchiveSelect<T extends boolean = true> {
         limit?: T;
         pagination?: T;
       };
-  displayOptions?: T;
+  card?: T | ListingCardOptionsSelect<T>;
   id?: T;
   blockName?: T;
 }

@@ -1,7 +1,7 @@
 import { Property } from '@payload-types'
 import { cn } from '@utils/ui'
 import React from 'react'
-import { ListingCard } from '../ListingCard'
+import { ListingCard } from '../glossary/listing-card'
 export type Props = {
   properties: Property[]
   className?: string

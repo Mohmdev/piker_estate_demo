@@ -1,6 +1,6 @@
 import { hasSiblingField } from '@utils/siblingFieldCondition'
 import type { Block } from 'payload'
-import { listingCardOptions } from '../glossary/listing-card-options'
+import { listingCardOptions } from '../glossary/config.cardOptions'
 
 export const ListingBlock: Block = {
   slug: 'listingBlock',
@@ -9,6 +9,7 @@ export const ListingBlock: Block = {
     plural: 'Listing Blocks',
   },
   interfaceName: 'ListingBlock',
+  dbName: 'listingBlock',
   fields: [
     {
       label: 'Listings to include',
@@ -29,19 +30,19 @@ export const ListingBlock: Block = {
       type: 'select',
       options: [
         {
-          value: 'gridView',
+          value: 'grid',
           label: 'Grid View',
         },
         {
-          value: 'listView',
+          value: 'list',
           label: 'List View',
         },
         {
-          value: 'featured',
+          value: 'ftrd',
           label: 'Featured',
         },
         {
-          value: 'carousel',
+          value: 'crsl',
           label: 'Carousel',
         },
         // 'slider',
@@ -59,15 +60,15 @@ export const ListingBlock: Block = {
       },
     },
     {
-      name: 'gridView',
-      label: 'Options',
+      label: 'Grid View',
+      name: 'grid',
       type: 'group',
       fields: [
         {
           label: false,
           type: 'collapsible',
           admin: {
-            condition: hasSiblingField('displayOptions', 'gridView'),
+            condition: hasSiblingField('displayOptions', 'grid'),
           },
           fields: [
             {
@@ -84,15 +85,15 @@ export const ListingBlock: Block = {
       ],
     },
     {
-      label: 'Options',
-      name: 'listView',
+      label: 'List View',
+      name: 'list',
       type: 'group',
       fields: [
         {
-          label: 'List view options',
+          label: false,
           type: 'collapsible',
           admin: {
-            condition: hasSiblingField('displayOptions', 'listView'),
+            condition: hasSiblingField('displayOptions', 'list'),
           },
           fields: [
             {
@@ -109,15 +110,15 @@ export const ListingBlock: Block = {
       ],
     },
     {
-      label: 'Options',
-      name: 'featured',
+      label: 'Featured',
+      name: 'ftrd',
       type: 'group',
       fields: [
         {
-          label: 'Featured options',
+          label: false,
           type: 'collapsible',
           admin: {
-            condition: hasSiblingField('displayOptions', 'featured'),
+            condition: hasSiblingField('displayOptions', 'ftrd'),
           },
           fields: [
             {

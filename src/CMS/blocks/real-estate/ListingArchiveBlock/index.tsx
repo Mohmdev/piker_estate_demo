@@ -1,7 +1,7 @@
 import RichText from '@components/RichText'
 import configPromise from '@payload-config'
 import type {
-  ListingArchive as ListingArchiveBlockProps,
+  ListingArchiveBlock as ListingArchiveBlockProps,
   Property,
 } from '@payload-types'
 import { cn } from '@utils/ui'
@@ -14,7 +14,14 @@ export const ListingArchiveBlock: React.FC<
     id?: number
   }
 > = async (props) => {
-  const { id, mainTitle, subTitle, behavior } = props
+  const {
+    id,
+    mainTitle,
+    subTitle,
+    // layout,
+    archive,
+    // card,
+  } = props
 
   const {
     populateBy,
@@ -22,7 +29,7 @@ export const ListingArchiveBlock: React.FC<
     // pagination,
     selection,
     categories,
-  } = behavior || {}
+  } = archive || {}
 
   const limit = limitFromProps || 12
 

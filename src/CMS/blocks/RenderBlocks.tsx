@@ -5,6 +5,7 @@ import { FormBlock } from '@blocks/Form/Component'
 import { MediaBlock } from '@blocks/MediaBlock/Component'
 import type { Page } from '@payload-types'
 import React, { Fragment } from 'react'
+import { ListingArchiveBlock } from './real-estate/ListingArchiveBlock'
 import { ListingBlock } from './real-estate/ListingBlock'
 
 const blockComponents = {
@@ -14,6 +15,7 @@ const blockComponents = {
   formBlock: FormBlock,
   mediaBlock: MediaBlock,
   listingBlock: ListingBlock,
+  listingArchiveBlock: ListingArchiveBlock,
 }
 
 export const RenderBlocks: React.FC<{
@@ -35,6 +37,7 @@ export const RenderBlocks: React.FC<{
             if (Block) {
               return (
                 <div className="my-16" key={index}>
+                  {/* @ts-expect-error: Different block types have different props */}
                   <Block {...block} disableInnerContainer />
                 </div>
               )

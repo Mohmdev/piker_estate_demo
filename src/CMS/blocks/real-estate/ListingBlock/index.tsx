@@ -3,7 +3,7 @@ import type { Property } from '@payload-types'
 import { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
 import { cn } from '@utils/ui'
 import React from 'react'
-import { ListingCard } from '../ListingCard'
+import { ListingCard } from '../glossary/listing-card'
 
 export type ListingBlockProps = {
   className?: string
