@@ -17,7 +17,7 @@ export interface Config {
     'listing-status': ListingStatus;
     'listing-types': ListingType;
     pages: Page;
-    posts: Post;
+    blog: Blog;
     'blog-categories': BlogCategory;
     tags: Tag;
     media: Media;
@@ -47,11 +47,11 @@ export interface Config {
       properties: 'properties';
     };
     'blog-categories': {
-      records: 'posts';
+      records: 'blog';
     };
     tags: {
       pages: 'pages';
-      posts: 'posts';
+      blog: 'blog';
     };
     'user-photos': {
       user: 'users';
@@ -64,7 +64,7 @@ export interface Config {
     'listing-status': ListingStatusSelect<false> | ListingStatusSelect<true>;
     'listing-types': ListingTypesSelect<false> | ListingTypesSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
-    posts: PostsSelect<false> | PostsSelect<true>;
+    blog: BlogSelect<false> | BlogSelect<true>;
     'blog-categories': BlogCategoriesSelect<false> | BlogCategoriesSelect<true>;
     tags: TagsSelect<false> | TagsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
@@ -466,7 +466,7 @@ export interface Property {
   populatedAuthors?:
     | {
         id?: string | null;
-        name?: string | null;
+        username?: string | null;
       }[]
     | null;
   publishedAt?: string | null;
@@ -513,7 +513,7 @@ export interface Feature {
   populatedAuthors?:
     | {
         id?: string | null;
-        name?: string | null;
+        username?: string | null;
       }[]
     | null;
   publishedAt?: string | null;
@@ -664,8 +664,8 @@ export interface Tag {
     docs?: (number | Page)[] | null;
     hasNextPage?: boolean | null;
   } | null;
-  posts?: {
-    docs?: (number | Post)[] | null;
+  blog?: {
+    docs?: (number | Blog)[] | null;
     hasNextPage?: boolean | null;
   } | null;
   slug?: string | null;
@@ -685,17 +685,33 @@ export interface Page {
   blocks?:
     | (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | ListingBlock | ListingArchive)[]
     | null;
+  categories?:
+    | (
+        | {
+            relationTo: 'blog-categories';
+            value: number | BlogCategory;
+          }
+        | {
+            relationTo: 'property-types';
+            value: number | PropertyType;
+          }
+        | {
+            relationTo: 'listing-types';
+            value: number | ListingType;
+          }
+      )[]
+    | null;
+  tags?: (number | Tag)[] | null;
   meta?: Meta;
   /**
    * When checked, this page will not appear in search engines like Google. Use this for private pages or temporary content that should not be publicly searchable.
    */
   noindex?: boolean | null;
-  tags?: (number | Tag)[] | null;
   authors?: (number | User)[] | null;
   populatedAuthors?:
     | {
         id?: string | null;
-        name?: string | null;
+        username?: string | null;
       }[]
     | null;
   publishedAt?: string | null;
@@ -737,8 +753,8 @@ export interface HerosInterface {
                 value: number | Page;
               } | null)
             | ({
-                relationTo: 'posts';
-                value: number | Post;
+                relationTo: 'blog';
+                value: number | Blog;
               } | null)
             | ({
                 relationTo: 'properties';
@@ -809,8 +825,8 @@ export interface HerosInterface {
                 value: number | Page;
               } | null)
             | ({
-                relationTo: 'posts';
-                value: number | Post;
+                relationTo: 'blog';
+                value: number | Blog;
               } | null)
             | ({
                 relationTo: 'properties';
@@ -824,9 +840,9 @@ export interface HerosInterface {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "posts".
+ * via the `definition` "blog".
  */
-export interface Post {
+export interface Blog {
   id: number;
   title: string;
   heroImage?: (number | null) | Media;
@@ -871,28 +887,12 @@ export interface Post {
             value: number | Page;
           }
         | {
-            relationTo: 'posts';
-            value: number | Post;
-          }
-        | {
-            relationTo: 'blog-categories';
-            value: number | BlogCategory;
+            relationTo: 'blog';
+            value: number | Blog;
           }
         | {
             relationTo: 'properties';
             value: number | Property;
-          }
-        | {
-            relationTo: 'property-types';
-            value: number | PropertyType;
-          }
-        | {
-            relationTo: 'listing-types';
-            value: number | ListingType;
-          }
-        | {
-            relationTo: 'listing-status';
-            value: number | ListingStatus;
           }
       )[]
     | null;
@@ -906,7 +906,7 @@ export interface Post {
   populatedAuthors?:
     | {
         id?: string | null;
-        name?: string | null;
+        username?: string | null;
       }[]
     | null;
   publishedAt?: string | null;
@@ -942,7 +942,7 @@ export interface BlogCategory {
     [k: string]: unknown;
   } | null;
   records?: {
-    docs?: (number | Post)[] | null;
+    docs?: (number | Blog)[] | null;
     hasNextPage?: boolean | null;
   } | null;
   slug?: string | null;
@@ -996,7 +996,7 @@ export interface PropertyType {
   populatedAuthors?:
     | {
         id?: string | null;
-        name?: string | null;
+        username?: string | null;
       }[]
     | null;
   publishedAt?: string | null;
@@ -1138,7 +1138,7 @@ export interface ListingType {
   populatedAuthors?:
     | {
         id?: string | null;
-        name?: string | null;
+        username?: string | null;
       }[]
     | null;
   publishedAt?: string | null;
@@ -1153,53 +1153,6 @@ export interface ListingType {
         id?: string | null;
       }[]
     | null;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "listing-status".
- */
-export interface ListingStatus {
-  id: number;
-  title: string;
-  description?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  image?: (number | null) | Media;
-  properties?: {
-    docs?: (number | Property)[] | null;
-    hasNextPage?: boolean | null;
-  } | null;
-  tags?: (number | Tag)[] | null;
-  meta?: Meta;
-  /**
-   * When checked, this page will not appear in search engines like Google. Use this for private pages or temporary content that should not be publicly searchable.
-   */
-  noindex?: boolean | null;
-  authors?: (number | User)[] | null;
-  populatedAuthors?:
-    | {
-        id?: string | null;
-        name?: string | null;
-      }[]
-    | null;
-  publishedAt?: string | null;
-  slug?: string | null;
-  slugLock?: boolean | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -1235,8 +1188,8 @@ export interface CallToActionBlock {
                 value: number | Page;
               } | null)
             | ({
-                relationTo: 'posts';
-                value: number | Post;
+                relationTo: 'blog';
+                value: number | Blog;
               } | null)
             | ({
                 relationTo: 'properties';
@@ -1289,8 +1242,8 @@ export interface ContentBlock {
                 value: number | Page;
               } | null)
             | ({
-                relationTo: 'posts';
-                value: number | Post;
+                relationTo: 'blog';
+                value: number | Blog;
               } | null)
             | ({
                 relationTo: 'properties';
@@ -1341,13 +1294,13 @@ export interface ArchiveBlock {
     [k: string]: unknown;
   } | null;
   populateBy?: ('collection' | 'selection') | null;
-  relationTo?: 'posts' | null;
+  relationTo?: 'blog' | null;
   categories?: (number | BlogCategory)[] | null;
   limit?: number | null;
   selectedDocs?:
     | {
-        relationTo: 'posts';
-        value: number | Post;
+        relationTo: 'blog';
+        value: number | Blog;
       }[]
     | null;
   id?: string | null;
@@ -1680,6 +1633,53 @@ export interface ListingArchive {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "listing-status".
+ */
+export interface ListingStatus {
+  id: number;
+  title: string;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  image?: (number | null) | Media;
+  properties?: {
+    docs?: (number | Property)[] | null;
+    hasNextPage?: boolean | null;
+  } | null;
+  tags?: (number | Tag)[] | null;
+  meta?: Meta;
+  /**
+   * When checked, this page will not appear in search engines like Google. Use this for private pages or temporary content that should not be publicly searchable.
+   */
+  noindex?: boolean | null;
+  authors?: (number | User)[] | null;
+  populatedAuthors?:
+    | {
+        id?: string | null;
+        username?: string | null;
+      }[]
+    | null;
+  publishedAt?: string | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "assets".
  */
 export interface Asset {
@@ -1716,8 +1716,8 @@ export interface Search {
   title?: string | null;
   priority?: number | null;
   doc: {
-    relationTo: 'posts';
-    value: number | Post;
+    relationTo: 'blog';
+    value: number | Blog;
   };
   slug?: string | null;
   meta?: {
@@ -1770,8 +1770,8 @@ export interface Redirect {
           value: number | Page;
         } | null)
       | ({
-          relationTo: 'posts';
-          value: number | Post;
+          relationTo: 'blog';
+          value: number | Blog;
         } | null)
       | ({
           relationTo: 'properties';
@@ -1906,8 +1906,8 @@ export interface PayloadLockedDocument {
         value: number | Page;
       } | null)
     | ({
-        relationTo: 'posts';
-        value: number | Post;
+        relationTo: 'blog';
+        value: number | Blog;
       } | null)
     | ({
         relationTo: 'blog-categories';
@@ -2048,7 +2048,7 @@ export interface PropertiesSelect<T extends boolean = true> {
     | T
     | {
         id?: T;
-        name?: T;
+        username?: T;
       };
   publishedAt?: T;
   slug?: T;
@@ -2083,7 +2083,7 @@ export interface PropertyTypesSelect<T extends boolean = true> {
     | T
     | {
         id?: T;
-        name?: T;
+        username?: T;
       };
   publishedAt?: T;
   slug?: T;
@@ -2118,7 +2118,7 @@ export interface FeaturesSelect<T extends boolean = true> {
     | T
     | {
         id?: T;
-        name?: T;
+        username?: T;
       };
   publishedAt?: T;
   slug?: T;
@@ -2144,7 +2144,7 @@ export interface ListingStatusSelect<T extends boolean = true> {
     | T
     | {
         id?: T;
-        name?: T;
+        username?: T;
       };
   publishedAt?: T;
   slug?: T;
@@ -2170,7 +2170,7 @@ export interface ListingTypesSelect<T extends boolean = true> {
     | T
     | {
         id?: T;
-        name?: T;
+        username?: T;
       };
   publishedAt?: T;
   slug?: T;
@@ -2206,15 +2206,16 @@ export interface PagesSelect<T extends boolean = true> {
         listingBlock?: T | ListingBlockSelect<T>;
         listingArchiveBlock?: T | ListingArchiveSelect<T>;
       };
+  categories?: T;
+  tags?: T;
   meta?: T | MetaSelect<T>;
   noindex?: T;
-  tags?: T;
   authors?: T;
   populatedAuthors?:
     | T
     | {
         id?: T;
-        name?: T;
+        username?: T;
       };
   publishedAt?: T;
   slug?: T;
@@ -2441,9 +2442,9 @@ export interface ListingArchiveSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "posts_select".
+ * via the `definition` "blog_select".
  */
-export interface PostsSelect<T extends boolean = true> {
+export interface BlogSelect<T extends boolean = true> {
   title?: T;
   heroImage?: T;
   content?: T;
@@ -2457,7 +2458,7 @@ export interface PostsSelect<T extends boolean = true> {
     | T
     | {
         id?: T;
-        name?: T;
+        username?: T;
       };
   publishedAt?: T;
   slug?: T;
@@ -2497,7 +2498,7 @@ export interface TagsSelect<T extends boolean = true> {
   image?: T;
   description?: T;
   pages?: T;
-  posts?: T;
+  blog?: T;
   slug?: T;
   slugLock?: T;
   updatedAt?: T;
@@ -2984,8 +2985,8 @@ export interface MainMenu {
                 value: number | Page;
               } | null)
             | ({
-                relationTo: 'posts';
-                value: number | Post;
+                relationTo: 'blog';
+                value: number | Blog;
               } | null)
             | ({
                 relationTo: 'properties';
@@ -3030,8 +3031,8 @@ export interface MainMenu {
                         value: number | Page;
                       } | null)
                     | ({
-                        relationTo: 'posts';
-                        value: number | Post;
+                        relationTo: 'blog';
+                        value: number | Blog;
                       } | null)
                     | ({
                         relationTo: 'properties';
@@ -3057,8 +3058,8 @@ export interface MainMenu {
                         value: number | Page;
                       } | null)
                     | ({
-                        relationTo: 'posts';
-                        value: number | Post;
+                        relationTo: 'blog';
+                        value: number | Blog;
                       } | null)
                     | ({
                         relationTo: 'properties';
@@ -3097,8 +3098,8 @@ export interface MainMenu {
                               value: number | Page;
                             } | null)
                           | ({
-                              relationTo: 'posts';
-                              value: number | Post;
+                              relationTo: 'blog';
+                              value: number | Blog;
                             } | null)
                           | ({
                               relationTo: 'properties';
@@ -3124,8 +3125,8 @@ export interface MainMenu {
                               value: number | Page;
                             } | null)
                           | ({
-                              relationTo: 'posts';
-                              value: number | Post;
+                              relationTo: 'blog';
+                              value: number | Blog;
                             } | null)
                           | ({
                               relationTo: 'properties';
@@ -3155,8 +3156,8 @@ export interface MainMenu {
             value: number | Page;
           } | null)
         | ({
-            relationTo: 'posts';
-            value: number | Post;
+            relationTo: 'blog';
+            value: number | Blog;
           } | null)
         | ({
             relationTo: 'properties';
@@ -3190,8 +3191,8 @@ export interface Footer {
                       value: number | Page;
                     } | null)
                   | ({
-                      relationTo: 'posts';
-                      value: number | Post;
+                      relationTo: 'blog';
+                      value: number | Blog;
                     } | null)
                   | ({
                       relationTo: 'properties';
@@ -3473,8 +3474,8 @@ export interface TaskSchedulePublish {
           value: number | Page;
         } | null)
       | ({
-          relationTo: 'posts';
-          value: number | Post;
+          relationTo: 'blog';
+          value: number | Blog;
         } | null);
     global?: ('main-menu' | 'footer') | null;
     user?: (number | null) | User;

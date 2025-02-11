@@ -1,12 +1,11 @@
 'use client'
+
+import { Media } from '@components/Media'
+import type { BlogCategory, Meta } from '@payload-types'
 import { cn } from '@utils/ui'
 import useClickableCard from '@utils/useClickableCard'
 import Link from 'next/link'
 import React, { Fragment } from 'react'
-
-import type { BlogCategory, Meta } from '@payload-types'
-
-import { Media } from '@components/Media'
 
 export type CardPostData = {
   meta?: Meta | undefined
@@ -39,8 +38,7 @@ export const Card: React.FC<{
     categories && Array.isArray(categories) && categories.length > 0
   const titleToUse = titleFromProps || title
   const sanitizedDescription = description?.replace(/\s/g, ' ') // replace non-breaking space with white space
-  const href =
-    relationTo === 'posts' ? `/blog/${slug}` : `/${relationTo}/${slug}`
+  const href = `/${relationTo}/${slug}`
 
   return (
     <article

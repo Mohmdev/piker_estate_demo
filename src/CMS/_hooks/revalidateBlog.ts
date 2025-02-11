@@ -5,9 +5,9 @@ import type {
 
 import { revalidatePath, revalidateTag } from 'next/cache'
 
-import type { Post } from '@payload-types'
+import type { Blog } from '@payload-types'
 
-export const revalidatePost: CollectionAfterChangeHook<Post> = ({
+export const revalidateBlogPost: CollectionAfterChangeHook<Blog> = ({
   doc,
   previousDoc,
   req: { payload, context },
@@ -43,7 +43,7 @@ export const revalidatePost: CollectionAfterChangeHook<Post> = ({
   return doc
 }
 
-export const revalidateDelete: CollectionAfterDeleteHook<Post> = ({
+export const revalidateDelete: CollectionAfterDeleteHook<Blog> = ({
   doc,
   req: { payload, context },
 }) => {

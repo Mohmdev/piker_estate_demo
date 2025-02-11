@@ -44,7 +44,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: siteName,
     description: siteDescription,
     icons: favicon ? [{ rel: 'icon', url: favicon.url }] : undefined,
-    openGraph: mergeOpenGraph(undefined, {
+    openGraph: await mergeOpenGraph(undefined, {
       siteName,
       description: siteDescription,
     }),

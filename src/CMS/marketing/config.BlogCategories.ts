@@ -39,7 +39,7 @@ export const BlogCategories: CollectionConfig<'blog-categories'> = {
       label: 'Blog Posts',
       name: 'records',
       type: 'join',
-      collection: 'posts',
+      collection: 'blog',
       on: 'categories',
     },
     ...slugField(),

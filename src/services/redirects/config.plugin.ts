@@ -1,7 +1,5 @@
+import { revalidateRedirects } from '@CMS/_hooks/revalidateRedirects'
 import { redirectsPlugin } from '@payloadcms/plugin-redirects'
-
-import { revalidateRedirects } from '@services/redirects/revalidateRedirects'
-
 import type { Plugin } from 'payload'
 
 import { REDIRECTABLE_COLLECTIONS } from '@services/control-board'

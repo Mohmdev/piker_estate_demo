@@ -1,11 +1,11 @@
 import { getServerSideURL } from '@data/getURL'
-import type { Page, Post, Property } from '@payload-types'
+import type { Blog, Page, Property } from '@payload-types'
 import type { Metadata } from 'next'
 import { getDynamicMeta } from '../../_data/getDynamicMeta'
 import { mergeOpenGraph } from './mergeOpenGraph'
 
 export const generateMeta = async (args: {
-  doc: Partial<Page> | Partial<Post> | Partial<Property>
+  doc: Partial<Page> | Partial<Blog> | Partial<Property>
 }): Promise<Metadata> => {
   const { doc } = args || {}
 
@@ -49,7 +49,7 @@ export const generateMeta = async (args: {
     }
   }
 
-  if (doc?.slug === 'posts') {
+  if (doc?.slug === 'blog') {
     return {
       title: `Blog | ${siteName}`,
       description: 'Browse all posts.',

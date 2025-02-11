@@ -653,7 +653,7 @@ export const home: RequiredDataFromCollectionSlug<'pages'> = {
         },
       },
       populateBy: 'collection',
-      relationTo: 'posts',
+      relationTo: 'blog',
     },
     {
       blockName: 'CTA',

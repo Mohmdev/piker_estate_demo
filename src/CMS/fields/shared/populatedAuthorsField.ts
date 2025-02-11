@@ -21,7 +21,7 @@ export const populateAuthorsField: Field = {
       type: 'text',
     },
     {
-      name: 'name',
+      name: 'username',
       type: 'text',
     },
   ],

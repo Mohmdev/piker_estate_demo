@@ -1,9 +1,8 @@
-import type { Post } from '@payload-types'
+import type { Blog } from '@payload-types'
 
-export const post1: Partial<Post> = {
+export const post1: Partial<Blog> = {
   slug: 'digital-horizons',
   _status: 'published',
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   authors: ['{{AUTHOR}}'],
   content: {

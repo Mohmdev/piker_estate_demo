@@ -4,11 +4,9 @@ import type {
   ListingArchive as ListingArchiveBlockProps,
   Property,
 } from '@payload-types'
+import { cn } from '@utils/ui'
 import { getPayload } from 'payload'
 import React from 'react'
-
-import { CollectionArchive } from '@components/CollectionArchive'
-import { cn } from '@utils/ui'
 import { ListingGrid } from './grid'
 
 export const ListingArchiveBlock: React.FC<

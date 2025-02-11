@@ -8,7 +8,7 @@ const collections: CollectionSlug[] = [
   'search',
   'media',
   'assets',
-  'categories',
+  'blog-categories',
   'tags',
   'payload-jobs',
   'payload-locked-documents',

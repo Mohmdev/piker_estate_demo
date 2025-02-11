@@ -1,13 +1,13 @@
-import { Card } from '@components/Card'
+import { Card, type CardPostData } from '@components/Card'
 import RichText from '@components/RichText'
-import type { Post } from '@payload-types'
+import type { Blog } from '@payload-types'
 import { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
 import { cn } from '@utils/ui'
 import React from 'react'
 
 export type RelatedDocsProps = {
   className?: string
-  docs?: Post['relatedDocs']
+  docs?: Blog['relatedDocs']
   introContent?: SerializedEditorState
 }
 
@@ -20,7 +20,7 @@ export const RelatedDocs: React.FC<RelatedDocsProps> = (props) => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 items-stretch">
         {docs?.map((doc, index) => {
-          if (typeof doc === 'string') return null
+          if (typeof doc === 'number') return null
 
           const docData = typeof doc.value === 'object' ? doc.value : null
           if (!docData) return null
@@ -28,7 +28,7 @@ export const RelatedDocs: React.FC<RelatedDocsProps> = (props) => {
           return (
             <Card
               key={index}
-              doc={docData}
+              doc={docData as CardPostData}
               relationTo={doc.relationTo}
               showCategories
             />

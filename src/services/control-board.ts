@@ -8,24 +8,20 @@ export const SITE_NAME = 'Nexweb Studio' as const
 
 export const LINKABLE_COLLECTIONS: CollectionSlug[] = [
   'pages',
-  'posts',
+  'blog',
   'properties',
 ] as const
 export const PREVIEWABLE_COLLECTIONS: CollectionSlug[] = [
   'pages',
-  'posts',
+  'blog',
   'properties',
 ] as const
 export const RELATABLE_COLLECTIONS: CollectionSlug[] = [
   'pages',
-  'posts',
-  'blog-categories',
+  'blog',
   'properties',
-  'property-types',
-  'listing-types',
-  'listing-status',
 ] as const
-export type RELATABLE_COLLECTIONS_TYPES = 'posts'
+export type RELATABLE_COLLECTIONS_TYPES = 'blog'
 
 export const ENABLED_PLUGINS = {
   storage: true,
@@ -39,7 +35,7 @@ export const ENABLED_PLUGINS = {
 /* ----------------------------------- SEO ---------------------------------- */
 export const SEO_ENABLED_COLLECTIONS: CollectionSlug[] = [
   'pages',
-  'posts',
+  'blog',
   'properties',
 ] as const
 export const SEO_ENABLED_GLOBALS: GlobalSlug[] = [
@@ -47,12 +43,12 @@ export const SEO_ENABLED_GLOBALS: GlobalSlug[] = [
   // 'home-page',
 ] as const
 /* --------------------------------- Search --------------------------------- */
-export const INDEXED_COLLECTIONS: CollectionSlug[] = ['posts'] as const
+export const INDEXED_COLLECTIONS: CollectionSlug[] = ['blog'] as const
 export const INDEXED_TAXONOMY_COLLECTIONS: CollectionSlug[] = [] as const
 /* -------------------------------- Redirects ------------------------------- */
 export const REDIRECTABLE_COLLECTIONS: CollectionSlug[] = [
   'pages',
-  'posts',
+  'blog',
   'properties',
 ] as const
 /* ------------------------------- Nested Docs ------------------------------ */

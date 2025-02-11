@@ -4,8 +4,7 @@ import { PREVIEWABLE_COLLECTIONS } from '@services/control-board'
 
 // Explicit prefix configuration
 const collectionPrefixOverrides: Record<string, string> = {
-  pages: '', // No prefix for pages
-  posts: '/blog', // Override 'posts' to use '/blog'
+  pages: '', // No prefix for pages; Overrides '/pages' to '/'
   // Add other exceptions here, e.g.,
   // products: '/shop',
 }

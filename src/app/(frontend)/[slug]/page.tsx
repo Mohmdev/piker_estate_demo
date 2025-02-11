@@ -1,21 +1,17 @@
-import type { Metadata } from 'next'
-
-import { PayloadRedirects } from '@components/PayloadRedirects'
-import configPromise from '@payload-config'
-import { homeStatic } from '@services/seed/general-site-data/home-static'
-import { draftMode } from 'next/headers'
-import { getPayload } from 'payload'
-import React, { cache } from 'react'
-
-import type { Page as PageType } from '@payload-types'
-
 import { RenderBlocks } from '@CMS/blocks/RenderBlocks'
 import { LivePreviewListener } from '@components/LivePreviewListener'
-import { RenderHero } from '@heros/RenderHero'
-
+import { PayloadRedirects } from '@components/PayloadRedirects'
 import { getDynamicMeta } from '@data/getDynamicMeta'
 import { getPageBySlug } from '@data/getPage'
+import { RenderHero } from '@heros/RenderHero'
+import configPromise from '@payload-config'
+import type { Page as PageType } from '@payload-types'
+import { homeStatic } from '@services/seed/general-site-data/home-static'
 import { generateMeta } from '@services/seo/generateMeta'
+import type { Metadata } from 'next'
+import { draftMode } from 'next/headers'
+import { getPayload } from 'payload'
+import React from 'react'
 import PageClient from './page.client'
 
 type Args = {
@@ -29,7 +25,7 @@ export default async function Page({ params: paramsPromise }: Args) {
   const { slug = 'home' } = await paramsPromise
   const url = '/' + slug
 
-  let page: PageType | null
+  let page: Partial<PageType> | null
 
   page = await getPageBySlug({
     slug,
@@ -43,7 +39,7 @@ export default async function Page({ params: paramsPromise }: Args) {
     return <PayloadRedirects url={url} />
   }
 
-  const { hero, layout } = page
+  const { heros, blocks } = page
 
   return (
     <article className="flex-1 flex flex-col justify-center">
@@ -53,8 +49,8 @@ export default async function Page({ params: paramsPromise }: Args) {
 
       {draft && <LivePreviewListener />}
 
-      <RenderHero {...hero} />
-      <RenderBlocks blocks={layout} />
+      <RenderHero {...heros} />
+      <RenderBlocks blocks={blocks} />
     </article>
   )
 }
@@ -88,7 +84,7 @@ export async function generateMetadata({
 }: Args): Promise<Metadata> {
   const { slug = 'home' } = await paramsPromise
 
-  let page = await getPageBySlug({ slug })
+  let page: Partial<PageType> | null = await getPageBySlug({ slug })
 
   // Handle homepage case
   if (!page && slug === 'home') {

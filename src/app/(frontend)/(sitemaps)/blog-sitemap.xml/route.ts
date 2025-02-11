@@ -12,7 +12,7 @@ const getBlogSitemap = unstable_cache(
       'https://example.com'
 
     const results = await payload.find({
-      collection: 'posts',
+      collection: 'blog',
       overrideAccess: false,
       draft: false,
       depth: 0,
@@ -33,10 +33,10 @@ const getBlogSitemap = unstable_cache(
 
     const sitemap = results.docs
       ? results.docs
-          .filter((post) => Boolean(post?.slug))
-          .map((post) => ({
-            loc: `${SITE_URL}/blog/${post?.slug}`,
-            lastmod: post.updatedAt || dateFallback,
+          .filter((blogPost) => Boolean(blogPost?.slug))
+          .map((blogPost) => ({
+            loc: `${SITE_URL}/blog/${blogPost?.slug}`,
+            lastmod: blogPost.updatedAt || dateFallback,
           }))
       : []
 

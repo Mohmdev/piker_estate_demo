@@ -1,4 +1,5 @@
 import { AdminBar } from '@components/AdminBar'
+import type { CardPostData } from '@components/Card'
 import { LivePreviewListener } from '@components/LivePreviewListener'
 import { getDynamicMeta } from '@data/getDynamicMeta'
 import configPromise from '@payload-config'
@@ -25,7 +26,7 @@ export default async function ThemeEditorPage() {
     <>
       <PageClient />
       {isDraft && <LivePreviewListener />}
-      <RenderPage data={docs} />
+      <RenderPage data={docs as CardPostData[]} />
       <AdminBar
         adminBarProps={{
           preview: isDraft,
@@ -40,7 +41,7 @@ const getCachedPosts = cache(async () => {
   const { isEnabled: isDraft } = await draftMode()
 
   const result = await payload.find({
-    collection: 'posts',
+    collection: 'blog',
     depth: 1,
     limit: 24,
     overrideAccess: isDraft,
@@ -64,7 +65,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title,
     description: siteDescription,
-    openGraph: mergeOpenGraph(
+    openGraph: await mergeOpenGraph(
       {
         title,
         description: siteDescription,

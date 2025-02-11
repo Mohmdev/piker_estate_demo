@@ -1,7 +1,10 @@
 import type { CollectionConfig } from 'payload'
 
 import { populateAuthors } from '@CMS/_hooks/populateAuthors'
-import { revalidateDelete, revalidatePost } from '@CMS/_hooks/revalidatePost'
+import {
+  revalidateBlogPost,
+  revalidateDelete,
+} from '@CMS/_hooks/revalidateBlog'
 
 import { populatePublishedAt } from '@CMS/_hooks/populatePublishedAt'
 import { authorsField } from '@CMS/fields/shared/authorsField'
@@ -20,8 +23,8 @@ import { fullLexical } from '@services/editor/fullLexical'
 import { getCollectionLivePreviewURL } from '@services/live-preview/getCollectionLivePreviewURL'
 import { getCollectionPreviewURL } from '@services/live-preview/getCollectionPreviewURL'
 
-export const Posts: CollectionConfig<'posts'> = {
-  slug: 'posts',
+export const Blog: CollectionConfig<'blog'> = {
+  slug: 'blog',
   labels: {
     singular: 'Blog Post',
     plural: 'Blog Posts',
@@ -51,8 +54,8 @@ export const Posts: CollectionConfig<'posts'> = {
       'updatedAt',
       'createdAt',
     ],
-    livePreview: getCollectionLivePreviewURL('posts'),
-    preview: getCollectionPreviewURL('posts'),
+    livePreview: getCollectionLivePreviewURL('blog'),
+    preview: getCollectionPreviewURL('blog'),
   },
   fields: [
     {
@@ -95,9 +98,9 @@ export const Posts: CollectionConfig<'posts'> = {
     ...slugField(),
   ],
   hooks: {
-    afterChange: [revalidatePost],
-    afterRead: [populateAuthors],
+    afterChange: [revalidateBlogPost],
     afterDelete: [revalidateDelete],
+    afterRead: [populateAuthors],
     beforeChange: [populatePublishedAt],
   },
   versions: {

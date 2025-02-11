@@ -10,7 +10,7 @@ export const getPostBySlug = cache(async ({ slug }: { slug: string }) => {
   const payload = await getPayload({ config: configPromise })
 
   const result = await payload.find({
-    collection: 'posts',
+    collection: 'blog',
     draft,
     limit: 1,
     overrideAccess: draft,
@@ -29,7 +29,7 @@ export const getPaginatedPosts = async () => {
   const payload = await getPayload({ config: configPromise })
 
   const result = await payload.find({
-    collection: 'posts',
+    collection: 'blog',
     depth: 1,
     limit: 12,
     overrideAccess: false,

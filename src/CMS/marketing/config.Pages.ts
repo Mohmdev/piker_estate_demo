@@ -9,6 +9,7 @@ import { MediaBlock } from '@CMS/blocks/MediaBlock/config'
 import { ListingArchiveBlock } from '@CMS/blocks/real-estate/ListingArchive/config'
 import { ListingBlock } from '@CMS/blocks/real-estate/ListingBlock/config'
 import { authorsField } from '@CMS/fields/shared/authorsField'
+import { categoriesField } from '@CMS/fields/shared/categoriesField'
 import { noindexField } from '@CMS/fields/shared/noindexField'
 import { populateAuthorsField } from '@CMS/fields/shared/populatedAuthorsField'
 import { publishedAtField } from '@CMS/fields/shared/publishedAtField'
@@ -84,11 +85,14 @@ export const Pages: CollectionConfig<'pages'> = {
             },
           ],
         },
+        {
+          label: 'Options',
+          fields: [categoriesField, tagsField],
+        },
         seoTab,
       ],
     },
     noindexField,
-    tagsField,
     authorsField,
     populateAuthorsField,
     publishedAtField,

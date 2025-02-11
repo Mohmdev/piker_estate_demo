@@ -1,11 +1,11 @@
-import type { Metadata } from 'next/types'
-
+import type { CardPostData } from '@components/Card'
 import { CollectionArchive } from '@components/CollectionArchive'
 import { PageRange } from '@components/PageRange'
 import { Pagination } from '@components/Pagination'
 import { getDynamicMeta } from '@data/getDynamicMeta'
 import configPromise from '@payload-config'
 import { notFound } from 'next/navigation'
+import type { Metadata } from 'next/types'
 import { getPayload } from 'payload'
 import React from 'react'
 import PageClient from './page.client'
@@ -26,8 +26,8 @@ export default async function Page({ params: paramsPromise }: Args) {
 
   if (!Number.isInteger(sanitizedPageNumber)) notFound()
 
-  const posts = await payload.find({
-    collection: 'posts',
+  const blogPosts = await payload.find({
+    collection: 'blog',
     depth: 1,
     limit: 12,
     page: sanitizedPageNumber,
@@ -45,18 +45,18 @@ export default async function Page({ params: paramsPromise }: Args) {
 
       <div className="container mb-8">
         <PageRange
-          collection="posts"
-          currentPage={posts.page}
+          collection="blog"
+          currentPage={blogPosts.page}
           limit={12}
-          totalDocs={posts.totalDocs}
+          totalDocs={blogPosts.totalDocs}
         />
       </div>
 
-      <CollectionArchive posts={posts.docs} />
+      <CollectionArchive posts={blogPosts.docs as CardPostData[]} />
 
       <div className="container">
-        {posts?.page && posts?.totalPages > 1 && (
-          <Pagination page={posts.page} totalPages={posts.totalPages} />
+        {blogPosts?.page && blogPosts?.totalPages > 1 && (
+          <Pagination page={blogPosts.page} totalPages={blogPosts.totalPages} />
         )}
       </div>
     </div>
@@ -76,7 +76,7 @@ export async function generateMetadata({
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
   const { totalDocs } = await payload.count({
-    collection: 'posts',
+    collection: 'blog',
     overrideAccess: false,
   })
 
