@@ -1,5 +1,5 @@
 import { essentialsLexical } from '@services/editor/essentialsLexical'
-import { hasSiblingField } from '@utils/siblingFieldCondition'
+import { isIncludedInSibling } from '@utils/siblingFieldCondition'
 import { Block } from 'payload'
 import { listingCardOptions } from '../glossary/config.cardOptions'
 
@@ -75,7 +75,7 @@ export const ListingArchiveBlock: Block = {
                   hasMany: true,
                   admin: {
                     description: 'Select the listings to display',
-                    condition: hasSiblingField('populateBy', 'custom'),
+                    condition: isIncludedInSibling('populateBy', 'custom'),
                   },
                 },
               ],

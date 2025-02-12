@@ -5,7 +5,7 @@ import {
   InlineToolbarFeature,
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
-import { hasSiblingField } from '@utils/siblingFieldCondition'
+import { isIncludedInSibling } from '@utils/siblingFieldCondition'
 import type { Field } from 'payload'
 import { iconGridComponent } from './RealEstate/components/icon-grid/config.field'
 import { heroSearchComponent } from './RealEstate/components/search-component/config.field'
@@ -68,7 +68,7 @@ export const herosInterface: Field = {
       name: 'media',
       type: 'upload',
       admin: {
-        condition: hasSiblingField('type', [
+        condition: isIncludedInSibling('type', [
           'highImpact',
           'mediumImpact',
           'advancedComponents',

@@ -1024,10 +1024,10 @@ export const mainMenuMock: Partial<MainMenu> = {
     enableCta: true,
     link: {
       type: 'custom',
-      // reference: null,
-      newTab: true,
       url: '/contact',
-      label: 'Schedule a Demo!!',
+      reference: null,
+      label: 'Schedule a Demo',
+      newTab: true,
     },
   },
 }

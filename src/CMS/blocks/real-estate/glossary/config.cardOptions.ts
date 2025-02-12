@@ -1,4 +1,4 @@
-import { hasSiblingField } from '@utils/siblingFieldCondition'
+import { isIncludedInSibling } from '@utils/siblingFieldCondition'
 import type { Field } from 'payload'
 import { currencySelect } from './config.currencySelect'
 
@@ -78,7 +78,7 @@ export const listingCardOptions: Field = {
       type: 'collapsible',
       label: 'Tags',
       admin: {
-        condition: hasSiblingField('enabledFields', 'tags'),
+        condition: isIncludedInSibling('enabledFields', 'tags'),
       },
       fields: [
         {
@@ -98,7 +98,7 @@ export const listingCardOptions: Field = {
       type: 'collapsible',
       label: 'Thumbnail',
       admin: {
-        condition: hasSiblingField('enabledFields', 'thumbnail'),
+        condition: isIncludedInSibling('enabledFields', 'thumbnail'),
       },
       fields: [
         {
@@ -140,7 +140,7 @@ export const listingCardOptions: Field = {
       type: 'collapsible',
       label: 'Price',
       admin: {
-        condition: hasSiblingField('enabledFields', 'price'),
+        condition: isIncludedInSibling('enabledFields', 'price'),
       },
       fields: [
         {
@@ -180,7 +180,7 @@ export const listingCardOptions: Field = {
           type: 'collapsible',
           label: 'Currency',
           admin: {
-            condition: hasSiblingField('overrideGlobalCurrency', 'yes'),
+            condition: isIncludedInSibling('overrideGlobalCurrency', 'yes'),
           },
           fields: [currencySelect],
         },

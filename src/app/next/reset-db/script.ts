@@ -15,7 +15,7 @@ const collections: CollectionSlug[] = [
   'payload-preferences',
   'redirects',
   'pages',
-  'posts',
+  'blog',
   'forms',
   'form-submissions',
 ]

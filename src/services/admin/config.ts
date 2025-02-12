@@ -13,7 +13,7 @@ export const adminConfig: Config['admin'] = {
     Component: '@services/admin/AdminAvatar',
   },
   autoLogin: {
-    email: process.env.ROOT_USER_EMAIL,
+    username: process.env.ROOT_USER_USERNAME,
     password: process.env.ROOT_USER_PASSWORD,
   },
   timezones: {

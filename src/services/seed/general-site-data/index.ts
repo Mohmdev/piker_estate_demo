@@ -262,7 +262,16 @@ export const seed = async ({
     data: JSON.parse(
       JSON.stringify({
         ...post1,
-        categories: [technologyCategory.id, softwareCategory.id],
+        categories: [
+          {
+            relationTo: 'blog-categories',
+            value: technologyCategory.id,
+          },
+          {
+            relationTo: 'blog-categories',
+            value: softwareCategory.id,
+          },
+        ],
       })
         .replace(/"\{\{IMAGE_1\}\}"/g, String(image1ID))
         .replace(/"\{\{IMAGE_2\}\}"/g, String(image2ID))
@@ -279,7 +288,16 @@ export const seed = async ({
     data: JSON.parse(
       JSON.stringify({
         ...post2,
-        categories: [newsCategory.id, designCategory.id],
+        categories: [
+          {
+            relationTo: 'blog-categories',
+            value: newsCategory.id,
+          },
+          {
+            relationTo: 'blog-categories',
+            value: designCategory.id,
+          },
+        ],
       })
         .replace(/"\{\{IMAGE_1\}\}"/g, String(image2ID))
         .replace(/"\{\{IMAGE_2\}\}"/g, String(image3ID))
@@ -296,7 +314,16 @@ export const seed = async ({
     data: JSON.parse(
       JSON.stringify({
         ...post3,
-        categories: [financeCategory.id, engineeringCategory.id],
+        categories: [
+          {
+            relationTo: 'blog-categories',
+            value: financeCategory.id,
+          },
+          {
+            relationTo: 'blog-categories',
+            value: engineeringCategory.id,
+          },
+        ],
       })
         .replace(/"\{\{IMAGE_1\}\}"/g, String(image3ID))
         .replace(/"\{\{IMAGE_2\}\}"/g, String(image1ID))

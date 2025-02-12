@@ -7,15 +7,21 @@ import type { Condition } from 'payload'
  * @param expectedValue The expected value or an array of expected values.
  * @returns A Payload CMS condition function.
  */
-export const hasSiblingField = (
+export const isIncludedInSibling = (
   siblingFieldName: string,
   expectedValue: unknown | unknown[],
 ): Condition => {
   return (_, siblingData) => {
     const value = siblingData[siblingFieldName]
+
+    if (Array.isArray(value)) {
+      return value.includes(expectedValue as string)
+    }
+
     if (Array.isArray(expectedValue)) {
       return expectedValue.includes(value)
     }
+
     return value === expectedValue
   }
 }

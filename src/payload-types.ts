@@ -1567,79 +1567,91 @@ export interface Form {
  */
 export interface ListingBlock {
   /**
-   * The properties that you would like to feature. Pick a minimum of 1 and a maximum of 36 listings.
+   * Note: By default, the latest listings are displayed. This setting will override that behavior.
    */
   listings?: (number | Property)[] | null;
-  displayOptions?: ('grid' | 'list' | 'ftrd' | 'crsl') | null;
-  grid?: {
-    columns?: number | null;
-    card?: ListingCardOptions;
-  };
-  list?: {
-    columns?: number | null;
-    card?: ListingCardOptions;
-  };
-  ftrd?: {
-    columns?: number | null;
-    card?: ListingCardOptions;
-  };
+  view: ViewSettingsInterface;
+  card: CardSettingsInterface;
   id?: string | null;
   blockName?: string | null;
   blockType: 'listingBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ListingCardOptions".
+ * via the `definition` "ViewSettingsInterface".
  */
-export interface ListingCardOptions {
+export interface ViewSettingsInterface {
   /**
    * Select the fields that should be displayed in the listing card.
    */
-  enabledFields?:
-    | (
-        | 'price'
-        | 'bedrooms'
-        | 'bathrooms'
-        | 'lotSize'
-        | 'yearBuilt'
-        | 'areaSize'
-        | 'parkingSpaces'
-        | 'description'
-        | 'categories'
-        | 'thumbnail'
-        | 'tags'
-      )[]
-    | null;
-  buttonStyle?: ('primary' | 'secondary' | 'outline') | null;
-  fit?: ('cover' | 'contain' | 'fill') | null;
-  position?: ('top' | 'center' | 'bottom') | null;
-  size?: ('small' | 'medium' | 'large') | null;
-  decimals?: ('none' | 'one' | 'two') | null;
-  currencyFormat?: ('text' | 'symbol') | null;
-  overrideGlobalCurrency?: ('yes' | 'no') | null;
-  currencySelect?:
-    | (
-        | 'د.إ'
-        | 'AU$'
-        | 'R$'
-        | 'CA$'
-        | 'CHF'
-        | 'CN¥'
-        | '€'
-        | '£'
-        | 'HK$'
-        | '₹'
-        | '¥'
-        | 'MX$'
-        | 'NZ$'
-        | '₽'
-        | 'SG$'
-        | '฿'
-        | 'US$'
-        | '₫'
-        | 'R'
-      )
-    | null;
+  layout: 'grid' | 'list' | 'ftrd' | 'crsl';
+  grid?: {
+    columns?: number | null;
+  };
+  list?: {
+    columns?: number | null;
+  };
+  ftrd?: {
+    columns?: number | null;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CardSettingsInterface".
+ */
+export interface CardSettingsInterface {
+  /**
+   * Select the fields that should be displayed in the listing card.
+   */
+  enabledFields: (
+    | 'price'
+    | 'bedrooms'
+    | 'bathrooms'
+    | 'lotSize'
+    | 'yearBuilt'
+    | 'areaSize'
+    | 'parkingSpaces'
+    | 'description'
+    | 'categories'
+    | 'thumbnail'
+    | 'tags'
+  )[];
+  thumbnail?: {
+    fit?: ('cover' | 'contain' | 'fill') | null;
+    position?: ('top' | 'center' | 'bottom') | null;
+    size?: ('small' | 'medium' | 'large') | null;
+  };
+  price?: {
+    decimals?: ('none' | 'one' | 'two') | null;
+    currencyFormat?: ('text' | 'symbol') | null;
+    overrideGlobalCurrency?: ('yes' | 'no') | null;
+    currencySelect?:
+      | (
+          | 'د.إ'
+          | 'AU$'
+          | 'R$'
+          | 'CA$'
+          | 'CHF'
+          | 'CN¥'
+          | '€'
+          | '£'
+          | 'HK$'
+          | '₹'
+          | '¥'
+          | 'MX$'
+          | 'NZ$'
+          | '₽'
+          | 'SG$'
+          | '฿'
+          | 'US$'
+          | '₫'
+          | 'R'
+        )
+      | null;
+  };
+  tags?: {
+    buttonStyle?: ('primary' | 'secondary' | 'outline') | null;
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1757,6 +1769,60 @@ export interface ListingStatus {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ListingCardOptions".
+ */
+export interface ListingCardOptions {
+  /**
+   * Select the fields that should be displayed in the listing card.
+   */
+  enabledFields?:
+    | (
+        | 'price'
+        | 'bedrooms'
+        | 'bathrooms'
+        | 'lotSize'
+        | 'yearBuilt'
+        | 'areaSize'
+        | 'parkingSpaces'
+        | 'description'
+        | 'categories'
+        | 'thumbnail'
+        | 'tags'
+      )[]
+    | null;
+  buttonStyle?: ('primary' | 'secondary' | 'outline') | null;
+  fit?: ('cover' | 'contain' | 'fill') | null;
+  position?: ('top' | 'center' | 'bottom') | null;
+  size?: ('small' | 'medium' | 'large') | null;
+  decimals?: ('none' | 'one' | 'two') | null;
+  currencyFormat?: ('text' | 'symbol') | null;
+  overrideGlobalCurrency?: ('yes' | 'no') | null;
+  currencySelect?:
+    | (
+        | 'د.إ'
+        | 'AU$'
+        | 'R$'
+        | 'CA$'
+        | 'CHF'
+        | 'CN¥'
+        | '€'
+        | '£'
+        | 'HK$'
+        | '₹'
+        | '¥'
+        | 'MX$'
+        | 'NZ$'
+        | '₽'
+        | 'SG$'
+        | '฿'
+        | 'US$'
+        | '₫'
+        | 'R'
+      )
+    | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2463,42 +2529,59 @@ export interface FormBlockSelect<T extends boolean = true> {
  */
 export interface ListingBlockSelect<T extends boolean = true> {
   listings?: T;
-  displayOptions?: T;
-  grid?:
-    | T
-    | {
-        columns?: T;
-        card?: T | ListingCardOptionsSelect<T>;
-      };
-  list?:
-    | T
-    | {
-        columns?: T;
-        card?: T | ListingCardOptionsSelect<T>;
-      };
-  ftrd?:
-    | T
-    | {
-        columns?: T;
-        card?: T | ListingCardOptionsSelect<T>;
-      };
+  view?: T | ViewSettingsInterfaceSelect<T>;
+  card?: T | CardSettingsInterfaceSelect<T>;
   id?: T;
   blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ListingCardOptions_select".
+ * via the `definition` "ViewSettingsInterface_select".
  */
-export interface ListingCardOptionsSelect<T extends boolean = true> {
+export interface ViewSettingsInterfaceSelect<T extends boolean = true> {
+  layout?: T;
+  grid?:
+    | T
+    | {
+        columns?: T;
+      };
+  list?:
+    | T
+    | {
+        columns?: T;
+      };
+  ftrd?:
+    | T
+    | {
+        columns?: T;
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CardSettingsInterface_select".
+ */
+export interface CardSettingsInterfaceSelect<T extends boolean = true> {
   enabledFields?: T;
-  buttonStyle?: T;
-  fit?: T;
-  position?: T;
-  size?: T;
-  decimals?: T;
-  currencyFormat?: T;
-  overrideGlobalCurrency?: T;
-  currencySelect?: T;
+  thumbnail?:
+    | T
+    | {
+        fit?: T;
+        position?: T;
+        size?: T;
+      };
+  price?:
+    | T
+    | {
+        decimals?: T;
+        currencyFormat?: T;
+        overrideGlobalCurrency?: T;
+        currencySelect?: T;
+      };
+  tags?:
+    | T
+    | {
+        buttonStyle?: T;
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2524,6 +2607,21 @@ export interface ListingArchiveBlockSelect<T extends boolean = true> {
   card?: T | ListingCardOptionsSelect<T>;
   id?: T;
   blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ListingCardOptions_select".
+ */
+export interface ListingCardOptionsSelect<T extends boolean = true> {
+  enabledFields?: T;
+  buttonStyle?: T;
+  fit?: T;
+  position?: T;
+  size?: T;
+  decimals?: T;
+  currencyFormat?: T;
+  overrideGlobalCurrency?: T;
+  currencySelect?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

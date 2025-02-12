@@ -25,34 +25,16 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE TYPE "public"."enum_pages_blocks_content_columns_link_appearance" AS ENUM('default', 'outline');
   CREATE TYPE "public"."enum_pages_blocks_archive_populate_by" AS ENUM('collection', 'selection');
   CREATE TYPE "public"."enum_pages_blocks_archive_relation_to" AS ENUM('blog');
-  CREATE TYPE "public"."enum_listingBlock_grid_card_enabled_fields" AS ENUM('price', 'bedrooms', 'bathrooms', 'lotSize', 'yearBuilt', 'areaSize', 'parkingSpaces', 'description', 'categories', 'thumbnail', 'tags');
-  CREATE TYPE "public"."enum_listingBlock_list_card_enabled_fields" AS ENUM('price', 'bedrooms', 'bathrooms', 'lotSize', 'yearBuilt', 'areaSize', 'parkingSpaces', 'description', 'categories', 'thumbnail', 'tags');
-  CREATE TYPE "public"."enum_listingBlock_ftrd_card_enabled_fields" AS ENUM('price', 'bedrooms', 'bathrooms', 'lotSize', 'yearBuilt', 'areaSize', 'parkingSpaces', 'description', 'categories', 'thumbnail', 'tags');
-  CREATE TYPE "public"."enum_listingBlock_display_options" AS ENUM('grid', 'list', 'ftrd', 'crsl');
-  CREATE TYPE "public"."enum_listingBlock_grid_card_button_style" AS ENUM('primary', 'secondary', 'outline');
-  CREATE TYPE "public"."enum_listingBlock_grid_card_fit" AS ENUM('cover', 'contain', 'fill');
-  CREATE TYPE "public"."enum_listingBlock_grid_card_position" AS ENUM('top', 'center', 'bottom');
-  CREATE TYPE "public"."enum_listingBlock_grid_card_size" AS ENUM('small', 'medium', 'large');
-  CREATE TYPE "public"."enum_listingBlock_grid_card_decimals" AS ENUM('none', 'one', 'two');
-  CREATE TYPE "public"."enum_listingBlock_grid_card_currency_format" AS ENUM('text', 'symbol');
-  CREATE TYPE "public"."enum_listingBlock_grid_card_override_global_currency" AS ENUM('yes', 'no');
-  CREATE TYPE "public"."enum_listingBlock_grid_card_currency_select" AS ENUM('د.إ', 'AU$', 'R$', 'CA$', 'CHF', 'CN¥', '€', '£', 'HK$', '₹', '¥', 'MX$', 'NZ$', '₽', 'SG$', '฿', 'US$', '₫', 'R');
-  CREATE TYPE "public"."enum_listingBlock_list_card_button_style" AS ENUM('primary', 'secondary', 'outline');
-  CREATE TYPE "public"."enum_listingBlock_list_card_fit" AS ENUM('cover', 'contain', 'fill');
-  CREATE TYPE "public"."enum_listingBlock_list_card_position" AS ENUM('top', 'center', 'bottom');
-  CREATE TYPE "public"."enum_listingBlock_list_card_size" AS ENUM('small', 'medium', 'large');
-  CREATE TYPE "public"."enum_listingBlock_list_card_decimals" AS ENUM('none', 'one', 'two');
-  CREATE TYPE "public"."enum_listingBlock_list_card_currency_format" AS ENUM('text', 'symbol');
-  CREATE TYPE "public"."enum_listingBlock_list_card_override_global_currency" AS ENUM('yes', 'no');
-  CREATE TYPE "public"."enum_listingBlock_list_card_currency_select" AS ENUM('د.إ', 'AU$', 'R$', 'CA$', 'CHF', 'CN¥', '€', '£', 'HK$', '₹', '¥', 'MX$', 'NZ$', '₽', 'SG$', '฿', 'US$', '₫', 'R');
-  CREATE TYPE "public"."enum_listingBlock_ftrd_card_button_style" AS ENUM('primary', 'secondary', 'outline');
-  CREATE TYPE "public"."enum_listingBlock_ftrd_card_fit" AS ENUM('cover', 'contain', 'fill');
-  CREATE TYPE "public"."enum_listingBlock_ftrd_card_position" AS ENUM('top', 'center', 'bottom');
-  CREATE TYPE "public"."enum_listingBlock_ftrd_card_size" AS ENUM('small', 'medium', 'large');
-  CREATE TYPE "public"."enum_listingBlock_ftrd_card_decimals" AS ENUM('none', 'one', 'two');
-  CREATE TYPE "public"."enum_listingBlock_ftrd_card_currency_format" AS ENUM('text', 'symbol');
-  CREATE TYPE "public"."enum_listingBlock_ftrd_card_override_global_currency" AS ENUM('yes', 'no');
-  CREATE TYPE "public"."enum_listingBlock_ftrd_card_currency_select" AS ENUM('د.إ', 'AU$', 'R$', 'CA$', 'CHF', 'CN¥', '€', '£', 'HK$', '₹', '¥', 'MX$', 'NZ$', '₽', 'SG$', '฿', 'US$', '₫', 'R');
+  CREATE TYPE "public"."enum_listingBlock_card_enabled_fields" AS ENUM('price', 'bedrooms', 'bathrooms', 'lotSize', 'yearBuilt', 'areaSize', 'parkingSpaces', 'description', 'categories', 'thumbnail', 'tags');
+  CREATE TYPE "public"."enum_listingBlock_view_layout" AS ENUM('grid', 'list', 'ftrd', 'crsl');
+  CREATE TYPE "public"."enum_listingBlock_card_tags_button_style" AS ENUM('primary', 'secondary', 'outline');
+  CREATE TYPE "public"."enum_listingBlock_card_thumbnail_fit" AS ENUM('cover', 'contain', 'fill');
+  CREATE TYPE "public"."enum_listingBlock_card_thumbnail_position" AS ENUM('top', 'center', 'bottom');
+  CREATE TYPE "public"."enum_listingBlock_card_thumbnail_size" AS ENUM('small', 'medium', 'large');
+  CREATE TYPE "public"."enum_listingBlock_card_price_decimals" AS ENUM('none', 'one', 'two');
+  CREATE TYPE "public"."enum_listingBlock_card_price_currency_format" AS ENUM('text', 'symbol');
+  CREATE TYPE "public"."enum_listingBlock_card_price_override_global_currency" AS ENUM('yes', 'no');
+  CREATE TYPE "public"."enum_listingBlock_card_price_currency_select" AS ENUM('د.إ', 'AU$', 'R$', 'CA$', 'CHF', 'CN¥', '€', '£', 'HK$', '₹', '¥', 'MX$', 'NZ$', '₽', 'SG$', '฿', 'US$', '₫', 'R');
   CREATE TYPE "public"."enum_listingArchiveBlock_card_enabled_fields" AS ENUM('price', 'bedrooms', 'bathrooms', 'lotSize', 'yearBuilt', 'areaSize', 'parkingSpaces', 'description', 'categories', 'thumbnail', 'tags');
   CREATE TYPE "public"."enum_listingArchiveBlock_layout_layout_type" AS ENUM('grid', 'list', 'carousel');
   CREATE TYPE "public"."enum_listingArchiveBlock_archive_populate_by" AS ENUM('latest', 'custom');
@@ -80,34 +62,16 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE TYPE "public"."enum__pages_v_blocks_content_columns_link_appearance" AS ENUM('default', 'outline');
   CREATE TYPE "public"."enum__pages_v_blocks_archive_populate_by" AS ENUM('collection', 'selection');
   CREATE TYPE "public"."enum__pages_v_blocks_archive_relation_to" AS ENUM('blog');
-  CREATE TYPE "public"."enum__listingBlock_v_grid_card_enabled_fields" AS ENUM('price', 'bedrooms', 'bathrooms', 'lotSize', 'yearBuilt', 'areaSize', 'parkingSpaces', 'description', 'categories', 'thumbnail', 'tags');
-  CREATE TYPE "public"."enum__listingBlock_v_list_card_enabled_fields" AS ENUM('price', 'bedrooms', 'bathrooms', 'lotSize', 'yearBuilt', 'areaSize', 'parkingSpaces', 'description', 'categories', 'thumbnail', 'tags');
-  CREATE TYPE "public"."enum__listingBlock_v_ftrd_card_enabled_fields" AS ENUM('price', 'bedrooms', 'bathrooms', 'lotSize', 'yearBuilt', 'areaSize', 'parkingSpaces', 'description', 'categories', 'thumbnail', 'tags');
-  CREATE TYPE "public"."enum__listingBlock_v_display_options" AS ENUM('grid', 'list', 'ftrd', 'crsl');
-  CREATE TYPE "public"."enum__listingBlock_v_grid_card_button_style" AS ENUM('primary', 'secondary', 'outline');
-  CREATE TYPE "public"."enum__listingBlock_v_grid_card_fit" AS ENUM('cover', 'contain', 'fill');
-  CREATE TYPE "public"."enum__listingBlock_v_grid_card_position" AS ENUM('top', 'center', 'bottom');
-  CREATE TYPE "public"."enum__listingBlock_v_grid_card_size" AS ENUM('small', 'medium', 'large');
-  CREATE TYPE "public"."enum__listingBlock_v_grid_card_decimals" AS ENUM('none', 'one', 'two');
-  CREATE TYPE "public"."enum__listingBlock_v_grid_card_currency_format" AS ENUM('text', 'symbol');
-  CREATE TYPE "public"."enum__listingBlock_v_grid_card_override_global_currency" AS ENUM('yes', 'no');
-  CREATE TYPE "public"."enum__listingBlock_v_grid_card_currency_select" AS ENUM('د.إ', 'AU$', 'R$', 'CA$', 'CHF', 'CN¥', '€', '£', 'HK$', '₹', '¥', 'MX$', 'NZ$', '₽', 'SG$', '฿', 'US$', '₫', 'R');
-  CREATE TYPE "public"."enum__listingBlock_v_list_card_button_style" AS ENUM('primary', 'secondary', 'outline');
-  CREATE TYPE "public"."enum__listingBlock_v_list_card_fit" AS ENUM('cover', 'contain', 'fill');
-  CREATE TYPE "public"."enum__listingBlock_v_list_card_position" AS ENUM('top', 'center', 'bottom');
-  CREATE TYPE "public"."enum__listingBlock_v_list_card_size" AS ENUM('small', 'medium', 'large');
-  CREATE TYPE "public"."enum__listingBlock_v_list_card_decimals" AS ENUM('none', 'one', 'two');
-  CREATE TYPE "public"."enum__listingBlock_v_list_card_currency_format" AS ENUM('text', 'symbol');
-  CREATE TYPE "public"."enum__listingBlock_v_list_card_override_global_currency" AS ENUM('yes', 'no');
-  CREATE TYPE "public"."enum__listingBlock_v_list_card_currency_select" AS ENUM('د.إ', 'AU$', 'R$', 'CA$', 'CHF', 'CN¥', '€', '£', 'HK$', '₹', '¥', 'MX$', 'NZ$', '₽', 'SG$', '฿', 'US$', '₫', 'R');
-  CREATE TYPE "public"."enum__listingBlock_v_ftrd_card_button_style" AS ENUM('primary', 'secondary', 'outline');
-  CREATE TYPE "public"."enum__listingBlock_v_ftrd_card_fit" AS ENUM('cover', 'contain', 'fill');
-  CREATE TYPE "public"."enum__listingBlock_v_ftrd_card_position" AS ENUM('top', 'center', 'bottom');
-  CREATE TYPE "public"."enum__listingBlock_v_ftrd_card_size" AS ENUM('small', 'medium', 'large');
-  CREATE TYPE "public"."enum__listingBlock_v_ftrd_card_decimals" AS ENUM('none', 'one', 'two');
-  CREATE TYPE "public"."enum__listingBlock_v_ftrd_card_currency_format" AS ENUM('text', 'symbol');
-  CREATE TYPE "public"."enum__listingBlock_v_ftrd_card_override_global_currency" AS ENUM('yes', 'no');
-  CREATE TYPE "public"."enum__listingBlock_v_ftrd_card_currency_select" AS ENUM('د.إ', 'AU$', 'R$', 'CA$', 'CHF', 'CN¥', '€', '£', 'HK$', '₹', '¥', 'MX$', 'NZ$', '₽', 'SG$', '฿', 'US$', '₫', 'R');
+  CREATE TYPE "public"."enum__listingBlock_v_card_enabled_fields" AS ENUM('price', 'bedrooms', 'bathrooms', 'lotSize', 'yearBuilt', 'areaSize', 'parkingSpaces', 'description', 'categories', 'thumbnail', 'tags');
+  CREATE TYPE "public"."enum__listingBlock_v_view_layout" AS ENUM('grid', 'list', 'ftrd', 'crsl');
+  CREATE TYPE "public"."enum__listingBlock_v_card_tags_button_style" AS ENUM('primary', 'secondary', 'outline');
+  CREATE TYPE "public"."enum__listingBlock_v_card_thumbnail_fit" AS ENUM('cover', 'contain', 'fill');
+  CREATE TYPE "public"."enum__listingBlock_v_card_thumbnail_position" AS ENUM('top', 'center', 'bottom');
+  CREATE TYPE "public"."enum__listingBlock_v_card_thumbnail_size" AS ENUM('small', 'medium', 'large');
+  CREATE TYPE "public"."enum__listingBlock_v_card_price_decimals" AS ENUM('none', 'one', 'two');
+  CREATE TYPE "public"."enum__listingBlock_v_card_price_currency_format" AS ENUM('text', 'symbol');
+  CREATE TYPE "public"."enum__listingBlock_v_card_price_override_global_currency" AS ENUM('yes', 'no');
+  CREATE TYPE "public"."enum__listingBlock_v_card_price_currency_select" AS ENUM('د.إ', 'AU$', 'R$', 'CA$', 'CHF', 'CN¥', '€', '£', 'HK$', '₹', '¥', 'MX$', 'NZ$', '₽', 'SG$', '฿', 'US$', '₫', 'R');
   CREATE TYPE "public"."enum__listingArchiveBlock_v_card_enabled_fields" AS ENUM('price', 'bedrooms', 'bathrooms', 'lotSize', 'yearBuilt', 'areaSize', 'parkingSpaces', 'description', 'categories', 'thumbnail', 'tags');
   CREATE TYPE "public"."enum__listingArchiveBlock_v_layout_layout_type" AS ENUM('grid', 'list', 'carousel');
   CREATE TYPE "public"."enum__listingArchiveBlock_v_archive_populate_by" AS ENUM('latest', 'custom');
@@ -698,24 +662,10 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"block_name" varchar
   );
   
-  CREATE TABLE IF NOT EXISTS "listingBlock_grid_card_enabled_fields" (
+  CREATE TABLE IF NOT EXISTS "listingBlock_card_enabled_fields" (
   	"order" integer NOT NULL,
   	"parent_id" varchar NOT NULL,
-  	"value" "enum_listingBlock_grid_card_enabled_fields",
-  	"id" serial PRIMARY KEY NOT NULL
-  );
-  
-  CREATE TABLE IF NOT EXISTS "listingBlock_list_card_enabled_fields" (
-  	"order" integer NOT NULL,
-  	"parent_id" varchar NOT NULL,
-  	"value" "enum_listingBlock_list_card_enabled_fields",
-  	"id" serial PRIMARY KEY NOT NULL
-  );
-  
-  CREATE TABLE IF NOT EXISTS "listingBlock_ftrd_card_enabled_fields" (
-  	"order" integer NOT NULL,
-  	"parent_id" varchar NOT NULL,
-  	"value" "enum_listingBlock_ftrd_card_enabled_fields",
+  	"value" "enum_listingBlock_card_enabled_fields",
   	"id" serial PRIMARY KEY NOT NULL
   );
   
@@ -724,34 +674,18 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"_parent_id" integer NOT NULL,
   	"_path" text NOT NULL,
   	"id" varchar PRIMARY KEY NOT NULL,
-  	"display_options" "enum_listingBlock_display_options" DEFAULT 'grid',
-  	"grid_columns" numeric DEFAULT 3,
-  	"grid_card_button_style" "enum_listingBlock_grid_card_button_style",
-  	"grid_card_fit" "enum_listingBlock_grid_card_fit" DEFAULT 'cover',
-  	"grid_card_position" "enum_listingBlock_grid_card_position" DEFAULT 'center',
-  	"grid_card_size" "enum_listingBlock_grid_card_size" DEFAULT 'medium',
-  	"grid_card_decimals" "enum_listingBlock_grid_card_decimals" DEFAULT 'none',
-  	"grid_card_currency_format" "enum_listingBlock_grid_card_currency_format" DEFAULT 'symbol',
-  	"grid_card_override_global_currency" "enum_listingBlock_grid_card_override_global_currency" DEFAULT 'no',
-  	"grid_card_currency_select" "enum_listingBlock_grid_card_currency_select",
-  	"list_columns" numeric DEFAULT 6,
-  	"list_card_button_style" "enum_listingBlock_list_card_button_style",
-  	"list_card_fit" "enum_listingBlock_list_card_fit" DEFAULT 'cover',
-  	"list_card_position" "enum_listingBlock_list_card_position" DEFAULT 'center',
-  	"list_card_size" "enum_listingBlock_list_card_size" DEFAULT 'medium',
-  	"list_card_decimals" "enum_listingBlock_list_card_decimals" DEFAULT 'none',
-  	"list_card_currency_format" "enum_listingBlock_list_card_currency_format" DEFAULT 'symbol',
-  	"list_card_override_global_currency" "enum_listingBlock_list_card_override_global_currency" DEFAULT 'no',
-  	"list_card_currency_select" "enum_listingBlock_list_card_currency_select",
-  	"ftrd_columns" numeric DEFAULT 1,
-  	"ftrd_card_button_style" "enum_listingBlock_ftrd_card_button_style",
-  	"ftrd_card_fit" "enum_listingBlock_ftrd_card_fit" DEFAULT 'cover',
-  	"ftrd_card_position" "enum_listingBlock_ftrd_card_position" DEFAULT 'center',
-  	"ftrd_card_size" "enum_listingBlock_ftrd_card_size" DEFAULT 'medium',
-  	"ftrd_card_decimals" "enum_listingBlock_ftrd_card_decimals" DEFAULT 'none',
-  	"ftrd_card_currency_format" "enum_listingBlock_ftrd_card_currency_format" DEFAULT 'symbol',
-  	"ftrd_card_override_global_currency" "enum_listingBlock_ftrd_card_override_global_currency" DEFAULT 'no',
-  	"ftrd_card_currency_select" "enum_listingBlock_ftrd_card_currency_select",
+  	"view_layout" "enum_listingBlock_view_layout" DEFAULT 'grid',
+  	"view_grid_columns" numeric DEFAULT 3,
+  	"view_list_columns" numeric DEFAULT 6,
+  	"view_ftrd_columns" numeric DEFAULT 1,
+  	"card_tags_button_style" "enum_listingBlock_card_tags_button_style",
+  	"card_thumbnail_fit" "enum_listingBlock_card_thumbnail_fit" DEFAULT 'cover',
+  	"card_thumbnail_position" "enum_listingBlock_card_thumbnail_position" DEFAULT 'center',
+  	"card_thumbnail_size" "enum_listingBlock_card_thumbnail_size" DEFAULT 'medium',
+  	"card_price_decimals" "enum_listingBlock_card_price_decimals" DEFAULT 'none',
+  	"card_price_currency_format" "enum_listingBlock_card_price_currency_format" DEFAULT 'symbol',
+  	"card_price_override_global_currency" "enum_listingBlock_card_price_override_global_currency" DEFAULT 'no',
+  	"card_price_currency_select" "enum_listingBlock_card_price_currency_select",
   	"block_name" varchar
   );
   
@@ -944,24 +878,10 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"block_name" varchar
   );
   
-  CREATE TABLE IF NOT EXISTS "_listingBlock_v_grid_card_enabled_fields" (
+  CREATE TABLE IF NOT EXISTS "_listingBlock_v_card_enabled_fields" (
   	"order" integer NOT NULL,
   	"parent_id" integer NOT NULL,
-  	"value" "enum__listingBlock_v_grid_card_enabled_fields",
-  	"id" serial PRIMARY KEY NOT NULL
-  );
-  
-  CREATE TABLE IF NOT EXISTS "_listingBlock_v_list_card_enabled_fields" (
-  	"order" integer NOT NULL,
-  	"parent_id" integer NOT NULL,
-  	"value" "enum__listingBlock_v_list_card_enabled_fields",
-  	"id" serial PRIMARY KEY NOT NULL
-  );
-  
-  CREATE TABLE IF NOT EXISTS "_listingBlock_v_ftrd_card_enabled_fields" (
-  	"order" integer NOT NULL,
-  	"parent_id" integer NOT NULL,
-  	"value" "enum__listingBlock_v_ftrd_card_enabled_fields",
+  	"value" "enum__listingBlock_v_card_enabled_fields",
   	"id" serial PRIMARY KEY NOT NULL
   );
   
@@ -970,34 +890,18 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"_parent_id" integer NOT NULL,
   	"_path" text NOT NULL,
   	"id" serial PRIMARY KEY NOT NULL,
-  	"display_options" "enum__listingBlock_v_display_options" DEFAULT 'grid',
-  	"grid_columns" numeric DEFAULT 3,
-  	"grid_card_button_style" "enum__listingBlock_v_grid_card_button_style",
-  	"grid_card_fit" "enum__listingBlock_v_grid_card_fit" DEFAULT 'cover',
-  	"grid_card_position" "enum__listingBlock_v_grid_card_position" DEFAULT 'center',
-  	"grid_card_size" "enum__listingBlock_v_grid_card_size" DEFAULT 'medium',
-  	"grid_card_decimals" "enum__listingBlock_v_grid_card_decimals" DEFAULT 'none',
-  	"grid_card_currency_format" "enum__listingBlock_v_grid_card_currency_format" DEFAULT 'symbol',
-  	"grid_card_override_global_currency" "enum__listingBlock_v_grid_card_override_global_currency" DEFAULT 'no',
-  	"grid_card_currency_select" "enum__listingBlock_v_grid_card_currency_select",
-  	"list_columns" numeric DEFAULT 6,
-  	"list_card_button_style" "enum__listingBlock_v_list_card_button_style",
-  	"list_card_fit" "enum__listingBlock_v_list_card_fit" DEFAULT 'cover',
-  	"list_card_position" "enum__listingBlock_v_list_card_position" DEFAULT 'center',
-  	"list_card_size" "enum__listingBlock_v_list_card_size" DEFAULT 'medium',
-  	"list_card_decimals" "enum__listingBlock_v_list_card_decimals" DEFAULT 'none',
-  	"list_card_currency_format" "enum__listingBlock_v_list_card_currency_format" DEFAULT 'symbol',
-  	"list_card_override_global_currency" "enum__listingBlock_v_list_card_override_global_currency" DEFAULT 'no',
-  	"list_card_currency_select" "enum__listingBlock_v_list_card_currency_select",
-  	"ftrd_columns" numeric DEFAULT 1,
-  	"ftrd_card_button_style" "enum__listingBlock_v_ftrd_card_button_style",
-  	"ftrd_card_fit" "enum__listingBlock_v_ftrd_card_fit" DEFAULT 'cover',
-  	"ftrd_card_position" "enum__listingBlock_v_ftrd_card_position" DEFAULT 'center',
-  	"ftrd_card_size" "enum__listingBlock_v_ftrd_card_size" DEFAULT 'medium',
-  	"ftrd_card_decimals" "enum__listingBlock_v_ftrd_card_decimals" DEFAULT 'none',
-  	"ftrd_card_currency_format" "enum__listingBlock_v_ftrd_card_currency_format" DEFAULT 'symbol',
-  	"ftrd_card_override_global_currency" "enum__listingBlock_v_ftrd_card_override_global_currency" DEFAULT 'no',
-  	"ftrd_card_currency_select" "enum__listingBlock_v_ftrd_card_currency_select",
+  	"view_layout" "enum__listingBlock_v_view_layout" DEFAULT 'grid',
+  	"view_grid_columns" numeric DEFAULT 3,
+  	"view_list_columns" numeric DEFAULT 6,
+  	"view_ftrd_columns" numeric DEFAULT 1,
+  	"card_tags_button_style" "enum__listingBlock_v_card_tags_button_style",
+  	"card_thumbnail_fit" "enum__listingBlock_v_card_thumbnail_fit" DEFAULT 'cover',
+  	"card_thumbnail_position" "enum__listingBlock_v_card_thumbnail_position" DEFAULT 'center',
+  	"card_thumbnail_size" "enum__listingBlock_v_card_thumbnail_size" DEFAULT 'medium',
+  	"card_price_decimals" "enum__listingBlock_v_card_price_decimals" DEFAULT 'none',
+  	"card_price_currency_format" "enum__listingBlock_v_card_price_currency_format" DEFAULT 'symbol',
+  	"card_price_override_global_currency" "enum__listingBlock_v_card_price_override_global_currency" DEFAULT 'no',
+  	"card_price_currency_select" "enum__listingBlock_v_card_price_currency_select",
   	"_uuid" varchar,
   	"block_name" varchar
   );
@@ -2555,19 +2459,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   END $$;
   
   DO $$ BEGIN
-   ALTER TABLE "listingBlock_grid_card_enabled_fields" ADD CONSTRAINT "listingBlock_grid_card_enabled_fields_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."listingBlock"("id") ON DELETE cascade ON UPDATE no action;
-  EXCEPTION
-   WHEN duplicate_object THEN null;
-  END $$;
-  
-  DO $$ BEGIN
-   ALTER TABLE "listingBlock_list_card_enabled_fields" ADD CONSTRAINT "listingBlock_list_card_enabled_fields_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."listingBlock"("id") ON DELETE cascade ON UPDATE no action;
-  EXCEPTION
-   WHEN duplicate_object THEN null;
-  END $$;
-  
-  DO $$ BEGIN
-   ALTER TABLE "listingBlock_ftrd_card_enabled_fields" ADD CONSTRAINT "listingBlock_ftrd_card_enabled_fields_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."listingBlock"("id") ON DELETE cascade ON UPDATE no action;
+   ALTER TABLE "listingBlock_card_enabled_fields" ADD CONSTRAINT "listingBlock_card_enabled_fields_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."listingBlock"("id") ON DELETE cascade ON UPDATE no action;
   EXCEPTION
    WHEN duplicate_object THEN null;
   END $$;
@@ -2735,19 +2627,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   END $$;
   
   DO $$ BEGIN
-   ALTER TABLE "_listingBlock_v_grid_card_enabled_fields" ADD CONSTRAINT "_listingBlock_v_grid_card_enabled_fields_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."_listingBlock_v"("id") ON DELETE cascade ON UPDATE no action;
-  EXCEPTION
-   WHEN duplicate_object THEN null;
-  END $$;
-  
-  DO $$ BEGIN
-   ALTER TABLE "_listingBlock_v_list_card_enabled_fields" ADD CONSTRAINT "_listingBlock_v_list_card_enabled_fields_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."_listingBlock_v"("id") ON DELETE cascade ON UPDATE no action;
-  EXCEPTION
-   WHEN duplicate_object THEN null;
-  END $$;
-  
-  DO $$ BEGIN
-   ALTER TABLE "_listingBlock_v_ftrd_card_enabled_fields" ADD CONSTRAINT "_listingBlock_v_ftrd_card_enabled_fields_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."_listingBlock_v"("id") ON DELETE cascade ON UPDATE no action;
+   ALTER TABLE "_listingBlock_v_card_enabled_fields" ADD CONSTRAINT "_listingBlock_v_card_enabled_fields_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."_listingBlock_v"("id") ON DELETE cascade ON UPDATE no action;
   EXCEPTION
    WHEN duplicate_object THEN null;
   END $$;
@@ -3748,12 +3628,8 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX IF NOT EXISTS "pages_blocks_form_block_parent_id_idx" ON "pages_blocks_form_block" USING btree ("_parent_id");
   CREATE INDEX IF NOT EXISTS "pages_blocks_form_block_path_idx" ON "pages_blocks_form_block" USING btree ("_path");
   CREATE INDEX IF NOT EXISTS "pages_blocks_form_block_form_idx" ON "pages_blocks_form_block" USING btree ("form_id");
-  CREATE INDEX IF NOT EXISTS "listingBlock_grid_card_enabled_fields_order_idx" ON "listingBlock_grid_card_enabled_fields" USING btree ("order");
-  CREATE INDEX IF NOT EXISTS "listingBlock_grid_card_enabled_fields_parent_idx" ON "listingBlock_grid_card_enabled_fields" USING btree ("parent_id");
-  CREATE INDEX IF NOT EXISTS "listingBlock_list_card_enabled_fields_order_idx" ON "listingBlock_list_card_enabled_fields" USING btree ("order");
-  CREATE INDEX IF NOT EXISTS "listingBlock_list_card_enabled_fields_parent_idx" ON "listingBlock_list_card_enabled_fields" USING btree ("parent_id");
-  CREATE INDEX IF NOT EXISTS "listingBlock_ftrd_card_enabled_fields_order_idx" ON "listingBlock_ftrd_card_enabled_fields" USING btree ("order");
-  CREATE INDEX IF NOT EXISTS "listingBlock_ftrd_card_enabled_fields_parent_idx" ON "listingBlock_ftrd_card_enabled_fields" USING btree ("parent_id");
+  CREATE INDEX IF NOT EXISTS "listingBlock_card_enabled_fields_order_idx" ON "listingBlock_card_enabled_fields" USING btree ("order");
+  CREATE INDEX IF NOT EXISTS "listingBlock_card_enabled_fields_parent_idx" ON "listingBlock_card_enabled_fields" USING btree ("parent_id");
   CREATE INDEX IF NOT EXISTS "listingBlock_order_idx" ON "listingBlock" USING btree ("_order");
   CREATE INDEX IF NOT EXISTS "listingBlock_parent_id_idx" ON "listingBlock" USING btree ("_parent_id");
   CREATE INDEX IF NOT EXISTS "listingBlock_path_idx" ON "listingBlock" USING btree ("_path");
@@ -3808,12 +3684,8 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX IF NOT EXISTS "_pages_v_blocks_form_block_parent_id_idx" ON "_pages_v_blocks_form_block" USING btree ("_parent_id");
   CREATE INDEX IF NOT EXISTS "_pages_v_blocks_form_block_path_idx" ON "_pages_v_blocks_form_block" USING btree ("_path");
   CREATE INDEX IF NOT EXISTS "_pages_v_blocks_form_block_form_idx" ON "_pages_v_blocks_form_block" USING btree ("form_id");
-  CREATE INDEX IF NOT EXISTS "_listingBlock_v_grid_card_enabled_fields_order_idx" ON "_listingBlock_v_grid_card_enabled_fields" USING btree ("order");
-  CREATE INDEX IF NOT EXISTS "_listingBlock_v_grid_card_enabled_fields_parent_idx" ON "_listingBlock_v_grid_card_enabled_fields" USING btree ("parent_id");
-  CREATE INDEX IF NOT EXISTS "_listingBlock_v_list_card_enabled_fields_order_idx" ON "_listingBlock_v_list_card_enabled_fields" USING btree ("order");
-  CREATE INDEX IF NOT EXISTS "_listingBlock_v_list_card_enabled_fields_parent_idx" ON "_listingBlock_v_list_card_enabled_fields" USING btree ("parent_id");
-  CREATE INDEX IF NOT EXISTS "_listingBlock_v_ftrd_card_enabled_fields_order_idx" ON "_listingBlock_v_ftrd_card_enabled_fields" USING btree ("order");
-  CREATE INDEX IF NOT EXISTS "_listingBlock_v_ftrd_card_enabled_fields_parent_idx" ON "_listingBlock_v_ftrd_card_enabled_fields" USING btree ("parent_id");
+  CREATE INDEX IF NOT EXISTS "_listingBlock_v_card_enabled_fields_order_idx" ON "_listingBlock_v_card_enabled_fields" USING btree ("order");
+  CREATE INDEX IF NOT EXISTS "_listingBlock_v_card_enabled_fields_parent_idx" ON "_listingBlock_v_card_enabled_fields" USING btree ("parent_id");
   CREATE INDEX IF NOT EXISTS "_listingBlock_v_order_idx" ON "_listingBlock_v" USING btree ("_order");
   CREATE INDEX IF NOT EXISTS "_listingBlock_v_parent_id_idx" ON "_listingBlock_v" USING btree ("_parent_id");
   CREATE INDEX IF NOT EXISTS "_listingBlock_v_path_idx" ON "_listingBlock_v" USING btree ("_path");
@@ -4163,9 +4035,7 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   DROP TABLE "pages_blocks_media_block" CASCADE;
   DROP TABLE "pages_blocks_archive" CASCADE;
   DROP TABLE "pages_blocks_form_block" CASCADE;
-  DROP TABLE "listingBlock_grid_card_enabled_fields" CASCADE;
-  DROP TABLE "listingBlock_list_card_enabled_fields" CASCADE;
-  DROP TABLE "listingBlock_ftrd_card_enabled_fields" CASCADE;
+  DROP TABLE "listingBlock_card_enabled_fields" CASCADE;
   DROP TABLE "listingBlock" CASCADE;
   DROP TABLE "listingArchiveBlock_card_enabled_fields" CASCADE;
   DROP TABLE "listingArchiveBlock" CASCADE;
@@ -4181,9 +4051,7 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   DROP TABLE "_pages_v_blocks_media_block" CASCADE;
   DROP TABLE "_pages_v_blocks_archive" CASCADE;
   DROP TABLE "_pages_v_blocks_form_block" CASCADE;
-  DROP TABLE "_listingBlock_v_grid_card_enabled_fields" CASCADE;
-  DROP TABLE "_listingBlock_v_list_card_enabled_fields" CASCADE;
-  DROP TABLE "_listingBlock_v_ftrd_card_enabled_fields" CASCADE;
+  DROP TABLE "_listingBlock_v_card_enabled_fields" CASCADE;
   DROP TABLE "_listingBlock_v" CASCADE;
   DROP TABLE "_listingArchiveBlock_v_card_enabled_fields" CASCADE;
   DROP TABLE "_listingArchiveBlock_v" CASCADE;
@@ -4277,34 +4145,16 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   DROP TYPE "public"."enum_pages_blocks_content_columns_link_appearance";
   DROP TYPE "public"."enum_pages_blocks_archive_populate_by";
   DROP TYPE "public"."enum_pages_blocks_archive_relation_to";
-  DROP TYPE "public"."enum_listingBlock_grid_card_enabled_fields";
-  DROP TYPE "public"."enum_listingBlock_list_card_enabled_fields";
-  DROP TYPE "public"."enum_listingBlock_ftrd_card_enabled_fields";
-  DROP TYPE "public"."enum_listingBlock_display_options";
-  DROP TYPE "public"."enum_listingBlock_grid_card_button_style";
-  DROP TYPE "public"."enum_listingBlock_grid_card_fit";
-  DROP TYPE "public"."enum_listingBlock_grid_card_position";
-  DROP TYPE "public"."enum_listingBlock_grid_card_size";
-  DROP TYPE "public"."enum_listingBlock_grid_card_decimals";
-  DROP TYPE "public"."enum_listingBlock_grid_card_currency_format";
-  DROP TYPE "public"."enum_listingBlock_grid_card_override_global_currency";
-  DROP TYPE "public"."enum_listingBlock_grid_card_currency_select";
-  DROP TYPE "public"."enum_listingBlock_list_card_button_style";
-  DROP TYPE "public"."enum_listingBlock_list_card_fit";
-  DROP TYPE "public"."enum_listingBlock_list_card_position";
-  DROP TYPE "public"."enum_listingBlock_list_card_size";
-  DROP TYPE "public"."enum_listingBlock_list_card_decimals";
-  DROP TYPE "public"."enum_listingBlock_list_card_currency_format";
-  DROP TYPE "public"."enum_listingBlock_list_card_override_global_currency";
-  DROP TYPE "public"."enum_listingBlock_list_card_currency_select";
-  DROP TYPE "public"."enum_listingBlock_ftrd_card_button_style";
-  DROP TYPE "public"."enum_listingBlock_ftrd_card_fit";
-  DROP TYPE "public"."enum_listingBlock_ftrd_card_position";
-  DROP TYPE "public"."enum_listingBlock_ftrd_card_size";
-  DROP TYPE "public"."enum_listingBlock_ftrd_card_decimals";
-  DROP TYPE "public"."enum_listingBlock_ftrd_card_currency_format";
-  DROP TYPE "public"."enum_listingBlock_ftrd_card_override_global_currency";
-  DROP TYPE "public"."enum_listingBlock_ftrd_card_currency_select";
+  DROP TYPE "public"."enum_listingBlock_card_enabled_fields";
+  DROP TYPE "public"."enum_listingBlock_view_layout";
+  DROP TYPE "public"."enum_listingBlock_card_tags_button_style";
+  DROP TYPE "public"."enum_listingBlock_card_thumbnail_fit";
+  DROP TYPE "public"."enum_listingBlock_card_thumbnail_position";
+  DROP TYPE "public"."enum_listingBlock_card_thumbnail_size";
+  DROP TYPE "public"."enum_listingBlock_card_price_decimals";
+  DROP TYPE "public"."enum_listingBlock_card_price_currency_format";
+  DROP TYPE "public"."enum_listingBlock_card_price_override_global_currency";
+  DROP TYPE "public"."enum_listingBlock_card_price_currency_select";
   DROP TYPE "public"."enum_listingArchiveBlock_card_enabled_fields";
   DROP TYPE "public"."enum_listingArchiveBlock_layout_layout_type";
   DROP TYPE "public"."enum_listingArchiveBlock_archive_populate_by";
@@ -4332,34 +4182,16 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   DROP TYPE "public"."enum__pages_v_blocks_content_columns_link_appearance";
   DROP TYPE "public"."enum__pages_v_blocks_archive_populate_by";
   DROP TYPE "public"."enum__pages_v_blocks_archive_relation_to";
-  DROP TYPE "public"."enum__listingBlock_v_grid_card_enabled_fields";
-  DROP TYPE "public"."enum__listingBlock_v_list_card_enabled_fields";
-  DROP TYPE "public"."enum__listingBlock_v_ftrd_card_enabled_fields";
-  DROP TYPE "public"."enum__listingBlock_v_display_options";
-  DROP TYPE "public"."enum__listingBlock_v_grid_card_button_style";
-  DROP TYPE "public"."enum__listingBlock_v_grid_card_fit";
-  DROP TYPE "public"."enum__listingBlock_v_grid_card_position";
-  DROP TYPE "public"."enum__listingBlock_v_grid_card_size";
-  DROP TYPE "public"."enum__listingBlock_v_grid_card_decimals";
-  DROP TYPE "public"."enum__listingBlock_v_grid_card_currency_format";
-  DROP TYPE "public"."enum__listingBlock_v_grid_card_override_global_currency";
-  DROP TYPE "public"."enum__listingBlock_v_grid_card_currency_select";
-  DROP TYPE "public"."enum__listingBlock_v_list_card_button_style";
-  DROP TYPE "public"."enum__listingBlock_v_list_card_fit";
-  DROP TYPE "public"."enum__listingBlock_v_list_card_position";
-  DROP TYPE "public"."enum__listingBlock_v_list_card_size";
-  DROP TYPE "public"."enum__listingBlock_v_list_card_decimals";
-  DROP TYPE "public"."enum__listingBlock_v_list_card_currency_format";
-  DROP TYPE "public"."enum__listingBlock_v_list_card_override_global_currency";
-  DROP TYPE "public"."enum__listingBlock_v_list_card_currency_select";
-  DROP TYPE "public"."enum__listingBlock_v_ftrd_card_button_style";
-  DROP TYPE "public"."enum__listingBlock_v_ftrd_card_fit";
-  DROP TYPE "public"."enum__listingBlock_v_ftrd_card_position";
-  DROP TYPE "public"."enum__listingBlock_v_ftrd_card_size";
-  DROP TYPE "public"."enum__listingBlock_v_ftrd_card_decimals";
-  DROP TYPE "public"."enum__listingBlock_v_ftrd_card_currency_format";
-  DROP TYPE "public"."enum__listingBlock_v_ftrd_card_override_global_currency";
-  DROP TYPE "public"."enum__listingBlock_v_ftrd_card_currency_select";
+  DROP TYPE "public"."enum__listingBlock_v_card_enabled_fields";
+  DROP TYPE "public"."enum__listingBlock_v_view_layout";
+  DROP TYPE "public"."enum__listingBlock_v_card_tags_button_style";
+  DROP TYPE "public"."enum__listingBlock_v_card_thumbnail_fit";
+  DROP TYPE "public"."enum__listingBlock_v_card_thumbnail_position";
+  DROP TYPE "public"."enum__listingBlock_v_card_thumbnail_size";
+  DROP TYPE "public"."enum__listingBlock_v_card_price_decimals";
+  DROP TYPE "public"."enum__listingBlock_v_card_price_currency_format";
+  DROP TYPE "public"."enum__listingBlock_v_card_price_override_global_currency";
+  DROP TYPE "public"."enum__listingBlock_v_card_price_currency_select";
   DROP TYPE "public"."enum__listingArchiveBlock_v_card_enabled_fields";
   DROP TYPE "public"."enum__listingArchiveBlock_v_layout_layout_type";
   DROP TYPE "public"."enum__listingArchiveBlock_v_archive_populate_by";

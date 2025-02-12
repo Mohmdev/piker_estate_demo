@@ -1,5 +1,5 @@
 {
-  "id": "51c31927-b9b5-4ffb-9794-4961fd8b88a3",
+  "id": "5b878773-9850-47cb-89da-a2c83a8003a5",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -7899,8 +7899,8 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.listingBlock_grid_card_enabled_fields": {
-      "name": "listingBlock_grid_card_enabled_fields",
+    "public.listingBlock_card_enabled_fields": {
+      "name": "listingBlock_card_enabled_fields",
       "schema": "",
       "columns": {
         "order": {
@@ -7917,7 +7917,7 @@
         },
         "value": {
           "name": "value",
-          "type": "enum_listingBlock_grid_card_enabled_fields",
+          "type": "enum_listingBlock_card_enabled_fields",
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": false
@@ -7930,8 +7930,8 @@
         }
       },
       "indexes": {
-        "listingBlock_grid_card_enabled_fields_order_idx": {
-          "name": "listingBlock_grid_card_enabled_fields_order_idx",
+        "listingBlock_card_enabled_fields_order_idx": {
+          "name": "listingBlock_card_enabled_fields_order_idx",
           "columns": [
             {
               "expression": "order",
@@ -7945,8 +7945,8 @@
           "method": "btree",
           "with": {}
         },
-        "listingBlock_grid_card_enabled_fields_parent_idx": {
-          "name": "listingBlock_grid_card_enabled_fields_parent_idx",
+        "listingBlock_card_enabled_fields_parent_idx": {
+          "name": "listingBlock_card_enabled_fields_parent_idx",
           "columns": [
             {
               "expression": "parent_id",
@@ -7962,175 +7962,9 @@
         }
       },
       "foreignKeys": {
-        "listingBlock_grid_card_enabled_fields_parent_fk": {
-          "name": "listingBlock_grid_card_enabled_fields_parent_fk",
-          "tableFrom": "listingBlock_grid_card_enabled_fields",
-          "tableTo": "listingBlock",
-          "columnsFrom": [
-            "parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.listingBlock_list_card_enabled_fields": {
-      "name": "listingBlock_list_card_enabled_fields",
-      "schema": "",
-      "columns": {
-        "order": {
-          "name": "order",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "parent_id": {
-          "name": "parent_id",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "value": {
-          "name": "value",
-          "type": "enum_listingBlock_list_card_enabled_fields",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "id": {
-          "name": "id",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true
-        }
-      },
-      "indexes": {
-        "listingBlock_list_card_enabled_fields_order_idx": {
-          "name": "listingBlock_list_card_enabled_fields_order_idx",
-          "columns": [
-            {
-              "expression": "order",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "listingBlock_list_card_enabled_fields_parent_idx": {
-          "name": "listingBlock_list_card_enabled_fields_parent_idx",
-          "columns": [
-            {
-              "expression": "parent_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "listingBlock_list_card_enabled_fields_parent_fk": {
-          "name": "listingBlock_list_card_enabled_fields_parent_fk",
-          "tableFrom": "listingBlock_list_card_enabled_fields",
-          "tableTo": "listingBlock",
-          "columnsFrom": [
-            "parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.listingBlock_ftrd_card_enabled_fields": {
-      "name": "listingBlock_ftrd_card_enabled_fields",
-      "schema": "",
-      "columns": {
-        "order": {
-          "name": "order",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "parent_id": {
-          "name": "parent_id",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "value": {
-          "name": "value",
-          "type": "enum_listingBlock_ftrd_card_enabled_fields",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "id": {
-          "name": "id",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true
-        }
-      },
-      "indexes": {
-        "listingBlock_ftrd_card_enabled_fields_order_idx": {
-          "name": "listingBlock_ftrd_card_enabled_fields_order_idx",
-          "columns": [
-            {
-              "expression": "order",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "listingBlock_ftrd_card_enabled_fields_parent_idx": {
-          "name": "listingBlock_ftrd_card_enabled_fields_parent_idx",
-          "columns": [
-            {
-              "expression": "parent_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "listingBlock_ftrd_card_enabled_fields_parent_fk": {
-          "name": "listingBlock_ftrd_card_enabled_fields_parent_fk",
-          "tableFrom": "listingBlock_ftrd_card_enabled_fields",
+        "listingBlock_card_enabled_fields_parent_fk": {
+          "name": "listingBlock_card_enabled_fields_parent_fk",
+          "tableFrom": "listingBlock_card_enabled_fields",
           "tableTo": "listingBlock",
           "columnsFrom": [
             "parent_id"
@@ -8176,217 +8010,93 @@
           "primaryKey": true,
           "notNull": true
         },
-        "display_options": {
-          "name": "display_options",
-          "type": "enum_listingBlock_display_options",
+        "view_layout": {
+          "name": "view_layout",
+          "type": "enum_listingBlock_view_layout",
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": false,
           "default": "'grid'"
         },
-        "grid_columns": {
-          "name": "grid_columns",
+        "view_grid_columns": {
+          "name": "view_grid_columns",
           "type": "numeric",
           "primaryKey": false,
           "notNull": false,
           "default": 3
         },
-        "grid_card_button_style": {
-          "name": "grid_card_button_style",
-          "type": "enum_listingBlock_grid_card_button_style",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "grid_card_fit": {
-          "name": "grid_card_fit",
-          "type": "enum_listingBlock_grid_card_fit",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'cover'"
-        },
-        "grid_card_position": {
-          "name": "grid_card_position",
-          "type": "enum_listingBlock_grid_card_position",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'center'"
-        },
-        "grid_card_size": {
-          "name": "grid_card_size",
-          "type": "enum_listingBlock_grid_card_size",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'medium'"
-        },
-        "grid_card_decimals": {
-          "name": "grid_card_decimals",
-          "type": "enum_listingBlock_grid_card_decimals",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'none'"
-        },
-        "grid_card_currency_format": {
-          "name": "grid_card_currency_format",
-          "type": "enum_listingBlock_grid_card_currency_format",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'symbol'"
-        },
-        "grid_card_override_global_currency": {
-          "name": "grid_card_override_global_currency",
-          "type": "enum_listingBlock_grid_card_override_global_currency",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'no'"
-        },
-        "grid_card_currency_select": {
-          "name": "grid_card_currency_select",
-          "type": "enum_listingBlock_grid_card_currency_select",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "list_columns": {
-          "name": "list_columns",
+        "view_list_columns": {
+          "name": "view_list_columns",
           "type": "numeric",
           "primaryKey": false,
           "notNull": false,
           "default": 6
         },
-        "list_card_button_style": {
-          "name": "list_card_button_style",
-          "type": "enum_listingBlock_list_card_button_style",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "list_card_fit": {
-          "name": "list_card_fit",
-          "type": "enum_listingBlock_list_card_fit",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'cover'"
-        },
-        "list_card_position": {
-          "name": "list_card_position",
-          "type": "enum_listingBlock_list_card_position",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'center'"
-        },
-        "list_card_size": {
-          "name": "list_card_size",
-          "type": "enum_listingBlock_list_card_size",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'medium'"
-        },
-        "list_card_decimals": {
-          "name": "list_card_decimals",
-          "type": "enum_listingBlock_list_card_decimals",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'none'"
-        },
-        "list_card_currency_format": {
-          "name": "list_card_currency_format",
-          "type": "enum_listingBlock_list_card_currency_format",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'symbol'"
-        },
-        "list_card_override_global_currency": {
-          "name": "list_card_override_global_currency",
-          "type": "enum_listingBlock_list_card_override_global_currency",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'no'"
-        },
-        "list_card_currency_select": {
-          "name": "list_card_currency_select",
-          "type": "enum_listingBlock_list_card_currency_select",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "ftrd_columns": {
-          "name": "ftrd_columns",
+        "view_ftrd_columns": {
+          "name": "view_ftrd_columns",
           "type": "numeric",
           "primaryKey": false,
           "notNull": false,
           "default": 1
         },
-        "ftrd_card_button_style": {
-          "name": "ftrd_card_button_style",
-          "type": "enum_listingBlock_ftrd_card_button_style",
+        "card_tags_button_style": {
+          "name": "card_tags_button_style",
+          "type": "enum_listingBlock_card_tags_button_style",
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": false
         },
-        "ftrd_card_fit": {
-          "name": "ftrd_card_fit",
-          "type": "enum_listingBlock_ftrd_card_fit",
+        "card_thumbnail_fit": {
+          "name": "card_thumbnail_fit",
+          "type": "enum_listingBlock_card_thumbnail_fit",
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": false,
           "default": "'cover'"
         },
-        "ftrd_card_position": {
-          "name": "ftrd_card_position",
-          "type": "enum_listingBlock_ftrd_card_position",
+        "card_thumbnail_position": {
+          "name": "card_thumbnail_position",
+          "type": "enum_listingBlock_card_thumbnail_position",
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": false,
           "default": "'center'"
         },
-        "ftrd_card_size": {
-          "name": "ftrd_card_size",
-          "type": "enum_listingBlock_ftrd_card_size",
+        "card_thumbnail_size": {
+          "name": "card_thumbnail_size",
+          "type": "enum_listingBlock_card_thumbnail_size",
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": false,
           "default": "'medium'"
         },
-        "ftrd_card_decimals": {
-          "name": "ftrd_card_decimals",
-          "type": "enum_listingBlock_ftrd_card_decimals",
+        "card_price_decimals": {
+          "name": "card_price_decimals",
+          "type": "enum_listingBlock_card_price_decimals",
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": false,
           "default": "'none'"
         },
-        "ftrd_card_currency_format": {
-          "name": "ftrd_card_currency_format",
-          "type": "enum_listingBlock_ftrd_card_currency_format",
+        "card_price_currency_format": {
+          "name": "card_price_currency_format",
+          "type": "enum_listingBlock_card_price_currency_format",
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": false,
           "default": "'symbol'"
         },
-        "ftrd_card_override_global_currency": {
-          "name": "ftrd_card_override_global_currency",
-          "type": "enum_listingBlock_ftrd_card_override_global_currency",
+        "card_price_override_global_currency": {
+          "name": "card_price_override_global_currency",
+          "type": "enum_listingBlock_card_price_override_global_currency",
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": false,
           "default": "'no'"
         },
-        "ftrd_card_currency_select": {
-          "name": "ftrd_card_currency_select",
-          "type": "enum_listingBlock_ftrd_card_currency_select",
+        "card_price_currency_select": {
+          "name": "card_price_currency_select",
+          "type": "enum_listingBlock_card_price_currency_select",
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": false
@@ -10726,8 +10436,8 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public._listingBlock_v_grid_card_enabled_fields": {
-      "name": "_listingBlock_v_grid_card_enabled_fields",
+    "public._listingBlock_v_card_enabled_fields": {
+      "name": "_listingBlock_v_card_enabled_fields",
       "schema": "",
       "columns": {
         "order": {
@@ -10744,7 +10454,7 @@
         },
         "value": {
           "name": "value",
-          "type": "enum__listingBlock_v_grid_card_enabled_fields",
+          "type": "enum__listingBlock_v_card_enabled_fields",
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": false
@@ -10757,8 +10467,8 @@
         }
       },
       "indexes": {
-        "_listingBlock_v_grid_card_enabled_fields_order_idx": {
-          "name": "_listingBlock_v_grid_card_enabled_fields_order_idx",
+        "_listingBlock_v_card_enabled_fields_order_idx": {
+          "name": "_listingBlock_v_card_enabled_fields_order_idx",
           "columns": [
             {
               "expression": "order",
@@ -10772,8 +10482,8 @@
           "method": "btree",
           "with": {}
         },
-        "_listingBlock_v_grid_card_enabled_fields_parent_idx": {
-          "name": "_listingBlock_v_grid_card_enabled_fields_parent_idx",
+        "_listingBlock_v_card_enabled_fields_parent_idx": {
+          "name": "_listingBlock_v_card_enabled_fields_parent_idx",
           "columns": [
             {
               "expression": "parent_id",
@@ -10789,175 +10499,9 @@
         }
       },
       "foreignKeys": {
-        "_listingBlock_v_grid_card_enabled_fields_parent_fk": {
-          "name": "_listingBlock_v_grid_card_enabled_fields_parent_fk",
-          "tableFrom": "_listingBlock_v_grid_card_enabled_fields",
-          "tableTo": "_listingBlock_v",
-          "columnsFrom": [
-            "parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public._listingBlock_v_list_card_enabled_fields": {
-      "name": "_listingBlock_v_list_card_enabled_fields",
-      "schema": "",
-      "columns": {
-        "order": {
-          "name": "order",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "parent_id": {
-          "name": "parent_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "value": {
-          "name": "value",
-          "type": "enum__listingBlock_v_list_card_enabled_fields",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "id": {
-          "name": "id",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true
-        }
-      },
-      "indexes": {
-        "_listingBlock_v_list_card_enabled_fields_order_idx": {
-          "name": "_listingBlock_v_list_card_enabled_fields_order_idx",
-          "columns": [
-            {
-              "expression": "order",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "_listingBlock_v_list_card_enabled_fields_parent_idx": {
-          "name": "_listingBlock_v_list_card_enabled_fields_parent_idx",
-          "columns": [
-            {
-              "expression": "parent_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "_listingBlock_v_list_card_enabled_fields_parent_fk": {
-          "name": "_listingBlock_v_list_card_enabled_fields_parent_fk",
-          "tableFrom": "_listingBlock_v_list_card_enabled_fields",
-          "tableTo": "_listingBlock_v",
-          "columnsFrom": [
-            "parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public._listingBlock_v_ftrd_card_enabled_fields": {
-      "name": "_listingBlock_v_ftrd_card_enabled_fields",
-      "schema": "",
-      "columns": {
-        "order": {
-          "name": "order",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "parent_id": {
-          "name": "parent_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "value": {
-          "name": "value",
-          "type": "enum__listingBlock_v_ftrd_card_enabled_fields",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "id": {
-          "name": "id",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true
-        }
-      },
-      "indexes": {
-        "_listingBlock_v_ftrd_card_enabled_fields_order_idx": {
-          "name": "_listingBlock_v_ftrd_card_enabled_fields_order_idx",
-          "columns": [
-            {
-              "expression": "order",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "_listingBlock_v_ftrd_card_enabled_fields_parent_idx": {
-          "name": "_listingBlock_v_ftrd_card_enabled_fields_parent_idx",
-          "columns": [
-            {
-              "expression": "parent_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "_listingBlock_v_ftrd_card_enabled_fields_parent_fk": {
-          "name": "_listingBlock_v_ftrd_card_enabled_fields_parent_fk",
-          "tableFrom": "_listingBlock_v_ftrd_card_enabled_fields",
+        "_listingBlock_v_card_enabled_fields_parent_fk": {
+          "name": "_listingBlock_v_card_enabled_fields_parent_fk",
+          "tableFrom": "_listingBlock_v_card_enabled_fields",
           "tableTo": "_listingBlock_v",
           "columnsFrom": [
             "parent_id"
@@ -11003,217 +10547,93 @@
           "primaryKey": true,
           "notNull": true
         },
-        "display_options": {
-          "name": "display_options",
-          "type": "enum__listingBlock_v_display_options",
+        "view_layout": {
+          "name": "view_layout",
+          "type": "enum__listingBlock_v_view_layout",
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": false,
           "default": "'grid'"
         },
-        "grid_columns": {
-          "name": "grid_columns",
+        "view_grid_columns": {
+          "name": "view_grid_columns",
           "type": "numeric",
           "primaryKey": false,
           "notNull": false,
           "default": 3
         },
-        "grid_card_button_style": {
-          "name": "grid_card_button_style",
-          "type": "enum__listingBlock_v_grid_card_button_style",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "grid_card_fit": {
-          "name": "grid_card_fit",
-          "type": "enum__listingBlock_v_grid_card_fit",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'cover'"
-        },
-        "grid_card_position": {
-          "name": "grid_card_position",
-          "type": "enum__listingBlock_v_grid_card_position",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'center'"
-        },
-        "grid_card_size": {
-          "name": "grid_card_size",
-          "type": "enum__listingBlock_v_grid_card_size",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'medium'"
-        },
-        "grid_card_decimals": {
-          "name": "grid_card_decimals",
-          "type": "enum__listingBlock_v_grid_card_decimals",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'none'"
-        },
-        "grid_card_currency_format": {
-          "name": "grid_card_currency_format",
-          "type": "enum__listingBlock_v_grid_card_currency_format",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'symbol'"
-        },
-        "grid_card_override_global_currency": {
-          "name": "grid_card_override_global_currency",
-          "type": "enum__listingBlock_v_grid_card_override_global_currency",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'no'"
-        },
-        "grid_card_currency_select": {
-          "name": "grid_card_currency_select",
-          "type": "enum__listingBlock_v_grid_card_currency_select",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "list_columns": {
-          "name": "list_columns",
+        "view_list_columns": {
+          "name": "view_list_columns",
           "type": "numeric",
           "primaryKey": false,
           "notNull": false,
           "default": 6
         },
-        "list_card_button_style": {
-          "name": "list_card_button_style",
-          "type": "enum__listingBlock_v_list_card_button_style",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "list_card_fit": {
-          "name": "list_card_fit",
-          "type": "enum__listingBlock_v_list_card_fit",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'cover'"
-        },
-        "list_card_position": {
-          "name": "list_card_position",
-          "type": "enum__listingBlock_v_list_card_position",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'center'"
-        },
-        "list_card_size": {
-          "name": "list_card_size",
-          "type": "enum__listingBlock_v_list_card_size",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'medium'"
-        },
-        "list_card_decimals": {
-          "name": "list_card_decimals",
-          "type": "enum__listingBlock_v_list_card_decimals",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'none'"
-        },
-        "list_card_currency_format": {
-          "name": "list_card_currency_format",
-          "type": "enum__listingBlock_v_list_card_currency_format",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'symbol'"
-        },
-        "list_card_override_global_currency": {
-          "name": "list_card_override_global_currency",
-          "type": "enum__listingBlock_v_list_card_override_global_currency",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'no'"
-        },
-        "list_card_currency_select": {
-          "name": "list_card_currency_select",
-          "type": "enum__listingBlock_v_list_card_currency_select",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "ftrd_columns": {
-          "name": "ftrd_columns",
+        "view_ftrd_columns": {
+          "name": "view_ftrd_columns",
           "type": "numeric",
           "primaryKey": false,
           "notNull": false,
           "default": 1
         },
-        "ftrd_card_button_style": {
-          "name": "ftrd_card_button_style",
-          "type": "enum__listingBlock_v_ftrd_card_button_style",
+        "card_tags_button_style": {
+          "name": "card_tags_button_style",
+          "type": "enum__listingBlock_v_card_tags_button_style",
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": false
         },
-        "ftrd_card_fit": {
-          "name": "ftrd_card_fit",
-          "type": "enum__listingBlock_v_ftrd_card_fit",
+        "card_thumbnail_fit": {
+          "name": "card_thumbnail_fit",
+          "type": "enum__listingBlock_v_card_thumbnail_fit",
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": false,
           "default": "'cover'"
         },
-        "ftrd_card_position": {
-          "name": "ftrd_card_position",
-          "type": "enum__listingBlock_v_ftrd_card_position",
+        "card_thumbnail_position": {
+          "name": "card_thumbnail_position",
+          "type": "enum__listingBlock_v_card_thumbnail_position",
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": false,
           "default": "'center'"
         },
-        "ftrd_card_size": {
-          "name": "ftrd_card_size",
-          "type": "enum__listingBlock_v_ftrd_card_size",
+        "card_thumbnail_size": {
+          "name": "card_thumbnail_size",
+          "type": "enum__listingBlock_v_card_thumbnail_size",
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": false,
           "default": "'medium'"
         },
-        "ftrd_card_decimals": {
-          "name": "ftrd_card_decimals",
-          "type": "enum__listingBlock_v_ftrd_card_decimals",
+        "card_price_decimals": {
+          "name": "card_price_decimals",
+          "type": "enum__listingBlock_v_card_price_decimals",
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": false,
           "default": "'none'"
         },
-        "ftrd_card_currency_format": {
-          "name": "ftrd_card_currency_format",
-          "type": "enum__listingBlock_v_ftrd_card_currency_format",
+        "card_price_currency_format": {
+          "name": "card_price_currency_format",
+          "type": "enum__listingBlock_v_card_price_currency_format",
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": false,
           "default": "'symbol'"
         },
-        "ftrd_card_override_global_currency": {
-          "name": "ftrd_card_override_global_currency",
-          "type": "enum__listingBlock_v_ftrd_card_override_global_currency",
+        "card_price_override_global_currency": {
+          "name": "card_price_override_global_currency",
+          "type": "enum__listingBlock_v_card_price_override_global_currency",
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": false,
           "default": "'no'"
         },
-        "ftrd_card_currency_select": {
-          "name": "ftrd_card_currency_select",
-          "type": "enum__listingBlock_v_ftrd_card_currency_select",
+        "card_price_currency_select": {
+          "name": "card_price_currency_select",
+          "type": "enum__listingBlock_v_card_price_currency_select",
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": false
@@ -23635,8 +23055,8 @@
         "blog"
       ]
     },
-    "public.enum_listingBlock_grid_card_enabled_fields": {
-      "name": "enum_listingBlock_grid_card_enabled_fields",
+    "public.enum_listingBlock_card_enabled_fields": {
+      "name": "enum_listingBlock_card_enabled_fields",
       "schema": "public",
       "values": [
         "price",
@@ -23652,42 +23072,8 @@
         "tags"
       ]
     },
-    "public.enum_listingBlock_list_card_enabled_fields": {
-      "name": "enum_listingBlock_list_card_enabled_fields",
-      "schema": "public",
-      "values": [
-        "price",
-        "bedrooms",
-        "bathrooms",
-        "lotSize",
-        "yearBuilt",
-        "areaSize",
-        "parkingSpaces",
-        "description",
-        "categories",
-        "thumbnail",
-        "tags"
-      ]
-    },
-    "public.enum_listingBlock_ftrd_card_enabled_fields": {
-      "name": "enum_listingBlock_ftrd_card_enabled_fields",
-      "schema": "public",
-      "values": [
-        "price",
-        "bedrooms",
-        "bathrooms",
-        "lotSize",
-        "yearBuilt",
-        "areaSize",
-        "parkingSpaces",
-        "description",
-        "categories",
-        "thumbnail",
-        "tags"
-      ]
-    },
-    "public.enum_listingBlock_display_options": {
-      "name": "enum_listingBlock_display_options",
+    "public.enum_listingBlock_view_layout": {
+      "name": "enum_listingBlock_view_layout",
       "schema": "public",
       "values": [
         "grid",
@@ -23696,8 +23082,8 @@
         "crsl"
       ]
     },
-    "public.enum_listingBlock_grid_card_button_style": {
-      "name": "enum_listingBlock_grid_card_button_style",
+    "public.enum_listingBlock_card_tags_button_style": {
+      "name": "enum_listingBlock_card_tags_button_style",
       "schema": "public",
       "values": [
         "primary",
@@ -23705,8 +23091,8 @@
         "outline"
       ]
     },
-    "public.enum_listingBlock_grid_card_fit": {
-      "name": "enum_listingBlock_grid_card_fit",
+    "public.enum_listingBlock_card_thumbnail_fit": {
+      "name": "enum_listingBlock_card_thumbnail_fit",
       "schema": "public",
       "values": [
         "cover",
@@ -23714,8 +23100,8 @@
         "fill"
       ]
     },
-    "public.enum_listingBlock_grid_card_position": {
-      "name": "enum_listingBlock_grid_card_position",
+    "public.enum_listingBlock_card_thumbnail_position": {
+      "name": "enum_listingBlock_card_thumbnail_position",
       "schema": "public",
       "values": [
         "top",
@@ -23723,8 +23109,8 @@
         "bottom"
       ]
     },
-    "public.enum_listingBlock_grid_card_size": {
-      "name": "enum_listingBlock_grid_card_size",
+    "public.enum_listingBlock_card_thumbnail_size": {
+      "name": "enum_listingBlock_card_thumbnail_size",
       "schema": "public",
       "values": [
         "small",
@@ -23732,8 +23118,8 @@
         "large"
       ]
     },
-    "public.enum_listingBlock_grid_card_decimals": {
-      "name": "enum_listingBlock_grid_card_decimals",
+    "public.enum_listingBlock_card_price_decimals": {
+      "name": "enum_listingBlock_card_price_decimals",
       "schema": "public",
       "values": [
         "none",
@@ -23741,196 +23127,24 @@
         "two"
       ]
     },
-    "public.enum_listingBlock_grid_card_currency_format": {
-      "name": "enum_listingBlock_grid_card_currency_format",
+    "public.enum_listingBlock_card_price_currency_format": {
+      "name": "enum_listingBlock_card_price_currency_format",
       "schema": "public",
       "values": [
         "text",
         "symbol"
       ]
     },
-    "public.enum_listingBlock_grid_card_override_global_currency": {
-      "name": "enum_listingBlock_grid_card_override_global_currency",
+    "public.enum_listingBlock_card_price_override_global_currency": {
+      "name": "enum_listingBlock_card_price_override_global_currency",
       "schema": "public",
       "values": [
         "yes",
         "no"
       ]
     },
-    "public.enum_listingBlock_grid_card_currency_select": {
-      "name": "enum_listingBlock_grid_card_currency_select",
-      "schema": "public",
-      "values": [
-        "د.إ",
-        "AU$",
-        "R$",
-        "CA$",
-        "CHF",
-        "CN¥",
-        "€",
-        "£",
-        "HK$",
-        "₹",
-        "¥",
-        "MX$",
-        "NZ$",
-        "₽",
-        "SG$",
-        "฿",
-        "US$",
-        "₫",
-        "R"
-      ]
-    },
-    "public.enum_listingBlock_list_card_button_style": {
-      "name": "enum_listingBlock_list_card_button_style",
-      "schema": "public",
-      "values": [
-        "primary",
-        "secondary",
-        "outline"
-      ]
-    },
-    "public.enum_listingBlock_list_card_fit": {
-      "name": "enum_listingBlock_list_card_fit",
-      "schema": "public",
-      "values": [
-        "cover",
-        "contain",
-        "fill"
-      ]
-    },
-    "public.enum_listingBlock_list_card_position": {
-      "name": "enum_listingBlock_list_card_position",
-      "schema": "public",
-      "values": [
-        "top",
-        "center",
-        "bottom"
-      ]
-    },
-    "public.enum_listingBlock_list_card_size": {
-      "name": "enum_listingBlock_list_card_size",
-      "schema": "public",
-      "values": [
-        "small",
-        "medium",
-        "large"
-      ]
-    },
-    "public.enum_listingBlock_list_card_decimals": {
-      "name": "enum_listingBlock_list_card_decimals",
-      "schema": "public",
-      "values": [
-        "none",
-        "one",
-        "two"
-      ]
-    },
-    "public.enum_listingBlock_list_card_currency_format": {
-      "name": "enum_listingBlock_list_card_currency_format",
-      "schema": "public",
-      "values": [
-        "text",
-        "symbol"
-      ]
-    },
-    "public.enum_listingBlock_list_card_override_global_currency": {
-      "name": "enum_listingBlock_list_card_override_global_currency",
-      "schema": "public",
-      "values": [
-        "yes",
-        "no"
-      ]
-    },
-    "public.enum_listingBlock_list_card_currency_select": {
-      "name": "enum_listingBlock_list_card_currency_select",
-      "schema": "public",
-      "values": [
-        "د.إ",
-        "AU$",
-        "R$",
-        "CA$",
-        "CHF",
-        "CN¥",
-        "€",
-        "£",
-        "HK$",
-        "₹",
-        "¥",
-        "MX$",
-        "NZ$",
-        "₽",
-        "SG$",
-        "฿",
-        "US$",
-        "₫",
-        "R"
-      ]
-    },
-    "public.enum_listingBlock_ftrd_card_button_style": {
-      "name": "enum_listingBlock_ftrd_card_button_style",
-      "schema": "public",
-      "values": [
-        "primary",
-        "secondary",
-        "outline"
-      ]
-    },
-    "public.enum_listingBlock_ftrd_card_fit": {
-      "name": "enum_listingBlock_ftrd_card_fit",
-      "schema": "public",
-      "values": [
-        "cover",
-        "contain",
-        "fill"
-      ]
-    },
-    "public.enum_listingBlock_ftrd_card_position": {
-      "name": "enum_listingBlock_ftrd_card_position",
-      "schema": "public",
-      "values": [
-        "top",
-        "center",
-        "bottom"
-      ]
-    },
-    "public.enum_listingBlock_ftrd_card_size": {
-      "name": "enum_listingBlock_ftrd_card_size",
-      "schema": "public",
-      "values": [
-        "small",
-        "medium",
-        "large"
-      ]
-    },
-    "public.enum_listingBlock_ftrd_card_decimals": {
-      "name": "enum_listingBlock_ftrd_card_decimals",
-      "schema": "public",
-      "values": [
-        "none",
-        "one",
-        "two"
-      ]
-    },
-    "public.enum_listingBlock_ftrd_card_currency_format": {
-      "name": "enum_listingBlock_ftrd_card_currency_format",
-      "schema": "public",
-      "values": [
-        "text",
-        "symbol"
-      ]
-    },
-    "public.enum_listingBlock_ftrd_card_override_global_currency": {
-      "name": "enum_listingBlock_ftrd_card_override_global_currency",
-      "schema": "public",
-      "values": [
-        "yes",
-        "no"
-      ]
-    },
-    "public.enum_listingBlock_ftrd_card_currency_select": {
-      "name": "enum_listingBlock_ftrd_card_currency_select",
+    "public.enum_listingBlock_card_price_currency_select": {
+      "name": "enum_listingBlock_card_price_currency_select",
       "schema": "public",
       "values": [
         "د.إ",
@@ -24218,8 +23432,8 @@
         "blog"
       ]
     },
-    "public.enum__listingBlock_v_grid_card_enabled_fields": {
-      "name": "enum__listingBlock_v_grid_card_enabled_fields",
+    "public.enum__listingBlock_v_card_enabled_fields": {
+      "name": "enum__listingBlock_v_card_enabled_fields",
       "schema": "public",
       "values": [
         "price",
@@ -24235,42 +23449,8 @@
         "tags"
       ]
     },
-    "public.enum__listingBlock_v_list_card_enabled_fields": {
-      "name": "enum__listingBlock_v_list_card_enabled_fields",
-      "schema": "public",
-      "values": [
-        "price",
-        "bedrooms",
-        "bathrooms",
-        "lotSize",
-        "yearBuilt",
-        "areaSize",
-        "parkingSpaces",
-        "description",
-        "categories",
-        "thumbnail",
-        "tags"
-      ]
-    },
-    "public.enum__listingBlock_v_ftrd_card_enabled_fields": {
-      "name": "enum__listingBlock_v_ftrd_card_enabled_fields",
-      "schema": "public",
-      "values": [
-        "price",
-        "bedrooms",
-        "bathrooms",
-        "lotSize",
-        "yearBuilt",
-        "areaSize",
-        "parkingSpaces",
-        "description",
-        "categories",
-        "thumbnail",
-        "tags"
-      ]
-    },
-    "public.enum__listingBlock_v_display_options": {
-      "name": "enum__listingBlock_v_display_options",
+    "public.enum__listingBlock_v_view_layout": {
+      "name": "enum__listingBlock_v_view_layout",
       "schema": "public",
       "values": [
         "grid",
@@ -24279,8 +23459,8 @@
         "crsl"
       ]
     },
-    "public.enum__listingBlock_v_grid_card_button_style": {
-      "name": "enum__listingBlock_v_grid_card_button_style",
+    "public.enum__listingBlock_v_card_tags_button_style": {
+      "name": "enum__listingBlock_v_card_tags_button_style",
       "schema": "public",
       "values": [
         "primary",
@@ -24288,8 +23468,8 @@
         "outline"
       ]
     },
-    "public.enum__listingBlock_v_grid_card_fit": {
-      "name": "enum__listingBlock_v_grid_card_fit",
+    "public.enum__listingBlock_v_card_thumbnail_fit": {
+      "name": "enum__listingBlock_v_card_thumbnail_fit",
       "schema": "public",
       "values": [
         "cover",
@@ -24297,8 +23477,8 @@
         "fill"
       ]
     },
-    "public.enum__listingBlock_v_grid_card_position": {
-      "name": "enum__listingBlock_v_grid_card_position",
+    "public.enum__listingBlock_v_card_thumbnail_position": {
+      "name": "enum__listingBlock_v_card_thumbnail_position",
       "schema": "public",
       "values": [
         "top",
@@ -24306,8 +23486,8 @@
         "bottom"
       ]
     },
-    "public.enum__listingBlock_v_grid_card_size": {
-      "name": "enum__listingBlock_v_grid_card_size",
+    "public.enum__listingBlock_v_card_thumbnail_size": {
+      "name": "enum__listingBlock_v_card_thumbnail_size",
       "schema": "public",
       "values": [
         "small",
@@ -24315,8 +23495,8 @@
         "large"
       ]
     },
-    "public.enum__listingBlock_v_grid_card_decimals": {
-      "name": "enum__listingBlock_v_grid_card_decimals",
+    "public.enum__listingBlock_v_card_price_decimals": {
+      "name": "enum__listingBlock_v_card_price_decimals",
       "schema": "public",
       "values": [
         "none",
@@ -24324,196 +23504,24 @@
         "two"
       ]
     },
-    "public.enum__listingBlock_v_grid_card_currency_format": {
-      "name": "enum__listingBlock_v_grid_card_currency_format",
+    "public.enum__listingBlock_v_card_price_currency_format": {
+      "name": "enum__listingBlock_v_card_price_currency_format",
       "schema": "public",
       "values": [
         "text",
         "symbol"
       ]
     },
-    "public.enum__listingBlock_v_grid_card_override_global_currency": {
-      "name": "enum__listingBlock_v_grid_card_override_global_currency",
+    "public.enum__listingBlock_v_card_price_override_global_currency": {
+      "name": "enum__listingBlock_v_card_price_override_global_currency",
       "schema": "public",
       "values": [
         "yes",
         "no"
       ]
     },
-    "public.enum__listingBlock_v_grid_card_currency_select": {
-      "name": "enum__listingBlock_v_grid_card_currency_select",
-      "schema": "public",
-      "values": [
-        "د.إ",
-        "AU$",
-        "R$",
-        "CA$",
-        "CHF",
-        "CN¥",
-        "€",
-        "£",
-        "HK$",
-        "₹",
-        "¥",
-        "MX$",
-        "NZ$",
-        "₽",
-        "SG$",
-        "฿",
-        "US$",
-        "₫",
-        "R"
-      ]
-    },
-    "public.enum__listingBlock_v_list_card_button_style": {
-      "name": "enum__listingBlock_v_list_card_button_style",
-      "schema": "public",
-      "values": [
-        "primary",
-        "secondary",
-        "outline"
-      ]
-    },
-    "public.enum__listingBlock_v_list_card_fit": {
-      "name": "enum__listingBlock_v_list_card_fit",
-      "schema": "public",
-      "values": [
-        "cover",
-        "contain",
-        "fill"
-      ]
-    },
-    "public.enum__listingBlock_v_list_card_position": {
-      "name": "enum__listingBlock_v_list_card_position",
-      "schema": "public",
-      "values": [
-        "top",
-        "center",
-        "bottom"
-      ]
-    },
-    "public.enum__listingBlock_v_list_card_size": {
-      "name": "enum__listingBlock_v_list_card_size",
-      "schema": "public",
-      "values": [
-        "small",
-        "medium",
-        "large"
-      ]
-    },
-    "public.enum__listingBlock_v_list_card_decimals": {
-      "name": "enum__listingBlock_v_list_card_decimals",
-      "schema": "public",
-      "values": [
-        "none",
-        "one",
-        "two"
-      ]
-    },
-    "public.enum__listingBlock_v_list_card_currency_format": {
-      "name": "enum__listingBlock_v_list_card_currency_format",
-      "schema": "public",
-      "values": [
-        "text",
-        "symbol"
-      ]
-    },
-    "public.enum__listingBlock_v_list_card_override_global_currency": {
-      "name": "enum__listingBlock_v_list_card_override_global_currency",
-      "schema": "public",
-      "values": [
-        "yes",
-        "no"
-      ]
-    },
-    "public.enum__listingBlock_v_list_card_currency_select": {
-      "name": "enum__listingBlock_v_list_card_currency_select",
-      "schema": "public",
-      "values": [
-        "د.إ",
-        "AU$",
-        "R$",
-        "CA$",
-        "CHF",
-        "CN¥",
-        "€",
-        "£",
-        "HK$",
-        "₹",
-        "¥",
-        "MX$",
-        "NZ$",
-        "₽",
-        "SG$",
-        "฿",
-        "US$",
-        "₫",
-        "R"
-      ]
-    },
-    "public.enum__listingBlock_v_ftrd_card_button_style": {
-      "name": "enum__listingBlock_v_ftrd_card_button_style",
-      "schema": "public",
-      "values": [
-        "primary",
-        "secondary",
-        "outline"
-      ]
-    },
-    "public.enum__listingBlock_v_ftrd_card_fit": {
-      "name": "enum__listingBlock_v_ftrd_card_fit",
-      "schema": "public",
-      "values": [
-        "cover",
-        "contain",
-        "fill"
-      ]
-    },
-    "public.enum__listingBlock_v_ftrd_card_position": {
-      "name": "enum__listingBlock_v_ftrd_card_position",
-      "schema": "public",
-      "values": [
-        "top",
-        "center",
-        "bottom"
-      ]
-    },
-    "public.enum__listingBlock_v_ftrd_card_size": {
-      "name": "enum__listingBlock_v_ftrd_card_size",
-      "schema": "public",
-      "values": [
-        "small",
-        "medium",
-        "large"
-      ]
-    },
-    "public.enum__listingBlock_v_ftrd_card_decimals": {
-      "name": "enum__listingBlock_v_ftrd_card_decimals",
-      "schema": "public",
-      "values": [
-        "none",
-        "one",
-        "two"
-      ]
-    },
-    "public.enum__listingBlock_v_ftrd_card_currency_format": {
-      "name": "enum__listingBlock_v_ftrd_card_currency_format",
-      "schema": "public",
-      "values": [
-        "text",
-        "symbol"
-      ]
-    },
-    "public.enum__listingBlock_v_ftrd_card_override_global_currency": {
-      "name": "enum__listingBlock_v_ftrd_card_override_global_currency",
-      "schema": "public",
-      "values": [
-        "yes",
-        "no"
-      ]
-    },
-    "public.enum__listingBlock_v_ftrd_card_currency_select": {
-      "name": "enum__listingBlock_v_ftrd_card_currency_select",
+    "public.enum__listingBlock_v_card_price_currency_select": {
+      "name": "enum__listingBlock_v_card_price_currency_select",
       "schema": "public",
       "values": [
         "د.إ",
