@@ -3,6 +3,7 @@ import { fileURLToPath } from 'url'
 
 import { Users } from '@auth/Users/config'
 import type { Config } from 'payload'
+import { timeZones } from './timeZones'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -10,6 +11,14 @@ const dirname = path.dirname(filename)
 export const adminConfig: Config['admin'] = {
   avatar: {
     Component: '@services/admin/AdminAvatar',
+  },
+  autoLogin: {
+    email: process.env.ROOT_USER_EMAIL,
+    password: process.env.ROOT_USER_PASSWORD,
+  },
+  timezones: {
+    defaultTimezone: 'Europe/Istanbul',
+    supportedTimezones: timeZones,
   },
   components: {
     graphics: {

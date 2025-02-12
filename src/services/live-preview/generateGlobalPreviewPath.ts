@@ -1,12 +1,11 @@
-import { GlobalSlug, PayloadRequest } from 'payload'
+import { GlobalSlug } from 'payload'
 
 type Props = {
   global: GlobalSlug
   slug: string
-  req: PayloadRequest
 }
 
-export const generateGlobalPreviewPath = ({ global, slug, req }: Props) => {
+export const generateGlobalPreviewPath = ({ global, slug }: Props) => {
   // No need for a prefix map. All globals go to /theme-editor
   const encodedParams = new URLSearchParams({
     slug,
@@ -15,11 +14,7 @@ export const generateGlobalPreviewPath = ({ global, slug, req }: Props) => {
     previewSecret: process.env.PREVIEW_SECRET || 'DUNE_3',
   })
 
-  const isProduction =
-    process.env.NODE_ENV === 'production' ||
-    Boolean(process.env.VERCEL_PROJECT_PRODUCTION_URL)
+  const url = `/next/preview-global?${encodedParams.toString()}`
 
-  const protocol = isProduction ? 'https:' : req.protocol
-
-  return `${protocol}//${req.host}/next/preview-global?${encodedParams.toString()}`
+  return url
 }
