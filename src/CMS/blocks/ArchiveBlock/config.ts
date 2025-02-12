@@ -1,5 +1,3 @@
-import type { Block } from 'payload'
-
 import {
   FixedToolbarFeature,
   HeadingFeature,
@@ -7,6 +5,7 @@ import {
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
 import { isIncludedInSibling } from '@utils/siblingFieldCondition'
+import type { Block } from 'payload'
 
 export const Archive: Block = {
   slug: 'archive',

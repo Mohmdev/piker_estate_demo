@@ -9,52 +9,52 @@ const RESET_DELAY = 5000
 
 const SuccessMessage: React.FC = () => (
   <div>
-    Database reset complete! You can now{' '}
+    Properties seeded! You can now{' '}
     <a target="_blank" href="/" rel="noreferrer">
       visit your website
     </a>
   </div>
 )
-const LoadingMessage: React.FC = () => (
-  <div>Resetting database and clearing data...</div>
-)
+const LoadingMessage: React.FC = () => <div>Seeding properties data....</div>
 const ErrorMessage: React.FC = () => (
-  <div>An error occurred while resetting the database.</div>
+  <div>An error occurred while seeding properties.</div>
 )
 
-export const ResetButton: React.FC = () => {
+export const SeedPropertiesButton: React.FC = () => {
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState<Error | null>(null)
 
   const getButtonText = () => {
-    if (loading) return 'Resetting...'
-    if (success) return 'Database reset complete'
-    if (error) return 'Reset failed - Click to retry'
-    return '⚠ Full database reset'
+    if (loading) return 'Seeding properties...'
+    if (success) return 'Properties seeded'
+    if (error) return 'Seeding failed - Click to retry'
+    return 'Seed properties data'
   }
 
   const handleClick = useCallback(
     async (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault()
 
+      // Handle existing states
       if (loading) {
-        toast.info('Reset already in progress.')
+        toast.info('Properties seeding already in progress.')
         return
       }
 
       if (success) {
-        toast.info('Database already reset.')
+        toast.info('Properties already seeded.')
         return
       }
 
+      // Clear any previous error state if user is retrying
       if (error) {
         setError(null)
       }
 
       setLoading(true)
 
-      const callDatabase = fetch('/next/seed/reset-db', {
+      const callDatabase = fetch('/next/seed/properties', {
         method: 'POST',
         credentials: 'include',
       }).then(async (response) => {

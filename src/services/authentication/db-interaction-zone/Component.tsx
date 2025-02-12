@@ -1,10 +1,10 @@
 'use client'
 
+import { cn } from '@utils/ui'
 import React from 'react'
 import { ResetButton } from './ResetButton'
 import { SeedButton } from './SeedButton'
-
-import { cn } from '@utils/ui'
+import { SeedPropertiesButton } from './SeedPropertiesButton'
 
 export const DbInteractionZone: React.FC = () => {
   return (
@@ -30,6 +30,7 @@ export const DbInteractionZone: React.FC = () => {
         )}
       >
         <SeedButton />
+        <SeedPropertiesButton />
         <ResetButton />
       </div>
     </div>

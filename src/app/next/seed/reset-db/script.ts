@@ -18,6 +18,11 @@ const collections: CollectionSlug[] = [
   'blog',
   'forms',
   'form-submissions',
+  'property-types',
+  'listing-types',
+  'listing-status',
+  'features',
+  'properties',
 ]
 
 const globals: GlobalSlug[] = ['footer', 'main-menu', 'global-settings']

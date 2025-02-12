@@ -54,7 +54,7 @@ export const SeedButton: React.FC = () => {
 
       setLoading(true)
 
-      const callDatabase = fetch('/next/seed', {
+      const callDatabase = fetch('/next/seed/general', {
         method: 'POST',
         credentials: 'include',
       }).then(async (response) => {
