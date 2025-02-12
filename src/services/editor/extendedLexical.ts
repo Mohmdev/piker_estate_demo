@@ -7,7 +7,7 @@ import {
 
 import { Config } from 'payload'
 
-export const essentialsLexical: Config['editor'] = lexicalEditor({
+export const extendedLexical: Config['editor'] = lexicalEditor({
   features: ({ rootFeatures }) => {
     return [
       ...rootFeatures,

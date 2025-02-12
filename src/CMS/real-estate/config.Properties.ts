@@ -13,7 +13,7 @@ import { tagsField } from '@CMS/fields/shared/tagsField'
 import { isAdminOrEditor } from '@auth/access/isAdminOrEditor'
 import { isAdminOrSelf } from '@auth/access/isAdminOrSelf'
 import { publishedOnly } from '@auth/access/publishedOnly'
-import { minimalLexical } from '@services/editor/minimalLexical'
+import { extendedLexical } from '@services/editor/extendedLexical'
 import { getCollectionLivePreviewURL } from '@services/live-preview/getCollectionLivePreviewURL'
 import { getCollectionPreviewURL } from '@services/live-preview/getCollectionPreviewURL'
 import type { CollectionConfig } from 'payload'
@@ -34,12 +34,16 @@ export const Properties: CollectionConfig<'properties'> = {
     update: isAdminOrSelf,
   },
   admin: {
+    group: 'Real Estate',
+    description: 'Manage all property listings and their details',
     useAsTitle: 'title',
     defaultColumns: [
       'image',
       'title',
-      //
-      'createdAt',
+      'propertyType',
+      'listingStatus',
+      'price',
+      '_status',
       'updatedAt',
     ],
     livePreview: getCollectionLivePreviewURL('properties'),
@@ -56,69 +60,146 @@ export const Properties: CollectionConfig<'properties'> = {
       required: true,
       index: true,
       unique: true,
+      admin: {
+        description: 'Descriptive title for the property',
+        placeholder:
+          'e.g., "Luxury Penthouse in Downtown", "Cozy Cottage in the Suburbs"',
+      },
     },
     {
       type: 'tabs',
       tabs: [
         {
-          label: 'Details',
+          label: 'Essential Information',
+          description: 'Basic property details and pricing',
           fields: [
+            {
+              type: 'row',
+              fields: [
+                {
+                  type: 'number',
+                  name: 'price',
+                  label: 'Price',
+                  required: true,
+                  min: 0,
+                  admin: {
+                    description: 'Property price in USD',
+                    step: 1000,
+                  },
+                },
+                {
+                  type: 'checkbox',
+                  name: 'isFeatured',
+                  label: 'Featured Property',
+                  defaultValue: false,
+                  admin: {
+                    description: 'Show this property in featured sections',
+                    style: {
+                      backgroundColor: '#f0f9ff',
+                      padding: '10px',
+                      borderRadius: '4px',
+                    },
+                  },
+                },
+              ],
+            },
             {
               type: 'richText',
               name: 'description',
-              editor: minimalLexical,
-            },
-            propertyLocation,
-            propertySpecifications,
-            {
-              type: 'relationship',
-              name: 'features',
-              relationTo: 'features',
-              hasMany: true,
-              label: {
-                singular: 'Feature',
-                plural: 'Features',
+              label: 'Property Description',
+              editor: extendedLexical,
+              admin: {
+                description: 'Detailed description of the property',
               },
-              index: true,
-            },
-          ],
-        },
-        {
-          label: 'Listing Options',
-          fields: [
-            {
-              type: 'checkbox',
-              name: 'isFeatured',
-              label: 'Featured',
-              defaultValue: false,
             },
             {
               type: 'row',
               fields: [
                 {
                   type: 'relationship',
-                  name: 'propertyType',
-                  relationTo: 'property-types',
+                  name: 'propertyCategory',
+                  label: 'Property Category',
+                  relationTo: 'property-categories',
+                  required: true,
+                  admin: {
+                    description: 'Select the category this property belongs to',
+                  },
                 },
                 {
                   type: 'relationship',
-                  name: 'listingStatus',
-                  relationTo: 'listing-status',
+                  name: 'contractType',
+                  label: 'Contract Type',
+                  relationTo: 'contract-types',
+                  required: true,
+                  admin: {
+                    description: 'How is this property being offered?',
+                  },
                 },
                 {
                   type: 'relationship',
-                  name: 'listingType',
-                  relationTo: 'listing-types',
+                  name: 'availability',
+                  label: 'Availability',
+                  relationTo: 'availability',
+                  required: true,
+                  admin: {
+                    description: 'Current status of this property',
+                  },
                 },
               ],
             },
-            categoriesField,
-            tagsField,
           ],
         },
         {
-          label: 'Gallery',
-          fields: [propertyGallery],
+          label: 'Location & Specifications',
+          description: 'Property location and detailed specifications',
+          fields: [
+            {
+              type: 'collapsible',
+              label: 'Property Location',
+              fields: [propertyLocation],
+            },
+            {
+              type: 'collapsible',
+              label: 'Property Specifications',
+              fields: [propertySpecifications],
+            },
+          ],
+        },
+        {
+          label: 'Amenities & Features',
+          description: 'Property features and facilities',
+          fields: [
+            {
+              type: 'relationship',
+              name: 'amenities',
+              relationTo: 'amenities',
+              hasMany: true,
+              label: {
+                singular: 'Amenity',
+                plural: 'Amenities',
+              },
+              admin: {
+                description: 'Select all amenities available in this property',
+                isSortable: true,
+              },
+            },
+          ],
+        },
+        {
+          label: 'Media Gallery',
+          description: 'Property images and virtual tours',
+          fields: [
+            {
+              type: 'collapsible',
+              label: 'Property Gallery',
+              fields: [propertyGallery],
+            },
+          ],
+        },
+        {
+          label: 'Classification',
+          description: 'Categories and tags for better organization',
+          fields: [categoriesField, tagsField],
         },
         seoTab,
       ],

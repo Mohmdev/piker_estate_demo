@@ -7,11 +7,11 @@ import { Blog } from '@CMS/marketing/config.Blog'
 import { BlogCategories } from '@CMS/marketing/config.BlogCategories'
 import { Pages } from '@CMS/marketing/config.Pages'
 import { Tags } from '@CMS/marketing/config.Tags'
-import { Features } from '@CMS/real-estate/config.Features'
-import { ListingStatus } from '@CMS/real-estate/config.ListingStatus'
-import { ListingTypes } from '@CMS/real-estate/config.ListingTypes'
 import { Properties } from '@CMS/real-estate/config.Properties'
-import { PropertyTypes } from '@CMS/real-estate/config.PropertyTypes'
+import { Amenities } from '@CMS/real-estate/config.amenities'
+import { Availability } from '@CMS/real-estate/config.availability'
+import { PropertyCategories } from '@CMS/real-estate/config.categories'
+import { ContractTypes } from '@CMS/real-estate/config.contract-types'
 import { Users } from '@auth/Users/config'
 import { getServerSideURL } from '@data/getURL'
 import { adminConfig } from '@services/admin/config'
@@ -39,10 +39,10 @@ export default buildConfig({
   collections: [
     ...collectionGroup('Real Estate', [
       Properties,
-      PropertyTypes,
-      Features,
-      ListingStatus,
-      ListingTypes,
+      PropertyCategories,
+      Amenities,
+      Availability,
+      ContractTypes,
     ]),
     ...collectionGroup('Marketing', [Pages, Blog, BlogCategories, Tags]),
     ...collectionGroup('Resources', [Media, Assets]),

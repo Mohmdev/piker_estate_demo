@@ -1,4 +1,4 @@
-import { essentialsLexical } from '@services/editor/essentialsLexical'
+import { extendedLexical } from '@services/editor/extendedLexical'
 import { isIncludedInSibling } from '@utils/siblingFieldCondition'
 import { Block } from 'payload'
 import { listingCardOptions } from '../glossary/config.cardOptions'
@@ -22,7 +22,7 @@ export const ListingArchiveBlock: Block = {
       name: 'subTitle',
       label: 'Subtitle',
       type: 'richText',
-      editor: essentialsLexical,
+      editor: extendedLexical,
       admin: {
         description: 'Optional',
       },
@@ -85,9 +85,10 @@ export const ListingArchiveBlock: Block = {
               type: 'relationship',
               relationTo: [
                 'blog-categories',
-                'property-types',
-                'listing-status',
-                'listing-types',
+                'property-categories',
+                'amenities',
+                'contract-types',
+                'availability',
               ],
               hasMany: true,
               admin: {

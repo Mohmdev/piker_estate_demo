@@ -55,8 +55,10 @@ export const REDIRECTABLE_COLLECTIONS: CollectionSlug[] = [
 export const NESTED_COLLECTIONS: CollectionSlug[] = [
   //
   'blog-categories',
-  'property-types',
-  'listing-types',
+  'property-categories',
+  'contract-types',
+  'availability',
+  'amenities',
 ] as const
 /* ------------------------------- Page Blocks ------------------------------ */
 // export const ENABLED_PAGE_BLOCKS = {

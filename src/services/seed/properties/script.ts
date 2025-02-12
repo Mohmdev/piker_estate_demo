@@ -5,8 +5,6 @@ import { mockListingTypes } from './mock-data/listing-types'
 import { mockProperties } from './mock-data/properties'
 import { mockPropertyTypes } from './mock-data/property-types'
 
-import type { Property } from '@payload-types'
-
 export const seedProperties = async ({
   payload,
   req,

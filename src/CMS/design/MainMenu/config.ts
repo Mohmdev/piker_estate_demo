@@ -2,7 +2,7 @@ import { revalidateMainMenu } from '@CMS/_hooks/revalidateMainMenu'
 import { isAdminOrEditor } from '@auth/access/isAdminOrEditor'
 import { publishedOnly } from '@auth/access/publishedOnly'
 import { link } from '@fields/link'
-import { essentialsLexical } from '@services/editor/essentialsLexical'
+import { extendedLexical } from '@services/editor/extendedLexical'
 import { getGlobalLivePreviewURL } from '@services/live-preview/getGlobalLivePreviewURL'
 import { getGlobalPreviewURL } from '@services/live-preview/getGlobalPreviewURL'
 import { isIncludedInSibling } from '@utils/siblingFieldCondition'
@@ -106,7 +106,7 @@ export const MainMenu: GlobalConfig = {
                       name: 'text',
                       label: 'Group Description Area',
                       type: 'richText',
-                      editor: essentialsLexical,
+                      editor: extendedLexical,
                       admin: {
                         description: 'Describe the group and its contents.',
                       },
@@ -203,7 +203,10 @@ export const MainMenu: GlobalConfig = {
                     {
                       name: 'label',
                       type: 'richText',
-                      editor: essentialsLexical,
+                      editor: extendedLexical,
+                      admin: {
+                        description: 'Label for the featured link.',
+                      },
                     },
                     {
                       name: 'links',
