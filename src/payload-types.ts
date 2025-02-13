@@ -1390,9 +1390,9 @@ export interface Meta {
  */
 export interface User {
   id: number;
-  firstName: string;
-  lastName?: string | null;
   photo?: (number | null) | UserPhoto;
+  firstName?: string | null;
+  lastName?: string | null;
   role: 'admin' | 'editor' | 'public';
   updatedAt: string;
   createdAt: string;
@@ -3332,9 +3332,9 @@ export interface AssetsSelect<T extends boolean = true> {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
+  photo?: T;
   firstName?: T;
   lastName?: T;
-  photo?: T;
   role?: T;
   updatedAt?: T;
   createdAt?: T;

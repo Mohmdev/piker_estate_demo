@@ -206,6 +206,8 @@
   --tw-prose-body: var(--text);
   --tw-prose-headings: var(--text);
 
+  @apply transition-colors duration-200 ease-linear;
+
   h1 {
     font-weight: 600;
     margin-bottom: 0.25em;

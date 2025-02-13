@@ -2,7 +2,7 @@ import type { CollectionConfig } from 'payload'
 
 import { slugField } from '@CMS/fields/shared/slug/config'
 import { anyone } from '@auth/access/anyone'
-import { isUser } from '@auth/access/isUser'
+import { isAdminOrEditor } from '@auth/access/isAdminOrEditor'
 import { minimalLexical } from '@services/editor/minimalLexical'
 
 export const BlogCategories: CollectionConfig<'blog-categories'> = {
@@ -12,10 +12,10 @@ export const BlogCategories: CollectionConfig<'blog-categories'> = {
     plural: 'Blog Categories',
   },
   access: {
-    create: isUser,
-    delete: isUser,
     read: anyone,
-    update: isUser,
+    create: isAdminOrEditor,
+    delete: isAdminOrEditor,
+    update: isAdminOrEditor,
   },
   admin: {
     useAsTitle: 'title',

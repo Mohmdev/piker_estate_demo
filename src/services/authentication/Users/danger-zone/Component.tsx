@@ -10,8 +10,8 @@ export const DbInteractionZone: React.FC = () => {
   return (
     <div
       className={cn(
-        'flex flex-col flex-nowrap justify-between items-center',
-        'min-w-[80px] gap-4 mt-10 mb-4',
+        'flex flex-col flex-nowrap justify-start items-start',
+        'min-w-[80px] gap-8 mt-10 mb-4',
       )}
     >
       <div className="flex flex-col grow shrink-0 gap-2">
@@ -25,8 +25,9 @@ export const DbInteractionZone: React.FC = () => {
       </div>
       <div
         className={cn(
-          'flex flex-row flex-wrap gap-8',
+          'flex flex-row flex-wrap gap-4',
           'justify-between items-center w-full',
+          'max-w-xl',
         )}
       >
         <SeedButton />

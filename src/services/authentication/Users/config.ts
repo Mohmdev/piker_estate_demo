@@ -7,12 +7,14 @@ import {
   isAdminOrSelf,
   isAdminOrSelfFieldLevel,
 } from '@auth/access/isAdminOrSelf'
+import {
+  isAuthenticated,
+  isAuthenticatedFieldLevel,
+} from '@auth/access/isAuthenticated'
+import { ROLES_WITH_ADMIN_ACCESS } from '@services/control-board'
 import { generateForgotPasswordEmail } from '@services/email/generateForgotPasswordEmail'
 import { generateVerificationEmail } from '@services/email/generateVerificationEmail'
-
 import type { CollectionConfig } from 'payload'
-
-import { ROLES_WITH_ADMIN_ACCESS } from '@services/control-board'
 import { ensureFirstUserIsAdmin } from './ensureFirstUserIsAdmin'
 
 export const Users: CollectionConfig<'users'> = {
@@ -49,58 +51,84 @@ export const Users: CollectionConfig<'users'> = {
       },
     },
     {
-      type: 'row',
-      fields: [
+      type: 'tabs',
+      tabs: [
         {
-          name: 'firstName',
-          type: 'text',
-          required: true,
+          label: 'Profile',
+          fields: [
+            {
+              type: 'row',
+              fields: [
+                {
+                  name: 'photo',
+                  type: 'upload',
+                  relationTo: 'user-photos',
+                  access: {
+                    create: isAdminOrSelfFieldLevel,
+                    update: isAdminOrSelfFieldLevel,
+                  },
+                },
+              ],
+            },
+            {
+              type: 'row',
+              fields: [
+                {
+                  name: 'firstName',
+                  type: 'text',
+                  // required: true,
+                },
+                {
+                  name: 'lastName',
+                  type: 'text',
+                },
+              ],
+            },
+          ],
         },
         {
-          name: 'lastName',
-          type: 'text',
+          label: 'Permissions',
+          access: {
+            read: isAuthenticatedFieldLevel,
+          },
+          fields: [
+            {
+              name: 'role',
+              required: true,
+              type: 'select',
+              access: {
+                create: isAdminFieldLevel,
+                update: isAdminFieldLevel,
+              },
+              defaultValue: 'public',
+              options: ['admin', 'editor', 'public'],
+              hasMany: false, // setting this to `true` makes the roles field type definition an array. Keep it false.
+              saveToJWT: true,
+              hooks: {
+                beforeChange: [ensureFirstUserIsAdmin],
+              },
+            },
+          ],
+        },
+        {
+          label: 'Danger Zone',
+          fields: [
+            {
+              type: 'ui',
+              name: 'dbInteractionZone',
+              label: 'Database',
+              admin: {
+                components: {
+                  Field: '@auth/Users/danger-zone/Component#DbInteractionZone',
+                },
+                condition: (_, siblingData) => {
+                  return siblingData.role === 'admin'
+                },
+              },
+            },
+          ],
         },
       ],
-    },
-    {
-      name: 'photo',
-      type: 'upload',
-      relationTo: 'user-photos',
-    },
-    {
-      name: 'role',
-      required: true,
-      type: 'select',
-      access: {
-        create: isAdminFieldLevel,
-        read: isAdminOrSelfFieldLevel,
-        update: isAdminFieldLevel,
-      },
-      defaultValue: 'public',
-      options: ['admin', 'editor', 'public'],
-      hasMany: false, // setting this to `true` makes the roles field type definition an array. Keep it false.
-      saveToJWT: true,
-      hooks: {
-        beforeChange: [ensureFirstUserIsAdmin],
-      },
-      admin: {
-        position: 'sidebar',
-      },
-    },
-
-    {
-      type: 'ui',
-      name: 'dbInteractionZone',
-      label: '',
-      admin: {
-        components: {
-          Field: '@auth/db-interaction-zone/Component#DbInteractionZone',
-        },
-        position: 'sidebar',
-        condition: (_, siblingData) => {
-          return siblingData.role === 'admin'
-        },
-      },
     },
   ],
   access: {
