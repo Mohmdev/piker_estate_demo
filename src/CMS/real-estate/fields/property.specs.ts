@@ -3,27 +3,42 @@ import type { GroupField } from 'payload'
 export const propertySpecifications: GroupField = {
   type: 'group',
   name: 'specs',
-  label: 'Property Specifications',
-  admin: {
-    description: 'Detailed property specifications and measurements',
-  },
+  label: false,
   fields: [
     {
       type: 'group',
       name: 'dimensions',
-      label: 'Property Dimensions',
+      label: 'Measurements',
       admin: {
-        description: 'Size and area measurements',
+        hideGutter: true,
+        className: 'm-0 p-0 py-12 pt-4',
       },
       fields: [
         {
           type: 'row',
           fields: [
             {
+              type: 'select',
+              name: 'sizeRange',
+              label: 'Size Range',
+              options: [
+                { label: 'Small (< 1000 sq ft)', value: 'small' },
+                {
+                  label: 'Medium (1000-2500 sq ft)',
+                  value: 'medium',
+                },
+                { label: 'Large (2500-5000 sq ft)', value: 'large' },
+                {
+                  label: 'Extra Large (> 5000 sq ft)',
+                  value: 'xlarge',
+                },
+              ],
+            },
+            {
               name: 'property_size',
               type: 'number',
               label: 'Living Area',
-              required: true,
+              // required: true,
               min: 0,
               admin: {
                 step: 0.1,
@@ -76,9 +91,10 @@ export const propertySpecifications: GroupField = {
     {
       type: 'group',
       name: 'rooms',
-      label: 'Room Count',
+      label: 'Rooms and Spaces',
       admin: {
-        description: 'Number of rooms and spaces',
+        hideGutter: true,
+        className: 'm-0 p-0 py-12',
       },
       fields: [
         {
@@ -88,7 +104,7 @@ export const propertySpecifications: GroupField = {
               name: 'num_bedrooms',
               type: 'number',
               label: 'Bedrooms',
-              required: true,
+              // required: true,
               min: 0,
               admin: {
                 step: 1,
@@ -99,7 +115,7 @@ export const propertySpecifications: GroupField = {
               name: 'num_bathrooms',
               type: 'number',
               label: 'Bathrooms',
-              required: true,
+              // required: true,
               min: 0,
               admin: {
                 step: 0.5,
@@ -140,7 +156,8 @@ export const propertySpecifications: GroupField = {
       name: 'construction',
       label: 'Construction Details',
       admin: {
-        description: 'Building specifications and age',
+        hideGutter: true,
+        className: 'm-0 p-0 py-12',
       },
       fields: [
         {
@@ -192,7 +209,8 @@ export const propertySpecifications: GroupField = {
       name: 'utilities',
       label: 'Utilities & Systems',
       admin: {
-        description: 'Property systems and ratings',
+        hideGutter: true,
+        className: 'm-0 p-0 py-12',
       },
       fields: [
         {

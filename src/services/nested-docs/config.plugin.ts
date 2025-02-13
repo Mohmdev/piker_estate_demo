@@ -1,8 +1,6 @@
 import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs'
-
-import type { Plugin } from 'payload'
-
 import { NESTED_COLLECTIONS } from '@services/control-board'
+import type { Plugin } from 'payload'
 
 export const nestedDocsService: Plugin = nestedDocsPlugin({
   collections: NESTED_COLLECTIONS,

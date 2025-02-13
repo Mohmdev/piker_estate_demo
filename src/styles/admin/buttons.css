@@ -51,7 +51,8 @@
     @apply saturate-50 brightness-50 opacity-50;
   }
 
-  .popup__caret {
+  .popup__caret,
+  .caret {
     @apply hidden;
   }
 }

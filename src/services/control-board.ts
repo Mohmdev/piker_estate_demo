@@ -21,7 +21,7 @@ export const RELATABLE_COLLECTIONS: CollectionSlug[] = [
   'blog',
   'properties',
 ] as const
-export type RELATABLE_COLLECTIONS_TYPES = 'blog'
+// export type RELATABLE_COLLECTIONS_TYPES = 'blog'
 
 export const ENABLED_PLUGINS = {
   storage: true,
@@ -33,18 +33,18 @@ export const ENABLED_PLUGINS = {
 } as const
 
 /* ----------------------------------- SEO ---------------------------------- */
-export const SEO_ENABLED_COLLECTIONS: CollectionSlug[] = [
-  'pages',
-  'blog',
-  'properties',
-] as const
-export const SEO_ENABLED_GLOBALS: GlobalSlug[] = [
-  // 'get-started',
-  // 'home-page',
-] as const
+// export const SEO_ENABLED_COLLECTIONS: CollectionSlug[] = [
+//   'pages',
+//   'blog',
+//   'properties',
+// ] as const
+// export const SEO_ENABLED_GLOBALS: GlobalSlug[] = [
+//   // 'get-started',
+//   // 'home-page',
+// ] as const
 /* --------------------------------- Search --------------------------------- */
-export const INDEXED_COLLECTIONS: CollectionSlug[] = ['blog'] as const
-export const INDEXED_TAXONOMY_COLLECTIONS: CollectionSlug[] = [] as const
+// export const INDEXED_COLLECTIONS: CollectionSlug[] = ['blog'] as const
+// export const INDEXED_TAXONOMY_COLLECTIONS: CollectionSlug[] = [] as const
 /* -------------------------------- Redirects ------------------------------- */
 export const REDIRECTABLE_COLLECTIONS: CollectionSlug[] = [
   'pages',
@@ -54,9 +54,10 @@ export const REDIRECTABLE_COLLECTIONS: CollectionSlug[] = [
 /* ------------------------------- Nested Docs ------------------------------ */
 export const NESTED_COLLECTIONS: CollectionSlug[] = [
   //
+  'pages',
   'blog-categories',
-  'property-categories',
-  'contract-types',
+  'classifications',
+  'contracts',
   'availability',
   'amenities',
 ] as const

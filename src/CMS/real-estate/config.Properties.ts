@@ -35,17 +35,8 @@ export const Properties: CollectionConfig<'properties'> = {
   },
   admin: {
     group: 'Real Estate',
-    description: 'Manage all property listings and their details',
     useAsTitle: 'title',
-    defaultColumns: [
-      'image',
-      'title',
-      'propertyType',
-      'listingStatus',
-      'price',
-      '_status',
-      'updatedAt',
-    ],
+    defaultColumns: ['image', 'title', 'price', '_status', 'updatedAt'],
     livePreview: getCollectionLivePreviewURL('properties'),
     preview: getCollectionPreviewURL('properties'),
   },
@@ -61,9 +52,8 @@ export const Properties: CollectionConfig<'properties'> = {
       index: true,
       unique: true,
       admin: {
-        description: 'Descriptive title for the property',
         placeholder:
-          'e.g., "Luxury Penthouse in Downtown", "Cozy Cottage in the Suburbs"',
+          'e.g. Luxury Penthouse in Downtown, Cozy Cottage in the Suburbs',
       },
     },
     {
@@ -71,7 +61,6 @@ export const Properties: CollectionConfig<'properties'> = {
       tabs: [
         {
           label: 'Essential Information',
-          description: 'Basic property details and pricing',
           fields: [
             {
               type: 'row',
@@ -94,11 +83,6 @@ export const Properties: CollectionConfig<'properties'> = {
                   defaultValue: false,
                   admin: {
                     description: 'Show this property in featured sections',
-                    style: {
-                      backgroundColor: '#f0f9ff',
-                      padding: '10px',
-                      borderRadius: '4px',
-                    },
                   },
                 },
               ],
@@ -106,40 +90,18 @@ export const Properties: CollectionConfig<'properties'> = {
             {
               type: 'richText',
               name: 'description',
-              label: 'Property Description',
+              label: 'Detailed description of the property',
               editor: extendedLexical,
-              admin: {
-                description: 'Detailed description of the property',
-              },
             },
             {
               type: 'row',
               fields: [
                 {
                   type: 'relationship',
-                  name: 'propertyCategory',
-                  label: 'Property Category',
-                  relationTo: 'property-categories',
-                  required: true,
-                  admin: {
-                    description: 'Select the category this property belongs to',
-                  },
-                },
-                {
-                  type: 'relationship',
-                  name: 'contractType',
-                  label: 'Contract Type',
-                  relationTo: 'contract-types',
-                  required: true,
-                  admin: {
-                    description: 'How is this property being offered?',
-                  },
-                },
-                {
-                  type: 'relationship',
                   name: 'availability',
                   label: 'Availability',
                   relationTo: 'availability',
+                  hasMany: false,
                   required: true,
                   admin: {
                     description: 'Current status of this property',
@@ -147,58 +109,169 @@ export const Properties: CollectionConfig<'properties'> = {
                 },
               ],
             },
-          ],
-        },
-        {
-          label: 'Location & Specifications',
-          description: 'Property location and detailed specifications',
-          fields: [
-            {
-              type: 'collapsible',
-              label: 'Property Location',
-              fields: [propertyLocation],
-            },
-            {
-              type: 'collapsible',
-              label: 'Property Specifications',
-              fields: [propertySpecifications],
-            },
-          ],
-        },
-        {
-          label: 'Amenities & Features',
-          description: 'Property features and facilities',
-          fields: [
-            {
-              type: 'relationship',
-              name: 'amenities',
-              relationTo: 'amenities',
-              hasMany: true,
-              label: {
-                singular: 'Amenity',
-                plural: 'Amenities',
-              },
-              admin: {
-                description: 'Select all amenities available in this property',
-                isSortable: true,
-              },
-            },
-          ],
-        },
-        {
-          label: 'Media Gallery',
-          description: 'Property images and virtual tours',
-          fields: [
-            {
-              type: 'collapsible',
-              label: 'Property Gallery',
-              fields: [propertyGallery],
-            },
+            propertyGallery,
           ],
         },
         {
           label: 'Classification',
-          description: 'Categories and tags for better organization',
+          fields: [
+            {
+              type: 'select',
+              name: 'market',
+              label: 'Market Segment',
+              options: [
+                { label: 'Economy', value: 'economy' },
+                { label: 'Mid-Market', value: 'mid-market' },
+                { label: 'Luxury', value: 'luxury' },
+                { label: 'Ultra-Luxury', value: 'ultra-luxury' },
+              ],
+            },
+            {
+              type: 'relationship',
+              name: 'classification',
+              label: 'Classification',
+              relationTo: 'classifications',
+              // required: true,
+              hasMany: true,
+              admin: {
+                isSortable: true,
+                allowEdit: true,
+              },
+            },
+            {
+              type: 'row',
+              fields: [
+                {
+                  type: 'checkbox',
+                  name: 'hasUnits',
+                  label: 'Has Multiple Units',
+                  defaultValue: false,
+                  admin: {
+                    description:
+                      'Does this type typically have multiple units? (e.g., apartment buildings)',
+                  },
+                },
+                {
+                  type: 'checkbox',
+                  name: 'isLandOnly',
+                  label: 'Land Only',
+                  defaultValue: false,
+                  admin: {
+                    description: 'Is this a land-only property type?',
+                  },
+                },
+              ],
+            },
+          ],
+        },
+        {
+          label: 'Amenities',
+          fields: [
+            {
+              type: 'row',
+              fields: [
+                {
+                  type: 'select',
+                  name: 'facilityType',
+                  label: 'Facility Type',
+                  options: [
+                    { label: 'Interior Features', value: 'interior' },
+                    { label: 'Exterior Features', value: 'exterior' },
+                    { label: 'Security', value: 'security' },
+                    { label: 'Community', value: 'community' },
+                    { label: 'Utilities', value: 'utilities' },
+                    { label: 'Smart Home', value: 'smart-home' },
+                  ],
+                  admin: {
+                    description: 'Group similar amenities together',
+                  },
+                },
+                {
+                  type: 'checkbox',
+                  name: 'isPremium',
+                  label: 'Premium Amenity',
+                  defaultValue: false,
+                  admin: {
+                    description: 'Mark if this is a premium or luxury amenity',
+                  },
+                },
+              ],
+            },
+            {
+              type: 'row',
+              fields: [
+                {
+                  type: 'relationship',
+                  name: 'amenities',
+                  relationTo: 'amenities',
+                  hasMany: true,
+                  label: {
+                    singular: 'Amenity',
+                    plural: 'Amenities',
+                  },
+                  admin: {
+                    description:
+                      'Features and facilities available in this property',
+                    isSortable: true,
+                    allowEdit: true,
+                  },
+                },
+              ],
+            },
+          ],
+        },
+        {
+          label: 'Contract',
+          fields: [
+            {
+              type: 'row',
+              fields: [
+                {
+                  type: 'relationship',
+                  name: 'contract',
+                  label: 'Contract',
+                  relationTo: 'contracts',
+                  hasMany: false,
+                  admin: {
+                    description: 'How is this property being offered?',
+                  },
+                },
+                {
+                  type: 'checkbox',
+                  name: 'requiresContract',
+                  label: 'Requires Contract',
+                  defaultValue: true,
+                  admin: {
+                    description:
+                      'Does this property require a formal contract?',
+                  },
+                },
+                {
+                  type: 'checkbox',
+                  name: 'requiresDeposit',
+                  label: 'Requires Deposit',
+                  defaultValue: false,
+                  admin: {
+                    description:
+                      'Does this transaction type require a deposit?',
+                  },
+                },
+              ],
+            },
+          ],
+        },
+        {
+          label: 'Specifications',
+          fields: [propertySpecifications],
+        },
+        {
+          label: 'Location',
+          fields: [propertyLocation],
+        },
+        {
+          label: 'Metadata',
+          description:
+            'Setting categories and tags helps the built-in Search Engine within the Software',
           fields: [categoriesField, tagsField],
         },
         seoTab,

@@ -5,9 +5,9 @@ export const categoriesField: Field = {
   type: 'relationship',
   relationTo: [
     'blog-categories',
-    'property-categories',
+    'classifications',
     'amenities',
-    'contract-types',
+    'contracts',
     'availability',
   ],
   hasMany: true,

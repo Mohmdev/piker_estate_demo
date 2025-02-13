@@ -30,30 +30,30 @@ html {
   }
 } */
 
-* {
-  &::-webkit-scrollbar {
-    width: 0.5em;
-  }
+@layer base {
+  * {
+    &::-webkit-scrollbar {
+      width: 0.25em;
+      height: 0.25em;
+    }
 
-  &::-webkit-scrollbar-track {
-    background: transparent;
-  }
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
 
-  &::-webkit-scrollbar-thumb {
-    /* background-color: hsla(var(--theme-text-gray) / 0.5); */
-    background-color: light-dark(
-      hsla(199, 20%, 22%, 0.5),
-      hsla(200 10% 37% / 0.5)
-    );
-    border-radius: 1rem;
+    &::-webkit-scrollbar-thumb {
+      /* background-color: hsla(var(--theme-text-gray) / 0.5); */
+      background-color: light-dark(
+        hsla(199, 20%, 22%, 0.5),
+        hsla(200 10% 37% / 0.5)
+      );
+      border-radius: 1rem;
 
-    &:hover {
-      background-color: hsla(var(--theme-text-gray) / 0.5);
+      &:hover {
+        background-color: hsla(var(--theme-text-gray) / 0.5);
+      }
     }
   }
-}
-
-@layer base {
   .create-first-user > .form > .render-fields {
     @apply hidden;
   }

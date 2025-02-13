@@ -10,8 +10,8 @@ import { Tags } from '@CMS/marketing/config.Tags'
 import { Properties } from '@CMS/real-estate/config.Properties'
 import { Amenities } from '@CMS/real-estate/config.amenities'
 import { Availability } from '@CMS/real-estate/config.availability'
-import { PropertyCategories } from '@CMS/real-estate/config.categories'
-import { ContractTypes } from '@CMS/real-estate/config.contract-types'
+import { Classifications } from '@CMS/real-estate/config.classifications'
+import { Contracts } from '@CMS/real-estate/config.contracts'
 import { Users } from '@auth/Users/config'
 import { getServerSideURL } from '@data/getURL'
 import { adminConfig } from '@services/admin/config'
@@ -39,10 +39,10 @@ export default buildConfig({
   collections: [
     ...collectionGroup('Real Estate', [
       Properties,
-      PropertyCategories,
+      Classifications,
       Amenities,
       Availability,
-      ContractTypes,
+      Contracts,
     ]),
     ...collectionGroup('Marketing', [Pages, Blog, BlogCategories, Tags]),
     ...collectionGroup('Resources', [Media, Assets]),

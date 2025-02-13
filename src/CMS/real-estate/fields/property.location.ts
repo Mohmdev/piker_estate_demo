@@ -1,25 +1,25 @@
 import type { GroupField } from 'payload'
-import { countryOptions } from './country-options'
+import { countrySelectField } from './country-options'
 
 export const propertyLocation: GroupField = {
   type: 'group',
   name: 'location',
-  label: 'Property Location',
-  admin: {
-    description: 'Enter the complete property location details',
-  },
+  label: false,
   fields: [
     {
       type: 'row',
+      admin: {
+        className: 'm-0 p-0 pt-4',
+      },
       fields: [
         {
           name: 'address_line1',
           type: 'text',
           label: 'Street Address',
-          required: true,
+          // required: true,
           admin: {
             placeholder: 'e.g., 123 Main Street',
-            description: 'Primary street address',
+            className: 'p-0 my-2',
           },
         },
         {
@@ -28,7 +28,7 @@ export const propertyLocation: GroupField = {
           label: 'Unit/Suite',
           admin: {
             placeholder: 'e.g., Apt 4B, Suite 200',
-            description: 'Apartment, suite, or unit number if applicable',
+            className: 'p-0 my-2',
           },
         },
       ],
@@ -39,35 +39,38 @@ export const propertyLocation: GroupField = {
       label: 'Additional Address Info',
       admin: {
         placeholder: 'e.g., Building Name, Complex Name',
-        description: 'Secondary address information if needed',
+        className: 'p-0 my-2',
       },
     },
     {
       type: 'row',
+      admin: {
+        className: 'm-0 p-0',
+      },
       fields: [
         {
           name: 'city',
           type: 'text',
           label: 'City/Town',
-          required: true,
+          // required: true,
           admin: {
-            description: 'City or town name',
+            className: 'p-0 my-2',
           },
         },
         {
           name: 'state',
           type: 'text',
           label: 'State/Province',
-          required: true,
+          // required: true,
           admin: {
-            description: 'State or province name',
+            className: 'p-0 my-2',
           },
         },
         {
           name: 'postcode',
           type: 'text',
           label: 'ZIP/Postal Code',
-          required: true,
+          // required: true,
           validate: (value: string | null | undefined) => {
             if (!value || value.length < 3)
               return 'Please enter a valid postal code'
@@ -75,33 +78,26 @@ export const propertyLocation: GroupField = {
           },
           admin: {
             placeholder: 'e.g., 12345',
-            description: 'ZIP or postal code',
+            className: 'p-0 my-2',
           },
         },
       ],
     },
     {
       type: 'row',
-      fields: [
-        {
-          name: 'country',
-          type: 'select',
-          label: 'Country',
-          required: true,
-          defaultValue: 'US',
-          options: countryOptions,
-          admin: {
-            description: 'Select the country',
-          },
-        },
-      ],
+      admin: {
+        className: 'p-0 my-2 pb-12',
+      },
+      fields: [countrySelectField],
     },
     {
       type: 'group',
       name: 'coordinates',
-      label: 'Map Location',
+      label: 'Geolocation',
       admin: {
         description: 'Precise geographical coordinates for mapping',
+        hideGutter: true,
+        className: 'm-0 p-0 py-12',
       },
       fields: [
         {
@@ -136,7 +132,8 @@ export const propertyLocation: GroupField = {
       name: 'neighborhood',
       label: 'Neighborhood Information',
       admin: {
-        description: 'Additional location context',
+        hideGutter: true,
+        className: 'm-0 p-0 py-12',
       },
       fields: [
         {

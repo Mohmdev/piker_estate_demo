@@ -2,24 +2,25 @@ import { populateAuthors } from '@CMS/_hooks/populateAuthors'
 import { populatePublishedAt } from '@CMS/_hooks/populatePublishedAt'
 import {
   revalidateDelete,
-  revalidateFeature,
-} from '@CMS/_hooks/revalidateFeature'
+  revalidatePropertyType,
+} from '@CMS/_hooks/revalidatePropertyCategories'
 import { authorsField } from '@CMS/fields/shared/authorsField'
 import { noindexField } from '@CMS/fields/shared/noindexField'
 import { populateAuthorsField } from '@CMS/fields/shared/populatedAuthorsField'
 import { publishedAtField } from '@CMS/fields/shared/publishedAtField'
+import { seoTab } from '@CMS/fields/shared/seoTab'
 import { slugField } from '@CMS/fields/shared/slug/config'
 import { isAdminOrEditor } from '@auth/access/isAdminOrEditor'
 import { isAdminOrSelf } from '@auth/access/isAdminOrSelf'
 import { publishedOnly } from '@auth/access/publishedOnly'
-import { minimalLexical } from '@services/editor/minimalLexical'
+import { extendedLexical } from '@services/editor/extendedLexical'
 import type { CollectionConfig } from 'payload'
 
-export const Amenities: CollectionConfig<'amenities'> = {
-  slug: 'amenities',
+export const Classifications: CollectionConfig<'classifications'> = {
+  slug: 'classifications',
   labels: {
-    singular: 'Amenity',
-    plural: 'Amenities',
+    singular: 'Classification',
+    plural: 'Classifications',
   },
   access: {
     read: publishedOnly,
@@ -29,10 +30,10 @@ export const Amenities: CollectionConfig<'amenities'> = {
   },
   admin: {
     group: 'Real Estate',
-    description:
-      'Manage property amenities and features that can be assigned to properties',
     useAsTitle: 'title',
     defaultColumns: ['image', 'title', '_status', 'updatedAt'],
+    description:
+      'Define different categories of properties (Residential, Commercial, Industrial, Land, etc.)',
   },
   defaultPopulate: {
     title: true,
@@ -42,12 +43,12 @@ export const Amenities: CollectionConfig<'amenities'> = {
     {
       name: 'title',
       type: 'text',
+      label: 'Classification Title',
       required: true,
-      label: 'Amenity Title',
       index: true,
       unique: true,
       admin: {
-        placeholder: 'e.g. Swimming Pool, Gym, Parking',
+        placeholder: 'e.g. Residential, Commercial, Industrial',
       },
     },
     {
@@ -59,13 +60,10 @@ export const Amenities: CollectionConfig<'amenities'> = {
             {
               type: 'join',
               name: 'properties',
-              label: false,
+              label: 'Properties listed with this classification',
               collection: 'properties',
-              on: 'amenities',
-              admin: {
-                description:
-                  'Properties that have this amenity (automatically populated)',
-              },
+              on: 'classification',
+              hasMany: true,
             },
           ],
         },
@@ -75,10 +73,10 @@ export const Amenities: CollectionConfig<'amenities'> = {
             {
               type: 'richText',
               name: 'description',
-              editor: minimalLexical,
+              label: false,
+              editor: extendedLexical,
               admin: {
-                description:
-                  'Brief description of this amenity and its benefits',
+                description: 'Describe what this property category is',
               },
             },
             {
@@ -87,10 +85,22 @@ export const Amenities: CollectionConfig<'amenities'> = {
                 {
                   type: 'upload',
                   name: 'image',
-                  label: 'Amenity Icon',
+                  label: 'Category Image',
                   relationTo: 'media',
+                  hasMany: false,
                   admin: {
-                    description: 'Upload an image or icon for this amenity',
+                    description:
+                      'Representative image for this property category',
+                  },
+                },
+                {
+                  type: 'upload',
+                  name: 'icon',
+                  label: 'Category Icon',
+                  relationTo: 'media',
+                  hasMany: false,
+                  admin: {
+                    description: 'Icon for this property category',
                   },
                 },
               ],
@@ -106,7 +116,7 @@ export const Amenities: CollectionConfig<'amenities'> = {
     ...slugField(),
   ],
   hooks: {
-    // afterChange: [revalidateFeature],
+    // afterChange: [revalidatePropertyType],
     // afterDelete: [revalidateDelete],
     afterRead: [populateAuthors],
     beforeChange: [populatePublishedAt],

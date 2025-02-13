@@ -67,10 +67,10 @@ export interface Config {
   };
   collections: {
     properties: Property;
-    'property-categories': PropertyCategory;
+    classifications: Classification;
     amenities: Amenity;
     availability: Availability;
-    'contract-types': ContractType;
+    contracts: Contract;
     pages: Page;
     blog: Blog;
     'blog-categories': BlogCategory;
@@ -89,7 +89,7 @@ export interface Config {
     'payload-migrations': PayloadMigration;
   };
   collectionsJoins: {
-    'property-categories': {
+    classifications: {
       properties: 'properties';
     };
     amenities: {
@@ -98,7 +98,7 @@ export interface Config {
     availability: {
       properties: 'properties';
     };
-    'contract-types': {
+    contracts: {
       properties: 'properties';
     };
     'blog-categories': {
@@ -114,10 +114,10 @@ export interface Config {
   };
   collectionsSelect: {
     properties: PropertiesSelect<false> | PropertiesSelect<true>;
-    'property-categories': PropertyCategoriesSelect<false> | PropertyCategoriesSelect<true>;
+    classifications: ClassificationsSelect<false> | ClassificationsSelect<true>;
     amenities: AmenitiesSelect<false> | AmenitiesSelect<true>;
     availability: AvailabilitySelect<false> | AvailabilitySelect<true>;
-    'contract-types': ContractTypesSelect<false> | ContractTypesSelect<true>;
+    contracts: ContractsSelect<false> | ContractsSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     blog: BlogSelect<false> | BlogSelect<true>;
     'blog-categories': BlogCategoriesSelect<false> | BlogCategoriesSelect<true>;
@@ -194,16 +194,11 @@ export interface UserAuthOperations {
       };
 }
 /**
- * Manage all property listings and their details
- *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "properties".
  */
 export interface Property {
   id: number;
-  /**
-   * Descriptive title for the property
-   */
   title: string;
   /**
    * Property price in USD
@@ -213,9 +208,6 @@ export interface Property {
    * Show this property in featured sections
    */
   isFeatured?: boolean | null;
-  /**
-   * Detailed description of the property
-   */
   description?: {
     root: {
       type: string;
@@ -232,294 +224,137 @@ export interface Property {
     [k: string]: unknown;
   } | null;
   /**
-   * Select the category this property belongs to
-   */
-  propertyCategory: number | PropertyCategory;
-  /**
-   * How is this property being offered?
-   */
-  contractType: number | ContractType;
-  /**
    * Current status of this property
    */
   availability: number | Availability;
   /**
-   * Enter the complete property location details
+   * Upload and manage property images and virtual tours
    */
-  location: {
+  gallery: {
     /**
-     * Primary street address
+     * Upload up to 24 high-quality images. The first image will be used as the main image.
      */
-    address_line1: string;
+    images: (number | Media)[];
     /**
-     * Apartment, suite, or unit number if applicable
+     * Upload a walkthrough video (MP4 format recommended)
      */
+    video?: (number | null) | Media;
+    /**
+     * External virtual tour link (e.g., Matterport, etc.)
+     */
+    virtualTourUrl?: string | null;
+    /**
+     * Upload floor plan documents (PDF format recommended)
+     */
+    floorPlan?: (number | Media)[] | null;
+    /**
+     * Upload additional property documents (brochures, certificates, etc.)
+     */
+    propertyDocs?: (number | Media)[] | null;
+  };
+  market?: ('economy' | 'mid-market' | 'luxury' | 'ultra-luxury') | null;
+  classification?: (number | Classification)[] | null;
+  /**
+   * Does this type typically have multiple units? (e.g., apartment buildings)
+   */
+  hasUnits?: boolean | null;
+  /**
+   * Is this a land-only property type?
+   */
+  isLandOnly?: boolean | null;
+  /**
+   * Group similar amenities together
+   */
+  facilityType?: ('interior' | 'exterior' | 'security' | 'community' | 'utilities' | 'smart-home') | null;
+  /**
+   * Mark if this is a premium or luxury amenity
+   */
+  isPremium?: boolean | null;
+  /**
+   * Features and facilities available in this property
+   */
+  amenities?: (number | Amenity)[] | null;
+  /**
+   * How is this property being offered?
+   */
+  contract?: (number | null) | Contract;
+  /**
+   * Does this property require a formal contract?
+   */
+  requiresContract?: boolean | null;
+  /**
+   * Does this transaction type require a deposit?
+   */
+  requiresDeposit?: boolean | null;
+  specs?: {
+    dimensions?: {
+      sizeRange?: ('small' | 'medium' | 'large' | 'xlarge') | null;
+      /**
+       * Interior living space in square meters
+       */
+      property_size?: number | null;
+      /**
+       * Total land area in square meters
+       */
+      block_size?: number | null;
+      /**
+       * Property frontage in meters
+       */
+      frontage?: number | null;
+      /**
+       * Property depth in meters
+       */
+      depth?: number | null;
+    };
+    rooms?: {
+      /**
+       * Number of bedrooms
+       */
+      num_bedrooms?: number | null;
+      /**
+       * Number of bathrooms (0.5 = powder room)
+       */
+      num_bathrooms?: number | null;
+      /**
+       * Number of car parking spaces
+       */
+      num_carspaces?: number | null;
+      /**
+       * Number of floors in the property
+       */
+      num_floors?: number | null;
+    };
+    construction?: {
+      /**
+       * Year the property was constructed
+       */
+      year_built?: number | null;
+      /**
+       * Year of last major renovation
+       */
+      last_renovated?: number | null;
+      /**
+       * Primary construction material/method
+       */
+      construction_type?: ('brick' | 'timber' | 'concrete' | 'steel' | 'mixed') | null;
+    };
+    utilities?: {
+      /**
+       * Energy efficiency rating
+       */
+      energy_rating?: ('A' | 'B' | 'C' | 'D' | 'E') | null;
+      heating_type?: ('central' | 'electric' | 'gas' | 'heat-pump' | 'none') | null;
+      cooling_type?: ('central' | 'split' | 'window' | 'none') | null;
+    };
+  };
+  location?: {
+    address_line1?: string | null;
     unit?: string | null;
-    /**
-     * Secondary address information if needed
-     */
     address_line2?: string | null;
-    /**
-     * City or town name
-     */
-    city: string;
-    /**
-     * State or province name
-     */
-    state: string;
-    /**
-     * ZIP or postal code
-     */
-    postcode: string;
-    /**
-     * Select the country
-     */
-    country:
-      | 'AF'
-      | 'AX'
-      | 'AL'
-      | 'DZ'
-      | 'AS'
-      | 'AD'
-      | 'AO'
-      | 'AI'
-      | 'AQ'
-      | 'AG'
-      | 'AR'
-      | 'AM'
-      | 'AW'
-      | 'AU'
-      | 'AT'
-      | 'AZ'
-      | 'BS'
-      | 'BH'
-      | 'BD'
-      | 'BB'
-      | 'BY'
-      | 'BE'
-      | 'BZ'
-      | 'BJ'
-      | 'BM'
-      | 'BT'
-      | 'BO'
-      | 'BA'
-      | 'BW'
-      | 'BV'
-      | 'BR'
-      | 'IO'
-      | 'BN'
-      | 'BG'
-      | 'BF'
-      | 'BI'
-      | 'KH'
-      | 'CM'
-      | 'CA'
-      | 'CV'
-      | 'KY'
-      | 'CF'
-      | 'TD'
-      | 'CL'
-      | 'CN'
-      | 'CX'
-      | 'CC'
-      | 'CO'
-      | 'KM'
-      | 'CG'
-      | 'CD'
-      | 'CK'
-      | 'CR'
-      | 'CI'
-      | 'HR'
-      | 'CU'
-      | 'CY'
-      | 'CZ'
-      | 'DK'
-      | 'DJ'
-      | 'DM'
-      | 'DO'
-      | 'EC'
-      | 'EG'
-      | 'SV'
-      | 'GQ'
-      | 'ER'
-      | 'EE'
-      | 'ET'
-      | 'FK'
-      | 'FO'
-      | 'FJ'
-      | 'FI'
-      | 'FR'
-      | 'GF'
-      | 'PF'
-      | 'TF'
-      | 'GA'
-      | 'GM'
-      | 'GE'
-      | 'DE'
-      | 'GH'
-      | 'GI'
-      | 'GR'
-      | 'GL'
-      | 'GD'
-      | 'GP'
-      | 'GU'
-      | 'GT'
-      | 'GG'
-      | 'GN'
-      | 'GW'
-      | 'GY'
-      | 'HT'
-      | 'HM'
-      | 'VA'
-      | 'HN'
-      | 'HK'
-      | 'HU'
-      | 'IS'
-      | 'IN'
-      | 'ID'
-      | 'IR'
-      | 'IQ'
-      | 'IE'
-      | 'IM'
-      | 'IL'
-      | 'IT'
-      | 'JM'
-      | 'JP'
-      | 'JE'
-      | 'JO'
-      | 'KZ'
-      | 'KE'
-      | 'KI'
-      | 'KP'
-      | 'KR'
-      | 'XK'
-      | 'KW'
-      | 'KG'
-      | 'LA'
-      | 'LV'
-      | 'LB'
-      | 'LS'
-      | 'LR'
-      | 'LY'
-      | 'LI'
-      | 'LT'
-      | 'LU'
-      | 'MO'
-      | 'MK'
-      | 'MG'
-      | 'MW'
-      | 'MY'
-      | 'MV'
-      | 'ML'
-      | 'MT'
-      | 'MH'
-      | 'MQ'
-      | 'MR'
-      | 'MU'
-      | 'YT'
-      | 'MX'
-      | 'FM'
-      | 'MD'
-      | 'MC'
-      | 'MN'
-      | 'ME'
-      | 'MS'
-      | 'MA'
-      | 'MZ'
-      | 'MM'
-      | 'NA'
-      | 'NR'
-      | 'NP'
-      | 'NL'
-      | 'AN'
-      | 'NC'
-      | 'NZ'
-      | 'NI'
-      | 'NE'
-      | 'NG'
-      | 'NU'
-      | 'NF'
-      | 'MP'
-      | 'NO'
-      | 'OM'
-      | 'PK'
-      | 'PW'
-      | 'PS'
-      | 'PA'
-      | 'PG'
-      | 'PY'
-      | 'PE'
-      | 'PH'
-      | 'PN'
-      | 'PL'
-      | 'PT'
-      | 'PR'
-      | 'QA'
-      | 'RE'
-      | 'RO'
-      | 'RU'
-      | 'RW'
-      | 'SH'
-      | 'KN'
-      | 'LC'
-      | 'PM'
-      | 'VC'
-      | 'WS'
-      | 'SM'
-      | 'ST'
-      | 'SA'
-      | 'SN'
-      | 'RS'
-      | 'SC'
-      | 'SL'
-      | 'SG'
-      | 'SK'
-      | 'SI'
-      | 'SB'
-      | 'SO'
-      | 'ZA'
-      | 'GS'
-      | 'ES'
-      | 'LK'
-      | 'SD'
-      | 'SR'
-      | 'SJ'
-      | 'SZ'
-      | 'SE'
-      | 'CH'
-      | 'SY'
-      | 'TW'
-      | 'TJ'
-      | 'TZ'
-      | 'TH'
-      | 'TL'
-      | 'TG'
-      | 'TK'
-      | 'TO'
-      | 'TT'
-      | 'TN'
-      | 'TR'
-      | 'TM'
-      | 'TC'
-      | 'TV'
-      | 'UG'
-      | 'UA'
-      | 'AE'
-      | 'GB'
-      | 'US'
-      | 'UM'
-      | 'UY'
-      | 'UZ'
-      | 'VU'
-      | 'VE'
-      | 'VN'
-      | 'VG'
-      | 'VI'
-      | 'WF'
-      | 'EH'
-      | 'YE'
-      | 'ZM'
-      | 'ZW';
+    city?: string | null;
+    state?: string | null;
+    postcode?: string | null;
+    countrySelect?: CountrySelect;
     /**
      * Precise geographical coordinates for mapping
      */
@@ -533,9 +368,6 @@ export interface Property {
        */
       longitude?: number | null;
     };
-    /**
-     * Additional location context
-     */
     neighborhood?: {
       /**
        * Neighborhood or district name
@@ -553,133 +385,6 @@ export interface Property {
         | null;
     };
   };
-  /**
-   * Detailed property specifications and measurements
-   */
-  specs: {
-    /**
-     * Size and area measurements
-     */
-    dimensions: {
-      /**
-       * Interior living space in square meters
-       */
-      property_size: number;
-      /**
-       * Total land area in square meters
-       */
-      block_size?: number | null;
-      /**
-       * Property frontage in meters
-       */
-      frontage?: number | null;
-      /**
-       * Property depth in meters
-       */
-      depth?: number | null;
-    };
-    /**
-     * Number of rooms and spaces
-     */
-    rooms: {
-      /**
-       * Number of bedrooms
-       */
-      num_bedrooms: number;
-      /**
-       * Number of bathrooms (0.5 = powder room)
-       */
-      num_bathrooms: number;
-      /**
-       * Number of car parking spaces
-       */
-      num_carspaces?: number | null;
-      /**
-       * Number of floors in the property
-       */
-      num_floors?: number | null;
-    };
-    /**
-     * Building specifications and age
-     */
-    construction?: {
-      /**
-       * Year the property was constructed
-       */
-      year_built?: number | null;
-      /**
-       * Year of last major renovation
-       */
-      last_renovated?: number | null;
-      /**
-       * Primary construction material/method
-       */
-      construction_type?: ('brick' | 'timber' | 'concrete' | 'steel' | 'mixed') | null;
-    };
-    /**
-     * Property systems and ratings
-     */
-    utilities?: {
-      /**
-       * Energy efficiency rating
-       */
-      energy_rating?: ('A' | 'B' | 'C' | 'D' | 'E') | null;
-      heating_type?: ('central' | 'electric' | 'gas' | 'heat-pump' | 'none') | null;
-      cooling_type?: ('central' | 'split' | 'window' | 'none') | null;
-    };
-  };
-  /**
-   * Select all amenities available in this property
-   */
-  amenities?: (number | Amenity)[] | null;
-  /**
-   * Upload and manage property images and virtual tours
-   */
-  gallery: {
-    /**
-     * Upload up to 24 high-quality images (min 1200x800px recommended)
-     */
-    images: (number | Media)[];
-    /**
-     * Configure the primary image display
-     */
-    mainImage?: {
-      /**
-       * Automatically use the first image as the main property image
-       */
-      useFirstImage?: boolean | null;
-      /**
-       * Select which image to use as main (1-24)
-       */
-      mainImageIndex?: number | null;
-    };
-    /**
-     * Add virtual tour content
-     */
-    virtualTour?: {
-      /**
-       * Upload a walkthrough video (MP4 format recommended)
-       */
-      video?: (number | null) | Media;
-      /**
-       * External virtual tour link (e.g., Matterport, etc.)
-       */
-      virtualTourUrl?: string | null;
-    };
-    /**
-     * Upload relevant property documents
-     */
-    documents?: {
-      /**
-       * Upload floor plan documents (PDF format recommended)
-       */
-      floorPlan?: (number | Media)[] | null;
-      /**
-       * Upload additional property documents (brochures, certificates, etc.)
-       */
-      propertyDocs?: (number | Media)[] | null;
-    };
-  };
   categories?:
     | (
         | {
@@ -687,16 +392,16 @@ export interface Property {
             value: number | BlogCategory;
           }
         | {
-            relationTo: 'property-categories';
-            value: number | PropertyCategory;
+            relationTo: 'classifications';
+            value: number | Classification;
           }
         | {
             relationTo: 'amenities';
             value: number | Amenity;
           }
         | {
-            relationTo: 'contract-types';
-            value: number | ContractType;
+            relationTo: 'contracts';
+            value: number | Contract;
           }
         | {
             relationTo: 'availability';
@@ -725,23 +430,20 @@ export interface Property {
   _status?: ('draft' | 'published') | null;
 }
 /**
- * Define different categories of properties (house, apartment, etc.)
+ * Define and manage different states a property listing can have
  *
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "property-categories".
+ * via the `definition` "availability".
  */
-export interface PropertyCategory {
+export interface Availability {
   id: number;
-  /**
-   * Name of the property category
-   */
   title: string;
+  properties?: {
+    docs?: (number | Property)[] | null;
+    hasNextPage?: boolean | null;
+  } | null;
   /**
-   * The primary classification of this property type
-   */
-  category: 'residential' | 'commercial' | 'industrial' | 'land';
-  /**
-   * Describe this type of property
+   * Describe what this availability status means
    */
   description?: {
     root: {
@@ -758,43 +460,28 @@ export interface PropertyCategory {
     };
     [k: string]: unknown;
   } | null;
-  specifications?: {
-    /**
-     * Does this type typically have multiple units? (e.g., apartment buildings)
-     */
-    hasUnits?: boolean | null;
-    /**
-     * Is this a land-only property type?
-     */
-    isLandOnly?: boolean | null;
-    /**
-     * What is the typical size range for this type?
-     */
-    typicalSize?: ('small' | 'medium' | 'large' | 'xlarge') | null;
-    /**
-     * Primary market segment for this type
-     */
-    market?: ('economy' | 'mid-market' | 'luxury' | 'ultra-luxury') | null;
-  };
-  display: {
-    /**
-     * Representative image for this property category
-     */
-    image: number | Media;
-    /**
-     * Order in which this category appears in lists (0 = first)
-     */
-    displayOrder?: number | null;
-  };
   /**
-   * Properties of this category (automatically populated)
+   * Color used to visually identify this status
    */
-  properties?: {
-    docs?: (number | Property)[] | null;
-    hasNextPage?: boolean | null;
-  } | null;
-  tags?: (number | Tag)[] | null;
-  meta?: Meta;
+  color?: ('green' | 'blue' | 'yellow' | 'red' | 'gray') | null;
+  /**
+   * Representative image for this availability status
+   */
+  image?: (number | null) | Media;
+  /**
+   * Icon for this availability status
+   */
+  icon?: (number | null) | Media;
+  extra?: {
+    /**
+     * Can users make inquiries about properties with this status?
+     */
+    allowInquiries?: boolean | null;
+    /**
+     * Should properties with this status appear in search results?
+     */
+    showInSearch?: boolean | null;
+  };
   /**
    * When checked, this page will not appear in search engines like Google. Use this for private pages or temporary content that should not be publicly searchable.
    */
@@ -809,10 +496,10 @@ export interface PropertyCategory {
   publishedAt?: string | null;
   slug?: string | null;
   slugLock?: boolean | null;
-  parent?: (number | null) | PropertyCategory;
+  parent?: (number | null) | Availability;
   breadcrumbs?:
     | {
-        doc?: (number | null) | PropertyCategory;
+        doc?: (number | null) | Availability;
         url?: string | null;
         label?: string | null;
         id?: string | null;
@@ -991,16 +678,16 @@ export interface Page {
             value: number | BlogCategory;
           }
         | {
-            relationTo: 'property-categories';
-            value: number | PropertyCategory;
+            relationTo: 'classifications';
+            value: number | Classification;
           }
         | {
             relationTo: 'amenities';
             value: number | Amenity;
           }
         | {
-            relationTo: 'contract-types';
-            value: number | ContractType;
+            relationTo: 'contracts';
+            value: number | Contract;
           }
         | {
             relationTo: 'availability';
@@ -1024,6 +711,15 @@ export interface Page {
   publishedAt?: string | null;
   slug?: string | null;
   slugLock?: boolean | null;
+  parent?: (number | null) | Page;
+  breadcrumbs?:
+    | {
+        doc?: (number | null) | Page;
+        url?: string | null;
+        label?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -1175,16 +871,16 @@ export interface Blog {
             value: number | BlogCategory;
           }
         | {
-            relationTo: 'property-categories';
-            value: number | PropertyCategory;
+            relationTo: 'classifications';
+            value: number | Classification;
           }
         | {
             relationTo: 'amenities';
             value: number | Amenity;
           }
         | {
-            relationTo: 'contract-types';
-            value: number | ContractType;
+            relationTo: 'contracts';
+            value: number | Contract;
           }
         | {
             relationTo: 'availability';
@@ -1275,23 +971,20 @@ export interface BlogCategory {
   createdAt: string;
 }
 /**
- * Manage property amenities and features that can be assigned to properties
+ * Define different categories of properties (Residential, Commercial, Industrial, Land, etc.)
  *
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "amenities".
+ * via the `definition` "classifications".
  */
-export interface Amenity {
+export interface Classification {
   id: number;
-  /**
-   * Name of the amenity or feature
-   */
   title: string;
+  properties?: {
+    docs?: (number | Property)[] | null;
+    hasNextPage?: boolean | null;
+  } | null;
   /**
-   * Group similar amenities together
-   */
-  category: 'interior' | 'exterior' | 'security' | 'community' | 'utilities' | 'smart-home';
-  /**
-   * Brief description of this amenity and its benefits
+   * Describe what this property category is
    */
   description?: {
     root: {
@@ -1309,42 +1002,13 @@ export interface Amenity {
     [k: string]: unknown;
   } | null;
   /**
-   * Upload an icon or representative image
+   * Representative image for this property category
    */
-  image: number | Media;
+  image?: (number | null) | Media;
   /**
-   * Mark if this is a premium or luxury amenity
+   * Icon for this property category
    */
-  isPremium?: boolean | null;
-  displayOptions?: {
-    /**
-     * Control where this amenity appears in lists
-     */
-    displayPriority?: ('high' | 'normal' | 'low') | null;
-    /**
-     * Allow users to filter properties by this amenity
-     */
-    showInFilters?: boolean | null;
-  };
-  /**
-   * Add any specific details about this amenity
-   */
-  specifications?:
-    | {
-        label: string;
-        value: string;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Properties that have this amenity (automatically populated)
-   */
-  properties?: {
-    docs?: (number | Property)[] | null;
-    hasNextPage?: boolean | null;
-  } | null;
-  tags?: (number | Tag)[] | null;
-  meta?: Meta;
+  icon?: (number | null) | Media;
   /**
    * When checked, this page will not appear in search engines like Google. Use this for private pages or temporary content that should not be publicly searchable.
    */
@@ -1359,10 +1023,10 @@ export interface Amenity {
   publishedAt?: string | null;
   slug?: string | null;
   slugLock?: boolean | null;
-  parent?: (number | null) | Amenity;
+  parent?: (number | null) | Classification;
   breadcrumbs?:
     | {
-        doc?: (number | null) | Amenity;
+        doc?: (number | null) | Classification;
         url?: string | null;
         label?: string | null;
         id?: string | null;
@@ -1371,18 +1035,6 @@ export interface Amenity {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "meta".
- */
-export interface Meta {
-  title?: string | null;
-  /**
-   * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-   */
-  image?: (number | null) | Media;
-  description?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1459,23 +1111,23 @@ export interface UserPhoto {
   };
 }
 /**
- * Define different types of property transactions (sale, rent, lease, etc.)
+ * Manage property amenities and features that can be assigned to properties
  *
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "contract-types".
+ * via the `definition` "amenities".
  */
-export interface ContractType {
+export interface Amenity {
   id: number;
-  /**
-   * Name of the sale type
-   */
   title: string;
   /**
-   * The general category this transaction type belongs to
+   * Properties that have this amenity (automatically populated)
    */
-  transactionCategory: 'sale' | 'rental' | 'lease' | 'investment';
+  properties?: {
+    docs?: (number | Property)[] | null;
+    hasNextPage?: boolean | null;
+  } | null;
   /**
-   * Explain this type of transaction
+   * Brief description of this amenity and its benefits
    */
   description?: {
     root: {
@@ -1492,39 +1144,10 @@ export interface ContractType {
     };
     [k: string]: unknown;
   } | null;
-  requirements?: {
-    /**
-     * Does this transaction type require a deposit?
-     */
-    requiresDeposit?: boolean | null;
-    /**
-     * Does this transaction type require a formal contract?
-     */
-    requiresContract?: boolean | null;
-  };
-  display?: {
-    /**
-     * How should the price be labeled?
-     */
-    priceLabel?: ('price' | 'rent-month' | 'rent-year' | 'starting-from') | null;
-    /**
-     * Order in which this type appears in lists (0 = first)
-     */
-    displayOrder?: number | null;
-  };
   /**
-   * Icon or representative image for this sale type
+   * Upload an image or icon for this amenity
    */
   image?: (number | null) | Media;
-  /**
-   * Properties using this contract type (automatically populated)
-   */
-  properties?: {
-    docs?: (number | Property)[] | null;
-    hasNextPage?: boolean | null;
-  } | null;
-  tags?: (number | Tag)[] | null;
-  meta?: Meta;
   /**
    * When checked, this page will not appear in search engines like Google. Use this for private pages or temporary content that should not be publicly searchable.
    */
@@ -1539,10 +1162,10 @@ export interface ContractType {
   publishedAt?: string | null;
   slug?: string | null;
   slugLock?: boolean | null;
-  parent?: (number | null) | ContractType;
+  parent?: (number | null) | Amenity;
   breadcrumbs?:
     | {
-        doc?: (number | null) | ContractType;
+        doc?: (number | null) | Amenity;
         url?: string | null;
         label?: string | null;
         id?: string | null;
@@ -1553,23 +1176,20 @@ export interface ContractType {
   _status?: ('draft' | 'published') | null;
 }
 /**
- * Define and manage different states a property listing can have
+ * Define different types of property transactions (sale, rent, lease, etc.)
  *
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "availability".
+ * via the `definition` "contracts".
  */
-export interface Availability {
+export interface Contract {
   id: number;
-  /**
-   * Name of the listing status
-   */
   title: string;
+  properties?: {
+    docs?: (number | Property)[] | null;
+    hasNextPage?: boolean | null;
+  } | null;
   /**
-   * The general category this status belongs to
-   */
-  statusType: 'active' | 'pending' | 'closed' | 'off-market';
-  /**
-   * Explain when this status should be used
+   * Describe this type of contract/transaction
    */
   description?: {
     root: {
@@ -1586,35 +1206,10 @@ export interface Availability {
     };
     [k: string]: unknown;
   } | null;
-  display: {
-    /**
-     * Color used to visually identify this status
-     */
-    color: 'green' | 'blue' | 'yellow' | 'red' | 'gray';
-    /**
-     * Order in which this status appears in lists (0 = first)
-     */
-    displayOrder?: number | null;
-  };
-  behavior?: {
-    /**
-     * Can users make inquiries about properties with this status?
-     */
-    allowInquiries?: boolean | null;
-    /**
-     * Should properties with this status appear in search results?
-     */
-    showInSearch?: boolean | null;
-  };
   /**
-   * Properties currently in this status (automatically populated)
+   * Icon or representative image for this sale type
    */
-  properties?: {
-    docs?: (number | Property)[] | null;
-    hasNextPage?: boolean | null;
-  } | null;
-  tags?: (number | Tag)[] | null;
-  meta?: Meta;
+  image?: (number | null) | Media;
   /**
    * When checked, this page will not appear in search engines like Google. Use this for private pages or temporary content that should not be publicly searchable.
    */
@@ -1629,10 +1224,10 @@ export interface Availability {
   publishedAt?: string | null;
   slug?: string | null;
   slugLock?: boolean | null;
-  parent?: (number | null) | Availability;
+  parent?: (number | null) | Contract;
   breadcrumbs?:
     | {
-        doc?: (number | null) | Availability;
+        doc?: (number | null) | Contract;
         url?: string | null;
         label?: string | null;
         id?: string | null;
@@ -1641,6 +1236,18 @@ export interface Availability {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "meta".
+ */
+export interface Meta {
+  title?: string | null;
+  /**
+   * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+   */
+  image?: (number | null) | Media;
+  description?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2116,9 +1723,6 @@ export interface ListingArchiveBlock {
      * Select the listings to display
      */
     selection?: (number | Property)[] | null;
-    /**
-     * Select the categories to display
-     */
     categories?:
       | (
           | {
@@ -2126,16 +1730,16 @@ export interface ListingArchiveBlock {
               value: number | BlogCategory;
             }
           | {
-              relationTo: 'property-categories';
-              value: number | PropertyCategory;
+              relationTo: 'classifications';
+              value: number | Classification;
             }
           | {
               relationTo: 'amenities';
               value: number | Amenity;
             }
           | {
-              relationTo: 'contract-types';
-              value: number | ContractType;
+              relationTo: 'contracts';
+              value: number | Contract;
             }
           | {
               relationTo: 'availability';
@@ -2208,6 +1812,261 @@ export interface ListingCardOptions {
         | 'US$'
         | '₫'
         | 'R'
+      )
+    | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CountrySelect".
+ */
+export interface CountrySelect {
+  country?:
+    | (
+        | 'AF'
+        | 'AX'
+        | 'AL'
+        | 'DZ'
+        | 'AS'
+        | 'AD'
+        | 'AO'
+        | 'AI'
+        | 'AQ'
+        | 'AG'
+        | 'AR'
+        | 'AM'
+        | 'AW'
+        | 'AU'
+        | 'AT'
+        | 'AZ'
+        | 'BS'
+        | 'BH'
+        | 'BD'
+        | 'BB'
+        | 'BY'
+        | 'BE'
+        | 'BZ'
+        | 'BJ'
+        | 'BM'
+        | 'BT'
+        | 'BO'
+        | 'BA'
+        | 'BW'
+        | 'BV'
+        | 'BR'
+        | 'IO'
+        | 'BN'
+        | 'BG'
+        | 'BF'
+        | 'BI'
+        | 'KH'
+        | 'CM'
+        | 'CA'
+        | 'CV'
+        | 'KY'
+        | 'CF'
+        | 'TD'
+        | 'CL'
+        | 'CN'
+        | 'CX'
+        | 'CC'
+        | 'CO'
+        | 'KM'
+        | 'CG'
+        | 'CD'
+        | 'CK'
+        | 'CR'
+        | 'CI'
+        | 'HR'
+        | 'CU'
+        | 'CY'
+        | 'CZ'
+        | 'DK'
+        | 'DJ'
+        | 'DM'
+        | 'DO'
+        | 'EC'
+        | 'EG'
+        | 'SV'
+        | 'GQ'
+        | 'ER'
+        | 'EE'
+        | 'ET'
+        | 'FK'
+        | 'FO'
+        | 'FJ'
+        | 'FI'
+        | 'FR'
+        | 'GF'
+        | 'PF'
+        | 'TF'
+        | 'GA'
+        | 'GM'
+        | 'GE'
+        | 'DE'
+        | 'GH'
+        | 'GI'
+        | 'GR'
+        | 'GL'
+        | 'GD'
+        | 'GP'
+        | 'GU'
+        | 'GT'
+        | 'GG'
+        | 'GN'
+        | 'GW'
+        | 'GY'
+        | 'HT'
+        | 'HM'
+        | 'VA'
+        | 'HN'
+        | 'HK'
+        | 'HU'
+        | 'IS'
+        | 'IN'
+        | 'ID'
+        | 'IR'
+        | 'IQ'
+        | 'IE'
+        | 'IM'
+        | 'IL'
+        | 'IT'
+        | 'JM'
+        | 'JP'
+        | 'JE'
+        | 'JO'
+        | 'KZ'
+        | 'KE'
+        | 'KI'
+        | 'KP'
+        | 'KR'
+        | 'XK'
+        | 'KW'
+        | 'KG'
+        | 'LA'
+        | 'LV'
+        | 'LB'
+        | 'LS'
+        | 'LR'
+        | 'LY'
+        | 'LI'
+        | 'LT'
+        | 'LU'
+        | 'MO'
+        | 'MK'
+        | 'MG'
+        | 'MW'
+        | 'MY'
+        | 'MV'
+        | 'ML'
+        | 'MT'
+        | 'MH'
+        | 'MQ'
+        | 'MR'
+        | 'MU'
+        | 'YT'
+        | 'MX'
+        | 'FM'
+        | 'MD'
+        | 'MC'
+        | 'MN'
+        | 'ME'
+        | 'MS'
+        | 'MA'
+        | 'MZ'
+        | 'MM'
+        | 'NA'
+        | 'NR'
+        | 'NP'
+        | 'NL'
+        | 'AN'
+        | 'NC'
+        | 'NZ'
+        | 'NI'
+        | 'NE'
+        | 'NG'
+        | 'NU'
+        | 'NF'
+        | 'MP'
+        | 'NO'
+        | 'OM'
+        | 'PK'
+        | 'PW'
+        | 'PS'
+        | 'PA'
+        | 'PG'
+        | 'PY'
+        | 'PE'
+        | 'PH'
+        | 'PN'
+        | 'PL'
+        | 'PT'
+        | 'PR'
+        | 'QA'
+        | 'RE'
+        | 'RO'
+        | 'RU'
+        | 'RW'
+        | 'SH'
+        | 'KN'
+        | 'LC'
+        | 'PM'
+        | 'VC'
+        | 'WS'
+        | 'SM'
+        | 'ST'
+        | 'SA'
+        | 'SN'
+        | 'RS'
+        | 'SC'
+        | 'SL'
+        | 'SG'
+        | 'SK'
+        | 'SI'
+        | 'SB'
+        | 'SO'
+        | 'ZA'
+        | 'GS'
+        | 'ES'
+        | 'LK'
+        | 'SD'
+        | 'SR'
+        | 'SJ'
+        | 'SZ'
+        | 'SE'
+        | 'CH'
+        | 'SY'
+        | 'TW'
+        | 'TJ'
+        | 'TZ'
+        | 'TH'
+        | 'TL'
+        | 'TG'
+        | 'TK'
+        | 'TO'
+        | 'TT'
+        | 'TN'
+        | 'TR'
+        | 'TM'
+        | 'TC'
+        | 'TV'
+        | 'UG'
+        | 'UA'
+        | 'AE'
+        | 'GB'
+        | 'US'
+        | 'UM'
+        | 'UY'
+        | 'UZ'
+        | 'VU'
+        | 'VE'
+        | 'VN'
+        | 'VG'
+        | 'VI'
+        | 'WF'
+        | 'EH'
+        | 'YE'
+        | 'ZM'
+        | 'ZW'
       )
     | null;
 }
@@ -2419,8 +2278,8 @@ export interface PayloadLockedDocument {
         value: number | Property;
       } | null)
     | ({
-        relationTo: 'property-categories';
-        value: number | PropertyCategory;
+        relationTo: 'classifications';
+        value: number | Classification;
       } | null)
     | ({
         relationTo: 'amenities';
@@ -2431,8 +2290,8 @@ export interface PayloadLockedDocument {
         value: number | Availability;
       } | null)
     | ({
-        relationTo: 'contract-types';
-        value: number | ContractType;
+        relationTo: 'contracts';
+        value: number | Contract;
       } | null)
     | ({
         relationTo: 'pages';
@@ -2537,44 +2396,33 @@ export interface PropertiesSelect<T extends boolean = true> {
   price?: T;
   isFeatured?: T;
   description?: T;
-  propertyCategory?: T;
-  contractType?: T;
   availability?: T;
-  location?:
+  gallery?:
     | T
     | {
-        address_line1?: T;
-        unit?: T;
-        address_line2?: T;
-        city?: T;
-        state?: T;
-        postcode?: T;
-        country?: T;
-        coordinates?:
-          | T
-          | {
-              latitude?: T;
-              longitude?: T;
-            };
-        neighborhood?:
-          | T
-          | {
-              area?: T;
-              landmarks?:
-                | T
-                | {
-                    name?: T;
-                    distance?: T;
-                    id?: T;
-                  };
-            };
+        images?: T;
+        video?: T;
+        virtualTourUrl?: T;
+        floorPlan?: T;
+        propertyDocs?: T;
       };
+  market?: T;
+  classification?: T;
+  hasUnits?: T;
+  isLandOnly?: T;
+  facilityType?: T;
+  isPremium?: T;
+  amenities?: T;
+  contract?: T;
+  requiresContract?: T;
+  requiresDeposit?: T;
   specs?:
     | T
     | {
         dimensions?:
           | T
           | {
+              sizeRange?: T;
               property_size?: T;
               block_size?: T;
               frontage?: T;
@@ -2603,28 +2451,33 @@ export interface PropertiesSelect<T extends boolean = true> {
               cooling_type?: T;
             };
       };
-  amenities?: T;
-  gallery?:
+  location?:
     | T
     | {
-        images?: T;
-        mainImage?:
+        address_line1?: T;
+        unit?: T;
+        address_line2?: T;
+        city?: T;
+        state?: T;
+        postcode?: T;
+        countrySelect?: T | CountrySelectSelect<T>;
+        coordinates?:
           | T
           | {
-              useFirstImage?: T;
-              mainImageIndex?: T;
+              latitude?: T;
+              longitude?: T;
             };
-        virtualTour?:
+        neighborhood?:
           | T
           | {
-              video?: T;
-              virtualTourUrl?: T;
-            };
-        documents?:
-          | T
-          | {
-              floorPlan?: T;
-              propertyDocs?: T;
+              area?: T;
+              landmarks?:
+                | T
+                | {
+                    name?: T;
+                    distance?: T;
+                    id?: T;
+                  };
             };
       };
   categories?: T;
@@ -2647,6 +2500,13 @@ export interface PropertiesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CountrySelect_select".
+ */
+export interface CountrySelectSelect<T extends boolean = true> {
+  country?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "meta_select".
  */
 export interface MetaSelect<T extends boolean = true> {
@@ -2656,29 +2516,14 @@ export interface MetaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "property-categories_select".
+ * via the `definition` "classifications_select".
  */
-export interface PropertyCategoriesSelect<T extends boolean = true> {
+export interface ClassificationsSelect<T extends boolean = true> {
   title?: T;
-  category?: T;
-  description?: T;
-  specifications?:
-    | T
-    | {
-        hasUnits?: T;
-        isLandOnly?: T;
-        typicalSize?: T;
-        market?: T;
-      };
-  display?:
-    | T
-    | {
-        image?: T;
-        displayOrder?: T;
-      };
   properties?: T;
-  tags?: T;
-  meta?: T | MetaSelect<T>;
+  description?: T;
+  image?: T;
+  icon?: T;
   noindex?: T;
   authors?: T;
   populatedAuthors?:
@@ -2709,26 +2554,9 @@ export interface PropertyCategoriesSelect<T extends boolean = true> {
  */
 export interface AmenitiesSelect<T extends boolean = true> {
   title?: T;
-  category?: T;
+  properties?: T;
   description?: T;
   image?: T;
-  isPremium?: T;
-  displayOptions?:
-    | T
-    | {
-        displayPriority?: T;
-        showInFilters?: T;
-      };
-  specifications?:
-    | T
-    | {
-        label?: T;
-        value?: T;
-        id?: T;
-      };
-  properties?: T;
-  tags?: T;
-  meta?: T | MetaSelect<T>;
   noindex?: T;
   authors?: T;
   populatedAuthors?:
@@ -2759,23 +2587,17 @@ export interface AmenitiesSelect<T extends boolean = true> {
  */
 export interface AvailabilitySelect<T extends boolean = true> {
   title?: T;
-  statusType?: T;
+  properties?: T;
   description?: T;
-  display?:
-    | T
-    | {
-        color?: T;
-        displayOrder?: T;
-      };
-  behavior?:
+  color?: T;
+  image?: T;
+  icon?: T;
+  extra?:
     | T
     | {
         allowInquiries?: T;
         showInSearch?: T;
       };
-  properties?: T;
-  tags?: T;
-  meta?: T | MetaSelect<T>;
   noindex?: T;
   authors?: T;
   populatedAuthors?:
@@ -2802,28 +2624,13 @@ export interface AvailabilitySelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "contract-types_select".
+ * via the `definition` "contracts_select".
  */
-export interface ContractTypesSelect<T extends boolean = true> {
+export interface ContractsSelect<T extends boolean = true> {
   title?: T;
-  transactionCategory?: T;
-  description?: T;
-  requirements?:
-    | T
-    | {
-        requiresDeposit?: T;
-        requiresContract?: T;
-      };
-  display?:
-    | T
-    | {
-        priceLabel?: T;
-        displayOrder?: T;
-      };
-  image?: T;
   properties?: T;
-  tags?: T;
-  meta?: T | MetaSelect<T>;
+  description?: T;
+  image?: T;
   noindex?: T;
   authors?: T;
   populatedAuthors?:
@@ -2880,6 +2687,15 @@ export interface PagesSelect<T extends boolean = true> {
   publishedAt?: T;
   slug?: T;
   slugLock?: T;
+  parent?: T;
+  breadcrumbs?:
+    | T
+    | {
+        doc?: T;
+        url?: T;
+        label?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   _status?: T;

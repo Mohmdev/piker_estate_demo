@@ -1,3 +1,4 @@
+import { categoriesField } from '@CMS/fields/shared/categoriesField'
 import { extendedLexical } from '@services/editor/extendedLexical'
 import { isIncludedInSibling } from '@utils/siblingFieldCondition'
 import { Block } from 'payload'
@@ -80,21 +81,7 @@ export const ListingArchiveBlock: Block = {
                 },
               ],
             },
-            {
-              name: 'categories',
-              type: 'relationship',
-              relationTo: [
-                'blog-categories',
-                'property-categories',
-                'amenities',
-                'contract-types',
-                'availability',
-              ],
-              hasMany: true,
-              admin: {
-                description: 'Select the categories to display',
-              },
-            },
+            categoriesField,
             {
               name: 'limit',
               type: 'number',

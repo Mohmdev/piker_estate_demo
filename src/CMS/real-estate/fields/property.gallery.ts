@@ -3,7 +3,7 @@ import type { GroupField } from 'payload'
 export const propertyGallery: GroupField = {
   type: 'group',
   name: 'gallery',
-  label: 'Media Gallery',
+  label: 'Gallery',
   admin: {
     description: 'Upload and manage property images and virtual tours',
   },
@@ -18,46 +18,14 @@ export const propertyGallery: GroupField = {
       required: true,
       admin: {
         description:
-          'Upload up to 24 high-quality images (min 1200x800px recommended)',
+          'Upload up to 24 high-quality images. The first image will be used as the main image.',
       },
     },
     {
-      type: 'group',
-      name: 'mainImage',
-      label: 'Main Image Settings',
+      type: 'collapsible',
+      label: 'Video / 360° Tour',
       admin: {
-        description: 'Configure the primary image display',
-      },
-      fields: [
-        {
-          name: 'useFirstImage',
-          type: 'checkbox',
-          label: 'Use First Image as Main',
-          defaultValue: true,
-          admin: {
-            description:
-              'Automatically use the first image as the main property image',
-          },
-        },
-        {
-          name: 'mainImageIndex',
-          type: 'number',
-          label: 'Custom Main Image',
-          admin: {
-            description: 'Select which image to use as main (1-24)',
-            condition: (_data, siblingData) => !siblingData?.useFirstImage,
-          },
-          min: 1,
-          max: 24,
-        },
-      ],
-    },
-    {
-      type: 'group',
-      name: 'virtualTour',
-      label: 'Virtual Tour',
-      admin: {
-        description: 'Add virtual tour content',
+        initCollapsed: true,
       },
       fields: [
         {
@@ -81,11 +49,10 @@ export const propertyGallery: GroupField = {
       ],
     },
     {
-      type: 'group',
-      name: 'documents',
-      label: 'Property Documents',
+      type: 'collapsible',
+      label: 'Documents & Floor Plans',
       admin: {
-        description: 'Upload relevant property documents',
+        initCollapsed: true,
       },
       fields: [
         {

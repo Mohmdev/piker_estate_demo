@@ -2,24 +2,26 @@ import { populateAuthors } from '@CMS/_hooks/populateAuthors'
 import { populatePublishedAt } from '@CMS/_hooks/populatePublishedAt'
 import {
   revalidateDelete,
-  revalidateFeature,
-} from '@CMS/_hooks/revalidateFeature'
+  revalidateListingType,
+} from '@CMS/_hooks/revalidateListingType'
 import { authorsField } from '@CMS/fields/shared/authorsField'
 import { noindexField } from '@CMS/fields/shared/noindexField'
 import { populateAuthorsField } from '@CMS/fields/shared/populatedAuthorsField'
 import { publishedAtField } from '@CMS/fields/shared/publishedAtField'
+import { seoTab } from '@CMS/fields/shared/seoTab'
 import { slugField } from '@CMS/fields/shared/slug/config'
+import { tagsField } from '@CMS/fields/shared/tagsField'
 import { isAdminOrEditor } from '@auth/access/isAdminOrEditor'
 import { isAdminOrSelf } from '@auth/access/isAdminOrSelf'
 import { publishedOnly } from '@auth/access/publishedOnly'
-import { minimalLexical } from '@services/editor/minimalLexical'
+import { extendedLexical } from '@services/editor/extendedLexical'
 import type { CollectionConfig } from 'payload'
 
-export const Amenities: CollectionConfig<'amenities'> = {
-  slug: 'amenities',
+export const Contracts: CollectionConfig<'contracts'> = {
+  slug: 'contracts',
   labels: {
-    singular: 'Amenity',
-    plural: 'Amenities',
+    singular: 'Contract',
+    plural: 'Contracts',
   },
   access: {
     read: publishedOnly,
@@ -29,10 +31,10 @@ export const Amenities: CollectionConfig<'amenities'> = {
   },
   admin: {
     group: 'Real Estate',
-    description:
-      'Manage property amenities and features that can be assigned to properties',
     useAsTitle: 'title',
     defaultColumns: ['image', 'title', '_status', 'updatedAt'],
+    description:
+      'Define different types of property transactions (sale, rent, lease, etc.)',
   },
   defaultPopulate: {
     title: true,
@@ -42,12 +44,12 @@ export const Amenities: CollectionConfig<'amenities'> = {
     {
       name: 'title',
       type: 'text',
+      label: 'Contract Title',
       required: true,
-      label: 'Amenity Title',
       index: true,
       unique: true,
       admin: {
-        placeholder: 'e.g. Swimming Pool, Gym, Parking',
+        placeholder: 'e.g. Sale, Investment, Rent, Lease',
       },
     },
     {
@@ -59,13 +61,10 @@ export const Amenities: CollectionConfig<'amenities'> = {
             {
               type: 'join',
               name: 'properties',
-              label: false,
+              label: 'Properties listed with this contract',
               collection: 'properties',
-              on: 'amenities',
-              admin: {
-                description:
-                  'Properties that have this amenity (automatically populated)',
-              },
+              on: 'contract',
+              hasMany: true,
             },
           ],
         },
@@ -75,25 +74,19 @@ export const Amenities: CollectionConfig<'amenities'> = {
             {
               type: 'richText',
               name: 'description',
-              editor: minimalLexical,
+              editor: extendedLexical,
               admin: {
-                description:
-                  'Brief description of this amenity and its benefits',
+                description: 'Describe this type of contract/transaction',
               },
             },
             {
-              type: 'row',
-              fields: [
-                {
-                  type: 'upload',
-                  name: 'image',
-                  label: 'Amenity Icon',
-                  relationTo: 'media',
-                  admin: {
-                    description: 'Upload an image or icon for this amenity',
-                  },
-                },
-              ],
+              type: 'upload',
+              name: 'image',
+              label: 'Icon',
+              relationTo: 'media',
+              admin: {
+                description: 'Icon or representative image for this sale type',
+              },
             },
           ],
         },
@@ -106,7 +99,7 @@ export const Amenities: CollectionConfig<'amenities'> = {
     ...slugField(),
   ],
   hooks: {
-    // afterChange: [revalidateFeature],
+    // afterChange: [revalidateListingType],
     // afterDelete: [revalidateDelete],
     afterRead: [populateAuthors],
     beforeChange: [populatePublishedAt],
