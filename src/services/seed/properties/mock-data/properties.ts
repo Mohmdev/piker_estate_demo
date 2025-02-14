@@ -3,6 +3,8 @@ import type { Media, Property } from '@payload-types'
 export const mockProperties: Partial<Property>[] = [
   {
     title: 'Modern Waterfront Apartment',
+    market: 'luxury',
+    price: 1250000,
     description: {
       root: {
         type: 'root',
@@ -32,31 +34,65 @@ export const mockProperties: Partial<Property>[] = [
       postcode: '2000',
       city: 'Sydney',
       state: 'NSW',
-      country: 'AU',
+      countrySelect: {
+        country: 'AU',
+      },
       coordinates: {
         latitude: -33.8688,
         longitude: 151.2093,
       },
+      neighborhood: {
+        area: 'Sydney Harbor',
+        landmarks: [
+          {
+            name: 'Opera House',
+            distance: 1.2,
+          },
+        ],
+      },
     },
     specs: {
-      property_size: 120,
-      block_size: 120,
-      num_bedrooms: 3,
-      num_bathrooms: 2,
-      num_carspaces: 2,
+      measurements: {
+        property_size: 120,
+        block_size: 120,
+      },
+      rooms: {
+        num_bedrooms: 3,
+        num_bathrooms: 2,
+        num_carspaces: 2,
+        num_floors: 1,
+      },
+      facility: {
+        facilityType: 'security',
+        hasUnits: true,
+        isLandOnly: false,
+      },
+      construction: {
+        year_built: 2020,
+        construction_type: 'concrete',
+      },
+      utilities: {
+        energy_rating: 'A',
+        heating_type: 'central',
+        cooling_type: 'central',
+      },
     },
-    features: [],
+    amenities: [],
     isFeatured: true,
-    listingStatus: 1,
-    listingType: 1,
-    propertyType: 1,
+    classification: [1],
+    contract: 1,
+    availability: 1,
+    contractDetails: {
+      requiresContract: true,
+      requiresDeposit: true,
+    },
     categories: [
       {
-        relationTo: 'property-types',
+        relationTo: 'classifications',
         value: 1,
       },
       {
-        relationTo: 'listing-types',
+        relationTo: 'contracts',
         value: 1,
       },
     ],
@@ -67,6 +103,9 @@ export const mockProperties: Partial<Property>[] = [
         '{{IMAGE_2}}' as unknown as Media,
       ],
       video: null,
+      virtualTourUrl: 'https://tour.example.com/waterfront-apt',
+      floorPlan: null,
+      propertyDocs: null,
     },
     meta: {
       title: 'Modern Waterfront Apartment | Nexweb Real Estate',
@@ -83,6 +122,8 @@ export const mockProperties: Partial<Property>[] = [
   },
   {
     title: 'Family Home with Garden',
+    market: 'mid-market',
+    price: 850000,
     description: {
       root: {
         type: 'root',
@@ -110,31 +151,65 @@ export const mockProperties: Partial<Property>[] = [
       postcode: '2220',
       city: 'Hurstville',
       state: 'NSW',
-      country: 'AU',
+      countrySelect: {
+        country: 'AU',
+      },
       coordinates: {
         latitude: -33.9672,
         longitude: 151.1022,
       },
+      neighborhood: {
+        area: 'Hurstville',
+        landmarks: [
+          {
+            name: 'Hurstville Central',
+            distance: 0.8,
+          },
+        ],
+      },
     },
     specs: {
-      property_size: 185,
-      block_size: 450,
-      num_bedrooms: 4,
-      num_bathrooms: 2,
-      num_carspaces: 2,
+      measurements: {
+        property_size: 185,
+        block_size: 450,
+      },
+      rooms: {
+        num_bedrooms: 4,
+        num_bathrooms: 2,
+        num_carspaces: 2,
+        num_floors: 2,
+      },
+      facility: {
+        facilityType: 'smart-home',
+        hasUnits: false,
+        isLandOnly: false,
+      },
+      construction: {
+        year_built: 2015,
+        construction_type: 'brick',
+      },
+      utilities: {
+        energy_rating: 'B',
+        heating_type: 'heat-pump',
+        cooling_type: 'split',
+      },
     },
-    features: [],
+    amenities: [],
     isFeatured: false,
-    listingStatus: 1,
-    listingType: 2,
-    propertyType: 2,
+    classification: [2],
+    contract: 2,
+    availability: 1,
+    contractDetails: {
+      requiresContract: true,
+      requiresDeposit: true,
+    },
     categories: [
       {
-        relationTo: 'property-types',
+        relationTo: 'classifications',
         value: 2,
       },
       {
-        relationTo: 'listing-types',
+        relationTo: 'contracts',
         value: 2,
       },
     ],
@@ -145,6 +220,9 @@ export const mockProperties: Partial<Property>[] = [
         '{{IMAGE_3}}' as unknown as Media,
       ],
       video: null,
+      virtualTourUrl: 'https://tour.example.com/family-home',
+      floorPlan: null,
+      propertyDocs: null,
     },
     meta: {
       title: 'Family Home with Garden | Nexweb Real Estate',

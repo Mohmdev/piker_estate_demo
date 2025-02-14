@@ -1,13 +1,13 @@
-import type { ListingStatus } from '@payload-types'
+import type { Amenity } from '@payload-types'
 
-type CreateListingStatus = Omit<
-  ListingStatus,
-  'id' | 'createdAt' | 'updatedAt' | 'sizes'
+type CreateAmenity = Omit<
+  Amenity,
+  'id' | 'createdAt' | 'updatedAt' | 'properties'
 >
 
-export const mockListingStatus: CreateListingStatus[] = [
+export const mockAmenities: CreateAmenity[] = [
   {
-    title: 'Available',
+    title: 'Air Conditioning',
     description: {
       root: {
         type: 'root',
@@ -18,7 +18,7 @@ export const mockListingStatus: CreateListingStatus[] = [
             children: [
               {
                 type: 'text',
-                text: 'Property is currently available for sale or rent.',
+                text: 'Climate control system for cooling.',
                 version: 1,
               },
             ],
@@ -30,11 +30,19 @@ export const mockListingStatus: CreateListingStatus[] = [
         version: 1,
       },
     },
+    isPremium: false,
     _status: 'published',
-    slug: 'available',
+    slug: 'air-conditioning',
+    noindex: false,
+    authors: [],
+    populatedAuthors: [],
+    publishedAt: '2024-03-19T00:00:00.000Z',
+    slugLock: true,
+    parent: null,
+    breadcrumbs: [],
   },
   {
-    title: 'Under Contract',
+    title: 'Swimming Pool',
     description: {
       root: {
         type: 'root',
@@ -45,7 +53,7 @@ export const mockListingStatus: CreateListingStatus[] = [
             children: [
               {
                 type: 'text',
-                text: 'Property is under contract but not yet finalized.',
+                text: 'Private swimming pool within the property.',
                 version: 1,
               },
             ],
@@ -57,11 +65,19 @@ export const mockListingStatus: CreateListingStatus[] = [
         version: 1,
       },
     },
+    isPremium: true,
     _status: 'published',
-    slug: 'under-contract',
+    slug: 'swimming-pool',
+    noindex: false,
+    authors: [],
+    populatedAuthors: [],
+    publishedAt: '2024-03-19T00:00:00.000Z',
+    slugLock: true,
+    parent: null,
+    breadcrumbs: [],
   },
   {
-    title: 'Sold',
+    title: 'Security System',
     description: {
       root: {
         type: 'root',
@@ -72,7 +88,7 @@ export const mockListingStatus: CreateListingStatus[] = [
             children: [
               {
                 type: 'text',
-                text: 'Property has been sold.',
+                text: 'Modern security system with alarms and monitoring.',
                 version: 1,
               },
             ],
@@ -84,34 +100,15 @@ export const mockListingStatus: CreateListingStatus[] = [
         version: 1,
       },
     },
+    isPremium: true,
     _status: 'published',
-    slug: 'sold',
-  },
-  {
-    title: 'Leased',
-    description: {
-      root: {
-        type: 'root',
-        children: [
-          {
-            type: 'paragraph',
-            version: 1,
-            children: [
-              {
-                type: 'text',
-                text: 'Property has been leased.',
-                version: 1,
-              },
-            ],
-          },
-        ],
-        direction: 'ltr',
-        format: 'left',
-        indent: 0,
-        version: 1,
-      },
-    },
-    _status: 'published',
-    slug: 'leased',
+    slug: 'security-system',
+    noindex: false,
+    authors: [],
+    populatedAuthors: [],
+    publishedAt: '2024-03-19T00:00:00.000Z',
+    slugLock: true,
+    parent: null,
+    breadcrumbs: [],
   },
 ]

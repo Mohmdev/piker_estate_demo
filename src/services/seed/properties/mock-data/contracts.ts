@@ -1,11 +1,11 @@
-import type { ListingType } from '@payload-types'
+import type { Contract } from '@payload-types'
 
-type CreateListingType = Omit<
-  ListingType,
-  'id' | 'createdAt' | 'updatedAt' | 'sizes'
+type CreateContract = Omit<
+  Contract,
+  'id' | 'createdAt' | 'updatedAt' | 'properties'
 >
 
-export const mockListingTypes: CreateListingType[] = [
+export const mockContracts: CreateContract[] = [
   {
     title: 'For Sale',
     description: {
@@ -32,6 +32,13 @@ export const mockListingTypes: CreateListingType[] = [
     },
     _status: 'published',
     slug: 'for-sale',
+    noindex: false,
+    authors: [],
+    populatedAuthors: [],
+    publishedAt: '2024-03-19T00:00:00.000Z',
+    slugLock: true,
+    parent: null,
+    breadcrumbs: [],
   },
   {
     title: 'For Rent',
@@ -59,5 +66,12 @@ export const mockListingTypes: CreateListingType[] = [
     },
     _status: 'published',
     slug: 'for-rent',
+    noindex: false,
+    authors: [],
+    populatedAuthors: [],
+    publishedAt: '2024-03-19T00:00:00.000Z',
+    slugLock: true,
+    parent: null,
+    breadcrumbs: [],
   },
 ]

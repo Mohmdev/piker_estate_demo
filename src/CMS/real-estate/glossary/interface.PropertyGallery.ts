@@ -7,9 +7,14 @@ export const propertyGallery: GroupField = {
   fields: [
     {
       name: 'images',
-      type: 'upload',
-      relationTo: 'media',
-      hasMany: true,
+      type: 'array',
+      fields: [
+        {
+          name: 'image',
+          type: 'upload',
+          relationTo: 'media',
+        },
+      ],
       minRows: 1,
       maxRows: 24,
       required: true,

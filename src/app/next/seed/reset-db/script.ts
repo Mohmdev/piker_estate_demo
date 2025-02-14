@@ -18,10 +18,10 @@ const collections: CollectionSlug[] = [
   'blog',
   'forms',
   'form-submissions',
-  'property-types',
-  'listing-types',
-  'listing-status',
-  'features',
+  'classifications',
+  'contracts',
+  'availability',
+  'amenities',
   'properties',
 ]
 

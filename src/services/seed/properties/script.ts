@@ -1,9 +1,9 @@
 import type { File, Payload, PayloadRequest } from 'payload'
-import { mockFeatures } from './mock-data/features'
-import { mockListingStatus } from './mock-data/listing-status'
-import { mockListingTypes } from './mock-data/listing-types'
+import { mockAmenities } from './mock-data/amenities'
+import { mockAvailability } from './mock-data/availability'
+import { mockClassifications } from './mock-data/classifications'
+import { mockContracts } from './mock-data/contracts'
 import { mockProperties } from './mock-data/properties'
-import { mockPropertyTypes } from './mock-data/property-types'
 
 export const seedProperties = async ({
   payload,
@@ -24,22 +24,22 @@ export const seedProperties = async ({
       where: {},
     }),
     payload.db.deleteMany({
-      collection: 'property-types',
+      collection: 'classifications',
       req,
       where: {},
     }),
     payload.db.deleteMany({
-      collection: 'listing-types',
+      collection: 'contracts',
       req,
       where: {},
     }),
     payload.db.deleteMany({
-      collection: 'listing-status',
+      collection: 'availability',
       req,
       where: {},
     }),
     payload.db.deleteMany({
-      collection: 'features',
+      collection: 'amenities',
       req,
       where: {},
     }),
@@ -52,22 +52,22 @@ export const seedProperties = async ({
       where: {},
     }),
     payload.db.deleteVersions({
-      collection: 'property-types',
+      collection: 'classifications',
       req,
       where: {},
     }),
     payload.db.deleteVersions({
-      collection: 'listing-types',
+      collection: 'contracts',
       req,
       where: {},
     }),
     payload.db.deleteVersions({
-      collection: 'listing-status',
+      collection: 'availability',
       req,
       where: {},
     }),
     payload.db.deleteVersions({
-      collection: 'features',
+      collection: 'amenities',
       req,
       where: {},
     }),
@@ -123,40 +123,40 @@ export const seedProperties = async ({
   }
 
   payload.logger.info(`— Seeding property types...`)
-  const propertyTypes = await Promise.all(
-    mockPropertyTypes.map((type) =>
+  const classifications = await Promise.all(
+    mockClassifications.map((type) =>
       payload.create({
-        collection: 'property-types',
+        collection: 'classifications',
         data: type,
       }),
     ),
   )
 
   payload.logger.info(`— Seeding listing types...`)
-  const listingTypes = await Promise.all(
-    mockListingTypes.map((type) =>
+  const contracts = await Promise.all(
+    mockContracts.map((type) =>
       payload.create({
-        collection: 'listing-types',
+        collection: 'contracts',
         data: type,
       }),
     ),
   )
 
   payload.logger.info(`— Seeding listing status...`)
-  const listingStatus = await Promise.all(
-    mockListingStatus.map((status) =>
+  const availability = await Promise.all(
+    mockAvailability.map((status) =>
       payload.create({
-        collection: 'listing-status',
+        collection: 'availability',
         data: status,
       }),
     ),
   )
 
   payload.logger.info(`— Seeding features...`)
-  const features = await Promise.all(
-    mockFeatures.map((feature) =>
+  const amenities = await Promise.all(
+    mockAmenities.map((feature) =>
       payload.create({
-        collection: 'features',
+        collection: 'amenities',
         data: feature,
       }),
     ),
@@ -166,11 +166,11 @@ export const seedProperties = async ({
 
   // Ensure we have all required related records
   if (
-    !propertyTypes[0] ||
-    !listingTypes[0] ||
-    !listingStatus[0] ||
-    !features[0] ||
-    !features[1]
+    !classifications[0] ||
+    !contracts[0] ||
+    !availability[0] ||
+    !amenities[0] ||
+    !amenities[1]
   ) {
     throw new Error('Failed to create required related records')
   }
@@ -187,20 +187,20 @@ export const seedProperties = async ({
           // Replace the placeholder IDs with actual IDs
           .replace(
             '"propertyType": 1',
-            `"propertyType": ${propertyTypes[0].id}`,
+            `"propertyType": ${classifications[0].id}`,
           )
-          .replace('"listingType": 1', `"listingType": ${listingTypes[0].id}`)
+          .replace('"listingType": 1', `"listingType": ${contracts[0].id}`)
           .replace(
             '"listingStatus": 1',
-            `"listingStatus": ${listingStatus[0].id}`,
+            `"listingStatus": ${availability[0].id}`,
           )
           .replace(
             '"features": []',
-            `"features": [${features[0].id}, ${features[1].id}]`,
+            `"features": [${amenities[0].id}, ${amenities[1].id}]`,
           )
           // Replace relationship values
-          .replace(/"value": 1/g, `"value": ${propertyTypes[0].id}`)
-          .replace(/"value": 2/g, `"value": ${listingTypes[0].id}`),
+          .replace(/"value": 1/g, `"value": ${classifications[0].id}`)
+          .replace(/"value": 2/g, `"value": ${contracts[0].id}`),
       ),
     })
   }

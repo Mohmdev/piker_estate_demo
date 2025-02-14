@@ -210,7 +210,10 @@ export interface Property {
     /**
      * Upload up to 24 high-quality images. The first image will be used as the main image.
      */
-    images: (number | Media)[];
+    images: {
+      image?: (number | null) | Media;
+      id?: string | null;
+    }[];
     /**
      * Upload a walkthrough video (MP4 format recommended)
      */
@@ -2410,7 +2413,12 @@ export interface PropertiesSelect<T extends boolean = true> {
   gallery?:
     | T
     | {
-        images?: T;
+        images?:
+          | T
+          | {
+              image?: T;
+              id?: T;
+            };
         video?: T;
         virtualTourUrl?: T;
         floorPlan?: T;

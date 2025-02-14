@@ -1,11 +1,11 @@
-import type { PropertyType } from '@payload-types'
+import type { Classification } from '@payload-types'
 
-type CreatePropertyType = Omit<
-  PropertyType,
-  'id' | 'createdAt' | 'updatedAt' | 'sizes'
+type CreateClassification = Omit<
+  Classification,
+  'id' | 'createdAt' | 'updatedAt' | 'properties'
 >
 
-export const mockPropertyTypes: CreatePropertyType[] = [
+export const mockClassifications: CreateClassification[] = [
   {
     title: 'Apartment',
     description: {
@@ -32,6 +32,13 @@ export const mockPropertyTypes: CreatePropertyType[] = [
     },
     _status: 'published',
     slug: 'apartment',
+    noindex: false,
+    authors: [],
+    populatedAuthors: [],
+    publishedAt: '2024-03-19T00:00:00.000Z',
+    slugLock: true,
+    parent: null,
+    breadcrumbs: [],
   },
   {
     title: 'House',
@@ -59,6 +66,13 @@ export const mockPropertyTypes: CreatePropertyType[] = [
     },
     _status: 'published',
     slug: 'house',
+    noindex: false,
+    authors: [],
+    populatedAuthors: [],
+    publishedAt: '2024-03-19T00:00:00.000Z',
+    slugLock: true,
+    parent: null,
+    breadcrumbs: [],
   },
   {
     title: 'Townhouse',
@@ -86,5 +100,12 @@ export const mockPropertyTypes: CreatePropertyType[] = [
     },
     _status: 'published',
     slug: 'townhouse',
+    noindex: false,
+    authors: [],
+    populatedAuthors: [],
+    publishedAt: '2024-03-19T00:00:00.000Z',
+    slugLock: true,
+    parent: null,
+    breadcrumbs: [],
   },
 ]
