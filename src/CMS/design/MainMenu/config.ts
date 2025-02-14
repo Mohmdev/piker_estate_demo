@@ -106,7 +106,7 @@ export const MainMenu: GlobalConfig = {
                       name: 'text',
                       label: 'Group Description Area',
                       type: 'richText',
-                      editor: extendedLexical,
+                      editor: extendedLexical(),
                       admin: {
                         description: 'Describe the group and its contents.',
                       },
@@ -203,7 +203,7 @@ export const MainMenu: GlobalConfig = {
                     {
                       name: 'label',
                       type: 'richText',
-                      editor: extendedLexical,
+                      editor: extendedLexical(),
                       admin: {
                         description: 'Label for the featured link.',
                       },

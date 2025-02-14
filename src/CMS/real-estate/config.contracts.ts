@@ -8,9 +8,7 @@ import { authorsField } from '@CMS/fields/shared/authorsField'
 import { noindexField } from '@CMS/fields/shared/noindexField'
 import { populateAuthorsField } from '@CMS/fields/shared/populatedAuthorsField'
 import { publishedAtField } from '@CMS/fields/shared/publishedAtField'
-import { seoTab } from '@CMS/fields/shared/seoTab'
 import { slugField } from '@CMS/fields/shared/slug/config'
-import { tagsField } from '@CMS/fields/shared/tagsField'
 import { isAdminOrEditor } from '@auth/access/isAdminOrEditor'
 import { isAdminOrSelf } from '@auth/access/isAdminOrSelf'
 import { publishedOnly } from '@auth/access/publishedOnly'
@@ -56,25 +54,29 @@ export const Contracts: CollectionConfig<'contracts'> = {
       type: 'tabs',
       tabs: [
         {
-          label: 'Properties',
+          label: 'List',
           fields: [
             {
               type: 'join',
               name: 'properties',
-              label: 'Properties listed with this contract',
+              label: 'Properties with this Contract',
               collection: 'properties',
               on: 'contract',
               hasMany: true,
+              defaultSort: 'updatedAt',
+              admin: {
+                allowCreate: false,
+              },
             },
           ],
         },
         {
-          label: 'Extra',
+          label: 'Options',
           fields: [
             {
               type: 'richText',
               name: 'description',
-              editor: extendedLexical,
+              editor: extendedLexical({ enableToolbar: true }),
               admin: {
                 description: 'Describe this type of contract/transaction',
               },

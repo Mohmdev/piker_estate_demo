@@ -54,26 +54,30 @@ export const Availability: CollectionConfig<'availability'> = {
       type: 'tabs',
       tabs: [
         {
-          label: 'Properties',
+          label: 'List',
           fields: [
             {
               type: 'join',
               name: 'properties',
-              label: 'Properties listed with this availability status',
+              label: 'Properties with this Availability Status',
               collection: 'properties',
               on: 'availability',
               hasMany: true,
+              defaultSort: 'updatedAt',
+              admin: {
+                allowCreate: false,
+              },
             },
           ],
         },
         {
-          label: 'Design',
+          label: 'Options',
           fields: [
             {
               type: 'richText',
               name: 'description',
               label: false,
-              editor: extendedLexical,
+              editor: extendedLexical({ enableToolbar: true }),
               admin: {
                 description: 'Describe what this availability status means',
               },

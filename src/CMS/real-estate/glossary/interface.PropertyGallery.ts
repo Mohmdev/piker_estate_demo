@@ -4,9 +4,6 @@ export const propertyGallery: GroupField = {
   type: 'group',
   name: 'gallery',
   label: 'Gallery',
-  admin: {
-    description: 'Upload and manage property images and virtual tours',
-  },
   fields: [
     {
       name: 'images',

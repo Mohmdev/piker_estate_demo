@@ -1,5 +1,5 @@
 {
-  "id": "670baded-14f6-4d72-9bde-c52b6c8413e0",
+  "id": "4289545b-e421-45e1-925c-03cf484edcd5",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -190,22 +190,22 @@
           "primaryKey": false,
           "notNull": false
         },
+        "market": {
+          "name": "market",
+          "type": "enum_properties_market",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
         "price": {
           "name": "price",
           "type": "numeric",
           "primaryKey": false,
           "notNull": false
         },
-        "is_featured": {
-          "name": "is_featured",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": false
-        },
-        "description": {
-          "name": "description",
-          "type": "jsonb",
+        "contract_id": {
+          "name": "contract_id",
+          "type": "integer",
           "primaryKey": false,
           "notNull": false
         },
@@ -227,88 +227,68 @@
           "primaryKey": false,
           "notNull": false
         },
-        "market": {
-          "name": "market",
-          "type": "enum_properties_market",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "has_units": {
-          "name": "has_units",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": false
-        },
-        "is_land_only": {
-          "name": "is_land_only",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": false
-        },
-        "facility_type": {
-          "name": "facility_type",
-          "type": "enum_properties_facility_type",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "is_premium": {
-          "name": "is_premium",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": false
-        },
-        "contract_id": {
-          "name": "contract_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "requires_contract": {
-          "name": "requires_contract",
+        "contract_details_requires_contract": {
+          "name": "contract_details_requires_contract",
           "type": "boolean",
           "primaryKey": false,
           "notNull": false,
           "default": true
         },
-        "requires_deposit": {
-          "name": "requires_deposit",
+        "contract_details_requires_deposit": {
+          "name": "contract_details_requires_deposit",
           "type": "boolean",
           "primaryKey": false,
           "notNull": false,
           "default": false
         },
-        "specs_dimensions_size_range": {
-          "name": "specs_dimensions_size_range",
-          "type": "enum_properties_specs_dimensions_size_range",
+        "specs_facility_facility_type": {
+          "name": "specs_facility_facility_type",
+          "type": "enum_properties_specs_facility_facility_type",
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": false
         },
-        "specs_dimensions_property_size": {
-          "name": "specs_dimensions_property_size",
+        "specs_facility_has_units": {
+          "name": "specs_facility_has_units",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "specs_facility_is_land_only": {
+          "name": "specs_facility_is_land_only",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "specs_measurements_size_range": {
+          "name": "specs_measurements_size_range",
+          "type": "enum_properties_specs_measurements_size_range",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "specs_measurements_property_size": {
+          "name": "specs_measurements_property_size",
           "type": "numeric",
           "primaryKey": false,
           "notNull": false
         },
-        "specs_dimensions_block_size": {
-          "name": "specs_dimensions_block_size",
+        "specs_measurements_block_size": {
+          "name": "specs_measurements_block_size",
           "type": "numeric",
           "primaryKey": false,
           "notNull": false
         },
-        "specs_dimensions_frontage": {
-          "name": "specs_dimensions_frontage",
+        "specs_measurements_frontage": {
+          "name": "specs_measurements_frontage",
           "type": "numeric",
           "primaryKey": false,
           "notNull": false
         },
-        "specs_dimensions_depth": {
-          "name": "specs_dimensions_depth",
+        "specs_measurements_depth": {
+          "name": "specs_measurements_depth",
           "type": "numeric",
           "primaryKey": false,
           "notNull": false
@@ -439,6 +419,19 @@
           "primaryKey": false,
           "notNull": false
         },
+        "description": {
+          "name": "description",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "is_featured": {
+          "name": "is_featured",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
         "meta_title": {
           "name": "meta_title",
           "type": "varchar",
@@ -521,6 +514,21 @@
           "method": "btree",
           "with": {}
         },
+        "properties_contract_idx": {
+          "name": "properties_contract_idx",
+          "columns": [
+            {
+              "expression": "contract_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
         "properties_availability_idx": {
           "name": "properties_availability_idx",
           "columns": [
@@ -541,21 +549,6 @@
           "columns": [
             {
               "expression": "gallery_video_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "properties_contract_idx": {
-          "name": "properties_contract_idx",
-          "columns": [
-            {
-              "expression": "contract_id",
               "isExpression": false,
               "asc": true,
               "nulls": "last"
@@ -643,6 +636,19 @@
         }
       },
       "foreignKeys": {
+        "properties_contract_id_contracts_id_fk": {
+          "name": "properties_contract_id_contracts_id_fk",
+          "tableFrom": "properties",
+          "tableTo": "contracts",
+          "columnsFrom": [
+            "contract_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
         "properties_availability_id_availability_id_fk": {
           "name": "properties_availability_id_availability_id_fk",
           "tableFrom": "properties",
@@ -662,19 +668,6 @@
           "tableTo": "media",
           "columnsFrom": [
             "gallery_video_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "set null",
-          "onUpdate": "no action"
-        },
-        "properties_contract_id_contracts_id_fk": {
-          "name": "properties_contract_id_contracts_id_fk",
-          "tableFrom": "properties",
-          "tableTo": "contracts",
-          "columnsFrom": [
-            "contract_id"
           ],
           "columnsTo": [
             "id"
@@ -730,12 +723,6 @@
           "primaryKey": false,
           "notNull": true
         },
-        "media_id": {
-          "name": "media_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
         "classifications_id": {
           "name": "classifications_id",
           "type": "integer",
@@ -744,6 +731,12 @@
         },
         "amenities_id": {
           "name": "amenities_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "media_id": {
+          "name": "media_id",
           "type": "integer",
           "primaryKey": false,
           "notNull": false
@@ -825,21 +818,6 @@
           "method": "btree",
           "with": {}
         },
-        "properties_rels_media_id_idx": {
-          "name": "properties_rels_media_id_idx",
-          "columns": [
-            {
-              "expression": "media_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
         "properties_rels_classifications_id_idx": {
           "name": "properties_rels_classifications_id_idx",
           "columns": [
@@ -860,6 +838,21 @@
           "columns": [
             {
               "expression": "amenities_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "properties_rels_media_id_idx": {
+          "name": "properties_rels_media_id_idx",
+          "columns": [
+            {
+              "expression": "media_id",
               "isExpression": false,
               "asc": true,
               "nulls": "last"
@@ -960,19 +953,6 @@
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
-        "properties_rels_media_fk": {
-          "name": "properties_rels_media_fk",
-          "tableFrom": "properties_rels",
-          "tableTo": "media",
-          "columnsFrom": [
-            "media_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        },
         "properties_rels_classifications_fk": {
           "name": "properties_rels_classifications_fk",
           "tableFrom": "properties_rels",
@@ -992,6 +972,19 @@
           "tableTo": "amenities",
           "columnsFrom": [
             "amenities_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "properties_rels_media_fk": {
+          "name": "properties_rels_media_fk",
+          "tableFrom": "properties_rels",
+          "tableTo": "media",
+          "columnsFrom": [
+            "media_id"
           ],
           "columnsTo": [
             "id"
@@ -1275,22 +1268,22 @@
           "primaryKey": false,
           "notNull": false
         },
+        "version_market": {
+          "name": "version_market",
+          "type": "enum__properties_v_version_market",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
         "version_price": {
           "name": "version_price",
           "type": "numeric",
           "primaryKey": false,
           "notNull": false
         },
-        "version_is_featured": {
-          "name": "version_is_featured",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": false
-        },
-        "version_description": {
-          "name": "version_description",
-          "type": "jsonb",
+        "version_contract_id": {
+          "name": "version_contract_id",
+          "type": "integer",
           "primaryKey": false,
           "notNull": false
         },
@@ -1312,88 +1305,68 @@
           "primaryKey": false,
           "notNull": false
         },
-        "version_market": {
-          "name": "version_market",
-          "type": "enum__properties_v_version_market",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "version_has_units": {
-          "name": "version_has_units",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": false
-        },
-        "version_is_land_only": {
-          "name": "version_is_land_only",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": false
-        },
-        "version_facility_type": {
-          "name": "version_facility_type",
-          "type": "enum__properties_v_version_facility_type",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "version_is_premium": {
-          "name": "version_is_premium",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": false
-        },
-        "version_contract_id": {
-          "name": "version_contract_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "version_requires_contract": {
-          "name": "version_requires_contract",
+        "version_contract_details_requires_contract": {
+          "name": "version_contract_details_requires_contract",
           "type": "boolean",
           "primaryKey": false,
           "notNull": false,
           "default": true
         },
-        "version_requires_deposit": {
-          "name": "version_requires_deposit",
+        "version_contract_details_requires_deposit": {
+          "name": "version_contract_details_requires_deposit",
           "type": "boolean",
           "primaryKey": false,
           "notNull": false,
           "default": false
         },
-        "version_specs_dimensions_size_range": {
-          "name": "version_specs_dimensions_size_range",
-          "type": "enum__properties_v_version_specs_dimensions_size_range",
+        "version_specs_facility_facility_type": {
+          "name": "version_specs_facility_facility_type",
+          "type": "enum__properties_v_version_specs_facility_facility_type",
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": false
         },
-        "version_specs_dimensions_property_size": {
-          "name": "version_specs_dimensions_property_size",
+        "version_specs_facility_has_units": {
+          "name": "version_specs_facility_has_units",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "version_specs_facility_is_land_only": {
+          "name": "version_specs_facility_is_land_only",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "version_specs_measurements_size_range": {
+          "name": "version_specs_measurements_size_range",
+          "type": "enum__properties_v_version_specs_measurements_size_range",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version_specs_measurements_property_size": {
+          "name": "version_specs_measurements_property_size",
           "type": "numeric",
           "primaryKey": false,
           "notNull": false
         },
-        "version_specs_dimensions_block_size": {
-          "name": "version_specs_dimensions_block_size",
+        "version_specs_measurements_block_size": {
+          "name": "version_specs_measurements_block_size",
           "type": "numeric",
           "primaryKey": false,
           "notNull": false
         },
-        "version_specs_dimensions_frontage": {
-          "name": "version_specs_dimensions_frontage",
+        "version_specs_measurements_frontage": {
+          "name": "version_specs_measurements_frontage",
           "type": "numeric",
           "primaryKey": false,
           "notNull": false
         },
-        "version_specs_dimensions_depth": {
-          "name": "version_specs_dimensions_depth",
+        "version_specs_measurements_depth": {
+          "name": "version_specs_measurements_depth",
           "type": "numeric",
           "primaryKey": false,
           "notNull": false
@@ -1524,6 +1497,19 @@
           "primaryKey": false,
           "notNull": false
         },
+        "version_description": {
+          "name": "version_description",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version_is_featured": {
+          "name": "version_is_featured",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
         "version_meta_title": {
           "name": "version_meta_title",
           "type": "varchar",
@@ -1645,6 +1631,21 @@
           "method": "btree",
           "with": {}
         },
+        "_properties_v_version_version_contract_idx": {
+          "name": "_properties_v_version_version_contract_idx",
+          "columns": [
+            {
+              "expression": "version_contract_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
         "_properties_v_version_version_availability_idx": {
           "name": "_properties_v_version_version_availability_idx",
           "columns": [
@@ -1665,21 +1666,6 @@
           "columns": [
             {
               "expression": "version_gallery_video_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "_properties_v_version_version_contract_idx": {
-          "name": "_properties_v_version_version_contract_idx",
-          "columns": [
-            {
-              "expression": "version_contract_id",
               "isExpression": false,
               "asc": true,
               "nulls": "last"
@@ -1840,6 +1826,19 @@
           "onDelete": "set null",
           "onUpdate": "no action"
         },
+        "_properties_v_version_contract_id_contracts_id_fk": {
+          "name": "_properties_v_version_contract_id_contracts_id_fk",
+          "tableFrom": "_properties_v",
+          "tableTo": "contracts",
+          "columnsFrom": [
+            "version_contract_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
         "_properties_v_version_availability_id_availability_id_fk": {
           "name": "_properties_v_version_availability_id_availability_id_fk",
           "tableFrom": "_properties_v",
@@ -1859,19 +1858,6 @@
           "tableTo": "media",
           "columnsFrom": [
             "version_gallery_video_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "set null",
-          "onUpdate": "no action"
-        },
-        "_properties_v_version_contract_id_contracts_id_fk": {
-          "name": "_properties_v_version_contract_id_contracts_id_fk",
-          "tableFrom": "_properties_v",
-          "tableTo": "contracts",
-          "columnsFrom": [
-            "version_contract_id"
           ],
           "columnsTo": [
             "id"
@@ -1927,12 +1913,6 @@
           "primaryKey": false,
           "notNull": true
         },
-        "media_id": {
-          "name": "media_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
         "classifications_id": {
           "name": "classifications_id",
           "type": "integer",
@@ -1941,6 +1921,12 @@
         },
         "amenities_id": {
           "name": "amenities_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "media_id": {
+          "name": "media_id",
           "type": "integer",
           "primaryKey": false,
           "notNull": false
@@ -2022,21 +2008,6 @@
           "method": "btree",
           "with": {}
         },
-        "_properties_v_rels_media_id_idx": {
-          "name": "_properties_v_rels_media_id_idx",
-          "columns": [
-            {
-              "expression": "media_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
         "_properties_v_rels_classifications_id_idx": {
           "name": "_properties_v_rels_classifications_id_idx",
           "columns": [
@@ -2057,6 +2028,21 @@
           "columns": [
             {
               "expression": "amenities_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "_properties_v_rels_media_id_idx": {
+          "name": "_properties_v_rels_media_id_idx",
+          "columns": [
+            {
+              "expression": "media_id",
               "isExpression": false,
               "asc": true,
               "nulls": "last"
@@ -2157,19 +2143,6 @@
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
-        "_properties_v_rels_media_fk": {
-          "name": "_properties_v_rels_media_fk",
-          "tableFrom": "_properties_v_rels",
-          "tableTo": "media",
-          "columnsFrom": [
-            "media_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        },
         "_properties_v_rels_classifications_fk": {
           "name": "_properties_v_rels_classifications_fk",
           "tableFrom": "_properties_v_rels",
@@ -2189,6 +2162,19 @@
           "tableTo": "amenities",
           "columnsFrom": [
             "amenities_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "_properties_v_rels_media_fk": {
+          "name": "_properties_v_rels_media_fk",
+          "tableFrom": "_properties_v_rels",
+          "tableTo": "media",
+          "columnsFrom": [
+            "media_id"
           ],
           "columnsTo": [
             "id"
@@ -3802,6 +3788,13 @@
           "primaryKey": false,
           "notNull": false
         },
+        "is_premium": {
+          "name": "is_premium",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
         "description": {
           "name": "description",
           "type": "jsonb",
@@ -4377,6 +4370,13 @@
           "type": "varchar",
           "primaryKey": false,
           "notNull": false
+        },
+        "version_is_premium": {
+          "name": "version_is_premium",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
         },
         "version_description": {
           "name": "version_description",
@@ -23527,20 +23527,18 @@
         "ultra-luxury"
       ]
     },
-    "public.enum_properties_facility_type": {
-      "name": "enum_properties_facility_type",
+    "public.enum_properties_specs_facility_facility_type": {
+      "name": "enum_properties_specs_facility_facility_type",
       "schema": "public",
       "values": [
-        "interior",
-        "exterior",
         "security",
         "community",
         "utilities",
         "smart-home"
       ]
     },
-    "public.enum_properties_specs_dimensions_size_range": {
-      "name": "enum_properties_specs_dimensions_size_range",
+    "public.enum_properties_specs_measurements_size_range": {
+      "name": "enum_properties_specs_measurements_size_range",
       "schema": "public",
       "values": [
         "small",
@@ -23861,20 +23859,18 @@
         "ultra-luxury"
       ]
     },
-    "public.enum__properties_v_version_facility_type": {
-      "name": "enum__properties_v_version_facility_type",
+    "public.enum__properties_v_version_specs_facility_facility_type": {
+      "name": "enum__properties_v_version_specs_facility_facility_type",
       "schema": "public",
       "values": [
-        "interior",
-        "exterior",
         "security",
         "community",
         "utilities",
         "smart-home"
       ]
     },
-    "public.enum__properties_v_version_specs_dimensions_size_range": {
-      "name": "enum__properties_v_version_specs_dimensions_size_range",
+    "public.enum__properties_v_version_specs_measurements_size_range": {
+      "name": "enum__properties_v_version_specs_measurements_size_range",
       "schema": "public",
       "values": [
         "small",

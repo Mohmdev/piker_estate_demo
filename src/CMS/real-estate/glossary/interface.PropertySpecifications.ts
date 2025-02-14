@@ -1,17 +1,63 @@
-import type { GroupField } from 'payload'
+import type { NamedTab } from 'payload'
 
-export const propertySpecifications: GroupField = {
-  type: 'group',
+export const propertySpecifications: NamedTab = {
   name: 'specs',
-  label: false,
+  label: 'Specifications',
+  interfaceName: 'PropertySpecifications',
   fields: [
     {
       type: 'group',
-      name: 'dimensions',
-      label: 'Measurements',
+      name: 'facility',
+      label: 'Facility',
       admin: {
         hideGutter: true,
         className: 'm-0 p-0 py-12 pt-4',
+      },
+      fields: [
+        {
+          type: 'select',
+          name: 'facilityType',
+          label: 'Facility Type',
+          options: [
+            { label: 'Security', value: 'security' },
+            { label: 'Community', value: 'community' },
+            { label: 'Utilities', value: 'utilities' },
+            { label: 'Smart Home', value: 'smart-home' },
+          ],
+        },
+        {
+          type: 'row',
+          fields: [
+            {
+              type: 'checkbox',
+              name: 'hasUnits',
+              label: 'Has Multiple Units',
+              defaultValue: false,
+              admin: {
+                description:
+                  'Does this type typically have multiple units? (e.g., apartment buildings)',
+              },
+            },
+            {
+              type: 'checkbox',
+              name: 'isLandOnly',
+              label: 'Land Only',
+              defaultValue: false,
+              admin: {
+                description: 'Is this a land-only property type?',
+              },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'group',
+      name: 'measurements',
+      label: 'Measurements',
+      admin: {
+        hideGutter: true,
+        className: 'm-0 p-0 py-12',
       },
       fields: [
         {

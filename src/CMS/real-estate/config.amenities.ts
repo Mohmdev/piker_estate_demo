@@ -54,24 +54,34 @@ export const Amenities: CollectionConfig<'amenities'> = {
       type: 'tabs',
       tabs: [
         {
-          label: 'Properties',
+          label: 'List',
           fields: [
             {
               type: 'join',
               name: 'properties',
-              label: false,
+              label: 'Properties with this Amenity',
               collection: 'properties',
               on: 'amenities',
+              hasMany: true,
+              defaultSort: 'updatedAt',
               admin: {
-                description:
-                  'Properties that have this amenity (automatically populated)',
+                allowCreate: false,
               },
             },
           ],
         },
         {
-          label: 'Extra',
+          label: 'Options',
           fields: [
+            {
+              type: 'checkbox',
+              name: 'isPremium',
+              label: 'Premium Amenity',
+              defaultValue: false,
+              admin: {
+                description: 'Mark if this is a premium or luxury amenity',
+              },
+            },
             {
               type: 'richText',
               name: 'description',

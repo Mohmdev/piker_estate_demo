@@ -62,3 +62,18 @@ html {
     @apply font-bold;
   }
 }
+
+@layer base {
+  .fixed-toolbar {
+    @apply border-0;
+  }
+  .fixed-toolbar:before {
+    @apply border-0 bg-[hsl(var(--space-bg-less))];
+  }
+  .fixed-toolbar:after {
+    @apply rounded-lg  overflow-hidden border-1 border-border;
+  }
+  #field-breadcrumbs {
+    @apply hidden;
+  }
+}

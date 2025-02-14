@@ -8,7 +8,6 @@ import { authorsField } from '@CMS/fields/shared/authorsField'
 import { noindexField } from '@CMS/fields/shared/noindexField'
 import { populateAuthorsField } from '@CMS/fields/shared/populatedAuthorsField'
 import { publishedAtField } from '@CMS/fields/shared/publishedAtField'
-import { seoTab } from '@CMS/fields/shared/seoTab'
 import { slugField } from '@CMS/fields/shared/slug/config'
 import { isAdminOrEditor } from '@auth/access/isAdminOrEditor'
 import { isAdminOrSelf } from '@auth/access/isAdminOrSelf'
@@ -55,26 +54,30 @@ export const Classifications: CollectionConfig<'classifications'> = {
       type: 'tabs',
       tabs: [
         {
-          label: 'Properties',
+          label: 'List',
           fields: [
             {
               type: 'join',
               name: 'properties',
-              label: 'Properties listed with this classification',
+              label: 'Properties with this Classification',
               collection: 'properties',
               on: 'classification',
               hasMany: true,
+              defaultSort: 'updatedAt',
+              admin: {
+                allowCreate: false,
+              },
             },
           ],
         },
         {
-          label: 'Extra',
+          label: 'Options',
           fields: [
             {
               type: 'richText',
               name: 'description',
               label: false,
-              editor: extendedLexical,
+              editor: extendedLexical({ enableToolbar: true }),
               admin: {
                 description: 'Describe what this property category is',
               },

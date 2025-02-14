@@ -17,9 +17,9 @@ import { extendedLexical } from '@services/editor/extendedLexical'
 import { getCollectionLivePreviewURL } from '@services/live-preview/getCollectionLivePreviewURL'
 import { getCollectionPreviewURL } from '@services/live-preview/getCollectionPreviewURL'
 import type { CollectionConfig } from 'payload'
-import { propertyGallery } from './fields/property.gallery'
-import { propertyLocation } from './fields/property.location'
-import { propertySpecifications } from './fields/property.specs'
+import { propertyGallery } from './glossary/interface.PropertyGallery'
+import { propertyLocation } from './glossary/interface.PropertyLocation'
+import { propertySpecifications } from './glossary/interface.PropertySpecifications'
 
 export const Properties: CollectionConfig<'properties'> = {
   slug: 'properties',
@@ -66,213 +66,131 @@ export const Properties: CollectionConfig<'properties'> = {
               type: 'row',
               fields: [
                 {
+                  type: 'select',
+                  name: 'market',
+                  label: 'Market Segment',
+                  options: [
+                    { label: 'Economy', value: 'economy' },
+                    { label: 'Mid-Market', value: 'mid-market' },
+                    { label: 'Luxury', value: 'luxury' },
+                    { label: 'Ultra-Luxury', value: 'ultra-luxury' },
+                  ],
+                },
+                {
                   type: 'number',
                   name: 'price',
                   label: 'Price',
                   required: true,
                   min: 0,
                   admin: {
-                    description: 'Property price in USD',
                     step: 1000,
                   },
                 },
-                {
-                  type: 'checkbox',
-                  name: 'isFeatured',
-                  label: 'Featured Property',
-                  defaultValue: false,
-                  admin: {
-                    description: 'Show this property in featured sections',
-                  },
-                },
               ],
-            },
-            {
-              type: 'richText',
-              name: 'description',
-              label: 'Detailed description of the property',
-              editor: extendedLexical,
             },
             {
               type: 'row',
               fields: [
                 {
                   type: 'relationship',
-                  name: 'availability',
+                  name: 'classification',
+                  label: 'Classification',
+                  relationTo: 'classifications',
+                  required: true,
+                  hasMany: true,
+                  admin: {
+                    isSortable: true,
+                    allowEdit: true,
+                  },
+                },
+                {
+                  label: 'Contract',
+                  name: 'contract',
+                  type: 'relationship',
+                  relationTo: 'contracts',
+                  hasMany: false,
+                  required: true,
+                },
+                {
                   label: 'Availability',
+                  name: 'availability',
+                  type: 'relationship',
                   relationTo: 'availability',
                   hasMany: false,
                   required: true,
-                  admin: {
-                    description: 'Current status of this property',
-                  },
                 },
-              ],
-            },
-            propertyGallery,
-          ],
-        },
-        {
-          label: 'Classification',
-          fields: [
-            {
-              type: 'select',
-              name: 'market',
-              label: 'Market Segment',
-              options: [
-                { label: 'Economy', value: 'economy' },
-                { label: 'Mid-Market', value: 'mid-market' },
-                { label: 'Luxury', value: 'luxury' },
-                { label: 'Ultra-Luxury', value: 'ultra-luxury' },
               ],
             },
             {
               type: 'relationship',
-              name: 'classification',
-              label: 'Classification',
-              relationTo: 'classifications',
-              // required: true,
+              name: 'amenities',
+              relationTo: 'amenities',
               hasMany: true,
+              label: 'Amenities',
               admin: {
                 isSortable: true,
                 allowEdit: true,
               },
             },
-            {
-              type: 'row',
-              fields: [
-                {
-                  type: 'checkbox',
-                  name: 'hasUnits',
-                  label: 'Has Multiple Units',
-                  defaultValue: false,
-                  admin: {
-                    description:
-                      'Does this type typically have multiple units? (e.g., apartment buildings)',
-                  },
-                },
-                {
-                  type: 'checkbox',
-                  name: 'isLandOnly',
-                  label: 'Land Only',
-                  defaultValue: false,
-                  admin: {
-                    description: 'Is this a land-only property type?',
-                  },
-                },
-              ],
-            },
+            propertyGallery,
           ],
         },
         {
-          label: 'Amenities',
+          label: 'Contract Details',
+          name: 'contractDetails',
           fields: [
             {
-              type: 'row',
-              fields: [
-                {
-                  type: 'select',
-                  name: 'facilityType',
-                  label: 'Facility Type',
-                  options: [
-                    { label: 'Interior Features', value: 'interior' },
-                    { label: 'Exterior Features', value: 'exterior' },
-                    { label: 'Security', value: 'security' },
-                    { label: 'Community', value: 'community' },
-                    { label: 'Utilities', value: 'utilities' },
-                    { label: 'Smart Home', value: 'smart-home' },
-                  ],
-                  admin: {
-                    description: 'Group similar amenities together',
-                  },
-                },
-                {
-                  type: 'checkbox',
-                  name: 'isPremium',
-                  label: 'Premium Amenity',
-                  defaultValue: false,
-                  admin: {
-                    description: 'Mark if this is a premium or luxury amenity',
-                  },
-                },
-              ],
+              type: 'checkbox',
+              name: 'requiresContract',
+              label: 'Requires Contract',
+              defaultValue: true,
+              admin: {
+                description: 'Does this property require a formal contract?',
+              },
             },
             {
-              type: 'row',
-              fields: [
-                {
-                  type: 'relationship',
-                  name: 'amenities',
-                  relationTo: 'amenities',
-                  hasMany: true,
-                  label: {
-                    singular: 'Amenity',
-                    plural: 'Amenities',
-                  },
-                  admin: {
-                    description:
-                      'Features and facilities available in this property',
-                    isSortable: true,
-                    allowEdit: true,
-                  },
-                },
-              ],
+              type: 'checkbox',
+              name: 'requiresDeposit',
+              label: 'Requires Deposit',
+              defaultValue: false,
+              admin: {
+                description: 'Does this transaction type require a deposit?',
+              },
             },
           ],
         },
-        {
-          label: 'Contract',
-          fields: [
-            {
-              type: 'row',
-              fields: [
-                {
-                  type: 'relationship',
-                  name: 'contract',
-                  label: 'Contract',
-                  relationTo: 'contracts',
-                  hasMany: false,
-                  admin: {
-                    description: 'How is this property being offered?',
-                  },
-                },
-                {
-                  type: 'checkbox',
-                  name: 'requiresContract',
-                  label: 'Requires Contract',
-                  defaultValue: true,
-                  admin: {
-                    description:
-                      'Does this property require a formal contract?',
-                  },
-                },
-                {
-                  type: 'checkbox',
-                  name: 'requiresDeposit',
-                  label: 'Requires Deposit',
-                  defaultValue: false,
-                  admin: {
-                    description:
-                      'Does this transaction type require a deposit?',
-                  },
-                },
-              ],
-            },
-          ],
-        },
-        {
-          label: 'Specifications',
-          fields: [propertySpecifications],
-        },
-        {
-          label: 'Location',
-          fields: [propertyLocation],
-        },
+        propertySpecifications,
+        propertyLocation,
         {
           label: 'Metadata',
-          description:
-            'Setting categories and tags helps the built-in Search Engine within the Software',
-          fields: [categoriesField, tagsField],
+          fields: [
+            {
+              type: 'richText',
+              name: 'description',
+              label: false,
+              editor: extendedLexical({
+                enableToolbar: true,
+                placeholder:
+                  "Press '/' or Select Text to see the list of available Tools and Commands.",
+                hideGutter: true,
+              }),
+              admin: {
+                description: 'Describe the property in a few sentences.',
+                className: 'border-0 border-b-1 border-border pb-8',
+              },
+            },
+            {
+              type: 'checkbox',
+              name: 'isFeatured',
+              label: 'Featured Property',
+              defaultValue: false,
+              admin: {
+                description: 'Show this property in featured sections',
+              },
+            },
+            categoriesField,
+            tagsField,
+          ],
         },
         seoTab,
       ],

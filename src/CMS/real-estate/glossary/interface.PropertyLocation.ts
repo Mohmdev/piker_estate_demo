@@ -1,10 +1,10 @@
-import type { GroupField } from 'payload'
-import { countrySelectField } from './country-options'
+import type { NamedTab } from 'payload'
+import { countrySelectField } from './interface.CountrySelect'
 
-export const propertyLocation: GroupField = {
-  type: 'group',
+export const propertyLocation: NamedTab = {
   name: 'location',
-  label: false,
+  label: 'Location',
+  interfaceName: 'PropertyLocation',
   fields: [
     {
       type: 'row',

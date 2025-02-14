@@ -23,7 +23,7 @@ export const ListingArchiveBlock: Block = {
       name: 'subTitle',
       label: 'Subtitle',
       type: 'richText',
-      editor: extendedLexical,
+      editor: extendedLexical(),
       admin: {
         description: 'Optional',
       },
