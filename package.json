@@ -38,7 +38,8 @@
     "migrate:reset": "payload migrate:reset",
     "migrate:fresh": "payload migrate:fresh",
     "migrate:create": "payload migrate:create",
-    "seed:all": "payload run src/app/next/seedScript.ts"
+    "seed:all": "payload run src/app/next/seedScript.ts",
+    "db:reset": "cross-env NODE_OPTIONS=--no-deprecation tsx src/services/database/db-reset.ts"
   },
   "dependencies": {
     "@payloadcms/db-vercel-postgres": "latest",
@@ -99,6 +100,7 @@
     "globals": "^15.14.0",
     "postcss": "^8.5.1",
     "tailwindcss": "^4.0.5",
+    "tsx": "^4.19.2",
     "typescript": "^5.7.3"
   },
   "packageManager": "pnpm@10.3.0",
@@ -107,6 +109,8 @@
     "pnpm": ">=9"
   },
   "pnpm": {
-    "onlyBuiltDependencies": ["sharp"]
+    "onlyBuiltDependencies": [
+      "sharp"
+    ]
   }
 }
