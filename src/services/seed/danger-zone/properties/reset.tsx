@@ -8,29 +8,27 @@ const RESET_DELAY = 5000
 
 const SuccessMessage: React.FC = () => (
   <div>
-    Database reset complete! You can now{' '}
+    Properties reset complete! You can now{' '}
     <a target="_blank" href="/" rel="noreferrer">
       visit your website
     </a>
   </div>
 )
-const LoadingMessage: React.FC = () => (
-  <div>Resetting database and clearing data...</div>
-)
+const LoadingMessage: React.FC = () => <div>Resetting properties...</div>
 const ErrorMessage: React.FC = () => (
-  <div>An error occurred while resetting the database.</div>
+  <div>An error occurred while resetting properties.</div>
 )
 
-export const HardResetDatabase: React.FC = () => {
+export const ResetProperties: React.FC = () => {
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState<Error | null>(null)
 
   const getButtonText = () => {
     if (loading) return 'Resetting...'
-    if (success) return 'Database reset complete'
+    if (success) return 'Properties reset complete'
     if (error) return 'Reset failed - Click to retry'
-    return '⚠ Full database reset'
+    return '⚠ Reset Properties'
   }
 
   const handleClick = useCallback(
@@ -43,7 +41,7 @@ export const HardResetDatabase: React.FC = () => {
       }
 
       if (success) {
-        toast.info('Database already reset.')
+        toast.info('Properties already reset.')
         return
       }
 
@@ -53,7 +51,7 @@ export const HardResetDatabase: React.FC = () => {
 
       setLoading(true)
 
-      const callDatabase = fetch('/next/seed/reset-db', {
+      const callDatabase = fetch('/next/data/properties/reset', {
         method: 'POST',
         credentials: 'include',
       }).then(async (response) => {

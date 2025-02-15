@@ -8,52 +8,52 @@ const RESET_DELAY = 5000
 
 const SuccessMessage: React.FC = () => (
   <div>
-    Properties seeded! You can now{' '}
+    Database reset complete! You can now{' '}
     <a target="_blank" href="/" rel="noreferrer">
       visit your website
     </a>
   </div>
 )
-const LoadingMessage: React.FC = () => <div>Seeding properties data....</div>
+const LoadingMessage: React.FC = () => (
+  <div>Resetting database and clearing data...</div>
+)
 const ErrorMessage: React.FC = () => (
-  <div>An error occurred while seeding properties.</div>
+  <div>An error occurred while resetting the database.</div>
 )
 
-export const SeedProjects: React.FC = () => {
+export const HardResetDatabase: React.FC = () => {
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState<Error | null>(null)
 
   const getButtonText = () => {
-    if (loading) return 'Seeding projects...'
-    if (success) return 'Projects seeded'
-    if (error) return 'Seeding failed - Click to retry'
-    return 'Seed projects data'
+    if (loading) return 'Resetting...'
+    if (success) return 'Database reset complete'
+    if (error) return 'Reset failed - Click to retry'
+    return '⚠ Full database reset'
   }
 
   const handleClick = useCallback(
     async (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault()
 
-      // Handle existing states
       if (loading) {
-        toast.info('Projects seeding already in progress.')
+        toast.info('Reset already in progress.')
         return
       }
 
       if (success) {
-        toast.info('Projects already seeded.')
+        toast.info('Database already reset.')
         return
       }
 
-      // Clear any previous error state if user is retrying
       if (error) {
         setError(null)
       }
 
       setLoading(true)
 
-      const callDatabase = fetch('/next/seed/projects', {
+      const callDatabase = fetch('/next/data/hard-reset', {
         method: 'POST',
         credentials: 'include',
       }).then(async (response) => {

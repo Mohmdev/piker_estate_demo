@@ -1,0 +1,275 @@
+{
+  "docs": [
+    {
+      "id": 31,
+      "title": "Central Air Conditioning",
+      "properties": {
+        "docs": [],
+        "hasNextPage": false
+      },
+      "isPremium": false,
+      "description": null,
+      "image": null,
+      "relatedDocs": [],
+      "meta": {
+        "title": null,
+        "image": null,
+        "description": null
+      },
+      "noindex": null,
+      "authors": [],
+      "populatedAuthors": [],
+      "publishedAt": "2025-02-15T15:53:45.972Z",
+      "slug": "central-air-conditioning",
+      "slugLock": true,
+      "parent": {
+        "id": 30,
+        "title": "Climate Control",
+        "slug": "climate-control"
+      },
+      "breadcrumbs": [
+        {
+          "id": "67b0b8899a1e4304421b43ba",
+          "doc": 29,
+          "url": "/unit-amenities",
+          "label": "Unit Amenities"
+        },
+        {
+          "id": "67b0b8899a1e4304421b43bb",
+          "doc": 30,
+          "url": "/unit-amenities/climate-control",
+          "label": "Climate Control"
+        },
+        {
+          "id": "67b0b8899a1e4304421b43bc",
+          "doc": 31,
+          "url": "/unit-amenities/climate-control/central-air-conditioning",
+          "label": "Central Air Conditioning"
+        }
+      ],
+      "updatedAt": "2025-02-15T15:53:45.985Z",
+      "createdAt": "2025-02-15T15:53:37.740Z",
+      "_status": "published"
+    },
+    {
+      "id": 30,
+      "title": "Climate Control",
+      "properties": {
+        "docs": [],
+        "hasNextPage": false
+      },
+      "isPremium": false,
+      "description": null,
+      "image": null,
+      "relatedDocs": [],
+      "meta": {
+        "title": null,
+        "image": null,
+        "description": null
+      },
+      "noindex": null,
+      "authors": [],
+      "populatedAuthors": [],
+      "publishedAt": "2025-02-15T15:53:30.807Z",
+      "slug": "climate-control",
+      "slugLock": true,
+      "parent": {
+        "id": 29,
+        "title": "Unit Amenities",
+        "slug": "unit-amenities"
+      },
+      "breadcrumbs": [
+        {
+          "id": "67b0b87a9a1e4304421b43b5",
+          "doc": 29,
+          "url": "/unit-amenities",
+          "label": "Unit Amenities"
+        },
+        {
+          "id": "67b0b87a9a1e4304421b43b6",
+          "doc": 30,
+          "url": "/unit-amenities/climate-control",
+          "label": "Climate Control"
+        }
+      ],
+      "updatedAt": "2025-02-15T15:53:30.820Z",
+      "createdAt": "2025-02-15T15:53:13.891Z",
+      "_status": "published"
+    },
+    {
+      "id": 29,
+      "title": "Unit Amenities",
+      "properties": {
+        "docs": [],
+        "hasNextPage": false
+      },
+      "isPremium": false,
+      "description": null,
+      "image": null,
+      "relatedDocs": [],
+      "meta": {
+        "title": null,
+        "image": null,
+        "description": null
+      },
+      "noindex": null,
+      "authors": [],
+      "populatedAuthors": [],
+      "publishedAt": "2025-02-15T15:53:08.351Z",
+      "slug": "unit-amenities",
+      "slugLock": true,
+      "parent": null,
+      "breadcrumbs": [
+        {
+          "id": "67b0b8649a1e4304421b43ae",
+          "doc": 29,
+          "url": "/unit-amenities",
+          "label": "Unit Amenities"
+        }
+      ],
+      "updatedAt": "2025-02-15T15:53:08.353Z",
+      "createdAt": "2025-02-15T15:52:52.430Z",
+      "_status": "published"
+    },
+    {
+      "id": 28,
+      "title": "CCTV Surveillance",
+      "properties": {
+        "docs": [],
+        "hasNextPage": false
+      },
+      "isPremium": false,
+      "description": null,
+      "image": null,
+      "relatedDocs": [],
+      "meta": {
+        "title": null,
+        "image": null,
+        "description": null
+      },
+      "noindex": null,
+      "authors": [],
+      "populatedAuthors": [],
+      "publishedAt": "2025-02-15T15:51:50.276Z",
+      "slug": "cctv-surveillance",
+      "slugLock": true,
+      "parent": {
+        "id": 27,
+        "title": "Security",
+        "slug": "security"
+      },
+      "breadcrumbs": [
+        {
+          "id": "67b0b8449a1e4304421b43a7",
+          "doc": 26,
+          "url": "/building-amenities",
+          "label": "Building Amenities"
+        },
+        {
+          "id": "67b0b8449a1e4304421b43a8",
+          "doc": 27,
+          "url": "/building-amenities/security",
+          "label": "Security"
+        },
+        {
+          "id": "67b0b8449a1e4304421b43a9",
+          "doc": 28,
+          "url": "/building-amenities/security/cctv-surveillance",
+          "label": "CCTV Surveillance"
+        }
+      ],
+      "updatedAt": "2025-02-15T15:52:36.892Z",
+      "createdAt": "2025-02-15T15:51:45.397Z",
+      "_status": "published"
+    },
+    {
+      "id": 27,
+      "title": "Security",
+      "properties": {
+        "docs": [],
+        "hasNextPage": false
+      },
+      "isPremium": false,
+      "description": null,
+      "image": null,
+      "relatedDocs": [],
+      "meta": {
+        "title": null,
+        "image": null,
+        "description": null
+      },
+      "noindex": null,
+      "authors": [],
+      "populatedAuthors": [],
+      "publishedAt": "2025-02-15T15:50:54.156Z",
+      "slug": "security",
+      "slugLock": true,
+      "parent": {
+        "id": 26,
+        "title": "Building Amenities",
+        "slug": "building-amenities"
+      },
+      "breadcrumbs": [
+        {
+          "id": "67b0b7de9a1e4304421b43a0",
+          "doc": 26,
+          "url": "/building-amenities",
+          "label": "Building Amenities"
+        },
+        {
+          "id": "67b0b7de9a1e4304421b43a1",
+          "doc": 27,
+          "url": "/building-amenities/security",
+          "label": "Security"
+        }
+      ],
+      "updatedAt": "2025-02-15T15:50:54.170Z",
+      "createdAt": "2025-02-15T15:50:35.487Z",
+      "_status": "published"
+    },
+    {
+      "id": 26,
+      "title": "Building Amenities",
+      "properties": {
+        "docs": [],
+        "hasNextPage": false
+      },
+      "isPremium": false,
+      "description": null,
+      "image": null,
+      "relatedDocs": [],
+      "meta": {
+        "title": null,
+        "image": null,
+        "description": null
+      },
+      "noindex": null,
+      "authors": [],
+      "populatedAuthors": [],
+      "publishedAt": "2025-02-15T15:50:17.675Z",
+      "slug": "building-amenities",
+      "slugLock": true,
+      "parent": null,
+      "breadcrumbs": [
+        {
+          "id": "67b0b7b99a1e4304421b439b",
+          "doc": 26,
+          "url": "/building-amenities",
+          "label": "Building Amenities"
+        }
+      ],
+      "updatedAt": "2025-02-15T15:50:17.679Z",
+      "createdAt": "2025-02-15T15:50:03.954Z",
+      "_status": "published"
+    }
+  ],
+  "hasNextPage": false,
+  "hasPrevPage": false,
+  "limit": 100,
+  "nextPage": null,
+  "page": 1,
+  "pagingCounter": 1,
+  "prevPage": null,
+  "totalDocs": 6,
+  "totalPages": 1
+}

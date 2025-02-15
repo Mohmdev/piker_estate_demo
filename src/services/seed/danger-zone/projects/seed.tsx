@@ -19,16 +19,16 @@ const ErrorMessage: React.FC = () => (
   <div>An error occurred while seeding properties.</div>
 )
 
-export const SeedProperties: React.FC = () => {
+export const SeedProjects: React.FC = () => {
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState<Error | null>(null)
 
   const getButtonText = () => {
-    if (loading) return 'Seeding properties...'
-    if (success) return 'Properties seeded'
+    if (loading) return 'Seeding projects...'
+    if (success) return 'Projects seeded'
     if (error) return 'Seeding failed - Click to retry'
-    return 'Seed properties data'
+    return 'Seed projects data'
   }
 
   const handleClick = useCallback(
@@ -37,12 +37,12 @@ export const SeedProperties: React.FC = () => {
 
       // Handle existing states
       if (loading) {
-        toast.info('Properties seeding already in progress.')
+        toast.info('Projects seeding already in progress.')
         return
       }
 
       if (success) {
-        toast.info('Properties already seeded.')
+        toast.info('Projects already seeded.')
         return
       }
 
@@ -53,7 +53,7 @@ export const SeedProperties: React.FC = () => {
 
       setLoading(true)
 
-      const callDatabase = fetch('/next/seed/properties', {
+      const callDatabase = fetch('/next/data/projects/seed', {
         method: 'POST',
         credentials: 'include',
       }).then(async (response) => {

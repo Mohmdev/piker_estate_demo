@@ -3,7 +3,10 @@ import { mockAmenities } from './mock-data/amenities'
 import { mockAvailability } from './mock-data/availability'
 import { mockClassifications } from './mock-data/classifications'
 import { mockContracts } from './mock-data/contracts'
-import { mockProperties, propertyMetadata } from './mock-data/properties'
+import {
+  mockProperties,
+  propertyMetadata,
+} from './mock-data/properties/index.dubai'
 
 // Define our image sources with meaningful names
 const PROPERTY_IMAGES = {

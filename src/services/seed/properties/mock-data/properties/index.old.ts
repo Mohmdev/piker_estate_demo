@@ -1,4 +1,6 @@
 import type { Media, Property } from '@payload-types'
+import { mockLocations } from './locations'
+import { mockSpecs } from './specs'
 
 // Define slugs for reference
 const CONTRACT_SLUGS = {
@@ -21,7 +23,7 @@ const AMENITY_SLUGS = {
   SWIMMING_POOL: 'swimming-pool',
 } as const
 
-export const mockProperties: Partial<Property>[] = [
+export const oldMockProperties: Partial<Property>[] = [
   {
     title: 'Modern Waterfront Apartment',
     market: 'luxury',
@@ -48,52 +50,8 @@ export const mockProperties: Partial<Property>[] = [
         version: 1,
       },
     },
-    location: {
-      address_line1: '123 Harbor View Drive',
-      address_line2: 'Level 15',
-      unit: '1502',
-      postcode: '2000',
-      city: 'Sydney',
-      state: 'NSW',
-      countrySelect: {
-        country: 'AU',
-      },
-      coordinates: {
-        latitude: -33.8688,
-        longitude: 151.2093,
-      },
-      neighborhood: {
-        area: 'Sydney Harbor',
-        landmarks: [
-          {
-            name: 'Opera House',
-            distance: 1.2,
-          },
-        ],
-      },
-    },
-    specs: {
-      measurements: {
-        property_size: 120,
-        block_size: 120,
-        sizeRange: 'large',
-      },
-      rooms: {
-        num_bedrooms: 3,
-        num_bathrooms: 2,
-        num_carspaces: 2,
-        num_floors: 1,
-      },
-      construction: {
-        year_built: 2020,
-        construction_type: 'concrete',
-      },
-      utilities: {
-        energy_rating: 'A',
-        heating_type: 'central',
-        cooling_type: 'central',
-      },
-    },
+    location: mockLocations.waterfrontApartment,
+    specs: mockSpecs.waterfrontApartment,
     amenities: [0, 0],
     isFeatured: true,
     classification: [0],
@@ -170,50 +128,8 @@ export const mockProperties: Partial<Property>[] = [
         version: 1,
       },
     },
-    location: {
-      address_line1: '45 Greenview Street',
-      postcode: '2220',
-      city: 'Hurstville',
-      state: 'NSW',
-      countrySelect: {
-        country: 'AU',
-      },
-      coordinates: {
-        latitude: -33.9672,
-        longitude: 151.1022,
-      },
-      neighborhood: {
-        area: 'Hurstville',
-        landmarks: [
-          {
-            name: 'Hurstville Central',
-            distance: 0.8,
-          },
-        ],
-      },
-    },
-    specs: {
-      measurements: {
-        property_size: 185,
-        block_size: 450,
-        sizeRange: 'xlarge',
-      },
-      rooms: {
-        num_bedrooms: 4,
-        num_bathrooms: 2,
-        num_carspaces: 2,
-        num_floors: 2,
-      },
-      construction: {
-        year_built: 2015,
-        construction_type: 'brick',
-      },
-      utilities: {
-        energy_rating: 'B',
-        heating_type: 'heat-pump',
-        cooling_type: 'split',
-      },
-    },
+    location: mockLocations.familyHome,
+    specs: mockSpecs.familyHome,
     amenities: [0, 0],
     isFeatured: false,
     classification: [0],

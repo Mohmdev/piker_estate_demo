@@ -2,10 +2,20 @@
 
 import { cn } from '@utils/ui'
 import React from 'react'
-import { HardResetDatabase } from './interactive-buttons/HardReset'
-import { SeedProjects } from './interactive-buttons/SeedProjects'
-import { SeedProperties } from './interactive-buttons/SeedProperties'
-import { SeedSiteData } from './interactive-buttons/SeedSiteData'
+import { ResetAmenities } from './amenities/reset'
+import { SeedAmenities } from './amenities/seed'
+import { ResetAvailability } from './availability/reset'
+import { SeedAvailability } from './availability/seed'
+import { ResetClassifications } from './classifications/reset'
+import { SeedClassifications } from './classifications/seed'
+import { ResetContracts } from './contracts/reset'
+import { SeedContracts } from './contracts/seed'
+import { SeedSiteData } from './general/seed'
+import { ResetProjects } from './projects/reset'
+import { SeedProjects } from './projects/seed'
+import { ResetProperties } from './properties/reset'
+import { SeedProperties } from './properties/seed'
+import { HardResetDatabase } from './reset/hard-reset'
 
 export const DbInteractionZone: React.FC = () => {
   return (
@@ -27,21 +37,90 @@ export const DbInteractionZone: React.FC = () => {
       <div
         className={cn(
           'flex flex-row flex-wrap gap-4',
-          'justify-between items-center',
-          'w-full max-w-xl',
+          'justify-between items-start',
+          'w-full',
         )}
       >
-        <SeedSiteData />
-        <div
-          className={cn(
-            'flex flex-row flex-nowrap gap-4',
-            'justify-between items-center w-full',
-          )}
-        >
-          <SeedProjects />
-          <SeedProperties />
+        {/* General Site Data */}
+        <div className="flex flex-col justify-start items-start flex-nowrap gap-2 w-full max-w-xl">
+          <h5 className="text-muted-foreground">General Site Data</h5>
+          <div
+            className={cn(
+              'flex flex-col flex-nowrap gap-4',
+              'justify-start items-stretch w-full',
+            )}
+          >
+            <SeedSiteData />
+            <HardResetDatabase />
+          </div>
         </div>
-        <HardResetDatabase />
+
+        <div className="flex flex-col justify-start items-start flex-nowrap gap-2 w-full max-w-xl">
+          <h5 className="text-muted-foreground">Projects</h5>
+          <div
+            className={cn(
+              'flex flex-row flex-nowrap gap-4',
+              'justify-between items-center w-full',
+            )}
+          >
+            <SeedProjects />
+            <ResetProjects />
+          </div>
+          <h5 className="text-muted-foreground">Properties</h5>
+          <div
+            className={cn(
+              'flex flex-row flex-nowrap gap-4',
+              'justify-between items-center w-full',
+            )}
+          >
+            <SeedProperties />
+            <ResetProperties />
+          </div>
+        </div>
+
+        {/* Taxonomies */}
+        <div className="flex flex-col justify-start items-start flex-nowrap gap-2 w-full max-w-xl">
+          <h5 className="text-muted-foreground">Classifications</h5>
+          <div
+            className={cn(
+              'flex flex-row flex-nowrap gap-4',
+              'justify-between items-center w-full',
+            )}
+          >
+            <SeedClassifications />
+            <ResetClassifications />
+          </div>
+          <h5 className="text-muted-foreground">Contracts</h5>
+          <div
+            className={cn(
+              'flex flex-row flex-nowrap gap-4',
+              'justify-between items-center w-full',
+            )}
+          >
+            <SeedContracts />
+            <ResetContracts />
+          </div>
+          <h5 className="text-muted-foreground">Availability</h5>
+          <div
+            className={cn(
+              'flex flex-row flex-nowrap gap-4',
+              'justify-between items-center w-full',
+            )}
+          >
+            <SeedAvailability />
+            <ResetAvailability />
+          </div>
+          <h5 className="text-muted-foreground">Amenities</h5>
+          <div
+            className={cn(
+              'flex flex-row flex-nowrap gap-4',
+              'justify-between items-center w-full',
+            )}
+          >
+            <SeedAmenities />
+            <ResetAmenities />
+          </div>
+        </div>
       </div>
     </div>
   )
