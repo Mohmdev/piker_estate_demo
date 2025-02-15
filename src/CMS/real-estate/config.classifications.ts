@@ -1,13 +1,15 @@
 import { populateAuthors } from '@CMS/_hooks/populateAuthors'
 import { populatePublishedAt } from '@CMS/_hooks/populatePublishedAt'
 import {
+  revalidateClassification,
   revalidateDelete,
-  revalidatePropertyType,
-} from '@CMS/_hooks/revalidatePropertyCategories'
+} from '@CMS/_hooks/revalidateClassification'
 import { authorsField } from '@CMS/fields/shared/authorsField'
 import { noindexField } from '@CMS/fields/shared/noindexField'
 import { populateAuthorsField } from '@CMS/fields/shared/populatedAuthorsField'
 import { publishedAtField } from '@CMS/fields/shared/publishedAtField'
+import { relatedDocsField } from '@CMS/fields/shared/relatedDocsField'
+import { seoTab } from '@CMS/fields/shared/seoTab'
 import { slugField } from '@CMS/fields/shared/slug/config'
 import { isAdminOrEditor } from '@auth/access/isAdminOrEditor'
 import { isAdminOrSelf } from '@auth/access/isAdminOrSelf'
@@ -71,7 +73,7 @@ export const Classifications: CollectionConfig<'classifications'> = {
           ],
         },
         {
-          label: 'Options',
+          label: 'Metadata',
           fields: [
             {
               type: 'richText',
@@ -108,8 +110,10 @@ export const Classifications: CollectionConfig<'classifications'> = {
                 },
               ],
             },
+            relatedDocsField,
           ],
         },
+        seoTab,
       ],
     },
     noindexField,
@@ -119,8 +123,8 @@ export const Classifications: CollectionConfig<'classifications'> = {
     ...slugField(),
   ],
   hooks: {
-    // afterChange: [revalidatePropertyType],
-    // afterDelete: [revalidateDelete],
+    afterChange: [revalidateClassification],
+    afterDelete: [revalidateDelete],
     afterRead: [populateAuthors],
     beforeChange: [populatePublishedAt],
   },

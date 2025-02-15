@@ -23,6 +23,7 @@ const collections: CollectionSlug[] = [
   'availability',
   'amenities',
   'properties',
+  'projects',
 ]
 
 const globals: GlobalSlug[] = ['footer', 'main-menu', 'global-settings']

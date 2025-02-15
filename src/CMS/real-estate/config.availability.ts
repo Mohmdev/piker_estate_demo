@@ -1,13 +1,15 @@
 import { populateAuthors } from '@CMS/_hooks/populateAuthors'
 import { populatePublishedAt } from '@CMS/_hooks/populatePublishedAt'
 import {
+  revalidateAvailability,
   revalidateDelete,
-  revalidateListingStatus,
-} from '@CMS/_hooks/revalidateListingStatus'
+} from '@CMS/_hooks/revalidateAvailability'
 import { authorsField } from '@CMS/fields/shared/authorsField'
 import { noindexField } from '@CMS/fields/shared/noindexField'
 import { populateAuthorsField } from '@CMS/fields/shared/populatedAuthorsField'
 import { publishedAtField } from '@CMS/fields/shared/publishedAtField'
+import { relatedDocsField } from '@CMS/fields/shared/relatedDocsField'
+import { seoTab } from '@CMS/fields/shared/seoTab'
 import { slugField } from '@CMS/fields/shared/slug/config'
 import { isAdminOrEditor } from '@auth/access/isAdminOrEditor'
 import { isAdminOrSelf } from '@auth/access/isAdminOrSelf'
@@ -71,8 +73,33 @@ export const Availability: CollectionConfig<'availability'> = {
           ],
         },
         {
-          label: 'Options',
+          label: 'Metadata',
           fields: [
+            {
+              type: 'row',
+              fields: [
+                {
+                  type: 'checkbox',
+                  name: 'allowInquiries',
+                  label: 'Allow Inquiries',
+                  defaultValue: true,
+                  admin: {
+                    description:
+                      'Can users make inquiries about properties with this status?',
+                  },
+                },
+                {
+                  type: 'checkbox',
+                  name: 'showInSearch',
+                  label: 'Show in Search',
+                  defaultValue: true,
+                  admin: {
+                    description:
+                      'Should properties with this status appear in search results?',
+                  },
+                },
+              ],
+            },
             {
               type: 'richText',
               name: 'description',
@@ -124,40 +151,10 @@ export const Availability: CollectionConfig<'availability'> = {
                 },
               ],
             },
+            relatedDocsField,
           ],
         },
-        {
-          label: 'Extra',
-          fields: [
-            {
-              type: 'group',
-              name: 'extra',
-              label: false,
-              fields: [
-                {
-                  type: 'checkbox',
-                  name: 'allowInquiries',
-                  label: 'Allow Inquiries',
-                  defaultValue: true,
-                  admin: {
-                    description:
-                      'Can users make inquiries about properties with this status?',
-                  },
-                },
-                {
-                  type: 'checkbox',
-                  name: 'showInSearch',
-                  label: 'Show in Search',
-                  defaultValue: true,
-                  admin: {
-                    description:
-                      'Should properties with this status appear in search results?',
-                  },
-                },
-              ],
-            },
-          ],
-        },
+        seoTab,
       ],
     },
     noindexField,
@@ -167,8 +164,8 @@ export const Availability: CollectionConfig<'availability'> = {
     ...slugField(),
   ],
   hooks: {
-    // afterChange: [revalidateListingStatus],
-    // afterDelete: [revalidateDelete],
+    afterChange: [revalidateAvailability],
+    afterDelete: [revalidateDelete],
     afterRead: [populateAuthors],
     beforeChange: [populatePublishedAt],
   },

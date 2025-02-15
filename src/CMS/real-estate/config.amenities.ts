@@ -1,13 +1,15 @@
 import { populateAuthors } from '@CMS/_hooks/populateAuthors'
 import { populatePublishedAt } from '@CMS/_hooks/populatePublishedAt'
 import {
+  revalidateAmenity,
   revalidateDelete,
-  revalidateFeature,
-} from '@CMS/_hooks/revalidateFeature'
+} from '@CMS/_hooks/revalidateAmenity'
 import { authorsField } from '@CMS/fields/shared/authorsField'
 import { noindexField } from '@CMS/fields/shared/noindexField'
 import { populateAuthorsField } from '@CMS/fields/shared/populatedAuthorsField'
 import { publishedAtField } from '@CMS/fields/shared/publishedAtField'
+import { relatedDocsField } from '@CMS/fields/shared/relatedDocsField'
+import { seoTab } from '@CMS/fields/shared/seoTab'
 import { slugField } from '@CMS/fields/shared/slug/config'
 import { isAdminOrEditor } from '@auth/access/isAdminOrEditor'
 import { isAdminOrSelf } from '@auth/access/isAdminOrSelf'
@@ -71,7 +73,7 @@ export const Amenities: CollectionConfig<'amenities'> = {
           ],
         },
         {
-          label: 'Options',
+          label: 'Metadata',
           fields: [
             {
               type: 'checkbox',
@@ -92,21 +94,18 @@ export const Amenities: CollectionConfig<'amenities'> = {
               },
             },
             {
-              type: 'row',
-              fields: [
-                {
-                  type: 'upload',
-                  name: 'image',
-                  label: 'Amenity Icon',
-                  relationTo: 'media',
-                  admin: {
-                    description: 'Upload an image or icon for this amenity',
-                  },
-                },
-              ],
+              type: 'upload',
+              name: 'image',
+              label: 'Amenity Icon',
+              relationTo: 'media',
+              admin: {
+                description: 'Upload an image or icon for this amenity',
+              },
             },
+            relatedDocsField,
           ],
         },
+        seoTab,
       ],
     },
     noindexField,
@@ -116,8 +115,8 @@ export const Amenities: CollectionConfig<'amenities'> = {
     ...slugField(),
   ],
   hooks: {
-    // afterChange: [revalidateFeature],
-    // afterDelete: [revalidateDelete],
+    afterChange: [revalidateAmenity],
+    afterDelete: [revalidateDelete],
     afterRead: [populateAuthors],
     beforeChange: [populatePublishedAt],
   },

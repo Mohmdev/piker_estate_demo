@@ -1,12 +1,12 @@
 import { Media } from '@components/Media'
-import type { Post } from '@payload-types'
+import type { Blog } from '@payload-types'
 import { formatAuthors } from '@utils/formatAuthors'
 import { formatDateTime } from '@utils/formatDateTime'
 import { cn } from '@utils/ui'
 import React from 'react'
 
 export const BlogHero: React.FC<{
-  post: Post
+  post: Blog
 }> = ({ post }) => {
   const { categories, heroImage, populatedAuthors, publishedAt, title } = post
 
@@ -24,7 +24,10 @@ export const BlogHero: React.FC<{
           <div className="uppercase text-sm mb-6">
             {categories?.map((category, index) => {
               if (typeof category === 'object' && category !== null) {
-                const { title: categoryTitle } = category
+                const { value } = category
+                // Handle both cases where value might be a number (id) or the populated category object
+                const categoryTitle =
+                  typeof value === 'object' ? value.title : 'Untitled category'
 
                 const titleToUse = categoryTitle || 'Untitled category'
 

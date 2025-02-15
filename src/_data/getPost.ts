@@ -1,8 +1,8 @@
 import configPromise from '@payload-config'
-import type { Search } from '@payload-types'
 import { draftMode } from 'next/headers'
 import { getPayload } from 'payload'
 import { cache } from 'react'
+import type { QueryResults } from './types'
 
 export const getPostBySlug = cache(async ({ slug }: { slug: string }) => {
   const { isEnabled: draft } = await draftMode()
@@ -42,11 +42,6 @@ export const getPaginatedPosts = async () => {
   })
 
   return result
-}
-
-export interface QueryResults {
-  results: Partial<Search>[]
-  totalDocs: number
 }
 
 export const queryPosts = async (

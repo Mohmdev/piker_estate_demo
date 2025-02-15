@@ -1,6 +1,6 @@
 import type { CollectionSlug } from 'payload'
 
-import { PREVIEWABLE_COLLECTIONS } from '@services/control-board'
+import { PREVIEW_ENABLED_COLLECTIONS } from '@services/control-board'
 
 // Explicit prefix configuration
 const collectionPrefixOverrides: Record<string, string> = {
@@ -11,7 +11,7 @@ const collectionPrefixOverrides: Record<string, string> = {
 
 // Dynamic collection prefix map
 const collectionPrefixMap: Partial<Record<CollectionSlug, string>> =
-  PREVIEWABLE_COLLECTIONS.reduce((acc, collection) => {
+  PREVIEW_ENABLED_COLLECTIONS.reduce((acc, collection) => {
     const override = collectionPrefixOverrides[collection]
     const prefix = override !== undefined ? override : `/${collection}`
     return {

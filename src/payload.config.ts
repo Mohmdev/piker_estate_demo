@@ -7,6 +7,7 @@ import { Blog } from '@CMS/marketing/config.Blog'
 import { BlogCategories } from '@CMS/marketing/config.BlogCategories'
 import { Pages } from '@CMS/marketing/config.Pages'
 import { Tags } from '@CMS/marketing/config.Tags'
+import { Projects } from '@CMS/real-estate/config.Projects'
 import { Properties } from '@CMS/real-estate/config.Properties'
 import { Amenities } from '@CMS/real-estate/config.amenities'
 import { Availability } from '@CMS/real-estate/config.availability'
@@ -38,6 +39,7 @@ const dirname = path.dirname(filename)
 export default buildConfig({
   collections: [
     ...collectionGroup('Real Estate', [
+      Projects,
       Properties,
       Classifications,
       Amenities,

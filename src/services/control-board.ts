@@ -1,59 +1,35 @@
 import type { CollectionSlug, GlobalSlug } from 'payload'
-
 export const ROLES_WITH_ADMIN_ACCESS = ['admin', 'editor'] as const
-export const DASHBOARD_SLUG = 'dashboard'
-
-export const SITE_NAME_SHORT = 'Nexweb' as const
-export const SITE_NAME = 'Nexweb Studio' as const
-
-export const LINKABLE_COLLECTIONS: CollectionSlug[] = [
+// export const DASHBOARD_SLUG = 'dashboard'
+// export const SITE_NAME_SHORT = 'Nexweb' as const
+// export const SITE_NAME = 'Nexweb Studio' as const
+/* -------------------------------------------------------------------------- */
+/* -------------------------------------------------------------------------- */
+const mainCollections: CollectionSlug[] = [
   'pages',
   'blog',
   'properties',
+  'projects',
 ] as const
-export const PREVIEWABLE_COLLECTIONS: CollectionSlug[] = [
-  'pages',
-  'blog',
-  'properties',
+const taxonomyCollections: CollectionSlug[] = [
+  'blog-categories',
+  'classifications',
+  'contracts',
+  'availability',
+  'amenities',
 ] as const
-export const RELATABLE_COLLECTIONS: CollectionSlug[] = [
-  'pages',
-  'blog',
-  'properties',
-] as const
-// export type RELATABLE_COLLECTIONS_TYPES = 'blog'
+/* -------------------------------------------------------------------------- */
+/* -------------------------------------------------------------------------- */
 
-export const ENABLED_PLUGINS = {
-  storage: true,
-  formBuilder: true,
-  seo: true,
-  redirects: true,
-  nestedDocs: true,
-  search: true,
-} as const
-
-/* ----------------------------------- SEO ---------------------------------- */
-// export const SEO_ENABLED_COLLECTIONS: CollectionSlug[] = [
-//   'pages',
-//   'blog',
-//   'properties',
-// ] as const
-// export const SEO_ENABLED_GLOBALS: GlobalSlug[] = [
-//   // 'get-started',
-//   // 'home-page',
-// ] as const
-/* --------------------------------- Search --------------------------------- */
-// export const INDEXED_COLLECTIONS: CollectionSlug[] = ['blog'] as const
-// export const INDEXED_TAXONOMY_COLLECTIONS: CollectionSlug[] = [] as const
+export const PREVIEW_ENABLED_COLLECTIONS: CollectionSlug[] = mainCollections
+export const RELATABLE_COLLECTIONS: CollectionSlug[] = mainCollections // RelatedDocs field and component
 /* -------------------------------- Redirects ------------------------------- */
-export const REDIRECTABLE_COLLECTIONS: CollectionSlug[] = [
-  'pages',
-  'blog',
-  'properties',
+export const REDIRECTS_ENABLED_COLLECTIONS: CollectionSlug[] = [
+  ...mainCollections,
+  ...taxonomyCollections,
 ] as const
 /* ------------------------------- Nested Docs ------------------------------ */
-export const NESTED_COLLECTIONS: CollectionSlug[] = [
-  //
+export const NESTING_ENABLED_COLLECTIONS: CollectionSlug[] = [
   'pages',
   'blog-categories',
   'classifications',
@@ -61,6 +37,23 @@ export const NESTED_COLLECTIONS: CollectionSlug[] = [
   'availability',
   'amenities',
 ] as const
+/* --------------------------------- Search --------------------------------- */
+export const SYNC_TO_SEARCH_ENABLED_COLLECTIONS: CollectionSlug[] = [
+  'blog',
+  'properties',
+  'projects',
+] as const
+export const SEARCH_CATEGORIES: CollectionSlug[] = taxonomyCollections
+
+// export const ENABLED_PLUGINS = {
+//   storage: true,
+//   formBuilder: true,
+//   seo: true,
+//   redirects: true,
+//   nestedDocs: true,
+//   search: true,
+// } as const
+
 /* ------------------------------- Page Blocks ------------------------------ */
 // export const ENABLED_PAGE_BLOCKS = {
 //   CardGrid: false,

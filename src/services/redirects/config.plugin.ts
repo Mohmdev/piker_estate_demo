@@ -2,10 +2,10 @@ import { revalidateRedirects } from '@CMS/_hooks/revalidateRedirects'
 import { redirectsPlugin } from '@payloadcms/plugin-redirects'
 import type { Plugin } from 'payload'
 
-import { REDIRECTABLE_COLLECTIONS } from '@services/control-board'
+import { REDIRECTS_ENABLED_COLLECTIONS } from '@services/control-board'
 
 export const redirectsPluginConfig: Plugin = redirectsPlugin({
-  collections: REDIRECTABLE_COLLECTIONS,
+  collections: REDIRECTS_ENABLED_COLLECTIONS,
   overrides: {
     // @ts-expect-error: This is a valid override
     fields: ({ defaultFields }) => {

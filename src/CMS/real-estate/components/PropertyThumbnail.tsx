@@ -31,7 +31,7 @@ export const PropertyThumbnail = async ({
     <div
       className={cn(
         'relative aspect-video w-full overflow-hidden rounded-lg border-1 border-border/50',
-        'my-6   bg-[hsl(var(--space-bg-less))]',
+        'my-6 bg-[hsl(var(--space-bg-less))]',
         '[box-shadow:inset_0_1px_4px_0_rgb(0_0_0_/_0.07)]',
         'dark:[box-shadow:inset_0_1px_4px_0_rgb(0_0_0_/_0.9)]',
       )}

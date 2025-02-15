@@ -1,12 +1,9 @@
-import type { CollectionConfig } from 'payload'
-
 import { populateAuthors } from '@CMS/_hooks/populateAuthors'
+import { populatePublishedAt } from '@CMS/_hooks/populatePublishedAt'
 import {
   revalidateBlogPost,
   revalidateDelete,
 } from '@CMS/_hooks/revalidateBlog'
-
-import { populatePublishedAt } from '@CMS/_hooks/populatePublishedAt'
 import { authorsField } from '@CMS/fields/shared/authorsField'
 import { categoriesField } from '@CMS/fields/shared/categoriesField'
 import { noindexField } from '@CMS/fields/shared/noindexField'
@@ -22,6 +19,7 @@ import { publishedOnly } from '@auth/access/publishedOnly'
 import { fullLexical } from '@services/editor/fullLexical'
 import { getCollectionLivePreviewURL } from '@services/live-preview/getCollectionLivePreviewURL'
 import { getCollectionPreviewURL } from '@services/live-preview/getCollectionPreviewURL'
+import type { CollectionConfig } from 'payload'
 
 export const Blog: CollectionConfig<'blog'> = {
   slug: 'blog',
@@ -85,7 +83,7 @@ export const Blog: CollectionConfig<'blog'> = {
           ],
         },
         {
-          label: 'Options',
+          label: 'Metadata',
           fields: [categoriesField, relatedDocsField, tagsField],
         },
         seoTab,

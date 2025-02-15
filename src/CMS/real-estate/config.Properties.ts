@@ -7,6 +7,7 @@ import { categoriesField } from '@CMS/fields/shared/categoriesField'
 import { noindexField } from '@CMS/fields/shared/noindexField'
 import { populateAuthorsField } from '@CMS/fields/shared/populatedAuthorsField'
 import { publishedAtField } from '@CMS/fields/shared/publishedAtField'
+import { relatedDocsField } from '@CMS/fields/shared/relatedDocsField'
 import { seoTab } from '@CMS/fields/shared/seoTab'
 import { slugField } from '@CMS/fields/shared/slug/config'
 import { tagsField } from '@CMS/fields/shared/tagsField'
@@ -16,10 +17,11 @@ import { publishedOnly } from '@auth/access/publishedOnly'
 import { extendedLexical } from '@services/editor/extendedLexical'
 import { getCollectionLivePreviewURL } from '@services/live-preview/getCollectionLivePreviewURL'
 import { getCollectionPreviewURL } from '@services/live-preview/getCollectionPreviewURL'
+import { isIncludedInSibling } from '@utils/siblingFieldCondition'
 import type { CollectionConfig } from 'payload'
-import { propertyGallery } from './glossary/interface.PropertyGallery'
-import { propertyLocation } from './glossary/interface.PropertyLocation'
-import { propertySpecifications } from './glossary/interface.PropertySpecifications'
+import { galleryGroup } from './glossary/field.galleryGroup'
+import { LocationInterface } from './glossary/interface.location'
+import { SpecificationsInterface } from './glossary/interface.specifications'
 
 export const Properties: CollectionConfig<'properties'> = {
   slug: 'properties',
@@ -46,8 +48,8 @@ export const Properties: CollectionConfig<'properties'> = {
       '_status',
       'updatedAt',
     ],
-    livePreview: getCollectionLivePreviewURL('properties'),
     preview: getCollectionPreviewURL('properties'),
+    livePreview: getCollectionLivePreviewURL('properties'),
   },
   defaultPopulate: {
     title: true,
@@ -60,6 +62,7 @@ export const Properties: CollectionConfig<'properties'> = {
     {
       name: 'title',
       type: 'text',
+      label: 'Property Title',
       required: true,
       index: true,
       unique: true,
@@ -97,7 +100,20 @@ export const Properties: CollectionConfig<'properties'> = {
                     { label: 'Mid-Market', value: 'mid-market' },
                     { label: 'Luxury', value: 'luxury' },
                     { label: 'Ultra-Luxury', value: 'ultra-luxury' },
+                    { label: 'Commercial', value: 'commercial' },
+                    { label: 'Industrial', value: 'industrial' },
+                    { label: 'Other', value: 'other' },
+                    { label: 'Custom', value: 'custom' },
                   ],
+                },
+                {
+                  type: 'text',
+                  name: 'customMarket',
+                  label: 'Custom Market',
+                  admin: {
+                    description: 'Enter a custom market segment',
+                    condition: isIncludedInSibling('market', 'custom'),
+                  },
                 },
                 {
                   type: 'number',
@@ -155,9 +171,11 @@ export const Properties: CollectionConfig<'properties'> = {
                 allowEdit: true,
               },
             },
-            propertyGallery,
+            galleryGroup,
           ],
         },
+        SpecificationsInterface,
+        LocationInterface,
         {
           label: 'Contract Details',
           name: 'contractDetails',
@@ -182,8 +200,6 @@ export const Properties: CollectionConfig<'properties'> = {
             },
           ],
         },
-        propertySpecifications,
-        propertyLocation,
         {
           label: 'Metadata',
           fields: [
@@ -213,6 +229,7 @@ export const Properties: CollectionConfig<'properties'> = {
             },
             categoriesField,
             tagsField,
+            relatedDocsField,
           ],
         },
         seoTab,
@@ -226,8 +243,8 @@ export const Properties: CollectionConfig<'properties'> = {
   ],
   hooks: {
     afterChange: [revalidateProperty],
-    afterRead: [populateAuthors],
     afterDelete: [revalidateDelete],
+    afterRead: [populateAuthors],
     beforeChange: [populatePublishedAt],
   },
   versions: {

@@ -29,7 +29,7 @@ import { MetaDescriptionComponent as MetaDescriptionComponent_a8a977ebc872c5d5ea
 import { PreviewComponent as PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
 import { SlugComponent as SlugComponent_103d8e5a82af7720084293d0c1852a59 } from '@CMS/fields/shared/slug/client'
 import { BlocksFeatureClient as BlocksFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
-import { DbInteractionZone as DbInteractionZone_daf5c7d933c4d141d547f11be017960a } from '@auth/Users/danger-zone/Component'
+import { DbInteractionZone as DbInteractionZone_311b9917f801c21299e20d4f7ea6a2b0 } from '@services/seed/danger-zone/Component'
 import { LinkToDoc as LinkToDoc_aead06e4cbf6b2620c5c51c9ab283634 } from '@payloadcms/plugin-search/client'
 import { ReindexButton as ReindexButton_aead06e4cbf6b2620c5c51c9ab283634 } from '@payloadcms/plugin-search/client'
 import { NavItemRowLabel as NavItemRowLabel_89630d85da8118b8e772cd055f9d4c52 } from '@CMS/design/MainMenu/NavItemRowLabel'
@@ -71,7 +71,7 @@ export const importMap = {
   "@payloadcms/plugin-seo/client#PreviewComponent": PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860,
   "@CMS/fields/shared/slug/client#SlugComponent": SlugComponent_103d8e5a82af7720084293d0c1852a59,
   "@payloadcms/richtext-lexical/client#BlocksFeatureClient": BlocksFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
-  "@auth/Users/danger-zone/Component#DbInteractionZone": DbInteractionZone_daf5c7d933c4d141d547f11be017960a,
+  "@services/seed/danger-zone/Component#DbInteractionZone": DbInteractionZone_311b9917f801c21299e20d4f7ea6a2b0,
   "@payloadcms/plugin-search/client#LinkToDoc": LinkToDoc_aead06e4cbf6b2620c5c51c9ab283634,
   "@payloadcms/plugin-search/client#ReindexButton": ReindexButton_aead06e4cbf6b2620c5c51c9ab283634,
   "@CMS/design/MainMenu/NavItemRowLabel#NavItemRowLabel": NavItemRowLabel_89630d85da8118b8e772cd055f9d4c52,

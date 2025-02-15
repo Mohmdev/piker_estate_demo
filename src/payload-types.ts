@@ -66,6 +66,7 @@ export interface Config {
     users: UserAuthOperations;
   };
   collections: {
+    projects: Project;
     properties: Property;
     classifications: Classification;
     amenities: Amenity;
@@ -113,6 +114,7 @@ export interface Config {
     };
   };
   collectionsSelect: {
+    projects: ProjectsSelect<false> | ProjectsSelect<true>;
     properties: PropertiesSelect<false> | PropertiesSelect<true>;
     classifications: ClassificationsSelect<false> | ClassificationsSelect<true>;
     amenities: AmenitiesSelect<false> | AmenitiesSelect<true>;
@@ -195,12 +197,178 @@ export interface UserAuthOperations {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects".
+ */
+export interface Project {
+  id: number;
+  title: string;
+  market?:
+    | ('economy' | 'mid-market' | 'luxury' | 'ultra-luxury' | 'commercial' | 'industrial' | 'other' | 'custom')
+    | null;
+  /**
+   * Enter a custom market segment
+   */
+  customMarket?: string | null;
+  totalUnits: number;
+  completionYear?: number | null;
+  unitTypes?:
+    | {
+        type: string;
+        quantity: number;
+        startingPrice?: number | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Individual units that are part of this project
+   */
+  properties?: (number | Property)[] | null;
+  classification: (number | Classification)[];
+  contract: number | Contract;
+  availability: number | Availability;
+  amenities?: (number | Amenity)[] | null;
+  gallery: {
+    /**
+     * Upload up to 24 high-quality images. The first image will be used as the main image.
+     */
+    images: {
+      image?: (number | null) | Media;
+      id?: string | null;
+    }[];
+    /**
+     * Upload a walkthrough video (MP4 format recommended)
+     */
+    video?: (number | null) | Media;
+    /**
+     * External virtual tour link (e.g., Matterport, etc.)
+     */
+    virtualTourUrl?: string | null;
+    /**
+     * Upload floor plan documents (PDF format recommended)
+     */
+    floorPlan?: (number | Media)[] | null;
+    /**
+     * Upload additional documents (brochures, certificates, etc.)
+     */
+    documents?: (number | Media)[] | null;
+  };
+  location?: LocationInterface;
+  contractDetails?: {
+    /**
+     * Does this property require a formal contract?
+     */
+    requiresContract?: boolean | null;
+    /**
+     * Does this transaction type require a deposit?
+     */
+    requiresDeposit?: boolean | null;
+  };
+  /**
+   * Describe the property in a few sentences.
+   */
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Show this property in featured sections
+   */
+  isFeatured?: boolean | null;
+  /**
+   * General categorization for the built-in Search Engine and filtering purposes
+   */
+  categories?:
+    | (
+        | {
+            relationTo: 'blog-categories';
+            value: number | BlogCategory;
+          }
+        | {
+            relationTo: 'classifications';
+            value: number | Classification;
+          }
+        | {
+            relationTo: 'contracts';
+            value: number | Contract;
+          }
+        | {
+            relationTo: 'availability';
+            value: number | Availability;
+          }
+        | {
+            relationTo: 'amenities';
+            value: number | Amenity;
+          }
+      )[]
+    | null;
+  tags?: (number | Tag)[] | null;
+  /**
+   * Content that are related to this one. Could be a page, or post, that you would like to feature in this document.
+   */
+  relatedDocs?:
+    | (
+        | {
+            relationTo: 'pages';
+            value: number | Page;
+          }
+        | {
+            relationTo: 'blog';
+            value: number | Blog;
+          }
+        | {
+            relationTo: 'properties';
+            value: number | Property;
+          }
+        | {
+            relationTo: 'projects';
+            value: number | Project;
+          }
+      )[]
+    | null;
+  meta?: Meta;
+  /**
+   * When checked, this page will not appear in search engines like Google. Use this for private pages or temporary content that should not be publicly searchable.
+   */
+  noindex?: boolean | null;
+  authors?: (number | User)[] | null;
+  populatedAuthors?:
+    | {
+        id?: string | null;
+        username?: string | null;
+      }[]
+    | null;
+  publishedAt?: string | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "properties".
  */
 export interface Property {
   id: number;
   title: string;
-  market?: ('economy' | 'mid-market' | 'luxury' | 'ultra-luxury') | null;
+  market?:
+    | ('economy' | 'mid-market' | 'luxury' | 'ultra-luxury' | 'commercial' | 'industrial' | 'other' | 'custom')
+    | null;
+  /**
+   * Enter a custom market segment
+   */
+  customMarket?: string | null;
   price: number;
   classification: (number | Classification)[];
   contract: number | Contract;
@@ -227,10 +395,12 @@ export interface Property {
      */
     floorPlan?: (number | Media)[] | null;
     /**
-     * Upload additional property documents (brochures, certificates, etc.)
+     * Upload additional documents (brochures, certificates, etc.)
      */
-    propertyDocs?: (number | Media)[] | null;
+    documents?: (number | Media)[] | null;
   };
+  specs?: SpecificationsInterface;
+  location?: LocationInterface;
   contractDetails?: {
     /**
      * Does this property require a formal contract?
@@ -241,8 +411,6 @@ export interface Property {
      */
     requiresDeposit?: boolean | null;
   };
-  specs?: PropertySpecifications;
-  location?: PropertyLocation;
   /**
    * Describe the property in a few sentences.
    */
@@ -266,7 +434,7 @@ export interface Property {
    */
   isFeatured?: boolean | null;
   /**
-   * Setting categories helps the built-in Search Engine within the Software to find relevant content
+   * General categorization for the built-in Search Engine and filtering purposes
    */
   categories?:
     | (
@@ -279,10 +447,6 @@ export interface Property {
             value: number | Classification;
           }
         | {
-            relationTo: 'amenities';
-            value: number | Amenity;
-          }
-        | {
             relationTo: 'contracts';
             value: number | Contract;
           }
@@ -290,9 +454,36 @@ export interface Property {
             relationTo: 'availability';
             value: number | Availability;
           }
+        | {
+            relationTo: 'amenities';
+            value: number | Amenity;
+          }
       )[]
     | null;
   tags?: (number | Tag)[] | null;
+  /**
+   * Content that are related to this one. Could be a page, or post, that you would like to feature in this document.
+   */
+  relatedDocs?:
+    | (
+        | {
+            relationTo: 'pages';
+            value: number | Page;
+          }
+        | {
+            relationTo: 'blog';
+            value: number | Blog;
+          }
+        | {
+            relationTo: 'properties';
+            value: number | Property;
+          }
+        | {
+            relationTo: 'projects';
+            value: number | Project;
+          }
+      )[]
+    | null;
   meta?: Meta;
   /**
    * When checked, this page will not appear in search engines like Google. Use this for private pages or temporary content that should not be publicly searchable.
@@ -351,6 +542,30 @@ export interface Classification {
    * Icon for this property category
    */
   icon?: (number | null) | Media;
+  /**
+   * Content that are related to this one. Could be a page, or post, that you would like to feature in this document.
+   */
+  relatedDocs?:
+    | (
+        | {
+            relationTo: 'pages';
+            value: number | Page;
+          }
+        | {
+            relationTo: 'blog';
+            value: number | Blog;
+          }
+        | {
+            relationTo: 'properties';
+            value: number | Property;
+          }
+        | {
+            relationTo: 'projects';
+            value: number | Project;
+          }
+      )[]
+    | null;
+  meta?: Meta;
   /**
    * When checked, this page will not appear in search engines like Google. Use this for private pages or temporary content that should not be publicly searchable.
    */
@@ -541,7 +756,7 @@ export interface Page {
     | (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | ListingBlock | ListingArchiveBlock)[]
     | null;
   /**
-   * Setting categories helps the built-in Search Engine within the Software to find relevant content
+   * General categorization for the built-in Search Engine and filtering purposes
    */
   categories?:
     | (
@@ -554,16 +769,16 @@ export interface Page {
             value: number | Classification;
           }
         | {
-            relationTo: 'amenities';
-            value: number | Amenity;
-          }
-        | {
             relationTo: 'contracts';
             value: number | Contract;
           }
         | {
             relationTo: 'availability';
             value: number | Availability;
+          }
+        | {
+            relationTo: 'amenities';
+            value: number | Amenity;
           }
       )[]
     | null;
@@ -737,7 +952,7 @@ export interface Blog {
     [k: string]: unknown;
   } | null;
   /**
-   * Setting categories helps the built-in Search Engine within the Software to find relevant content
+   * General categorization for the built-in Search Engine and filtering purposes
    */
   categories?:
     | (
@@ -750,16 +965,16 @@ export interface Blog {
             value: number | Classification;
           }
         | {
-            relationTo: 'amenities';
-            value: number | Amenity;
-          }
-        | {
             relationTo: 'contracts';
             value: number | Contract;
           }
         | {
             relationTo: 'availability';
             value: number | Availability;
+          }
+        | {
+            relationTo: 'amenities';
+            value: number | Amenity;
           }
       )[]
     | null;
@@ -779,6 +994,10 @@ export interface Blog {
         | {
             relationTo: 'properties';
             value: number | Property;
+          }
+        | {
+            relationTo: 'projects';
+            value: number | Project;
           }
       )[]
     | null;
@@ -846,12 +1065,12 @@ export interface BlogCategory {
   createdAt: string;
 }
 /**
- * Manage property amenities and features that can be assigned to properties
+ * Define different types of property transactions (sale, rent, lease, etc.)
  *
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "amenities".
+ * via the `definition` "contracts".
  */
-export interface Amenity {
+export interface Contract {
   id: number;
   title: string;
   properties?: {
@@ -859,11 +1078,7 @@ export interface Amenity {
     hasNextPage?: boolean | null;
   } | null;
   /**
-   * Mark if this is a premium or luxury amenity
-   */
-  isPremium?: boolean | null;
-  /**
-   * Brief description of this amenity and its benefits
+   * Describe this type of contract/transaction
    */
   description?: {
     root: {
@@ -881,9 +1096,33 @@ export interface Amenity {
     [k: string]: unknown;
   } | null;
   /**
-   * Upload an image or icon for this amenity
+   * Icon or representative image for this sale type
    */
   image?: (number | null) | Media;
+  /**
+   * Content that are related to this one. Could be a page, or post, that you would like to feature in this document.
+   */
+  relatedDocs?:
+    | (
+        | {
+            relationTo: 'pages';
+            value: number | Page;
+          }
+        | {
+            relationTo: 'blog';
+            value: number | Blog;
+          }
+        | {
+            relationTo: 'properties';
+            value: number | Property;
+          }
+        | {
+            relationTo: 'projects';
+            value: number | Project;
+          }
+      )[]
+    | null;
+  meta?: Meta;
   /**
    * When checked, this page will not appear in search engines like Google. Use this for private pages or temporary content that should not be publicly searchable.
    */
@@ -898,10 +1137,10 @@ export interface Amenity {
   publishedAt?: string | null;
   slug?: string | null;
   slugLock?: boolean | null;
-  parent?: (number | null) | Amenity;
+  parent?: (number | null) | Contract;
   breadcrumbs?:
     | {
-        doc?: (number | null) | Amenity;
+        doc?: (number | null) | Contract;
         url?: string | null;
         label?: string | null;
         id?: string | null;
@@ -910,6 +1149,18 @@ export interface Amenity {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "meta".
+ */
+export interface Meta {
+  title?: string | null;
+  /**
+   * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+   */
+  image?: (number | null) | Media;
+  description?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -986,68 +1237,6 @@ export interface UserPhoto {
   };
 }
 /**
- * Define different types of property transactions (sale, rent, lease, etc.)
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "contracts".
- */
-export interface Contract {
-  id: number;
-  title: string;
-  properties?: {
-    docs?: (number | Property)[] | null;
-    hasNextPage?: boolean | null;
-  } | null;
-  /**
-   * Describe this type of contract/transaction
-   */
-  description?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  /**
-   * Icon or representative image for this sale type
-   */
-  image?: (number | null) | Media;
-  /**
-   * When checked, this page will not appear in search engines like Google. Use this for private pages or temporary content that should not be publicly searchable.
-   */
-  noindex?: boolean | null;
-  authors?: (number | User)[] | null;
-  populatedAuthors?:
-    | {
-        id?: string | null;
-        username?: string | null;
-      }[]
-    | null;
-  publishedAt?: string | null;
-  slug?: string | null;
-  slugLock?: boolean | null;
-  parent?: (number | null) | Contract;
-  breadcrumbs?:
-    | {
-        doc?: (number | null) | Contract;
-        url?: string | null;
-        label?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
  * Define and manage different states a property listing can have
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1060,6 +1249,14 @@ export interface Availability {
     docs?: (number | Property)[] | null;
     hasNextPage?: boolean | null;
   } | null;
+  /**
+   * Can users make inquiries about properties with this status?
+   */
+  allowInquiries?: boolean | null;
+  /**
+   * Should properties with this status appear in search results?
+   */
+  showInSearch?: boolean | null;
   /**
    * Describe what this availability status means
    */
@@ -1090,16 +1287,30 @@ export interface Availability {
    * Icon for this availability status
    */
   icon?: (number | null) | Media;
-  extra?: {
-    /**
-     * Can users make inquiries about properties with this status?
-     */
-    allowInquiries?: boolean | null;
-    /**
-     * Should properties with this status appear in search results?
-     */
-    showInSearch?: boolean | null;
-  };
+  /**
+   * Content that are related to this one. Could be a page, or post, that you would like to feature in this document.
+   */
+  relatedDocs?:
+    | (
+        | {
+            relationTo: 'pages';
+            value: number | Page;
+          }
+        | {
+            relationTo: 'blog';
+            value: number | Blog;
+          }
+        | {
+            relationTo: 'properties';
+            value: number | Property;
+          }
+        | {
+            relationTo: 'projects';
+            value: number | Project;
+          }
+      )[]
+    | null;
+  meta?: Meta;
   /**
    * When checked, this page will not appear in search engines like Google. Use this for private pages or temporary content that should not be publicly searchable.
    */
@@ -1128,16 +1339,94 @@ export interface Availability {
   _status?: ('draft' | 'published') | null;
 }
 /**
+ * Manage property amenities and features that can be assigned to properties
+ *
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "meta".
+ * via the `definition` "amenities".
  */
-export interface Meta {
-  title?: string | null;
+export interface Amenity {
+  id: number;
+  title: string;
+  properties?: {
+    docs?: (number | Property)[] | null;
+    hasNextPage?: boolean | null;
+  } | null;
   /**
-   * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+   * Mark if this is a premium or luxury amenity
+   */
+  isPremium?: boolean | null;
+  /**
+   * Brief description of this amenity and its benefits
+   */
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Upload an image or icon for this amenity
    */
   image?: (number | null) | Media;
-  description?: string | null;
+  /**
+   * Content that are related to this one. Could be a page, or post, that you would like to feature in this document.
+   */
+  relatedDocs?:
+    | (
+        | {
+            relationTo: 'pages';
+            value: number | Page;
+          }
+        | {
+            relationTo: 'blog';
+            value: number | Blog;
+          }
+        | {
+            relationTo: 'properties';
+            value: number | Property;
+          }
+        | {
+            relationTo: 'projects';
+            value: number | Project;
+          }
+      )[]
+    | null;
+  meta?: Meta;
+  /**
+   * When checked, this page will not appear in search engines like Google. Use this for private pages or temporary content that should not be publicly searchable.
+   */
+  noindex?: boolean | null;
+  authors?: (number | User)[] | null;
+  populatedAuthors?:
+    | {
+        id?: string | null;
+        username?: string | null;
+      }[]
+    | null;
+  publishedAt?: string | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  parent?: (number | null) | Amenity;
+  breadcrumbs?:
+    | {
+        doc?: (number | null) | Amenity;
+        url?: string | null;
+        label?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1614,7 +1903,7 @@ export interface ListingArchiveBlock {
      */
     selection?: (number | Property)[] | null;
     /**
-     * Setting categories helps the built-in Search Engine within the Software to find relevant content
+     * General categorization for the built-in Search Engine and filtering purposes
      */
     categories?:
       | (
@@ -1627,16 +1916,16 @@ export interface ListingArchiveBlock {
               value: number | Classification;
             }
           | {
-              relationTo: 'amenities';
-              value: number | Amenity;
-            }
-          | {
               relationTo: 'contracts';
               value: number | Contract;
             }
           | {
               relationTo: 'availability';
               value: number | Availability;
+            }
+          | {
+              relationTo: 'amenities';
+              value: number | Amenity;
             }
         )[]
       | null;
@@ -1710,20 +1999,9 @@ export interface ListingCardOptions {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "PropertySpecifications".
+ * via the `definition` "SpecificationsInterface".
  */
-export interface PropertySpecifications {
-  facility?: {
-    facilityType?: ('security' | 'community' | 'utilities' | 'smart-home') | null;
-    /**
-     * Does this type typically have multiple units? (e.g., apartment buildings)
-     */
-    hasUnits?: boolean | null;
-    /**
-     * Is this a land-only property type?
-     */
-    isLandOnly?: boolean | null;
-  };
+export interface SpecificationsInterface {
   measurements?: {
     sizeRange?: ('small' | 'medium' | 'large' | 'xlarge') | null;
     /**
@@ -1786,9 +2064,9 @@ export interface PropertySpecifications {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "PropertyLocation".
+ * via the `definition` "LocationInterface".
  */
-export interface PropertyLocation {
+export interface LocationInterface {
   address_line1?: string | null;
   unit?: string | null;
   address_line2?: string | null;
@@ -2118,10 +2396,19 @@ export interface Search {
   id: number;
   title?: string | null;
   priority?: number | null;
-  doc: {
-    relationTo: 'blog';
-    value: number | Blog;
-  };
+  doc:
+    | {
+        relationTo: 'blog';
+        value: number | Blog;
+      }
+    | {
+        relationTo: 'properties';
+        value: number | Property;
+      }
+    | {
+        relationTo: 'projects';
+        value: number | Project;
+      };
   slug?: string | null;
   meta?: {
     title?: string | null;
@@ -2179,6 +2466,30 @@ export interface Redirect {
       | ({
           relationTo: 'properties';
           value: number | Property;
+        } | null)
+      | ({
+          relationTo: 'projects';
+          value: number | Project;
+        } | null)
+      | ({
+          relationTo: 'blog-categories';
+          value: number | BlogCategory;
+        } | null)
+      | ({
+          relationTo: 'classifications';
+          value: number | Classification;
+        } | null)
+      | ({
+          relationTo: 'contracts';
+          value: number | Contract;
+        } | null)
+      | ({
+          relationTo: 'availability';
+          value: number | Availability;
+        } | null)
+      | ({
+          relationTo: 'amenities';
+          value: number | Amenity;
         } | null);
     url?: string | null;
   };
@@ -2284,6 +2595,10 @@ export interface PayloadJob {
 export interface PayloadLockedDocument {
   id: number;
   document?:
+    | ({
+        relationTo: 'projects';
+        value: number | Project;
+      } | null)
     | ({
         relationTo: 'properties';
         value: number | Property;
@@ -2400,12 +2715,23 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "properties_select".
+ * via the `definition` "projects_select".
  */
-export interface PropertiesSelect<T extends boolean = true> {
+export interface ProjectsSelect<T extends boolean = true> {
   title?: T;
   market?: T;
-  price?: T;
+  customMarket?: T;
+  totalUnits?: T;
+  completionYear?: T;
+  unitTypes?:
+    | T
+    | {
+        type?: T;
+        quantity?: T;
+        startingPrice?: T;
+        id?: T;
+      };
+  properties?: T;
   classification?: T;
   contract?: T;
   availability?: T;
@@ -2422,20 +2748,20 @@ export interface PropertiesSelect<T extends boolean = true> {
         video?: T;
         virtualTourUrl?: T;
         floorPlan?: T;
-        propertyDocs?: T;
+        documents?: T;
       };
+  location?: T | LocationInterfaceSelect<T>;
   contractDetails?:
     | T
     | {
         requiresContract?: T;
         requiresDeposit?: T;
       };
-  specs?: T | PropertySpecificationsSelect<T>;
-  location?: T | PropertyLocationSelect<T>;
   description?: T;
   isFeatured?: T;
   categories?: T;
   tags?: T;
+  relatedDocs?: T;
   meta?: T | MetaSelect<T>;
   noindex?: T;
   authors?: T;
@@ -2454,53 +2780,9 @@ export interface PropertiesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "PropertySpecifications_select".
+ * via the `definition` "LocationInterface_select".
  */
-export interface PropertySpecificationsSelect<T extends boolean = true> {
-  facility?:
-    | T
-    | {
-        facilityType?: T;
-        hasUnits?: T;
-        isLandOnly?: T;
-      };
-  measurements?:
-    | T
-    | {
-        sizeRange?: T;
-        property_size?: T;
-        block_size?: T;
-        frontage?: T;
-        depth?: T;
-      };
-  rooms?:
-    | T
-    | {
-        num_bedrooms?: T;
-        num_bathrooms?: T;
-        num_carspaces?: T;
-        num_floors?: T;
-      };
-  construction?:
-    | T
-    | {
-        year_built?: T;
-        last_renovated?: T;
-        construction_type?: T;
-      };
-  utilities?:
-    | T
-    | {
-        energy_rating?: T;
-        heating_type?: T;
-        cooling_type?: T;
-      };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "PropertyLocation_select".
- */
-export interface PropertyLocationSelect<T extends boolean = true> {
+export interface LocationInterfaceSelect<T extends boolean = true> {
   address_line1?: T;
   unit?: T;
   address_line2?: T;
@@ -2545,6 +2827,99 @@ export interface MetaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "properties_select".
+ */
+export interface PropertiesSelect<T extends boolean = true> {
+  title?: T;
+  market?: T;
+  customMarket?: T;
+  price?: T;
+  classification?: T;
+  contract?: T;
+  availability?: T;
+  amenities?: T;
+  gallery?:
+    | T
+    | {
+        images?:
+          | T
+          | {
+              image?: T;
+              id?: T;
+            };
+        video?: T;
+        virtualTourUrl?: T;
+        floorPlan?: T;
+        documents?: T;
+      };
+  specs?: T | SpecificationsInterfaceSelect<T>;
+  location?: T | LocationInterfaceSelect<T>;
+  contractDetails?:
+    | T
+    | {
+        requiresContract?: T;
+        requiresDeposit?: T;
+      };
+  description?: T;
+  isFeatured?: T;
+  categories?: T;
+  tags?: T;
+  relatedDocs?: T;
+  meta?: T | MetaSelect<T>;
+  noindex?: T;
+  authors?: T;
+  populatedAuthors?:
+    | T
+    | {
+        id?: T;
+        username?: T;
+      };
+  publishedAt?: T;
+  slug?: T;
+  slugLock?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SpecificationsInterface_select".
+ */
+export interface SpecificationsInterfaceSelect<T extends boolean = true> {
+  measurements?:
+    | T
+    | {
+        sizeRange?: T;
+        property_size?: T;
+        block_size?: T;
+        frontage?: T;
+        depth?: T;
+      };
+  rooms?:
+    | T
+    | {
+        num_bedrooms?: T;
+        num_bathrooms?: T;
+        num_carspaces?: T;
+        num_floors?: T;
+      };
+  construction?:
+    | T
+    | {
+        year_built?: T;
+        last_renovated?: T;
+        construction_type?: T;
+      };
+  utilities?:
+    | T
+    | {
+        energy_rating?: T;
+        heating_type?: T;
+        cooling_type?: T;
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "classifications_select".
  */
 export interface ClassificationsSelect<T extends boolean = true> {
@@ -2553,6 +2928,8 @@ export interface ClassificationsSelect<T extends boolean = true> {
   description?: T;
   image?: T;
   icon?: T;
+  relatedDocs?: T;
+  meta?: T | MetaSelect<T>;
   noindex?: T;
   authors?: T;
   populatedAuthors?:
@@ -2587,6 +2964,8 @@ export interface AmenitiesSelect<T extends boolean = true> {
   isPremium?: T;
   description?: T;
   image?: T;
+  relatedDocs?: T;
+  meta?: T | MetaSelect<T>;
   noindex?: T;
   authors?: T;
   populatedAuthors?:
@@ -2618,16 +2997,14 @@ export interface AmenitiesSelect<T extends boolean = true> {
 export interface AvailabilitySelect<T extends boolean = true> {
   title?: T;
   properties?: T;
+  allowInquiries?: T;
+  showInSearch?: T;
   description?: T;
   color?: T;
   image?: T;
   icon?: T;
-  extra?:
-    | T
-    | {
-        allowInquiries?: T;
-        showInSearch?: T;
-      };
+  relatedDocs?: T;
+  meta?: T | MetaSelect<T>;
   noindex?: T;
   authors?: T;
   populatedAuthors?:
@@ -2661,6 +3038,8 @@ export interface ContractsSelect<T extends boolean = true> {
   properties?: T;
   description?: T;
   image?: T;
+  relatedDocs?: T;
+  meta?: T | MetaSelect<T>;
   noindex?: T;
   authors?: T;
   populatedAuthors?:
@@ -4011,6 +4390,10 @@ export interface TaskSchedulePublish {
     type?: ('publish' | 'unpublish') | null;
     locale?: string | null;
     doc?:
+      | ({
+          relationTo: 'projects';
+          value: number | Project;
+        } | null)
       | ({
           relationTo: 'properties';
           value: number | Property;

@@ -1,13 +1,15 @@
 import { populateAuthors } from '@CMS/_hooks/populateAuthors'
 import { populatePublishedAt } from '@CMS/_hooks/populatePublishedAt'
 import {
+  revalidateContract,
   revalidateDelete,
-  revalidateListingType,
-} from '@CMS/_hooks/revalidateListingType'
+} from '@CMS/_hooks/revalidateContract'
 import { authorsField } from '@CMS/fields/shared/authorsField'
 import { noindexField } from '@CMS/fields/shared/noindexField'
 import { populateAuthorsField } from '@CMS/fields/shared/populatedAuthorsField'
 import { publishedAtField } from '@CMS/fields/shared/publishedAtField'
+import { relatedDocsField } from '@CMS/fields/shared/relatedDocsField'
+import { seoTab } from '@CMS/fields/shared/seoTab'
 import { slugField } from '@CMS/fields/shared/slug/config'
 import { isAdminOrEditor } from '@auth/access/isAdminOrEditor'
 import { isAdminOrSelf } from '@auth/access/isAdminOrSelf'
@@ -30,7 +32,13 @@ export const Contracts: CollectionConfig<'contracts'> = {
   admin: {
     group: 'Real Estate',
     useAsTitle: 'title',
-    defaultColumns: ['image', 'title', '_status', 'updatedAt'],
+    defaultColumns: [
+      'image',
+      'title',
+      'description',
+      'properties',
+      'updatedAt',
+    ],
     description:
       'Define different types of property transactions (sale, rent, lease, etc.)',
   },
@@ -71,7 +79,7 @@ export const Contracts: CollectionConfig<'contracts'> = {
           ],
         },
         {
-          label: 'Options',
+          label: 'Metadata',
           fields: [
             {
               type: 'richText',
@@ -90,8 +98,10 @@ export const Contracts: CollectionConfig<'contracts'> = {
                 description: 'Icon or representative image for this sale type',
               },
             },
+            relatedDocsField,
           ],
         },
+        seoTab,
       ],
     },
     noindexField,
@@ -101,8 +111,8 @@ export const Contracts: CollectionConfig<'contracts'> = {
     ...slugField(),
   ],
   hooks: {
-    // afterChange: [revalidateListingType],
-    // afterDelete: [revalidateDelete],
+    afterChange: [revalidateContract],
+    afterDelete: [revalidateDelete],
     afterRead: [populateAuthors],
     beforeChange: [populatePublishedAt],
   },

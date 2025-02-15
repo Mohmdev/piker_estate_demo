@@ -119,7 +119,8 @@ export const Users: CollectionConfig<'users'> = {
               label: 'Database',
               admin: {
                 components: {
-                  Field: '@auth/Users/danger-zone/Component#DbInteractionZone',
+                  Field:
+                    '@services/seed/danger-zone/Component#DbInteractionZone',
                 },
                 condition: (_, siblingData) => {
                   return siblingData.role === 'admin'
