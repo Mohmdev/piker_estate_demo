@@ -1,5 +1,26 @@
 import type { Media, Property } from '@payload-types'
 
+// Define slugs for reference
+const CONTRACT_SLUGS = {
+  FOR_SALE: 'for-sale',
+  FOR_RENT: 'for-rent',
+} as const
+
+const AVAILABILITY_SLUGS = {
+  AVAILABLE: 'available',
+  UNDER_CONTRACT: 'under-contract',
+} as const
+
+const CLASSIFICATION_SLUGS = {
+  APARTMENT: 'apartment',
+  HOUSE: 'house',
+} as const
+
+const AMENITY_SLUGS = {
+  AIR_CONDITIONING: 'air-conditioning',
+  SWIMMING_POOL: 'swimming-pool',
+} as const
+
 export const mockProperties: Partial<Property>[] = [
   {
     title: 'Modern Waterfront Apartment',
@@ -55,17 +76,13 @@ export const mockProperties: Partial<Property>[] = [
       measurements: {
         property_size: 120,
         block_size: 120,
+        sizeRange: 'large',
       },
       rooms: {
         num_bedrooms: 3,
         num_bathrooms: 2,
         num_carspaces: 2,
         num_floors: 1,
-      },
-      facility: {
-        facilityType: 'security',
-        hasUnits: true,
-        isLandOnly: false,
       },
       construction: {
         year_built: 2020,
@@ -77,11 +94,11 @@ export const mockProperties: Partial<Property>[] = [
         cooling_type: 'central',
       },
     },
-    amenities: [],
+    amenities: [0, 0],
     isFeatured: true,
-    classification: [1],
-    contract: 1,
-    availability: 1,
+    classification: [0],
+    contract: 0,
+    availability: 0,
     contractDetails: {
       requiresContract: true,
       requiresDeposit: true,
@@ -89,26 +106,33 @@ export const mockProperties: Partial<Property>[] = [
     categories: [
       {
         relationTo: 'classifications',
-        value: 1,
+        value: 0,
       },
       {
         relationTo: 'contracts',
-        value: 1,
+        value: 0,
       },
     ],
     tags: [],
     gallery: {
       images: [
-        '{{IMAGE_1}}' as unknown as Media,
-        '{{IMAGE_2}}' as unknown as Media,
+        {
+          image: '{{WATERFRONT_APARTMENT_MAIN}}' as unknown as Media,
+          id: 'image1',
+        },
+        {
+          image: '{{WATERFRONT_APARTMENT_LIVING}}' as unknown as Media,
+          id: 'image2',
+        },
       ],
       video: null,
       virtualTourUrl: 'https://tour.example.com/waterfront-apt',
       floorPlan: null,
-      propertyDocs: null,
+      documents: null,
     },
     meta: {
       title: 'Modern Waterfront Apartment | Nexweb Real Estate',
+      image: '{{WATERFRONT_APARTMENT_MAIN}}' as unknown as Media,
       description:
         'Luxury 3-bedroom waterfront apartment with stunning harbor views in Sydney CBD',
     },
@@ -172,17 +196,13 @@ export const mockProperties: Partial<Property>[] = [
       measurements: {
         property_size: 185,
         block_size: 450,
+        sizeRange: 'xlarge',
       },
       rooms: {
         num_bedrooms: 4,
         num_bathrooms: 2,
         num_carspaces: 2,
         num_floors: 2,
-      },
-      facility: {
-        facilityType: 'smart-home',
-        hasUnits: false,
-        isLandOnly: false,
       },
       construction: {
         year_built: 2015,
@@ -194,11 +214,11 @@ export const mockProperties: Partial<Property>[] = [
         cooling_type: 'split',
       },
     },
-    amenities: [],
+    amenities: [0, 0],
     isFeatured: false,
-    classification: [2],
-    contract: 2,
-    availability: 1,
+    classification: [0],
+    contract: 0,
+    availability: 0,
     contractDetails: {
       requiresContract: true,
       requiresDeposit: true,
@@ -206,26 +226,37 @@ export const mockProperties: Partial<Property>[] = [
     categories: [
       {
         relationTo: 'classifications',
-        value: 2,
+        value: 0,
       },
       {
         relationTo: 'contracts',
-        value: 2,
+        value: 0,
       },
     ],
     tags: [],
     gallery: {
       images: [
-        '{{IMAGE_2}}' as unknown as Media,
-        '{{IMAGE_3}}' as unknown as Media,
+        {
+          image: '{{FAMILY_HOME_MAIN}}' as unknown as Media,
+          id: 'image3',
+        },
+        {
+          image: '{{FAMILY_HOME_GARDEN}}' as unknown as Media,
+          id: 'image4',
+        },
+        {
+          image: '{{FAMILY_HOME_INTERIOR}}' as unknown as Media,
+          id: 'image5',
+        },
       ],
       video: null,
       virtualTourUrl: 'https://tour.example.com/family-home',
       floorPlan: null,
-      propertyDocs: null,
+      documents: null,
     },
     meta: {
       title: 'Family Home with Garden | Nexweb Real Estate',
+      image: '{{FAMILY_HOME_MAIN}}' as unknown as Media,
       description:
         'Spacious 4-bedroom family home with large garden in Hurstville',
     },
@@ -238,3 +269,29 @@ export const mockProperties: Partial<Property>[] = [
     _status: 'published',
   },
 ]
+
+// Add metadata to help the script process the properties
+export const propertyMetadata = {
+  contractMappings: {
+    'Modern Waterfront Apartment': CONTRACT_SLUGS.FOR_SALE,
+    'Family Home with Garden': CONTRACT_SLUGS.FOR_RENT,
+  },
+  availabilityMappings: {
+    'Modern Waterfront Apartment': AVAILABILITY_SLUGS.AVAILABLE,
+    'Family Home with Garden': AVAILABILITY_SLUGS.AVAILABLE,
+  },
+  classificationMappings: {
+    'Modern Waterfront Apartment': CLASSIFICATION_SLUGS.APARTMENT,
+    'Family Home with Garden': CLASSIFICATION_SLUGS.HOUSE,
+  },
+  amenityMappings: {
+    'Modern Waterfront Apartment': [
+      AMENITY_SLUGS.AIR_CONDITIONING,
+      AMENITY_SLUGS.SWIMMING_POOL,
+    ],
+    'Family Home with Garden': [
+      AMENITY_SLUGS.AIR_CONDITIONING,
+      AMENITY_SLUGS.SWIMMING_POOL,
+    ],
+  },
+}

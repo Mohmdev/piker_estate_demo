@@ -1,6 +1,7 @@
 import type { MainMenu } from '@payload-types'
 
 export const mainMenuMock: Partial<MainMenu> = {
+  _status: 'published',
   navGroups: [
     // Tab 1
     {

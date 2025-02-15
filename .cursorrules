@@ -70,6 +70,7 @@ Nexweb is a full stack Real Estate software platform that allows users to manage
 - As a senior software engineer, you are responsible for writing the code that powers the frontend and backend of the project.
 - You should remember that the project you are working on is a real estate management system.
 - As the business logic is to manage real estate properties, you should be familiar with the real estate industry and the terminology used in the real estate industry.
+- You may be asked to update a certain seed script. Because we're in development, frequent changes to the different configs happen. This regenerates the schema and payload types. So you will be given the updated payload types and schema to work with. Try to understand the changes and update the seed script accordingly.
 
 ## CODING STYLE AND STRUCTURE
 

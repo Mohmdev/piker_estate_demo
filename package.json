@@ -10,36 +10,31 @@
     "url": "https://github.com/Mohmdev/nexweb-realestate"
   },
   "scripts": {
-    "ii": "cross-env NODE_OPTIONS=--no-deprecation pnpm --ignore-workspace install",
-    "ci": "NODE_OPTIONS=--no-deprecation pnpm --ignore-workspace install --frozen-lockfile",
+    "ci": "pnpm i --frozen-lockfile",
+    "ii": "cross-env NODE_OPTIONS=--no-deprecation pnpm --ignore-workspace i",
     "update-deps": "rm node_modules pnpm-lock.yaml -rf && pnpm i",
-    "reinstall": "cross-env NODE_OPTIONS=--no-deprecation rm -rf node_modules && rm pnpm-lock.yaml && pnpm --ignore-workspace install",
-    "build": "cross-env NODE_OPTIONS=--no-deprecation next build",
+    "reinstall": "cross-env NODE_OPTIONS=--no-deprecation rm -rf node_modules && rm pnpm-lock.yaml && pnpm --ignore-workspace i",
+    "build": "next build",
     "postbuild": "next-sitemap --config next-sitemap.config.cjs",
-    "start": "cross-env NODE_OPTIONS=--no-deprecation next start -p 3000",
-    "start:private": "cross-env NODE_OPTIONS=--no-deprecation next start --hostname :: -p 3000",
-    "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev --turbopack -p 3000",
-    "dev:container": "cross-env NODE_OPTIONS=--no-deprecation next dev --turbopack -p 3000 -H 0.0.0.0",
-    "dev:inspect": "cross-env NODE_OPTIONS='--inspect' next dev --turbopack -p 3000",
-    "devsafe": "rm -rf .next && cross-env NODE_OPTIONS=--no-deprecation next dev --turbopack -p 3000",
-    "lint": "cross-env NODE_OPTIONS=--no-deprecation pnpm biome lint ./src",
-    "lint:fix": "cross-env NODE_OPTIONS=--no-deprecation pnpm biome lint --write ./src",
-    "lint:next": "cross-env NODE_OPTIONS=--no-deprecation next lint",
+    "start": "next start -p 3000",
+    "start:private": "cross-env next start --hostname :: -p 3000",
+    "dev": "next dev --turbopack -p 3000",
+    "dev:inspect": "NODE_OPTIONS='--inspect' next dev --turbopack -p 3000",
+    "devsafe": "rm -rf .next && cross-env next dev --turbopack -p 3000",
+    "lint": "biome lint ./src",
+    "lint:next": "next lint",
+    "lint:fix": "biome lint --write ./src",
     "format:src": "biome format --write ./src",
     "fix:ci": "biome ci --formatter-enabled=true --linter-enabled=true --organize-imports-enabled=true --assists-enabled=true",
-    "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
     "generate:importmap": "payload generate:importmap",
     "generate:schema": "payload generate:db-schema",
     "generate:graphql": "payload-graphql generate:schema",
     "generate:types": "payload generate:types",
     "migrate": "payload migrate",
     "migrate:status": "payload migrate:status",
-    "migrate:down": "payload migrate:down",
-    "migrate:reset": "payload migrate:reset",
     "migrate:fresh": "payload migrate:fresh",
     "migrate:create": "payload migrate:create",
-    "seed:all": "payload run src/app/next/seedScript.ts",
-    "db:reset": "cross-env NODE_OPTIONS=--no-deprecation tsx src/services/database/db-reset.ts"
+    "db:reset": "tsx src/services/database/db-reset.ts"
   },
   "dependencies": {
     "@payloadcms/db-vercel-postgres": "latest",
@@ -109,8 +104,6 @@
     "pnpm": ">=9"
   },
   "pnpm": {
-    "onlyBuiltDependencies": [
-      "sharp"
-    ]
+    "onlyBuiltDependencies": ["sharp"]
   }
 }

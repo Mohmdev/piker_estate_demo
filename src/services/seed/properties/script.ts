@@ -3,7 +3,23 @@ import { mockAmenities } from './mock-data/amenities'
 import { mockAvailability } from './mock-data/availability'
 import { mockClassifications } from './mock-data/classifications'
 import { mockContracts } from './mock-data/contracts'
-import { mockProperties } from './mock-data/properties'
+import { mockProperties, propertyMetadata } from './mock-data/properties'
+
+// Define our image sources with meaningful names
+const PROPERTY_IMAGES = {
+  WATERFRONT_APARTMENT: {
+    MAIN: 'https://raw.githubusercontent.com/payloadcms/payload/refs/heads/main/templates/website/src/endpoints/seed/image-post1.webp',
+    LIVING_ROOM:
+      'https://raw.githubusercontent.com/payloadcms/payload/refs/heads/main/templates/website/src/endpoints/seed/image-post2.webp',
+  },
+  FAMILY_HOME: {
+    MAIN: 'https://raw.githubusercontent.com/payloadcms/payload/refs/heads/main/templates/website/src/endpoints/seed/image-post2.webp',
+    GARDEN:
+      'https://raw.githubusercontent.com/payloadcms/payload/refs/heads/main/templates/website/src/endpoints/seed/image-post3.webp',
+    INTERIOR:
+      'https://raw.githubusercontent.com/payloadcms/payload/refs/heads/main/templates/website/src/endpoints/seed/image-post1.webp',
+  },
+}
 
 export const seedProperties = async ({
   payload,
@@ -76,50 +92,40 @@ export const seedProperties = async ({
 
   payload.logger.info(`— Seeding media...`)
 
-  const [image1Buffer, image2Buffer, image3Buffer] = await Promise.all([
-    fetchFileByURL(
-      'https://raw.githubusercontent.com/payloadcms/payload/refs/heads/main/templates/website/src/endpoints/seed/image-post1.webp',
-    ),
-    fetchFileByURL(
-      'https://raw.githubusercontent.com/payloadcms/payload/refs/heads/main/templates/website/src/endpoints/seed/image-post2.webp',
-    ),
-    fetchFileByURL(
-      'https://raw.githubusercontent.com/payloadcms/payload/refs/heads/main/templates/website/src/endpoints/seed/image-post3.webp',
-    ),
+  // Create a map to store our image buffers
+  const imageBuffers = new Map<string, File>()
+
+  // Fetch all unique images
+  const uniqueImageUrls = new Set([
+    ...Object.values(PROPERTY_IMAGES.WATERFRONT_APARTMENT),
+    ...Object.values(PROPERTY_IMAGES.FAMILY_HOME),
   ])
 
-  const [image1Doc, image2Doc, image3Doc] = await Promise.all([
-    payload.create({
-      collection: 'media',
-      data: {
-        alt: 'Property Image 1',
-      },
-      file: image1Buffer,
+  // Fetch all images in parallel
+  await Promise.all(
+    Array.from(uniqueImageUrls).map(async (url) => {
+      const buffer = await fetchFileByURL(url)
+      imageBuffers.set(url, buffer)
     }),
-    payload.create({
-      collection: 'media',
-      data: {
-        alt: 'Property Image 2',
-      },
-      file: image2Buffer,
-    }),
-    payload.create({
-      collection: 'media',
-      data: {
-        alt: 'Property Image 3',
-      },
-      file: image3Buffer,
-    }),
-  ])
+  )
 
-  let image1ID: number | string = image1Doc.id
-  let image2ID: number | string = image2Doc.id
-  let image3ID: number | string = image3Doc.id
+  // Create media items and store their IDs
+  const mediaItems = new Map<string, string | number>()
 
-  if (payload.db.defaultIDType === 'text') {
-    image1ID = `"${image1Doc.id}"`
-    image2ID = `"${image2Doc.id}"`
-    image3ID = `"${image3Doc.id}"`
+  for (const [url, buffer] of imageBuffers) {
+    const mediaDoc = await payload.create({
+      collection: 'media',
+      data: {
+        alt: `Property Image - ${url.split('/').pop()}`,
+      },
+      file: buffer,
+    })
+
+    let mediaId: string | number = mediaDoc.id
+    if (payload.db.defaultIDType === 'text') {
+      mediaId = `"${mediaDoc.id}"`
+    }
+    mediaItems.set(url, mediaId)
   }
 
   payload.logger.info(`— Seeding property types...`)
@@ -132,6 +138,14 @@ export const seedProperties = async ({
     ),
   )
 
+  // Create a map of classification slugs to IDs
+  const classificationMap = new Map(
+    classifications.map((classification) => [
+      classification.slug,
+      classification.id,
+    ]),
+  )
+
   payload.logger.info(`— Seeding listing types...`)
   const contracts = await Promise.all(
     mockContracts.map((type) =>
@@ -140,6 +154,11 @@ export const seedProperties = async ({
         data: type,
       }),
     ),
+  )
+
+  // Create a map of contract slugs to IDs
+  const contractMap = new Map(
+    contracts.map((contract) => [contract.slug, contract.id]),
   )
 
   payload.logger.info(`— Seeding listing status...`)
@@ -152,6 +171,11 @@ export const seedProperties = async ({
     ),
   )
 
+  // Create a map of availability slugs to IDs
+  const availabilityMap = new Map(
+    availability.map((status) => [status.slug, status.id]),
+  )
+
   payload.logger.info(`— Seeding features...`)
   const amenities = await Promise.all(
     mockAmenities.map((feature) =>
@@ -160,6 +184,11 @@ export const seedProperties = async ({
         data: feature,
       }),
     ),
+  )
+
+  // Create a map of amenity slugs to IDs
+  const amenityMap = new Map(
+    amenities.map((amenity) => [amenity.slug, amenity.id]),
   )
 
   payload.logger.info(`— Seeding properties`)
@@ -177,31 +206,113 @@ export const seedProperties = async ({
 
   // Create properties sequentially to maintain order
   for (const property of mockProperties) {
+    const propertyTitle = property.title
+    if (
+      !propertyTitle ||
+      !(propertyTitle in propertyMetadata.contractMappings) ||
+      !(propertyTitle in propertyMetadata.availabilityMappings) ||
+      !(propertyTitle in propertyMetadata.classificationMappings) ||
+      !(propertyTitle in propertyMetadata.amenityMappings)
+    ) {
+      throw new Error(`Property "${propertyTitle}" not found in mappings`)
+    }
+
+    const contractSlug =
+      propertyMetadata.contractMappings[
+        propertyTitle as keyof typeof propertyMetadata.contractMappings
+      ]
+    const availabilitySlug =
+      propertyMetadata.availabilityMappings[
+        propertyTitle as keyof typeof propertyMetadata.availabilityMappings
+      ]
+    const classificationSlug =
+      propertyMetadata.classificationMappings[
+        propertyTitle as keyof typeof propertyMetadata.classificationMappings
+      ]
+    const amenitySlugs =
+      propertyMetadata.amenityMappings[
+        propertyTitle as keyof typeof propertyMetadata.amenityMappings
+      ]
+
+    const contractId = contractMap.get(contractSlug)
+    const availabilityId = availabilityMap.get(availabilitySlug)
+    const classificationId = classificationMap.get(classificationSlug)
+    const amenityIds = amenitySlugs
+      .map((slug) => amenityMap.get(slug))
+      .filter(Boolean)
+
+    if (
+      !contractId ||
+      !availabilityId ||
+      !classificationId ||
+      amenityIds.length !== amenitySlugs.length
+    ) {
+      throw new Error(
+        `Could not find all required IDs for property "${propertyTitle}"`,
+      )
+    }
+
+    const propertyData = JSON.parse(
+      JSON.stringify({
+        ...property,
+        contract: contractId,
+        availability: availabilityId,
+        classification: [classificationId],
+        amenities: amenityIds,
+        categories: property.categories?.map((category) => {
+          if (category.relationTo === 'contracts') {
+            return {
+              ...category,
+              value: contractId,
+            }
+          }
+          if (category.relationTo === 'classifications') {
+            return {
+              ...category,
+              value: classificationId,
+            }
+          }
+          return category
+        }),
+      })
+        // Replace image placeholders with actual media IDs
+        .replace(
+          /"image":\s*"\{\{WATERFRONT_APARTMENT_MAIN\}\}"/g,
+          `"image": ${mediaItems.get(PROPERTY_IMAGES.WATERFRONT_APARTMENT.MAIN)}`,
+        )
+        .replace(
+          /"image":\s*"\{\{WATERFRONT_APARTMENT_LIVING\}\}"/g,
+          `"image": ${mediaItems.get(PROPERTY_IMAGES.WATERFRONT_APARTMENT.LIVING_ROOM)}`,
+        )
+        .replace(
+          /"image":\s*"\{\{FAMILY_HOME_MAIN\}\}"/g,
+          `"image": ${mediaItems.get(PROPERTY_IMAGES.FAMILY_HOME.MAIN)}`,
+        )
+        .replace(
+          /"image":\s*"\{\{FAMILY_HOME_GARDEN\}\}"/g,
+          `"image": ${mediaItems.get(PROPERTY_IMAGES.FAMILY_HOME.GARDEN)}`,
+        )
+        .replace(
+          /"image":\s*"\{\{FAMILY_HOME_INTERIOR\}\}"/g,
+          `"image": ${mediaItems.get(PROPERTY_IMAGES.FAMILY_HOME.INTERIOR)}`,
+        )
+        // Replace the placeholder IDs with actual IDs
+        .replace(
+          '"classification": [1]',
+          `"classification": [${classifications[0].id}]`,
+        )
+        .replace('"availability": 1', `"availability": ${availability[0].id}`)
+        .replace(
+          '"amenities": []',
+          `"amenities": [${amenities[0].id}, ${amenities[1].id}]`,
+        )
+        // Replace other relationship values
+        .replace(/"value": 1/g, `"value": ${classifications[0].id}`),
+    )
+
     await payload.create({
       collection: 'properties',
-      data: JSON.parse(
-        JSON.stringify(property)
-          .replace(/"\{\{IMAGE_1\}\}"/g, String(image1ID))
-          .replace(/"\{\{IMAGE_2\}\}"/g, String(image2ID))
-          .replace(/"\{\{IMAGE_3\}\}"/g, String(image3ID))
-          // Replace the placeholder IDs with actual IDs
-          .replace(
-            '"propertyType": 1',
-            `"propertyType": ${classifications[0].id}`,
-          )
-          .replace('"listingType": 1', `"listingType": ${contracts[0].id}`)
-          .replace(
-            '"listingStatus": 1',
-            `"listingStatus": ${availability[0].id}`,
-          )
-          .replace(
-            '"features": []',
-            `"features": [${amenities[0].id}, ${amenities[1].id}]`,
-          )
-          // Replace relationship values
-          .replace(/"value": 1/g, `"value": ${classifications[0].id}`)
-          .replace(/"value": 2/g, `"value": ${contracts[0].id}`),
-      ),
+      data: propertyData,
     })
   }
 

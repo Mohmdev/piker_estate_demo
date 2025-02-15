@@ -1,6 +1,7 @@
 import type { Footer } from '@payload-types'
 
 export const footerMock: Partial<Footer> = {
+  _status: 'published',
   columns: [
     {
       label: 'Use Cases',
