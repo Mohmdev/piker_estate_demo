@@ -1,5 +1,5 @@
 import config from '@payload-config'
-import { seedProjects } from '@services/seed/realestate-group/projects'
+import { seedRealEstateGroupData } from '@services/seed/realestate-group'
 import { headers } from 'next/headers'
 import { createLocalReq, getPayload } from 'payload'
 
@@ -20,7 +20,7 @@ export async function POST(): Promise<Response> {
     // Create a Payload request object to pass to the Local API for transactions
     const payloadReq = await createLocalReq({ user }, payload)
 
-    await seedProjects({ payload, req: payloadReq })
+    await seedRealEstateGroupData({ payload, req: payloadReq })
 
     return Response.json({ success: true })
   } catch (e) {

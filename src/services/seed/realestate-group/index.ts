@@ -1,12 +1,9 @@
-import type { File, Payload, PayloadRequest } from 'payload'
-import { mockAmenities } from './mock-data/amenities'
-import { mockAvailability } from './mock-data/availability'
-import { mockClassifications } from './mock-data/classifications'
-import { mockContracts } from './mock-data/contracts'
-import {
-  mockProperties,
-  propertyMetadata,
-} from './mock-data/properties/index.dubai'
+import type { CollectionSlug, File, Payload, PayloadRequest } from 'payload'
+import { mockAmenities } from './amenities'
+import { mockAvailabilities } from './availabilities'
+import { mockClassifications } from './classifications'
+import { mockContracts } from './contracts'
+import { mockProperties, propertyMetadata } from './properties/index.dubai'
 
 // Define our image sources with meaningful names
 const PROPERTY_IMAGES = {
@@ -24,7 +21,16 @@ const PROPERTY_IMAGES = {
   },
 }
 
-export const seedProperties = async ({
+export const targetCollections: CollectionSlug[] = [
+  'projects',
+  'properties',
+  'classifications',
+  'contracts',
+  'availability',
+  'amenities',
+]
+
+export const seedRealEstateGroupData = async ({
   payload,
   req,
 }: {
@@ -33,65 +39,25 @@ export const seedProperties = async ({
 }): Promise<void> => {
   payload.logger.info('⤷ Script starting...')
 
-  payload.logger.info(`— Clearing properties`)
+  payload.logger.info(`— Clearing Real Estate Group Data`)
 
   // Clear all collections
-  await Promise.all([
-    payload.db.deleteMany({
-      collection: 'properties',
-      req,
-      where: {},
-    }),
-    payload.db.deleteMany({
-      collection: 'classifications',
-      req,
-      where: {},
-    }),
-    payload.db.deleteMany({
-      collection: 'contracts',
-      req,
-      where: {},
-    }),
-    payload.db.deleteMany({
-      collection: 'availability',
-      req,
-      where: {},
-    }),
-    payload.db.deleteMany({
-      collection: 'amenities',
-      req,
-      where: {},
-    }),
-  ])
+  await Promise.all(
+    targetCollections.map((collection) =>
+      payload.db.deleteMany({ collection, req, where: {} }),
+    ),
+  )
+  await Promise.all(
+    targetCollections
+      .filter((collection) =>
+        Boolean(payload.collections[collection].config.versions),
+      )
+      .map((collection) =>
+        payload.db.deleteVersions({ collection, req, where: {} }),
+      ),
+  )
 
-  await Promise.all([
-    payload.db.deleteVersions({
-      collection: 'properties',
-      req,
-      where: {},
-    }),
-    payload.db.deleteVersions({
-      collection: 'classifications',
-      req,
-      where: {},
-    }),
-    payload.db.deleteVersions({
-      collection: 'contracts',
-      req,
-      where: {},
-    }),
-    payload.db.deleteVersions({
-      collection: 'availability',
-      req,
-      where: {},
-    }),
-    payload.db.deleteVersions({
-      collection: 'amenities',
-      req,
-      where: {},
-    }),
-  ])
-  payload.logger.info(`✓`)
+  payload.logger.info(`✓ Real Estate Group Data Cleared`)
 
   payload.logger.info(`— Seeding media...`)
 
@@ -131,7 +97,7 @@ export const seedProperties = async ({
     mediaItems.set(url, mediaId)
   }
 
-  payload.logger.info(`— Seeding property types...`)
+  payload.logger.info(`— Seeding classifications...`)
   const classifications = await Promise.all(
     mockClassifications.map((type) =>
       payload.create({
@@ -149,7 +115,7 @@ export const seedProperties = async ({
     ]),
   )
 
-  payload.logger.info(`— Seeding listing types...`)
+  payload.logger.info(`— Seeding contracts...`)
   const contracts = await Promise.all(
     mockContracts.map((type) =>
       payload.create({
@@ -164,9 +130,9 @@ export const seedProperties = async ({
     contracts.map((contract) => [contract.slug, contract.id]),
   )
 
-  payload.logger.info(`— Seeding listing status...`)
+  payload.logger.info(`— Seeding availability...`)
   const availability = await Promise.all(
-    mockAvailability.map((status) =>
+    mockAvailabilities.map((status) =>
       payload.create({
         collection: 'availability',
         data: status,
@@ -179,7 +145,7 @@ export const seedProperties = async ({
     availability.map((status) => [status.slug, status.id]),
   )
 
-  payload.logger.info(`— Seeding features...`)
+  payload.logger.info(`— Seeding amenities...`)
   const amenities = await Promise.all(
     mockAmenities.map((feature) =>
       payload.create({
@@ -321,7 +287,7 @@ export const seedProperties = async ({
 
   payload.logger.info(`✓`)
 
-  payload.logger.info(`✓ Properties seeded`)
+  payload.logger.info(`✓ Real Estate Group Data Seeded`)
 }
 
 async function fetchFileByURL(url: string): Promise<File> {

@@ -8,27 +8,27 @@ const RESET_DELAY = 5000
 
 const SuccessMessage: React.FC = () => (
   <div>
-    Database seeded! You can now{' '}
+    Real Estate Data seeded! You can now{' '}
     <a target="_blank" href="/" rel="noreferrer">
       visit your website
     </a>
   </div>
 )
-const LoadingMessage: React.FC = () => <div>Seeding with demo data....</div>
+const LoadingMessage: React.FC = () => <div>Seeding real estate data....</div>
 const ErrorMessage: React.FC = () => (
-  <div>An error occurred while seeding data.</div>
+  <div>An error occurred while seeding real estate data.</div>
 )
 
-export const SeedSiteGeneralData: React.FC = () => {
+export const SeedRealEstateGroupData: React.FC = () => {
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState<Error | null>(null)
 
   const getButtonText = () => {
-    if (loading) return 'Seeding...'
-    if (success) return 'Database seeded'
+    if (loading) return 'Seeding real estate data...'
+    if (success) return 'Real estate data seeded'
     if (error) return 'Seeding failed - Click to retry'
-    return 'Seed demo data'
+    return 'Seed real estate data'
   }
 
   const handleClick = useCallback(
@@ -37,12 +37,12 @@ export const SeedSiteGeneralData: React.FC = () => {
 
       // Handle existing states
       if (loading) {
-        toast.info('Seeding already in progress.')
+        toast.info('Real Estate Data seeding already in progress.')
         return
       }
 
       if (success) {
-        toast.info('Database already seeded.')
+        toast.info('Real Estate Data already seeded.')
         return
       }
 
@@ -53,7 +53,7 @@ export const SeedSiteGeneralData: React.FC = () => {
 
       setLoading(true)
 
-      const callDatabase = fetch('/next/data/site-general/seed', {
+      const callDatabase = fetch('/next/data/realestate-group/seed', {
         method: 'POST',
         credentials: 'include',
       }).then(async (response) => {

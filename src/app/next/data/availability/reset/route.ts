@@ -16,21 +16,21 @@ export async function POST(): Promise<Response> {
   try {
     const req = await createLocalReq({ user }, payload)
 
-    payload.logger.info(`↪ Resetting Amenities...`)
+    payload.logger.info(`↪ Resetting Availability...`)
 
     await payload.db.deleteMany({
-      collection: 'amenities',
+      collection: 'availability',
       req,
       where: {},
     })
     await payload.db.deleteVersions({
-      collection: 'amenities',
+      collection: 'availability',
       req,
       where: {},
     })
 
     payload.logger.info(
-      '✓ Successfully reset Amenities Collection and Versions',
+      '✓ Successfully reset Availability Collection and Versions',
     )
 
     return Response.json({ success: true })

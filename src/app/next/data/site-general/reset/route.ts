@@ -1,4 +1,8 @@
 import config from '@payload-config'
+import {
+  targetCollections,
+  targetGlobals,
+} from '@services/seed/general-site-data'
 import { headers } from 'next/headers'
 import { createLocalReq, getPayload } from 'payload'
 
@@ -16,21 +20,34 @@ export async function POST(): Promise<Response> {
   try {
     const req = await createLocalReq({ user }, payload)
 
-    payload.logger.info(`↪ Resetting Amenities...`)
+    payload.logger.info(`↪ Resetting Site's General Data...`)
 
-    await payload.db.deleteMany({
-      collection: 'amenities',
-      req,
-      where: {},
-    })
-    await payload.db.deleteVersions({
-      collection: 'amenities',
-      req,
-      where: {},
-    })
+    await Promise.all(
+      targetGlobals.map((global) =>
+        payload.updateGlobal({
+          slug: global,
+          data: {},
+          depth: 0,
+          context: {
+            disableRevalidate: true,
+          },
+        }),
+      ),
+    )
+
+    await Promise.all(
+      targetCollections.map((collection) =>
+        payload.db.deleteMany({ collection, req, where: {} }),
+      ),
+    )
+    await Promise.all(
+      targetCollections.map((collection) =>
+        payload.db.deleteVersions({ collection, req, where: {} }),
+      ),
+    )
 
     payload.logger.info(
-      '✓ Successfully reset Amenities Collection and Versions',
+      "✓ Successfully reset Site's General Collections and Globals",
     )
 
     return Response.json({ success: true })

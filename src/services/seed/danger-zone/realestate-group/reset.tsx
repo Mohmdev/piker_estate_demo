@@ -8,52 +8,50 @@ const RESET_DELAY = 5000
 
 const SuccessMessage: React.FC = () => (
   <div>
-    Database seeded! You can now{' '}
+    Real Estate Group reset complete! You can now{' '}
     <a target="_blank" href="/" rel="noreferrer">
       visit your website
     </a>
   </div>
 )
-const LoadingMessage: React.FC = () => <div>Seeding with demo data....</div>
+const LoadingMessage: React.FC = () => <div>Resetting real estate group...</div>
 const ErrorMessage: React.FC = () => (
-  <div>An error occurred while seeding data.</div>
+  <div>An error occurred while resetting real estate group.</div>
 )
 
-export const SeedSiteGeneralData: React.FC = () => {
+export const ResetRealEstateGroupData: React.FC = () => {
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState<Error | null>(null)
 
   const getButtonText = () => {
-    if (loading) return 'Seeding...'
-    if (success) return 'Database seeded'
-    if (error) return 'Seeding failed - Click to retry'
-    return 'Seed demo data'
+    if (loading) return 'Resetting...'
+    if (success) return 'Real Estate Group reset complete'
+    if (error) return 'Reset failed - Click to retry'
+    return '⚠ Reset Real Estate Group'
   }
 
   const handleClick = useCallback(
     async (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault()
 
-      // Handle existing states
       if (loading) {
-        toast.info('Seeding already in progress.')
+        toast.info('Reset already in progress.')
         return
       }
 
       if (success) {
-        toast.info('Database already seeded.')
+        toast.info('Real Estate Group already reset.')
         return
       }
 
-      // Clear any previous error state if user is retrying
       if (error) {
         setError(null)
       }
 
       setLoading(true)
 
-      const callDatabase = fetch('/next/data/site-general/seed', {
+      const callDatabase = fetch('/next/data/realestate-group/reset', {
         method: 'POST',
         credentials: 'include',
       }).then(async (response) => {

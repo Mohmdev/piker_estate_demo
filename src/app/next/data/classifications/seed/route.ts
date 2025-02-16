@@ -1,5 +1,5 @@
 import config from '@payload-config'
-import { mockProperties } from '@services/seed/realestate-group/properties/index.dubai'
+import { mockClassifications } from '@services/seed/realestate-group/classifications'
 import { headers } from 'next/headers'
 import { getPayload } from 'payload'
 
@@ -16,30 +16,30 @@ export async function POST(): Promise<Response> {
 
   let createdCount = 0
 
-  for (const property of mockProperties) {
+  for (const classification of mockClassifications) {
     try {
-      // Check if property already exists
-      const existingProperty = await payload.find({
-        collection: 'properties',
+      // Check if classification already exists
+      const existingClassification = await payload.find({
+        collection: 'classifications',
         where: {
-          slug: { equals: property.slug },
+          slug: { equals: classification.slug },
         },
       })
 
-      if (existingProperty.docs.length === 0) {
+      if (existingClassification.docs.length === 0) {
         await payload.create({
-          collection: 'properties',
+          collection: 'classifications',
           data: {
             _status: 'published',
-            title: property.title,
-            slug: property.slug,
+            title: classification.title,
+            slug: classification.slug,
           },
         })
         createdCount++
       }
     } catch (error) {
       payload.logger.error(
-        `Error creating property "${property.title}":`,
+        `Error creating classification "${classification.title}":`,
         error,
       )
       throw error
@@ -47,9 +47,11 @@ export async function POST(): Promise<Response> {
   }
 
   if (createdCount > 0) {
-    payload.logger.info(`✓ Successfully seeded ${createdCount} amenities.`)
+    payload.logger.info(
+      `✓ Successfully seeded ${createdCount} classifications.`,
+    )
   } else {
-    payload.logger.info(`No new amenities were seeded.`)
+    payload.logger.info(`No new classifications were seeded.`)
   }
 
   return Response.json({ success: true })

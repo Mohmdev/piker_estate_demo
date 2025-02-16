@@ -5,19 +5,19 @@ import type {
   Payload,
   PayloadRequest,
 } from 'payload'
-import { contactForm as contactFormData } from './contact-form'
-import { contact as contactPageData } from './contact-page'
+import { image1 } from './_images/image-1'
+import { image2 } from './_images/image-2'
+import { imageHero1 } from './_images/image-hero-1'
+import { post1 } from './blog/post-1'
+import { post2 } from './blog/post-2'
+import { post3 } from './blog/post-3'
+import { contactForm as contactFormData } from './contact/contact-form'
+import { contact as contactPageData } from './contact/contact-page'
 import { footerMock } from './footer'
-import { home } from './home'
-import { image1 } from './image-1'
-import { image2 } from './image-2'
-import { imageHero1 } from './image-hero-1'
-import { mainMenuMock } from './mainMenu'
-import { post1 } from './post-1'
-import { post2 } from './post-2'
-import { post3 } from './post-3'
+import { home } from './home/home'
+import { mainMenuMock } from './main-menu'
 
-const collections: CollectionSlug[] = [
+export const targetCollections: CollectionSlug[] = [
   'blog-categories',
   'media',
   'pages',
@@ -27,7 +27,7 @@ const collections: CollectionSlug[] = [
   'search',
 ]
 
-const globals: GlobalSlug[] = ['main-menu', 'footer']
+export const targetGlobals: GlobalSlug[] = ['main-menu', 'footer']
 
 // Next.js revalidation errors are normal when seeding the database without a server running
 // i.e. running `yarn seed` locally instead of using the admin UI within an active app
@@ -50,7 +50,7 @@ export const seed = async ({
 
   // clear the database
   await Promise.all(
-    globals.map((global) =>
+    targetGlobals.map((global) =>
       payload.updateGlobal({
         slug: global,
         data: {},
@@ -63,13 +63,13 @@ export const seed = async ({
   )
 
   await Promise.all(
-    collections.map((collection) =>
+    targetCollections.map((collection) =>
       payload.db.deleteMany({ collection, req, where: {} }),
     ),
   )
 
   await Promise.all(
-    collections
+    targetCollections
       .filter((collection) =>
         Boolean(payload.collections[collection].config.versions),
       )

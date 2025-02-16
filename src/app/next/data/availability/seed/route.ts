@@ -1,5 +1,5 @@
 import config from '@payload-config'
-import { mockAmenities } from '@services/seed/realestate-group/amenities'
+import { mockAvailabilities } from '@services/seed/realestate-group/availabilities'
 import { headers } from 'next/headers'
 import { getPayload } from 'payload'
 
@@ -16,37 +16,40 @@ export async function POST(): Promise<Response> {
 
   let createdCount = 0
 
-  for (const amenity of mockAmenities) {
+  for (const availability of mockAvailabilities) {
     try {
-      // Check if amenity already exists
-      const existingAmenity = await payload.find({
-        collection: 'amenities',
+      // Check if availability already exists
+      const existingAvailability = await payload.find({
+        collection: 'availability',
         where: {
-          slug: { equals: amenity.slug },
+          slug: { equals: availability.slug },
         },
       })
 
-      if (existingAmenity.docs.length === 0) {
+      if (existingAvailability.docs.length === 0) {
         await payload.create({
-          collection: 'amenities',
+          collection: 'availability',
           data: {
             _status: 'published',
-            title: amenity.title,
-            slug: amenity.slug,
+            title: availability.title,
+            slug: availability.slug,
           },
         })
         createdCount++
       }
     } catch (error) {
-      payload.logger.error(`Error creating amenity "${amenity.title}":`, error)
+      payload.logger.error(
+        `Error creating availability "${availability.title}":`,
+        error,
+      )
       throw error
     }
   }
 
   if (createdCount > 0) {
-    payload.logger.info(`✓ Successfully seeded ${createdCount} amenities.`)
+    payload.logger.info(`✓ Successfully seeded ${createdCount} availabilities.`)
   } else {
-    payload.logger.info(`No new amenities were seeded.`)
+    payload.logger.info(`No new availabilities were seeded.`)
   }
 
   return Response.json({ success: true })

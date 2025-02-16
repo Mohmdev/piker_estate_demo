@@ -1,4 +1,5 @@
 import config from '@payload-config'
+import { targetCollections } from '@services/seed/realestate-group'
 import { headers } from 'next/headers'
 import { createLocalReq, getPayload } from 'payload'
 
@@ -16,21 +17,21 @@ export async function POST(): Promise<Response> {
   try {
     const req = await createLocalReq({ user }, payload)
 
-    payload.logger.info(`↪ Resetting Amenities...`)
+    payload.logger.info(`↪ Resetting Real Estate Group Data...`)
 
-    await payload.db.deleteMany({
-      collection: 'amenities',
-      req,
-      where: {},
-    })
-    await payload.db.deleteVersions({
-      collection: 'amenities',
-      req,
-      where: {},
-    })
+    await Promise.all(
+      targetCollections.map((collection) =>
+        payload.db.deleteMany({ collection, req, where: {} }),
+      ),
+    )
+    await Promise.all(
+      targetCollections.map((collection) =>
+        payload.db.deleteVersions({ collection, req, where: {} }),
+      ),
+    )
 
     payload.logger.info(
-      '✓ Successfully reset Amenities Collection and Versions',
+      "✓ Successfully reset Real Estate Group's Collections and Versions",
     )
 
     return Response.json({ success: true })

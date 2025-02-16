@@ -10,11 +10,14 @@ import { ResetClassifications } from './classifications/reset'
 import { SeedClassifications } from './classifications/seed'
 import { ResetContracts } from './contracts/reset'
 import { SeedContracts } from './contracts/seed'
-import { SeedSiteData } from './general/seed'
+import { ResetSiteGeneralData } from './general/reset'
+import { SeedSiteGeneralData } from './general/seed'
 import { ResetProjects } from './projects/reset'
 import { SeedProjects } from './projects/seed'
 import { ResetProperties } from './properties/reset'
 import { SeedProperties } from './properties/seed'
+import { ResetRealEstateGroupData } from './realestate-group/reset'
+import { SeedRealEstateGroupData } from './realestate-group/seed'
 import { HardResetDatabase } from './reset/hard-reset'
 
 export const DbInteractionZone: React.FC = () => {
@@ -50,8 +53,22 @@ export const DbInteractionZone: React.FC = () => {
               'justify-start items-stretch w-full',
             )}
           >
-            <SeedSiteData />
+            <SeedSiteGeneralData />
+            <ResetSiteGeneralData />
             <HardResetDatabase />
+          </div>
+        </div>
+
+        <div className="flex flex-col justify-start items-start flex-nowrap gap-2 w-full max-w-xl">
+          <h5 className="text-muted-foreground">Real Estate Group</h5>
+          <div
+            className={cn(
+              'flex flex-col flex-nowrap gap-4',
+              'justify-start items-stretch w-full',
+            )}
+          >
+            <SeedRealEstateGroupData />
+            <ResetRealEstateGroupData />
           </div>
         </div>
 

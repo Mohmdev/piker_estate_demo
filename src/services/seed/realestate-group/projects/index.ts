@@ -1,5 +1,5 @@
 import type { File, Payload, PayloadRequest } from 'payload'
-import { mockProjects } from './mock-data/projects'
+import { mockProjects } from './projects'
 
 export const seedProjects = async ({
   payload,
