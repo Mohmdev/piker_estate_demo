@@ -1278,7 +1278,7 @@ export interface Availability {
   /**
    * Color used to visually identify this status
    */
-  color?: ('green' | 'blue' | 'yellow' | 'red' | 'gray') | null;
+  color?: ('green' | 'blue' | 'yellow' | 'red' | 'gray' | 'purple') | null;
   /**
    * Representative image for this availability status
    */

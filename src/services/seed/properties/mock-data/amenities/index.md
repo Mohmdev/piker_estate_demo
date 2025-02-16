@@ -143,11 +143,15 @@ This document outlines the amenities available across our Dubai properties. The 
 - Taxi Stand
 - Car Share Parking
 
-### Education & Worship
+### Education
 - Schools Nearby
+- Universities
 - Nurseries
+
+### Worship
 - Mosques
 - Prayer Rooms
+- Churches
 
 ## Notes
 

@@ -2,6 +2,7 @@
 
 This document outlines the availability statuses for properties in our system. These statuses reflect the current market state of each property and are designed to be clear for both internal management and client-facing interfaces.
 
+
 ## Active Properties
 
 ### Available

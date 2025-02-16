@@ -123,6 +123,7 @@ export const Availability: CollectionConfig<'availability'> = {
                     { label: 'Yellow (Pending)', value: 'yellow' },
                     { label: 'Red (Sold/Leased)', value: 'red' },
                     { label: 'Gray (Off Market)', value: 'gray' },
+                    { label: 'Purple (Special States)', value: 'purple' },
                   ],
                   admin: {
                     description: 'Color used to visually identify this status',

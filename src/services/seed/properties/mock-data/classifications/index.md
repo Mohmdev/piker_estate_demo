@@ -86,14 +86,7 @@ This document outlines the classification system for our Dubai properties. The s
   - Suburban
   - Residential Focus
 
-## Property Status
-
-### Availability
-- Ready to Move
-- Under Maintenance
-- Coming Soon
-
-### Condition
+## Condition
 - Brand New
 - Renovated
 - Well-Maintained
