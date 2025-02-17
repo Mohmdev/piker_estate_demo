@@ -1,6 +1,6 @@
 import type { Media, Property } from '@payload-types'
-import { mockLocations } from './locations'
-import { mockSpecs } from './specs'
+import { mockLocations } from './0-depth_0/locations'
+import { mockSpecs } from './0-depth_0/specs'
 
 // Define slugs for reference
 const CONTRACT_SLUGS = {

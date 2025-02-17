@@ -1,5 +1,6 @@
+import { isIncludedInSibling } from '@utils/siblingFieldCondition'
 import type { NamedTab } from 'payload'
-import { countrySelectField } from './interface.CountrySelect'
+import { countrySelectField } from './interface.countrySelect'
 
 export const LocationInterface: NamedTab = {
   name: 'location',
@@ -88,6 +89,34 @@ export const LocationInterface: NamedTab = {
       admin: {
         className: 'p-0 my-2 pb-12',
       },
+      fields: [
+        {
+          type: 'select',
+          name: 'accessibility',
+          label: 'Accessibility',
+          options: [
+            { label: 'Metro Connected', value: 'metro-connected' },
+            { label: 'Bus Connected', value: 'bus-connected' },
+            { label: 'Car Dependent', value: 'car-dependent' },
+            { label: 'Walk-friendly', value: 'walk-friendly' },
+            { label: 'Custom', value: 'custom' },
+          ],
+        },
+        {
+          type: 'text',
+          name: 'customAccessibility',
+          label: 'Custom Accessibility',
+          admin: {
+            condition: isIncludedInSibling('accessibility', 'custom'),
+          },
+        },
+      ],
+    },
+    {
+      type: 'row',
+      admin: {
+        className: 'p-0 my-2 pb-12',
+      },
       fields: [countrySelectField],
     },
     {
@@ -136,6 +165,32 @@ export const LocationInterface: NamedTab = {
         className: 'm-0 p-0 py-12',
       },
       fields: [
+        {
+          type: 'row',
+          fields: [
+            {
+              type: 'select',
+              name: 'neighborhoodType',
+              label: 'Neighborhood Type',
+              options: [
+                { label: 'City Center', value: 'city-center' },
+                { label: 'Business District', value: 'business-district' },
+                { label: 'Suburban Area', value: 'suburban-area' },
+                { label: 'Industrial Area', value: 'industrial-area' },
+                { label: 'Mixed Development', value: 'mixed-development' },
+                { label: 'Custom', value: 'custom' },
+              ],
+            },
+            {
+              type: 'text',
+              name: 'customNeighborhoodType',
+              label: 'Custom Neighborhood Type',
+              admin: {
+                condition: isIncludedInSibling('neighborhoodType', 'custom'),
+              },
+            },
+          ],
+        },
         {
           name: 'area',
           type: 'text',

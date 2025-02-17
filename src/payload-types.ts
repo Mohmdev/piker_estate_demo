@@ -370,9 +370,14 @@ export interface Property {
    */
   customMarket?: string | null;
   price: number;
-  classification: (number | Classification)[];
+  condition?: ('brand-new' | 'renovated' | 'well-maintained' | 'needs-renovation' | 'custom') | null;
+  /**
+   * Enter a custom condition
+   */
+  customCondition?: string | null;
   contract: number | Contract;
   availability: number | Availability;
+  classification: (number | Classification)[];
   amenities?: (number | Amenity)[] | null;
   gallery: {
     /**
@@ -504,12 +509,12 @@ export interface Property {
   _status?: ('draft' | 'published') | null;
 }
 /**
- * Define different categories of properties (Residential, Commercial, Industrial, Land, etc.)
+ * Define different types of property transactions (sale, rent, lease, etc.)
  *
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "classifications".
+ * via the `definition` "contracts".
  */
-export interface Classification {
+export interface Contract {
   id: number;
   title: string;
   properties?: {
@@ -517,7 +522,7 @@ export interface Classification {
     hasNextPage?: boolean | null;
   } | null;
   /**
-   * Describe what this property category is
+   * Describe this type of contract/transaction
    */
   description?: {
     root: {
@@ -535,13 +540,9 @@ export interface Classification {
     [k: string]: unknown;
   } | null;
   /**
-   * Representative image for this property category
+   * Icon or representative image for this sale type
    */
   image?: (number | null) | Media;
-  /**
-   * Icon for this property category
-   */
-  icon?: (number | null) | Media;
   /**
    * Content that are related to this one. Could be a page, or post, that you would like to feature in this document.
    */
@@ -580,10 +581,10 @@ export interface Classification {
   publishedAt?: string | null;
   slug?: string | null;
   slugLock?: boolean | null;
-  parent?: (number | null) | Classification;
+  parent?: (number | null) | Contract;
   breadcrumbs?:
     | {
-        doc?: (number | null) | Classification;
+        doc?: (number | null) | Contract;
         url?: string | null;
         label?: string | null;
         id?: string | null;
@@ -1065,12 +1066,12 @@ export interface BlogCategory {
   createdAt: string;
 }
 /**
- * Define different types of property transactions (sale, rent, lease, etc.)
+ * Define different categories of properties (Residential, Commercial, Industrial, Land, etc.)
  *
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "contracts".
+ * via the `definition` "classifications".
  */
-export interface Contract {
+export interface Classification {
   id: number;
   title: string;
   properties?: {
@@ -1078,7 +1079,7 @@ export interface Contract {
     hasNextPage?: boolean | null;
   } | null;
   /**
-   * Describe this type of contract/transaction
+   * Describe what this property category is
    */
   description?: {
     root: {
@@ -1096,9 +1097,13 @@ export interface Contract {
     [k: string]: unknown;
   } | null;
   /**
-   * Icon or representative image for this sale type
+   * Representative image for this property category
    */
   image?: (number | null) | Media;
+  /**
+   * Icon for this property category
+   */
+  icon?: (number | null) | Media;
   /**
    * Content that are related to this one. Could be a page, or post, that you would like to feature in this document.
    */
@@ -1137,10 +1142,10 @@ export interface Contract {
   publishedAt?: string | null;
   slug?: string | null;
   slugLock?: boolean | null;
-  parent?: (number | null) | Contract;
+  parent?: (number | null) | Classification;
   breadcrumbs?:
     | {
-        doc?: (number | null) | Contract;
+        doc?: (number | null) | Classification;
         url?: string | null;
         label?: string | null;
         id?: string | null;
@@ -2834,9 +2839,11 @@ export interface PropertiesSelect<T extends boolean = true> {
   market?: T;
   customMarket?: T;
   price?: T;
-  classification?: T;
+  condition?: T;
+  customCondition?: T;
   contract?: T;
   availability?: T;
+  classification?: T;
   amenities?: T;
   gallery?:
     | T

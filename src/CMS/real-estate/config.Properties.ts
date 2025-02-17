@@ -20,8 +20,11 @@ import { getCollectionPreviewURL } from '@services/live-preview/getCollectionPre
 import { isIncludedInSibling } from '@utils/siblingFieldCondition'
 import type { CollectionConfig } from 'payload'
 import { galleryGroup } from './glossary/field.galleryGroup'
+import { FinanceInterface } from './glossary/interface.finance'
 import { LocationInterface } from './glossary/interface.location'
 import { SpecificationsInterface } from './glossary/interface.specifications'
+import { EssentialInformationTab } from './glossary/tab.essentialInformation'
+import { MetaDataTab } from './glossary/tab.metaData'
 
 export const Properties: CollectionConfig<'properties'> = {
   slug: 'properties',
@@ -85,153 +88,11 @@ export const Properties: CollectionConfig<'properties'> = {
     {
       type: 'tabs',
       tabs: [
-        {
-          label: 'Essential Information',
-          fields: [
-            {
-              type: 'row',
-              fields: [
-                {
-                  type: 'select',
-                  name: 'market',
-                  label: 'Market Segment',
-                  options: [
-                    { label: 'Economy', value: 'economy' },
-                    { label: 'Mid-Market', value: 'mid-market' },
-                    { label: 'Luxury', value: 'luxury' },
-                    { label: 'Ultra-Luxury', value: 'ultra-luxury' },
-                    { label: 'Commercial', value: 'commercial' },
-                    { label: 'Industrial', value: 'industrial' },
-                    { label: 'Other', value: 'other' },
-                    { label: 'Custom', value: 'custom' },
-                  ],
-                },
-                {
-                  type: 'text',
-                  name: 'customMarket',
-                  label: 'Custom Market',
-                  admin: {
-                    description: 'Enter a custom market segment',
-                    condition: isIncludedInSibling('market', 'custom'),
-                  },
-                },
-                {
-                  type: 'number',
-                  name: 'price',
-                  label: 'Price',
-                  required: true,
-                  min: 0,
-                  admin: {
-                    step: 1000,
-                  },
-                },
-              ],
-            },
-            {
-              type: 'row',
-              fields: [
-                {
-                  type: 'relationship',
-                  name: 'classification',
-                  label: 'Classification',
-                  relationTo: 'classifications',
-                  required: true,
-                  hasMany: true,
-                  admin: {
-                    isSortable: true,
-                    allowEdit: true,
-                  },
-                },
-                {
-                  label: 'Contract',
-                  name: 'contract',
-                  type: 'relationship',
-                  relationTo: 'contracts',
-                  hasMany: false,
-                  required: true,
-                },
-                {
-                  label: 'Availability',
-                  name: 'availability',
-                  type: 'relationship',
-                  relationTo: 'availability',
-                  hasMany: false,
-                  required: true,
-                },
-              ],
-            },
-            {
-              type: 'relationship',
-              name: 'amenities',
-              relationTo: 'amenities',
-              hasMany: true,
-              label: 'Amenities',
-              admin: {
-                isSortable: true,
-                allowEdit: true,
-              },
-            },
-            galleryGroup,
-          ],
-        },
+        EssentialInformationTab,
         SpecificationsInterface,
         LocationInterface,
-        {
-          label: 'Contract Details',
-          name: 'contractDetails',
-          fields: [
-            {
-              type: 'checkbox',
-              name: 'requiresContract',
-              label: 'Requires Contract',
-              defaultValue: true,
-              admin: {
-                description: 'Does this property require a formal contract?',
-              },
-            },
-            {
-              type: 'checkbox',
-              name: 'requiresDeposit',
-              label: 'Requires Deposit',
-              defaultValue: false,
-              admin: {
-                description: 'Does this transaction type require a deposit?',
-              },
-            },
-          ],
-        },
-        {
-          label: 'Metadata',
-          fields: [
-            {
-              type: 'richText',
-              name: 'description',
-              label: false,
-              editor: extendedLexical({
-                enableToolbar: true,
-                placeholder:
-                  "Press '/' or Select Text to see the list of available Tools and Commands.",
-                hideGutter: true,
-              }),
-              admin: {
-                description: 'Describe the property in a few sentences.',
-                className: 'border-0 border-b-1 border-border pb-8',
-              },
-            },
-            {
-              type: 'checkbox',
-              name: 'isFeatured',
-              label: 'Featured Property',
-              defaultValue: false,
-              admin: {
-                description: 'Show this property in featured sections',
-              },
-            },
-            categoriesField,
-            tagsField,
-            relatedDocsField,
-          ],
-        },
+        FinanceInterface,
+        MetaDataTab,
         seoTab,
       ],
     },

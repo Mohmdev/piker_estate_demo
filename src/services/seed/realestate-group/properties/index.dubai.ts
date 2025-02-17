@@ -1,6 +1,6 @@
 import type { Media, Property } from '@payload-types'
-import { mockLocations } from './locations'
-import { mockSpecs } from './specs'
+import { mockLocations } from './0-depth_0/locations'
+import { mockSpecs } from './0-depth_0/specs'
 
 // Define slugs for reference
 const CONTRACT_SLUGS = {
@@ -26,31 +26,6 @@ const AMENITY_SLUGS = {
 export const mockProperties: Partial<Property>[] = [
   // barshaApartment
   {
-    // title: 'Modern Waterfront Apartment',
-    // market: 'luxury',
-    // price: 1250000,
-    // description: {
-    //   root: {
-    //     type: 'root',
-    //     children: [
-    //       {
-    //         type: 'paragraph',
-    //         version: 1,
-    //         children: [
-    //           {
-    //             type: 'text',
-    //             text: 'Stunning waterfront apartment with panoramic harbor views. Recently renovated with high-end finishes throughout.',
-    //             version: 1,
-    //           },
-    //         ],
-    //       },
-    //     ],
-    //     direction: 'ltr',
-    //     format: 'left',
-    //     indent: 0,
-    //     version: 1,
-    //   },
-    // },
     location: mockLocations.waterfrontApartment,
     specs: mockSpecs.waterfrontApartment,
     //   amenities: [0, 0],
@@ -58,10 +33,6 @@ export const mockProperties: Partial<Property>[] = [
     //   classification: [0],
     //   contract: 0,
     //   availability: 0,
-    //   contractDetails: {
-    //     requiresContract: true,
-    //     requiresDeposit: true,
-    //   },
     //   categories: [
     //     {
     //       relationTo: 'classifications',
