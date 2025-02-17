@@ -3,34 +3,49 @@ import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-vercel-postg
 export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   await db.execute(sql`
    CREATE TYPE "public"."enum_projects_market" AS ENUM('economy', 'mid-market', 'luxury', 'ultra-luxury', 'commercial', 'industrial', 'other', 'custom');
+  CREATE TYPE "public"."enum_projects_location_accessibility" AS ENUM('metro-connected', 'bus-connected', 'car-dependent', 'walk-friendly', 'custom');
   CREATE TYPE "public"."enum_projects_location_country_select_country" AS ENUM('AF', 'AX', 'AL', 'DZ', 'AS', 'AD', 'AO', 'AI', 'AQ', 'AG', 'AR', 'AM', 'AW', 'AU', 'AT', 'AZ', 'BS', 'BH', 'BD', 'BB', 'BY', 'BE', 'BZ', 'BJ', 'BM', 'BT', 'BO', 'BA', 'BW', 'BV', 'BR', 'IO', 'BN', 'BG', 'BF', 'BI', 'KH', 'CM', 'CA', 'CV', 'KY', 'CF', 'TD', 'CL', 'CN', 'CX', 'CC', 'CO', 'KM', 'CG', 'CD', 'CK', 'CR', 'CI', 'HR', 'CU', 'CY', 'CZ', 'DK', 'DJ', 'DM', 'DO', 'EC', 'EG', 'SV', 'GQ', 'ER', 'EE', 'ET', 'FK', 'FO', 'FJ', 'FI', 'FR', 'GF', 'PF', 'TF', 'GA', 'GM', 'GE', 'DE', 'GH', 'GI', 'GR', 'GL', 'GD', 'GP', 'GU', 'GT', 'GG', 'GN', 'GW', 'GY', 'HT', 'HM', 'VA', 'HN', 'HK', 'HU', 'IS', 'IN', 'ID', 'IR', 'IQ', 'IE', 'IM', 'IL', 'IT', 'JM', 'JP', 'JE', 'JO', 'KZ', 'KE', 'KI', 'KP', 'KR', 'XK', 'KW', 'KG', 'LA', 'LV', 'LB', 'LS', 'LR', 'LY', 'LI', 'LT', 'LU', 'MO', 'MK', 'MG', 'MW', 'MY', 'MV', 'ML', 'MT', 'MH', 'MQ', 'MR', 'MU', 'YT', 'MX', 'FM', 'MD', 'MC', 'MN', 'ME', 'MS', 'MA', 'MZ', 'MM', 'NA', 'NR', 'NP', 'NL', 'AN', 'NC', 'NZ', 'NI', 'NE', 'NG', 'NU', 'NF', 'MP', 'NO', 'OM', 'PK', 'PW', 'PS', 'PA', 'PG', 'PY', 'PE', 'PH', 'PN', 'PL', 'PT', 'PR', 'QA', 'RE', 'RO', 'RU', 'RW', 'SH', 'KN', 'LC', 'PM', 'VC', 'WS', 'SM', 'ST', 'SA', 'SN', 'RS', 'SC', 'SL', 'SG', 'SK', 'SI', 'SB', 'SO', 'ZA', 'GS', 'ES', 'LK', 'SD', 'SR', 'SJ', 'SZ', 'SE', 'CH', 'SY', 'TW', 'TJ', 'TZ', 'TH', 'TL', 'TG', 'TK', 'TO', 'TT', 'TN', 'TR', 'TM', 'TC', 'TV', 'UG', 'UA', 'AE', 'GB', 'US', 'UM', 'UY', 'UZ', 'VU', 'VE', 'VN', 'VG', 'VI', 'WF', 'EH', 'YE', 'ZM', 'ZW');
+  CREATE TYPE "public"."neighborhoodType" AS ENUM('city-center', 'business-district', 'suburban-area', 'industrial-area', 'mixed-development', 'custom');
   CREATE TYPE "public"."enum_projects_status" AS ENUM('draft', 'published');
   CREATE TYPE "public"."enum__projects_v_version_market" AS ENUM('economy', 'mid-market', 'luxury', 'ultra-luxury', 'commercial', 'industrial', 'other', 'custom');
+  CREATE TYPE "public"."enum__projects_v_version_location_accessibility" AS ENUM('metro-connected', 'bus-connected', 'car-dependent', 'walk-friendly', 'custom');
   CREATE TYPE "public"."enum__projects_v_version_location_country_select_country" AS ENUM('AF', 'AX', 'AL', 'DZ', 'AS', 'AD', 'AO', 'AI', 'AQ', 'AG', 'AR', 'AM', 'AW', 'AU', 'AT', 'AZ', 'BS', 'BH', 'BD', 'BB', 'BY', 'BE', 'BZ', 'BJ', 'BM', 'BT', 'BO', 'BA', 'BW', 'BV', 'BR', 'IO', 'BN', 'BG', 'BF', 'BI', 'KH', 'CM', 'CA', 'CV', 'KY', 'CF', 'TD', 'CL', 'CN', 'CX', 'CC', 'CO', 'KM', 'CG', 'CD', 'CK', 'CR', 'CI', 'HR', 'CU', 'CY', 'CZ', 'DK', 'DJ', 'DM', 'DO', 'EC', 'EG', 'SV', 'GQ', 'ER', 'EE', 'ET', 'FK', 'FO', 'FJ', 'FI', 'FR', 'GF', 'PF', 'TF', 'GA', 'GM', 'GE', 'DE', 'GH', 'GI', 'GR', 'GL', 'GD', 'GP', 'GU', 'GT', 'GG', 'GN', 'GW', 'GY', 'HT', 'HM', 'VA', 'HN', 'HK', 'HU', 'IS', 'IN', 'ID', 'IR', 'IQ', 'IE', 'IM', 'IL', 'IT', 'JM', 'JP', 'JE', 'JO', 'KZ', 'KE', 'KI', 'KP', 'KR', 'XK', 'KW', 'KG', 'LA', 'LV', 'LB', 'LS', 'LR', 'LY', 'LI', 'LT', 'LU', 'MO', 'MK', 'MG', 'MW', 'MY', 'MV', 'ML', 'MT', 'MH', 'MQ', 'MR', 'MU', 'YT', 'MX', 'FM', 'MD', 'MC', 'MN', 'ME', 'MS', 'MA', 'MZ', 'MM', 'NA', 'NR', 'NP', 'NL', 'AN', 'NC', 'NZ', 'NI', 'NE', 'NG', 'NU', 'NF', 'MP', 'NO', 'OM', 'PK', 'PW', 'PS', 'PA', 'PG', 'PY', 'PE', 'PH', 'PN', 'PL', 'PT', 'PR', 'QA', 'RE', 'RO', 'RU', 'RW', 'SH', 'KN', 'LC', 'PM', 'VC', 'WS', 'SM', 'ST', 'SA', 'SN', 'RS', 'SC', 'SL', 'SG', 'SK', 'SI', 'SB', 'SO', 'ZA', 'GS', 'ES', 'LK', 'SD', 'SR', 'SJ', 'SZ', 'SE', 'CH', 'SY', 'TW', 'TJ', 'TZ', 'TH', 'TL', 'TG', 'TK', 'TO', 'TT', 'TN', 'TR', 'TM', 'TC', 'TV', 'UG', 'UA', 'AE', 'GB', 'US', 'UM', 'UY', 'UZ', 'VU', 'VE', 'VN', 'VG', 'VI', 'WF', 'EH', 'YE', 'ZM', 'ZW');
   CREATE TYPE "public"."enum__projects_v_version_status" AS ENUM('draft', 'published');
-  CREATE TYPE "public"."enum_properties_market" AS ENUM('economy', 'mid-market', 'luxury', 'ultra-luxury', 'commercial', 'industrial', 'other', 'custom');
+  CREATE TYPE "public"."enum_properties_condition" AS ENUM('brand-new', 'renovated', 'well-maintained', 'needs-renovation', 'custom');
   CREATE TYPE "public"."enum_properties_specs_measurements_size_range" AS ENUM('small', 'medium', 'large', 'xlarge');
   CREATE TYPE "public"."enum_properties_specs_construction_construction_type" AS ENUM('brick', 'timber', 'concrete', 'steel', 'mixed');
   CREATE TYPE "public"."enum_properties_specs_utilities_energy_rating" AS ENUM('A', 'B', 'C', 'D', 'E');
   CREATE TYPE "public"."enum_properties_specs_utilities_heating_type" AS ENUM('central', 'electric', 'gas', 'heat-pump', 'none');
   CREATE TYPE "public"."enum_properties_specs_utilities_cooling_type" AS ENUM('central', 'split', 'window', 'none');
+  CREATE TYPE "public"."enum_properties_location_accessibility" AS ENUM('metro-connected', 'bus-connected', 'car-dependent', 'walk-friendly', 'custom');
   CREATE TYPE "public"."enum_properties_location_country_select_country" AS ENUM('AF', 'AX', 'AL', 'DZ', 'AS', 'AD', 'AO', 'AI', 'AQ', 'AG', 'AR', 'AM', 'AW', 'AU', 'AT', 'AZ', 'BS', 'BH', 'BD', 'BB', 'BY', 'BE', 'BZ', 'BJ', 'BM', 'BT', 'BO', 'BA', 'BW', 'BV', 'BR', 'IO', 'BN', 'BG', 'BF', 'BI', 'KH', 'CM', 'CA', 'CV', 'KY', 'CF', 'TD', 'CL', 'CN', 'CX', 'CC', 'CO', 'KM', 'CG', 'CD', 'CK', 'CR', 'CI', 'HR', 'CU', 'CY', 'CZ', 'DK', 'DJ', 'DM', 'DO', 'EC', 'EG', 'SV', 'GQ', 'ER', 'EE', 'ET', 'FK', 'FO', 'FJ', 'FI', 'FR', 'GF', 'PF', 'TF', 'GA', 'GM', 'GE', 'DE', 'GH', 'GI', 'GR', 'GL', 'GD', 'GP', 'GU', 'GT', 'GG', 'GN', 'GW', 'GY', 'HT', 'HM', 'VA', 'HN', 'HK', 'HU', 'IS', 'IN', 'ID', 'IR', 'IQ', 'IE', 'IM', 'IL', 'IT', 'JM', 'JP', 'JE', 'JO', 'KZ', 'KE', 'KI', 'KP', 'KR', 'XK', 'KW', 'KG', 'LA', 'LV', 'LB', 'LS', 'LR', 'LY', 'LI', 'LT', 'LU', 'MO', 'MK', 'MG', 'MW', 'MY', 'MV', 'ML', 'MT', 'MH', 'MQ', 'MR', 'MU', 'YT', 'MX', 'FM', 'MD', 'MC', 'MN', 'ME', 'MS', 'MA', 'MZ', 'MM', 'NA', 'NR', 'NP', 'NL', 'AN', 'NC', 'NZ', 'NI', 'NE', 'NG', 'NU', 'NF', 'MP', 'NO', 'OM', 'PK', 'PW', 'PS', 'PA', 'PG', 'PY', 'PE', 'PH', 'PN', 'PL', 'PT', 'PR', 'QA', 'RE', 'RO', 'RU', 'RW', 'SH', 'KN', 'LC', 'PM', 'VC', 'WS', 'SM', 'ST', 'SA', 'SN', 'RS', 'SC', 'SL', 'SG', 'SK', 'SI', 'SB', 'SO', 'ZA', 'GS', 'ES', 'LK', 'SD', 'SR', 'SJ', 'SZ', 'SE', 'CH', 'SY', 'TW', 'TJ', 'TZ', 'TH', 'TL', 'TG', 'TK', 'TO', 'TT', 'TN', 'TR', 'TM', 'TC', 'TV', 'UG', 'UA', 'AE', 'GB', 'US', 'UM', 'UY', 'UZ', 'VU', 'VE', 'VN', 'VG', 'VI', 'WF', 'EH', 'YE', 'ZM', 'ZW');
+  CREATE TYPE "public"."enum_properties_finance_market" AS ENUM('economy', 'mid-market', 'luxury', 'ultra-luxury', 'commercial', 'industrial', 'other', 'custom');
+  CREATE TYPE "public"."enum_properties_finance_deposit_type" AS ENUM('percentage', 'amount');
+  CREATE TYPE "public"."enum_properties_finance_target_residents" AS ENUM('families', 'couples', 'professionals', 'executives', 'singles', 'students', 'retired', 'custom');
+  CREATE TYPE "public"."enum_properties_finance_investment_potential" AS ENUM('high', 'medium', 'low', 'custom');
+  CREATE TYPE "public"."enum_properties_finance_investment_type" AS ENUM('rental-income', 'value-appreciation', 'mixed-use', 'custom');
   CREATE TYPE "public"."enum_properties_status" AS ENUM('draft', 'published');
-  CREATE TYPE "public"."enum__properties_v_version_market" AS ENUM('economy', 'mid-market', 'luxury', 'ultra-luxury', 'commercial', 'industrial', 'other', 'custom');
+  CREATE TYPE "public"."enum__properties_v_version_condition" AS ENUM('brand-new', 'renovated', 'well-maintained', 'needs-renovation', 'custom');
   CREATE TYPE "public"."enum__properties_v_version_specs_measurements_size_range" AS ENUM('small', 'medium', 'large', 'xlarge');
   CREATE TYPE "public"."enum__properties_v_version_specs_construction_construction_type" AS ENUM('brick', 'timber', 'concrete', 'steel', 'mixed');
   CREATE TYPE "public"."enum__properties_v_version_specs_utilities_energy_rating" AS ENUM('A', 'B', 'C', 'D', 'E');
   CREATE TYPE "public"."enum__properties_v_version_specs_utilities_heating_type" AS ENUM('central', 'electric', 'gas', 'heat-pump', 'none');
   CREATE TYPE "public"."enum__properties_v_version_specs_utilities_cooling_type" AS ENUM('central', 'split', 'window', 'none');
+  CREATE TYPE "public"."enum__properties_v_version_location_accessibility" AS ENUM('metro-connected', 'bus-connected', 'car-dependent', 'walk-friendly', 'custom');
   CREATE TYPE "public"."enum__properties_v_version_location_country_select_country" AS ENUM('AF', 'AX', 'AL', 'DZ', 'AS', 'AD', 'AO', 'AI', 'AQ', 'AG', 'AR', 'AM', 'AW', 'AU', 'AT', 'AZ', 'BS', 'BH', 'BD', 'BB', 'BY', 'BE', 'BZ', 'BJ', 'BM', 'BT', 'BO', 'BA', 'BW', 'BV', 'BR', 'IO', 'BN', 'BG', 'BF', 'BI', 'KH', 'CM', 'CA', 'CV', 'KY', 'CF', 'TD', 'CL', 'CN', 'CX', 'CC', 'CO', 'KM', 'CG', 'CD', 'CK', 'CR', 'CI', 'HR', 'CU', 'CY', 'CZ', 'DK', 'DJ', 'DM', 'DO', 'EC', 'EG', 'SV', 'GQ', 'ER', 'EE', 'ET', 'FK', 'FO', 'FJ', 'FI', 'FR', 'GF', 'PF', 'TF', 'GA', 'GM', 'GE', 'DE', 'GH', 'GI', 'GR', 'GL', 'GD', 'GP', 'GU', 'GT', 'GG', 'GN', 'GW', 'GY', 'HT', 'HM', 'VA', 'HN', 'HK', 'HU', 'IS', 'IN', 'ID', 'IR', 'IQ', 'IE', 'IM', 'IL', 'IT', 'JM', 'JP', 'JE', 'JO', 'KZ', 'KE', 'KI', 'KP', 'KR', 'XK', 'KW', 'KG', 'LA', 'LV', 'LB', 'LS', 'LR', 'LY', 'LI', 'LT', 'LU', 'MO', 'MK', 'MG', 'MW', 'MY', 'MV', 'ML', 'MT', 'MH', 'MQ', 'MR', 'MU', 'YT', 'MX', 'FM', 'MD', 'MC', 'MN', 'ME', 'MS', 'MA', 'MZ', 'MM', 'NA', 'NR', 'NP', 'NL', 'AN', 'NC', 'NZ', 'NI', 'NE', 'NG', 'NU', 'NF', 'MP', 'NO', 'OM', 'PK', 'PW', 'PS', 'PA', 'PG', 'PY', 'PE', 'PH', 'PN', 'PL', 'PT', 'PR', 'QA', 'RE', 'RO', 'RU', 'RW', 'SH', 'KN', 'LC', 'PM', 'VC', 'WS', 'SM', 'ST', 'SA', 'SN', 'RS', 'SC', 'SL', 'SG', 'SK', 'SI', 'SB', 'SO', 'ZA', 'GS', 'ES', 'LK', 'SD', 'SR', 'SJ', 'SZ', 'SE', 'CH', 'SY', 'TW', 'TJ', 'TZ', 'TH', 'TL', 'TG', 'TK', 'TO', 'TT', 'TN', 'TR', 'TM', 'TC', 'TV', 'UG', 'UA', 'AE', 'GB', 'US', 'UM', 'UY', 'UZ', 'VU', 'VE', 'VN', 'VG', 'VI', 'WF', 'EH', 'YE', 'ZM', 'ZW');
+  CREATE TYPE "public"."enum__properties_v_version_finance_market" AS ENUM('economy', 'mid-market', 'luxury', 'ultra-luxury', 'commercial', 'industrial', 'other', 'custom');
+  CREATE TYPE "public"."enum__properties_v_version_finance_deposit_type" AS ENUM('percentage', 'amount');
+  CREATE TYPE "public"."enum__properties_v_version_finance_target_residents" AS ENUM('families', 'couples', 'professionals', 'executives', 'singles', 'students', 'retired', 'custom');
+  CREATE TYPE "public"."enum__properties_v_version_finance_investment_potential" AS ENUM('high', 'medium', 'low', 'custom');
+  CREATE TYPE "public"."enum__properties_v_version_finance_investment_type" AS ENUM('rental-income', 'value-appreciation', 'mixed-use', 'custom');
   CREATE TYPE "public"."enum__properties_v_version_status" AS ENUM('draft', 'published');
   CREATE TYPE "public"."enum_classifications_status" AS ENUM('draft', 'published');
   CREATE TYPE "public"."enum__classifications_v_version_status" AS ENUM('draft', 'published');
   CREATE TYPE "public"."enum_amenities_status" AS ENUM('draft', 'published');
   CREATE TYPE "public"."enum__amenities_v_version_status" AS ENUM('draft', 'published');
-  CREATE TYPE "public"."enum_availability_color" AS ENUM('green', 'blue', 'yellow', 'red', 'gray');
+  CREATE TYPE "public"."enum_availability_color" AS ENUM('green', 'blue', 'yellow', 'red', 'gray', 'purple');
   CREATE TYPE "public"."enum_availability_status" AS ENUM('draft', 'published');
-  CREATE TYPE "public"."enum__availability_v_version_color" AS ENUM('green', 'blue', 'yellow', 'red', 'gray');
+  CREATE TYPE "public"."enum__availability_v_version_color" AS ENUM('green', 'blue', 'yellow', 'red', 'gray', 'purple');
   CREATE TYPE "public"."enum__availability_v_version_status" AS ENUM('draft', 'published');
   CREATE TYPE "public"."enum_contracts_status" AS ENUM('draft', 'published');
   CREATE TYPE "public"."enum__contracts_v_version_status" AS ENUM('draft', 'published');
@@ -186,9 +201,13 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"location_city" varchar,
   	"location_state" varchar,
   	"location_postcode" varchar,
+  	"location_accessibility" "enum_projects_location_accessibility",
+  	"location_custom_accessibility" varchar,
   	"location_country_select_country" "enum_projects_location_country_select_country" DEFAULT 'US',
   	"location_coordinates_latitude" numeric,
   	"location_coordinates_longitude" numeric,
+  	"location_neighborhood_neighborhood_type" "neighborhoodType",
+  	"location_neighborhood_custom_neighborhood_type" varchar,
   	"location_neighborhood_area" varchar,
   	"contract_details_requires_contract" boolean DEFAULT true,
   	"contract_details_requires_deposit" boolean DEFAULT false,
@@ -278,9 +297,13 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"version_location_city" varchar,
   	"version_location_state" varchar,
   	"version_location_postcode" varchar,
+  	"version_location_accessibility" "enum__projects_v_version_location_accessibility",
+  	"version_location_custom_accessibility" varchar,
   	"version_location_country_select_country" "enum__projects_v_version_location_country_select_country" DEFAULT 'US',
   	"version_location_coordinates_latitude" numeric,
   	"version_location_coordinates_longitude" numeric,
+  	"version_location_neighborhood_neighborhood_type" "neighborhoodType",
+  	"version_location_neighborhood_custom_neighborhood_type" varchar,
   	"version_location_neighborhood_area" varchar,
   	"version_contract_details_requires_contract" boolean DEFAULT true,
   	"version_contract_details_requires_deposit" boolean DEFAULT false,
@@ -346,9 +369,9 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE TABLE IF NOT EXISTS "properties" (
   	"id" serial PRIMARY KEY NOT NULL,
   	"title" varchar,
-  	"market" "enum_properties_market",
-  	"custom_market" varchar,
   	"price" numeric,
+  	"condition" "enum_properties_condition",
+  	"custom_condition" varchar,
   	"contract_id" integer,
   	"availability_id" integer,
   	"gallery_video_id" integer,
@@ -374,12 +397,29 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"location_city" varchar,
   	"location_state" varchar,
   	"location_postcode" varchar,
+  	"location_accessibility" "enum_properties_location_accessibility",
+  	"location_custom_accessibility" varchar,
   	"location_country_select_country" "enum_properties_location_country_select_country" DEFAULT 'US',
   	"location_coordinates_latitude" numeric,
   	"location_coordinates_longitude" numeric,
+  	"location_neighborhood_neighborhood_type" "neighborhoodType",
+  	"location_neighborhood_custom_neighborhood_type" varchar,
   	"location_neighborhood_area" varchar,
-  	"contract_details_requires_contract" boolean DEFAULT true,
-  	"contract_details_requires_deposit" boolean DEFAULT false,
+  	"finance_market" "enum_properties_finance_market",
+  	"finance_custom_market" varchar,
+  	"finance_requires_deposit" boolean DEFAULT false,
+  	"finance_deposit_type" "enum_properties_finance_deposit_type",
+  	"finance_deposit_amount" numeric,
+  	"finance_deposit_percentage" numeric,
+  	"finance_has_installments" boolean DEFAULT false,
+  	"finance_installments_number" numeric,
+  	"finance_installment_amount" numeric,
+  	"finance_target_residents" "enum_properties_finance_target_residents",
+  	"finance_custom_target_residents" varchar,
+  	"finance_investment_potential" "enum_properties_finance_investment_potential",
+  	"finance_custom_investment_potential" varchar,
+  	"finance_investment_type" "enum_properties_finance_investment_type",
+  	"finance_custom_investment_type" varchar,
   	"description" jsonb,
   	"is_featured" boolean DEFAULT false,
   	"meta_title" varchar,
@@ -442,9 +482,9 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"id" serial PRIMARY KEY NOT NULL,
   	"parent_id" integer,
   	"version_title" varchar,
-  	"version_market" "enum__properties_v_version_market",
-  	"version_custom_market" varchar,
   	"version_price" numeric,
+  	"version_condition" "enum__properties_v_version_condition",
+  	"version_custom_condition" varchar,
   	"version_contract_id" integer,
   	"version_availability_id" integer,
   	"version_gallery_video_id" integer,
@@ -470,12 +510,29 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"version_location_city" varchar,
   	"version_location_state" varchar,
   	"version_location_postcode" varchar,
+  	"version_location_accessibility" "enum__properties_v_version_location_accessibility",
+  	"version_location_custom_accessibility" varchar,
   	"version_location_country_select_country" "enum__properties_v_version_location_country_select_country" DEFAULT 'US',
   	"version_location_coordinates_latitude" numeric,
   	"version_location_coordinates_longitude" numeric,
+  	"version_location_neighborhood_neighborhood_type" "neighborhoodType",
+  	"version_location_neighborhood_custom_neighborhood_type" varchar,
   	"version_location_neighborhood_area" varchar,
-  	"version_contract_details_requires_contract" boolean DEFAULT true,
-  	"version_contract_details_requires_deposit" boolean DEFAULT false,
+  	"version_finance_market" "enum__properties_v_version_finance_market",
+  	"version_finance_custom_market" varchar,
+  	"version_finance_requires_deposit" boolean DEFAULT false,
+  	"version_finance_deposit_type" "enum__properties_v_version_finance_deposit_type",
+  	"version_finance_deposit_amount" numeric,
+  	"version_finance_deposit_percentage" numeric,
+  	"version_finance_has_installments" boolean DEFAULT false,
+  	"version_finance_installments_number" numeric,
+  	"version_finance_installment_amount" numeric,
+  	"version_finance_target_residents" "enum__properties_v_version_finance_target_residents",
+  	"version_finance_custom_target_residents" varchar,
+  	"version_finance_investment_potential" "enum__properties_v_version_finance_investment_potential",
+  	"version_finance_custom_investment_potential" varchar,
+  	"version_finance_investment_type" "enum__properties_v_version_finance_investment_type",
+  	"version_finance_custom_investment_type" varchar,
   	"version_description" jsonb,
   	"version_is_featured" boolean DEFAULT false,
   	"version_meta_title" varchar,
@@ -5428,26 +5485,41 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   DROP TABLE "_footer_v_rels" CASCADE;
   DROP TABLE "global_settings" CASCADE;
   DROP TYPE "public"."enum_projects_market";
+  DROP TYPE "public"."enum_projects_location_accessibility";
   DROP TYPE "public"."enum_projects_location_country_select_country";
+  DROP TYPE "public"."neighborhoodType";
   DROP TYPE "public"."enum_projects_status";
   DROP TYPE "public"."enum__projects_v_version_market";
+  DROP TYPE "public"."enum__projects_v_version_location_accessibility";
   DROP TYPE "public"."enum__projects_v_version_location_country_select_country";
   DROP TYPE "public"."enum__projects_v_version_status";
-  DROP TYPE "public"."enum_properties_market";
+  DROP TYPE "public"."enum_properties_condition";
   DROP TYPE "public"."enum_properties_specs_measurements_size_range";
   DROP TYPE "public"."enum_properties_specs_construction_construction_type";
   DROP TYPE "public"."enum_properties_specs_utilities_energy_rating";
   DROP TYPE "public"."enum_properties_specs_utilities_heating_type";
   DROP TYPE "public"."enum_properties_specs_utilities_cooling_type";
+  DROP TYPE "public"."enum_properties_location_accessibility";
   DROP TYPE "public"."enum_properties_location_country_select_country";
+  DROP TYPE "public"."enum_properties_finance_market";
+  DROP TYPE "public"."enum_properties_finance_deposit_type";
+  DROP TYPE "public"."enum_properties_finance_target_residents";
+  DROP TYPE "public"."enum_properties_finance_investment_potential";
+  DROP TYPE "public"."enum_properties_finance_investment_type";
   DROP TYPE "public"."enum_properties_status";
-  DROP TYPE "public"."enum__properties_v_version_market";
+  DROP TYPE "public"."enum__properties_v_version_condition";
   DROP TYPE "public"."enum__properties_v_version_specs_measurements_size_range";
   DROP TYPE "public"."enum__properties_v_version_specs_construction_construction_type";
   DROP TYPE "public"."enum__properties_v_version_specs_utilities_energy_rating";
   DROP TYPE "public"."enum__properties_v_version_specs_utilities_heating_type";
   DROP TYPE "public"."enum__properties_v_version_specs_utilities_cooling_type";
+  DROP TYPE "public"."enum__properties_v_version_location_accessibility";
   DROP TYPE "public"."enum__properties_v_version_location_country_select_country";
+  DROP TYPE "public"."enum__properties_v_version_finance_market";
+  DROP TYPE "public"."enum__properties_v_version_finance_deposit_type";
+  DROP TYPE "public"."enum__properties_v_version_finance_target_residents";
+  DROP TYPE "public"."enum__properties_v_version_finance_investment_potential";
+  DROP TYPE "public"."enum__properties_v_version_finance_investment_type";
   DROP TYPE "public"."enum__properties_v_version_status";
   DROP TYPE "public"."enum_classifications_status";
   DROP TYPE "public"."enum__classifications_v_version_status";

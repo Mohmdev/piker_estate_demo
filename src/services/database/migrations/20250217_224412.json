@@ -1,5 +1,5 @@
 {
-  "id": "50ec532e-0299-4b0d-918b-290243eac8cb",
+  "id": "a7e6e6ad-2f40-4bf0-a993-93351f3af4ed",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -479,6 +479,19 @@
           "primaryKey": false,
           "notNull": false
         },
+        "location_accessibility": {
+          "name": "location_accessibility",
+          "type": "enum_projects_location_accessibility",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "location_custom_accessibility": {
+          "name": "location_custom_accessibility",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
         "location_country_select_country": {
           "name": "location_country_select_country",
           "type": "enum_projects_location_country_select_country",
@@ -496,6 +509,19 @@
         "location_coordinates_longitude": {
           "name": "location_coordinates_longitude",
           "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "location_neighborhood_neighborhood_type": {
+          "name": "location_neighborhood_neighborhood_type",
+          "type": "neighborhoodType",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "location_neighborhood_custom_neighborhood_type": {
+          "name": "location_neighborhood_custom_neighborhood_type",
+          "type": "varchar",
           "primaryKey": false,
           "notNull": false
         },
@@ -1805,6 +1831,19 @@
           "primaryKey": false,
           "notNull": false
         },
+        "version_location_accessibility": {
+          "name": "version_location_accessibility",
+          "type": "enum__projects_v_version_location_accessibility",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version_location_custom_accessibility": {
+          "name": "version_location_custom_accessibility",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
         "version_location_country_select_country": {
           "name": "version_location_country_select_country",
           "type": "enum__projects_v_version_location_country_select_country",
@@ -1822,6 +1861,19 @@
         "version_location_coordinates_longitude": {
           "name": "version_location_coordinates_longitude",
           "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version_location_neighborhood_neighborhood_type": {
+          "name": "version_location_neighborhood_neighborhood_type",
+          "type": "neighborhoodType",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version_location_neighborhood_custom_neighborhood_type": {
+          "name": "version_location_neighborhood_custom_neighborhood_type",
+          "type": "varchar",
           "primaryKey": false,
           "notNull": false
         },
@@ -3034,22 +3086,22 @@
           "primaryKey": false,
           "notNull": false
         },
-        "market": {
-          "name": "market",
-          "type": "enum_properties_market",
+        "price": {
+          "name": "price",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "condition": {
+          "name": "condition",
+          "type": "enum_properties_condition",
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": false
         },
-        "custom_market": {
-          "name": "custom_market",
+        "custom_condition": {
+          "name": "custom_condition",
           "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "price": {
-          "name": "price",
-          "type": "numeric",
           "primaryKey": false,
           "notNull": false
         },
@@ -3208,6 +3260,19 @@
           "primaryKey": false,
           "notNull": false
         },
+        "location_accessibility": {
+          "name": "location_accessibility",
+          "type": "enum_properties_location_accessibility",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "location_custom_accessibility": {
+          "name": "location_custom_accessibility",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
         "location_country_select_country": {
           "name": "location_country_select_country",
           "type": "enum_properties_location_country_select_country",
@@ -3228,25 +3293,121 @@
           "primaryKey": false,
           "notNull": false
         },
+        "location_neighborhood_neighborhood_type": {
+          "name": "location_neighborhood_neighborhood_type",
+          "type": "neighborhoodType",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "location_neighborhood_custom_neighborhood_type": {
+          "name": "location_neighborhood_custom_neighborhood_type",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
         "location_neighborhood_area": {
           "name": "location_neighborhood_area",
           "type": "varchar",
           "primaryKey": false,
           "notNull": false
         },
-        "contract_details_requires_contract": {
-          "name": "contract_details_requires_contract",
-          "type": "boolean",
+        "finance_market": {
+          "name": "finance_market",
+          "type": "enum_properties_finance_market",
+          "typeSchema": "public",
           "primaryKey": false,
-          "notNull": false,
-          "default": true
+          "notNull": false
         },
-        "contract_details_requires_deposit": {
-          "name": "contract_details_requires_deposit",
+        "finance_custom_market": {
+          "name": "finance_custom_market",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "finance_requires_deposit": {
+          "name": "finance_requires_deposit",
           "type": "boolean",
           "primaryKey": false,
           "notNull": false,
           "default": false
+        },
+        "finance_deposit_type": {
+          "name": "finance_deposit_type",
+          "type": "enum_properties_finance_deposit_type",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "finance_deposit_amount": {
+          "name": "finance_deposit_amount",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "finance_deposit_percentage": {
+          "name": "finance_deposit_percentage",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "finance_has_installments": {
+          "name": "finance_has_installments",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "finance_installments_number": {
+          "name": "finance_installments_number",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "finance_installment_amount": {
+          "name": "finance_installment_amount",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "finance_target_residents": {
+          "name": "finance_target_residents",
+          "type": "enum_properties_finance_target_residents",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "finance_custom_target_residents": {
+          "name": "finance_custom_target_residents",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "finance_investment_potential": {
+          "name": "finance_investment_potential",
+          "type": "enum_properties_finance_investment_potential",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "finance_custom_investment_potential": {
+          "name": "finance_custom_investment_potential",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "finance_investment_type": {
+          "name": "finance_investment_type",
+          "type": "enum_properties_finance_investment_type",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "finance_custom_investment_type": {
+          "name": "finance_custom_investment_type",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
         },
         "description": {
           "name": "description",
@@ -4349,22 +4510,22 @@
           "primaryKey": false,
           "notNull": false
         },
-        "version_market": {
-          "name": "version_market",
-          "type": "enum__properties_v_version_market",
+        "version_price": {
+          "name": "version_price",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version_condition": {
+          "name": "version_condition",
+          "type": "enum__properties_v_version_condition",
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": false
         },
-        "version_custom_market": {
-          "name": "version_custom_market",
+        "version_custom_condition": {
+          "name": "version_custom_condition",
           "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "version_price": {
-          "name": "version_price",
-          "type": "numeric",
           "primaryKey": false,
           "notNull": false
         },
@@ -4523,6 +4684,19 @@
           "primaryKey": false,
           "notNull": false
         },
+        "version_location_accessibility": {
+          "name": "version_location_accessibility",
+          "type": "enum__properties_v_version_location_accessibility",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version_location_custom_accessibility": {
+          "name": "version_location_custom_accessibility",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
         "version_location_country_select_country": {
           "name": "version_location_country_select_country",
           "type": "enum__properties_v_version_location_country_select_country",
@@ -4543,25 +4717,121 @@
           "primaryKey": false,
           "notNull": false
         },
+        "version_location_neighborhood_neighborhood_type": {
+          "name": "version_location_neighborhood_neighborhood_type",
+          "type": "neighborhoodType",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version_location_neighborhood_custom_neighborhood_type": {
+          "name": "version_location_neighborhood_custom_neighborhood_type",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
         "version_location_neighborhood_area": {
           "name": "version_location_neighborhood_area",
           "type": "varchar",
           "primaryKey": false,
           "notNull": false
         },
-        "version_contract_details_requires_contract": {
-          "name": "version_contract_details_requires_contract",
-          "type": "boolean",
+        "version_finance_market": {
+          "name": "version_finance_market",
+          "type": "enum__properties_v_version_finance_market",
+          "typeSchema": "public",
           "primaryKey": false,
-          "notNull": false,
-          "default": true
+          "notNull": false
         },
-        "version_contract_details_requires_deposit": {
-          "name": "version_contract_details_requires_deposit",
+        "version_finance_custom_market": {
+          "name": "version_finance_custom_market",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version_finance_requires_deposit": {
+          "name": "version_finance_requires_deposit",
           "type": "boolean",
           "primaryKey": false,
           "notNull": false,
           "default": false
+        },
+        "version_finance_deposit_type": {
+          "name": "version_finance_deposit_type",
+          "type": "enum__properties_v_version_finance_deposit_type",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version_finance_deposit_amount": {
+          "name": "version_finance_deposit_amount",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version_finance_deposit_percentage": {
+          "name": "version_finance_deposit_percentage",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version_finance_has_installments": {
+          "name": "version_finance_has_installments",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "version_finance_installments_number": {
+          "name": "version_finance_installments_number",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version_finance_installment_amount": {
+          "name": "version_finance_installment_amount",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version_finance_target_residents": {
+          "name": "version_finance_target_residents",
+          "type": "enum__properties_v_version_finance_target_residents",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version_finance_custom_target_residents": {
+          "name": "version_finance_custom_target_residents",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version_finance_investment_potential": {
+          "name": "version_finance_investment_potential",
+          "type": "enum__properties_v_version_finance_investment_potential",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version_finance_custom_investment_potential": {
+          "name": "version_finance_custom_investment_potential",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version_finance_investment_type": {
+          "name": "version_finance_investment_type",
+          "type": "enum__properties_v_version_finance_investment_type",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version_finance_custom_investment_type": {
+          "name": "version_finance_custom_investment_type",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
         },
         "version_description": {
           "name": "version_description",
@@ -28563,6 +28833,17 @@
         "custom"
       ]
     },
+    "public.enum_projects_location_accessibility": {
+      "name": "enum_projects_location_accessibility",
+      "schema": "public",
+      "values": [
+        "metro-connected",
+        "bus-connected",
+        "car-dependent",
+        "walk-friendly",
+        "custom"
+      ]
+    },
     "public.enum_projects_location_country_select_country": {
       "name": "enum_projects_location_country_select_country",
       "schema": "public",
@@ -28814,6 +29095,18 @@
         "ZW"
       ]
     },
+    "public.neighborhoodType": {
+      "name": "neighborhoodType",
+      "schema": "public",
+      "values": [
+        "city-center",
+        "business-district",
+        "suburban-area",
+        "industrial-area",
+        "mixed-development",
+        "custom"
+      ]
+    },
     "public.enum_projects_status": {
       "name": "enum_projects_status",
       "schema": "public",
@@ -28833,6 +29126,17 @@
         "commercial",
         "industrial",
         "other",
+        "custom"
+      ]
+    },
+    "public.enum__projects_v_version_location_accessibility": {
+      "name": "enum__projects_v_version_location_accessibility",
+      "schema": "public",
+      "values": [
+        "metro-connected",
+        "bus-connected",
+        "car-dependent",
+        "walk-friendly",
         "custom"
       ]
     },
@@ -29095,17 +29399,14 @@
         "published"
       ]
     },
-    "public.enum_properties_market": {
-      "name": "enum_properties_market",
+    "public.enum_properties_condition": {
+      "name": "enum_properties_condition",
       "schema": "public",
       "values": [
-        "economy",
-        "mid-market",
-        "luxury",
-        "ultra-luxury",
-        "commercial",
-        "industrial",
-        "other",
+        "brand-new",
+        "renovated",
+        "well-maintained",
+        "needs-renovation",
         "custom"
       ]
     },
@@ -29160,6 +29461,17 @@
         "split",
         "window",
         "none"
+      ]
+    },
+    "public.enum_properties_location_accessibility": {
+      "name": "enum_properties_location_accessibility",
+      "schema": "public",
+      "values": [
+        "metro-connected",
+        "bus-connected",
+        "car-dependent",
+        "walk-friendly",
+        "custom"
       ]
     },
     "public.enum_properties_location_country_select_country": {
@@ -29413,16 +29725,8 @@
         "ZW"
       ]
     },
-    "public.enum_properties_status": {
-      "name": "enum_properties_status",
-      "schema": "public",
-      "values": [
-        "draft",
-        "published"
-      ]
-    },
-    "public.enum__properties_v_version_market": {
-      "name": "enum__properties_v_version_market",
+    "public.enum_properties_finance_market": {
+      "name": "enum_properties_finance_market",
       "schema": "public",
       "values": [
         "economy",
@@ -29432,6 +29736,67 @@
         "commercial",
         "industrial",
         "other",
+        "custom"
+      ]
+    },
+    "public.enum_properties_finance_deposit_type": {
+      "name": "enum_properties_finance_deposit_type",
+      "schema": "public",
+      "values": [
+        "percentage",
+        "amount"
+      ]
+    },
+    "public.enum_properties_finance_target_residents": {
+      "name": "enum_properties_finance_target_residents",
+      "schema": "public",
+      "values": [
+        "families",
+        "couples",
+        "professionals",
+        "executives",
+        "singles",
+        "students",
+        "retired",
+        "custom"
+      ]
+    },
+    "public.enum_properties_finance_investment_potential": {
+      "name": "enum_properties_finance_investment_potential",
+      "schema": "public",
+      "values": [
+        "high",
+        "medium",
+        "low",
+        "custom"
+      ]
+    },
+    "public.enum_properties_finance_investment_type": {
+      "name": "enum_properties_finance_investment_type",
+      "schema": "public",
+      "values": [
+        "rental-income",
+        "value-appreciation",
+        "mixed-use",
+        "custom"
+      ]
+    },
+    "public.enum_properties_status": {
+      "name": "enum_properties_status",
+      "schema": "public",
+      "values": [
+        "draft",
+        "published"
+      ]
+    },
+    "public.enum__properties_v_version_condition": {
+      "name": "enum__properties_v_version_condition",
+      "schema": "public",
+      "values": [
+        "brand-new",
+        "renovated",
+        "well-maintained",
+        "needs-renovation",
         "custom"
       ]
     },
@@ -29486,6 +29851,17 @@
         "split",
         "window",
         "none"
+      ]
+    },
+    "public.enum__properties_v_version_location_accessibility": {
+      "name": "enum__properties_v_version_location_accessibility",
+      "schema": "public",
+      "values": [
+        "metro-connected",
+        "bus-connected",
+        "car-dependent",
+        "walk-friendly",
+        "custom"
       ]
     },
     "public.enum__properties_v_version_location_country_select_country": {
@@ -29737,6 +30113,62 @@
         "YE",
         "ZM",
         "ZW"
+      ]
+    },
+    "public.enum__properties_v_version_finance_market": {
+      "name": "enum__properties_v_version_finance_market",
+      "schema": "public",
+      "values": [
+        "economy",
+        "mid-market",
+        "luxury",
+        "ultra-luxury",
+        "commercial",
+        "industrial",
+        "other",
+        "custom"
+      ]
+    },
+    "public.enum__properties_v_version_finance_deposit_type": {
+      "name": "enum__properties_v_version_finance_deposit_type",
+      "schema": "public",
+      "values": [
+        "percentage",
+        "amount"
+      ]
+    },
+    "public.enum__properties_v_version_finance_target_residents": {
+      "name": "enum__properties_v_version_finance_target_residents",
+      "schema": "public",
+      "values": [
+        "families",
+        "couples",
+        "professionals",
+        "executives",
+        "singles",
+        "students",
+        "retired",
+        "custom"
+      ]
+    },
+    "public.enum__properties_v_version_finance_investment_potential": {
+      "name": "enum__properties_v_version_finance_investment_potential",
+      "schema": "public",
+      "values": [
+        "high",
+        "medium",
+        "low",
+        "custom"
+      ]
+    },
+    "public.enum__properties_v_version_finance_investment_type": {
+      "name": "enum__properties_v_version_finance_investment_type",
+      "schema": "public",
+      "values": [
+        "rental-income",
+        "value-appreciation",
+        "mixed-use",
+        "custom"
       ]
     },
     "public.enum__properties_v_version_status": {

@@ -172,6 +172,7 @@ export const LocationInterface: NamedTab = {
               type: 'select',
               name: 'neighborhoodType',
               label: 'Neighborhood Type',
+              dbName: 'neighborhoodType',
               options: [
                 { label: 'City Center', value: 'city-center' },
                 { label: 'Business District', value: 'business-district' },

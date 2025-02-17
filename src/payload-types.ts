@@ -362,13 +362,6 @@ export interface Project {
 export interface Property {
   id: number;
   title: string;
-  market?:
-    | ('economy' | 'mid-market' | 'luxury' | 'ultra-luxury' | 'commercial' | 'industrial' | 'other' | 'custom')
-    | null;
-  /**
-   * Enter a custom market segment
-   */
-  customMarket?: string | null;
   price: number;
   condition?: ('brand-new' | 'renovated' | 'well-maintained' | 'needs-renovation' | 'custom') | null;
   /**
@@ -406,16 +399,7 @@ export interface Property {
   };
   specs?: SpecificationsInterface;
   location?: LocationInterface;
-  contractDetails?: {
-    /**
-     * Does this property require a formal contract?
-     */
-    requiresContract?: boolean | null;
-    /**
-     * Does this transaction type require a deposit?
-     */
-    requiresDeposit?: boolean | null;
-  };
+  finance?: FinanceInterface;
   /**
    * Describe the property in a few sentences.
    */
@@ -2078,6 +2062,8 @@ export interface LocationInterface {
   city?: string | null;
   state?: string | null;
   postcode?: string | null;
+  accessibility?: ('metro-connected' | 'bus-connected' | 'car-dependent' | 'walk-friendly' | 'custom') | null;
+  customAccessibility?: string | null;
   countrySelect?: CountrySelect;
   /**
    * Precise geographical coordinates for mapping
@@ -2093,6 +2079,10 @@ export interface LocationInterface {
     longitude?: number | null;
   };
   neighborhood?: {
+    neighborhoodType?:
+      | ('city-center' | 'business-district' | 'suburban-area' | 'industrial-area' | 'mixed-development' | 'custom')
+      | null;
+    customNeighborhoodType?: string | null;
     /**
      * Neighborhood or district name
      */
@@ -2363,6 +2353,40 @@ export interface CountrySelect {
         | 'ZW'
       )
     | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FinanceInterface".
+ */
+export interface FinanceInterface {
+  market?:
+    | ('economy' | 'mid-market' | 'luxury' | 'ultra-luxury' | 'commercial' | 'industrial' | 'other' | 'custom')
+    | null;
+  /**
+   * Enter a custom market segment
+   */
+  customMarket?: string | null;
+  /**
+   * Does this transaction type require a deposit?
+   */
+  requiresDeposit?: boolean | null;
+  depositType?: ('percentage' | 'amount') | null;
+  depositAmount?: number | null;
+  depositPercentage?: number | null;
+  /**
+   * Does this property have installments?
+   */
+  hasInstallments?: boolean | null;
+  installmentsNumber?: number | null;
+  installmentAmount?: number | null;
+  targetResidents?:
+    | ('families' | 'couples' | 'professionals' | 'executives' | 'singles' | 'students' | 'retired' | 'custom')
+    | null;
+  customTargetResidents?: string | null;
+  investmentPotential?: ('high' | 'medium' | 'low' | 'custom') | null;
+  customInvestmentPotential?: string | null;
+  investmentType?: ('rental-income' | 'value-appreciation' | 'mixed-use' | 'custom') | null;
+  customInvestmentType?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2794,6 +2818,8 @@ export interface LocationInterfaceSelect<T extends boolean = true> {
   city?: T;
   state?: T;
   postcode?: T;
+  accessibility?: T;
+  customAccessibility?: T;
   countrySelect?: T | CountrySelectSelect<T>;
   coordinates?:
     | T
@@ -2804,6 +2830,8 @@ export interface LocationInterfaceSelect<T extends boolean = true> {
   neighborhood?:
     | T
     | {
+        neighborhoodType?: T;
+        customNeighborhoodType?: T;
         area?: T;
         landmarks?:
           | T
@@ -2836,8 +2864,6 @@ export interface MetaSelect<T extends boolean = true> {
  */
 export interface PropertiesSelect<T extends boolean = true> {
   title?: T;
-  market?: T;
-  customMarket?: T;
   price?: T;
   condition?: T;
   customCondition?: T;
@@ -2861,12 +2887,7 @@ export interface PropertiesSelect<T extends boolean = true> {
       };
   specs?: T | SpecificationsInterfaceSelect<T>;
   location?: T | LocationInterfaceSelect<T>;
-  contractDetails?:
-    | T
-    | {
-        requiresContract?: T;
-        requiresDeposit?: T;
-      };
+  finance?: T | FinanceInterfaceSelect<T>;
   description?: T;
   isFeatured?: T;
   categories?: T;
@@ -2924,6 +2945,27 @@ export interface SpecificationsInterfaceSelect<T extends boolean = true> {
         heating_type?: T;
         cooling_type?: T;
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FinanceInterface_select".
+ */
+export interface FinanceInterfaceSelect<T extends boolean = true> {
+  market?: T;
+  customMarket?: T;
+  requiresDeposit?: T;
+  depositType?: T;
+  depositAmount?: T;
+  depositPercentage?: T;
+  hasInstallments?: T;
+  installmentsNumber?: T;
+  installmentAmount?: T;
+  targetResidents?: T;
+  customTargetResidents?: T;
+  investmentPotential?: T;
+  customInvestmentPotential?: T;
+  investmentType?: T;
+  customInvestmentType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
