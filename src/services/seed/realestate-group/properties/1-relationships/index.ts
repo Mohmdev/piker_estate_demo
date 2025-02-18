@@ -36,851 +36,272 @@ export type PropertyRelationships = {
   authors?: Partial<User>[]
 }
 
-import { propertiesMetadata } from './meta'
+import { amenityRelationships } from './rels-amenity'
+import { availabilityRelationships } from './rels-availability'
+import { classificationRelationships } from './rels-classification'
+import { contractRelationships } from './rels-contract'
+import { galleryRelationships } from './rels-gallery'
+import { metadataRelationships } from './rels-metadata'
 
 export const propertiesRelationships: Record<string, PropertyRelationships> = {
   // 1. barshaApartment
   barshaApartment: {
-    classification: [
-      {
-        title: 'Residential Units',
-        slug: 'residential-units',
-      },
-      {
-        title: 'Apartment',
-        slug: 'apartment',
-      },
-      {
-        title: 'Single Family Apartment',
-        slug: 'single-family-apartment',
-      },
-    ],
-    contract: [
-      {
-        title: 'For Sale',
-        slug: 'for-sale',
-      },
-      {
-        title: 'Installments',
-        slug: 'installments',
-      },
-    ],
-    availability: [
-      {
-        title: 'Active',
-        slug: 'active',
-      },
-      {
-        title: 'New',
-        slug: 'new',
-      },
-    ],
-    amenities: [],
-    gallery: {},
+    classification: classificationRelationships.barshaApartment ?? [],
+    contract: contractRelationships.barshaApartment ?? [],
+    availability: availabilityRelationships.barshaApartment ?? [],
+    amenities: amenityRelationships.barshaApartment ?? [],
+    gallery: galleryRelationships.barshaApartment,
     categories: [],
     tags: [],
     relatedDocs: [],
-    meta: propertiesMetadata.barshaApartment?.meta,
+    meta: metadataRelationships.barshaApartment,
     authors: [],
   },
   // 2. jvcResidence
   jvcResidence: {
-    classification: [
-      {
-        title: 'Residential Units',
-        slug: 'residential-units',
-      },
-      {
-        title: 'Apartment',
-        slug: 'apartment',
-      },
-      {
-        title: 'Single Family Apartment',
-        slug: 'single-family-apartment',
-      },
-    ],
-    contract: [
-      {
-        title: 'For Sale',
-        slug: 'for-sale',
-      },
-      {
-        title: 'Outright Purchase',
-        slug: 'outright-purchase',
-      },
-    ],
-    availability: [
-      {
-        title: 'Active',
-        slug: 'active',
-      },
-      {
-        title: 'Available',
-        slug: 'available',
-      },
-    ],
-    amenities: [],
-    gallery: {},
+    classification: classificationRelationships.jvcResidence ?? [],
+    contract: contractRelationships.jvcResidence ?? [],
+    availability: availabilityRelationships.jvcResidence ?? [],
+    amenities: amenityRelationships.jvcResidence ?? [],
+    gallery: galleryRelationships.jvcResidence,
     categories: [],
     tags: [],
     relatedDocs: [],
-    meta: propertiesMetadata.jvcResidence?.meta,
+    meta: metadataRelationships.jvcResidence,
     authors: [],
   },
   // 3. siliconOasisStudio
   siliconOasisStudio: {
-    classification: [
-      {
-        title: 'Residential Units',
-        slug: 'residential-units',
-      },
-      {
-        title: 'Apartment',
-        slug: 'apartment',
-      },
-    ],
-    contract: [
-      {
-        title: 'For Sale',
-        slug: 'for-sale',
-      },
-      {
-        title: 'Installments',
-        slug: 'installments',
-      },
-    ],
-    availability: [
-      {
-        title: 'Active',
-        slug: 'active',
-      },
-      {
-        title: 'Available',
-        slug: 'available',
-      },
-    ],
-    amenities: [],
-    gallery: {},
+    classification: classificationRelationships.siliconOasisStudio ?? [],
+    contract: contractRelationships.siliconOasisStudio ?? [],
+    availability: availabilityRelationships.siliconOasisStudio ?? [],
+    amenities: amenityRelationships.siliconOasisStudio ?? [],
+    gallery: galleryRelationships.siliconOasisStudio,
     categories: [],
     tags: [],
     relatedDocs: [],
-    meta: propertiesMetadata.siliconOasisStudio?.meta,
+    meta: metadataRelationships.siliconOasisStudio,
     authors: [],
   },
   // 4. alQuozLoft
   alQuozLoft: {
-    classification: [
-      {
-        title: 'Residential Units',
-        slug: 'residential-units',
-      },
-      {
-        title: 'Apartment',
-        slug: 'apartment',
-      },
-      {
-        title: 'Single Family Apartment',
-        slug: 'single-family-apartment',
-      },
-    ],
-    contract: [
-      {
-        title: 'For Sale',
-        slug: 'for-sale',
-      },
-      {
-        title: 'Outright Purchase',
-        slug: 'outright-purchase',
-      },
-    ],
-    availability: [
-      {
-        title: 'Active',
-        slug: 'active',
-      },
-      {
-        title: 'Available',
-        slug: 'available',
-      },
-    ],
-    amenities: [],
-    gallery: {},
+    classification: classificationRelationships.alQuozLoft ?? [],
+    contract: contractRelationships.alQuozLoft ?? [],
+    availability: availabilityRelationships.alQuozLoft ?? [],
+    amenities: amenityRelationships.alQuozLoft ?? [],
+    gallery: galleryRelationships.alQuozLoft,
     categories: [],
     tags: [],
     relatedDocs: [],
-    meta: propertiesMetadata.alQuozLoft?.meta,
+    meta: metadataRelationships.alQuozLoft,
     authors: [],
   },
   // 5. businessBayFlat
   businessBayFlat: {
-    classification: [
-      {
-        title: 'Residential Units',
-        slug: 'residential-units',
-      },
-      {
-        title: 'Apartment',
-        slug: 'apartment',
-      },
-    ],
-    contract: [
-      {
-        title: 'For Sale',
-        slug: 'for-sale',
-      },
-      {
-        title: 'Developer Finance',
-        slug: 'developer-finance',
-      },
-    ],
-    availability: [
-      {
-        title: 'Inactive',
-        slug: 'inactive',
-      },
-      {
-        title: 'Reserved',
-        slug: 'reserved',
-      },
-    ],
-    amenities: [],
-    gallery: {},
+    classification: classificationRelationships.businessBayFlat ?? [],
+    contract: contractRelationships.businessBayFlat ?? [],
+    availability: availabilityRelationships.businessBayFlat ?? [],
+    amenities: amenityRelationships.businessBayFlat ?? [],
+    gallery: galleryRelationships.businessBayFlat,
     categories: [],
     tags: [],
     relatedDocs: [],
-    meta: propertiesMetadata.businessBayFlat?.meta,
+    meta: metadataRelationships.businessBayFlat,
     authors: [],
   },
   // 6. alNahdaHome
   alNahdaHome: {
-    classification: [
-      {
-        title: 'Residential Units',
-        slug: 'residential-units',
-      },
-      {
-        title: 'Apartment',
-        slug: 'apartment',
-      },
-      {
-        title: 'Single Family Apartment',
-        slug: 'single-family-apartment',
-      },
-    ],
-    contract: [
-      {
-        title: 'For Sale',
-        slug: 'for-sale',
-      },
-      {
-        title: 'Multiple Cheques',
-        slug: 'multiple-cheques',
-      },
-    ],
-    availability: [
-      {
-        title: 'Active',
-        slug: 'active',
-      },
-      {
-        title: 'Available',
-        slug: 'available',
-      },
-    ],
-    amenities: [],
-    gallery: {},
+    classification: classificationRelationships.alNahdaHome ?? [],
+    contract: contractRelationships.alNahdaHome ?? [],
+    availability: availabilityRelationships.alNahdaHome ?? [],
+    amenities: amenityRelationships.alNahdaHome ?? [],
+    gallery: galleryRelationships.alNahdaHome,
     categories: [],
     tags: [],
     relatedDocs: [],
-    meta: propertiesMetadata.alNahdaHome?.meta,
+    meta: metadataRelationships.alNahdaHome,
     authors: [],
   },
   // 7. mirdifVilla
   mirdifVilla: {
-    classification: [
-      {
-        title: 'Residential Units',
-        slug: 'residential-units',
-      },
-      {
-        title: 'Single Family Apartment',
-        slug: 'single-family-apartment',
-      },
-    ],
-    contract: [
-      {
-        title: 'For Sale',
-        slug: 'for-sale',
-      },
-      {
-        title: 'Extended Payment Terms',
-        slug: 'extended-payment-terms',
-      },
-    ],
-    availability: [
-      {
-        title: 'Inactive',
-        slug: 'inactive',
-      },
-      {
-        title: 'Reserved',
-        slug: 'reserved',
-      },
-    ],
-    amenities: [],
-    gallery: {},
+    classification: classificationRelationships.mirdifVilla ?? [],
+    contract: contractRelationships.mirdifVilla ?? [],
+    availability: availabilityRelationships.mirdifVilla ?? [],
+    amenities: amenityRelationships.mirdifVilla ?? [],
+    gallery: galleryRelationships.mirdifVilla,
     categories: [],
     tags: [],
     relatedDocs: [],
-    meta: propertiesMetadata.mirdifVilla?.meta,
+    meta: metadataRelationships.mirdifVilla,
     authors: [],
   },
   // 8. internationalCityFlat
   internationalCityFlat: {
-    classification: [
-      {
-        title: 'Residential Units',
-        slug: 'residential-units',
-      },
-      {
-        title: 'Apartment',
-        slug: 'apartment',
-      },
-    ],
-    contract: [
-      {
-        title: 'For Sale',
-        slug: 'for-sale',
-      },
-      {
-        title: 'Installments',
-        slug: 'installments',
-      },
-    ],
-    availability: [
-      {
-        title: 'Active',
-        slug: 'active',
-      },
-      {
-        title: 'Available',
-        slug: 'available',
-      },
-    ],
-    amenities: [],
-    gallery: {},
+    classification: classificationRelationships.internationalCityFlat ?? [],
+    contract: contractRelationships.internationalCityFlat ?? [],
+    availability: availabilityRelationships.internationalCityFlat ?? [],
+    amenities: amenityRelationships.internationalCityFlat ?? [],
+    gallery: galleryRelationships.internationalCityFlat,
     categories: [],
     tags: [],
     relatedDocs: [],
-    meta: propertiesMetadata.internationalCityFlat?.meta,
+    meta: metadataRelationships.internationalCityFlat,
     authors: [],
   },
   // 9. sportsCityApartment
   sportsCityApartment: {
-    classification: [
-      {
-        title: 'Residential Units',
-        slug: 'residential-units',
-      },
-      {
-        title: 'Apartment',
-        slug: 'apartment',
-      },
-      {
-        title: 'Single Family Apartment',
-        slug: 'single-family-apartment',
-      },
-    ],
-    contract: [
-      {
-        title: 'For Sale',
-        slug: 'for-sale',
-      },
-      {
-        title: 'Multiple Cheques',
-        slug: 'multiple-cheques',
-      },
-    ],
-    availability: [
-      {
-        title: 'Active',
-        slug: 'active',
-      },
-      {
-        title: 'Available',
-        slug: 'available',
-      },
-    ],
-    amenities: [],
-    gallery: {},
+    classification: classificationRelationships.sportsCityApartment ?? [],
+    contract: contractRelationships.sportsCityApartment ?? [],
+    availability: availabilityRelationships.sportsCityApartment ?? [],
+    amenities: amenityRelationships.sportsCityApartment ?? [],
+    gallery: galleryRelationships.sportsCityApartment,
     categories: [],
     tags: [],
     relatedDocs: [],
-    meta: propertiesMetadata.sportsCityApartment?.meta,
+    meta: metadataRelationships.sportsCityApartment,
     authors: [],
   },
   // 10. alQusaisResidence
   alQusaisResidence: {
-    classification: [
-      {
-        title: 'Residential Units',
-        slug: 'residential-units',
-      },
-      {
-        title: 'Apartment',
-        slug: 'apartment',
-      },
-      {
-        title: 'Single Family Apartment',
-        slug: 'single-family-apartment',
-      },
-    ],
-    contract: [
-      {
-        title: 'For Sale',
-        slug: 'for-sale',
-      },
-      {
-        title: 'Developer Finance',
-        slug: 'developer-finance',
-      },
-    ],
-    availability: [
-      {
-        title: 'Active',
-        slug: 'active',
-      },
-      {
-        title: 'New',
-        slug: 'new',
-      },
-    ],
-    amenities: [],
-    gallery: {},
+    classification: classificationRelationships.alQusaisResidence ?? [],
+    contract: contractRelationships.alQusaisResidence ?? [],
+    availability: availabilityRelationships.alQusaisResidence ?? [],
+    amenities: amenityRelationships.alQusaisResidence ?? [],
+    gallery: galleryRelationships.alQusaisResidence,
     categories: [],
     tags: [],
     relatedDocs: [],
-    meta: propertiesMetadata.alQusaisResidence?.meta,
+    meta: metadataRelationships.alQusaisResidence,
     authors: [],
   },
   // 11. discoveryGardens
   discoveryGardens: {
-    classification: [
-      {
-        title: 'Residential Units',
-        slug: 'residential-units',
-      },
-      {
-        title: 'Apartment',
-        slug: 'apartment',
-      },
-    ],
-    contract: [
-      {
-        title: 'For Sale',
-        slug: 'for-sale',
-      },
-      {
-        title: 'Flexible Terms',
-        slug: 'flexible-terms',
-      },
-    ],
-    availability: [
-      {
-        title: 'Inactive',
-        slug: 'inactive',
-      },
-      {
-        title: 'Reserved',
-        slug: 'reserved',
-      },
-    ],
-    amenities: [],
-    gallery: {},
+    classification: classificationRelationships.discoveryGardens ?? [],
+    contract: contractRelationships.discoveryGardens ?? [],
+    availability: availabilityRelationships.discoveryGardens ?? [],
+    amenities: amenityRelationships.discoveryGardens ?? [],
+    gallery: galleryRelationships.discoveryGardens,
     categories: [],
     tags: [],
     relatedDocs: [],
-    meta: propertiesMetadata.discoveryGardens?.meta,
+    meta: metadataRelationships.discoveryGardens,
     authors: [],
   },
   // 12. remramApartment
   remramApartment: {
-    classification: [
-      {
-        title: 'Residential Units',
-        slug: 'residential-units',
-      },
-      {
-        title: 'Apartment',
-        slug: 'apartment',
-      },
-      {
-        title: 'Single Family Apartment',
-        slug: 'single-family-apartment',
-      },
-    ],
-    contract: [
-      {
-        title: 'For Sale',
-        slug: 'for-sale',
-      },
-      {
-        title: 'Multiple Cheques',
-        slug: 'multiple-cheques',
-      },
-    ],
-    availability: [
-      {
-        title: 'Active',
-        slug: 'active',
-      },
-      {
-        title: 'Available',
-        slug: 'available',
-      },
-    ],
-    amenities: [],
-    gallery: {},
+    classification: classificationRelationships.remramApartment ?? [],
+    contract: contractRelationships.remramApartment ?? [],
+    availability: availabilityRelationships.remramApartment ?? [],
+    amenities: amenityRelationships.remramApartment ?? [],
+    gallery: galleryRelationships.remramApartment,
     categories: [],
     tags: [],
     relatedDocs: [],
-    meta: propertiesMetadata.remramApartment?.meta,
+    meta: metadataRelationships.remramApartment,
     authors: [],
   },
   // 13. dubailandTownhouse
   dubailandTownhouse: {
-    classification: [
-      {
-        title: 'Residential Units',
-        slug: 'residential-units',
-      },
-      {
-        title: 'Single Family Apartment',
-        slug: 'single-family-apartment',
-      },
-    ],
-    contract: [
-      {
-        title: 'For Sale',
-        slug: 'for-sale',
-      },
-      {
-        title: 'Pre-Launch Purchase',
-        slug: 'pre-launch-purchase',
-      },
-    ],
-    availability: [
-      {
-        title: 'Active',
-        slug: 'active',
-      },
-      {
-        title: 'Pre-Launch Registration',
-        slug: 'pre-launch-registration',
-      },
-    ],
-    amenities: [],
-    gallery: {},
+    classification: classificationRelationships.dubailandTownhouse ?? [],
+    contract: contractRelationships.dubailandTownhouse ?? [],
+    availability: availabilityRelationships.dubailandTownhouse ?? [],
+    amenities: amenityRelationships.dubailandTownhouse ?? [],
+    gallery: galleryRelationships.dubailandTownhouse,
     categories: [],
     tags: [],
     relatedDocs: [],
-    meta: propertiesMetadata.dubailandTownhouse?.meta,
+    meta: metadataRelationships.dubailandTownhouse,
     authors: [],
   },
   // 14. warqaaResidence
   warqaaResidence: {
-    classification: [
-      {
-        title: 'Residential Units',
-        slug: 'residential-units',
-      },
-      {
-        title: 'Apartment',
-        slug: 'apartment',
-      },
-      {
-        title: 'Single Family Apartment',
-        slug: 'single-family-apartment',
-      },
-    ],
-    contract: [
-      {
-        title: 'For Sale',
-        slug: 'for-sale',
-      },
-      {
-        title: 'Multiple Cheques',
-        slug: 'multiple-cheques',
-      },
-    ],
-    availability: [
-      {
-        title: 'Active',
-        slug: 'active',
-      },
-      {
-        title: 'Available',
-        slug: 'available',
-      },
-    ],
-    amenities: [],
-    gallery: {},
+    classification: classificationRelationships.warqaaResidence ?? [],
+    contract: contractRelationships.warqaaResidence ?? [],
+    availability: availabilityRelationships.warqaaResidence ?? [],
+    amenities: amenityRelationships.warqaaResidence ?? [],
+    gallery: galleryRelationships.warqaaResidence,
     categories: [],
     tags: [],
     relatedDocs: [],
-    meta: propertiesMetadata.warqaaResidence?.meta,
+    meta: metadataRelationships.warqaaResidence,
     authors: [],
   },
   // 15. karamaFlat
   karamaFlat: {
-    classification: [
-      {
-        title: 'Residential Units',
-        slug: 'residential-units',
-      },
-      {
-        title: 'Apartment',
-        slug: 'apartment',
-      },
-    ],
-    contract: [
-      {
-        title: 'For Sale',
-        slug: 'for-sale',
-      },
-      {
-        title: 'Pre-Launch Purchase',
-        slug: 'pre-launch-purchase',
-      },
-    ],
-    availability: [
-      {
-        title: 'Launch Preparation',
-        slug: 'launch-preparation',
-      },
-    ],
-    amenities: [],
-    gallery: {},
+    classification: classificationRelationships.karamaFlat ?? [],
+    contract: contractRelationships.karamaFlat ?? [],
+    availability: availabilityRelationships.karamaFlat ?? [],
+    amenities: amenityRelationships.karamaFlat ?? [],
+    gallery: galleryRelationships.karamaFlat,
     categories: [],
     tags: [],
     relatedDocs: [],
-    meta: propertiesMetadata.karamaFlat?.meta,
+    meta: metadataRelationships.karamaFlat,
     authors: [],
   },
   // 16. tecomApartment
   tecomApartment: {
-    classification: [
-      {
-        title: 'Residential Units',
-        slug: 'residential-units',
-      },
-      {
-        title: 'Apartment',
-        slug: 'apartment',
-      },
-      {
-        title: 'Single Family Apartment',
-        slug: 'single-family-apartment',
-      },
-    ],
-    contract: [
-      {
-        title: 'For Sale',
-        slug: 'for-sale',
-      },
-      {
-        title: 'Developer Finance',
-        slug: 'developer-finance',
-      },
-    ],
-    availability: [
-      {
-        title: 'Active',
-        slug: 'active',
-      },
-      {
-        title: 'New',
-        slug: 'new',
-      },
-    ],
-    amenities: [],
-    gallery: {},
+    classification: classificationRelationships.tecomApartment ?? [],
+    contract: contractRelationships.tecomApartment ?? [],
+    availability: availabilityRelationships.tecomApartment ?? [],
+    amenities: amenityRelationships.tecomApartment ?? [],
+    gallery: galleryRelationships.tecomApartment,
     categories: [],
     tags: [],
     relatedDocs: [],
-    meta: propertiesMetadata.tecomApartment?.meta,
+    meta: metadataRelationships.tecomApartment,
     authors: [],
   },
   // 17. deiraCondo
   deiraCondo: {
-    classification: [
-      {
-        title: 'Residential Units',
-        slug: 'residential-units',
-      },
-      {
-        title: 'Apartment',
-        slug: 'apartment',
-      },
-      {
-        title: 'Single Family Apartment',
-        slug: 'single-family-apartment',
-      },
-    ],
-    contract: [
-      {
-        title: 'For Sale',
-        slug: 'for-sale',
-      },
-      {
-        title: 'Flexible Terms',
-        slug: 'flexible-terms',
-      },
-    ],
-    availability: [
-      {
-        title: 'Inactive',
-        slug: 'inactive',
-      },
-      {
-        title: 'Reserved',
-        slug: 'reserved',
-      },
-    ],
-    amenities: [],
-    gallery: {},
+    classification: classificationRelationships.deiraCondo ?? [],
+    contract: contractRelationships.deiraCondo ?? [],
+    availability: availabilityRelationships.deiraCondo ?? [],
+    amenities: amenityRelationships.deiraCondo ?? [],
+    gallery: galleryRelationships.deiraCondo,
     categories: [],
     tags: [],
     relatedDocs: [],
-    meta: propertiesMetadata.deiraCondo?.meta,
+    meta: metadataRelationships.deiraCondo,
     authors: [],
   },
   // 18. satwaResidence
   satwaResidence: {
-    classification: [
-      {
-        title: 'Residential Units',
-        slug: 'residential-units',
-      },
-      {
-        title: 'Apartment',
-        slug: 'apartment',
-      },
-    ],
-    contract: [
-      {
-        title: 'For Sale',
-        slug: 'for-sale',
-      },
-      {
-        title: 'Installments',
-        slug: 'installments',
-      },
-    ],
-    availability: [
-      {
-        title: 'Active',
-        slug: 'active',
-      },
-      {
-        title: 'Available',
-        slug: 'available',
-      },
-    ],
-    amenities: [],
-    gallery: {},
+    classification: classificationRelationships.satwaResidence ?? [],
+    contract: contractRelationships.satwaResidence ?? [],
+    availability: availabilityRelationships.satwaResidence ?? [],
+    amenities: amenityRelationships.satwaResidence ?? [],
+    gallery: galleryRelationships.satwaResidence,
     categories: [],
     tags: [],
     relatedDocs: [],
-    meta: propertiesMetadata.satwaResidence?.meta,
+    meta: metadataRelationships.satwaResidence,
     authors: [],
   },
   // 19. rashidiyaHome
   rashidiyaHome: {
-    classification: [
-      {
-        title: 'Residential Units',
-        slug: 'residential-units',
-      },
-      {
-        title: 'Apartment',
-        slug: 'apartment',
-      },
-      {
-        title: 'Single Family Apartment',
-        slug: 'single-family-apartment',
-      },
-    ],
-    contract: [
-      {
-        title: 'For Sale',
-        slug: 'for-sale',
-      },
-      {
-        title: 'Developer Finance',
-        slug: 'developer-finance',
-      },
-    ],
-    availability: [
-      {
-        title: 'Active',
-        slug: 'active',
-      },
-      {
-        title: 'New',
-        slug: 'new',
-      },
-    ],
-    amenities: [],
-    gallery: {},
+    classification: classificationRelationships.rashidiyaHome ?? [],
+    contract: contractRelationships.rashidiyaHome ?? [],
+    availability: availabilityRelationships.rashidiyaHome ?? [],
+    amenities: amenityRelationships.rashidiyaHome ?? [],
+    gallery: galleryRelationships.rashidiyaHome,
     categories: [],
     tags: [],
     relatedDocs: [],
-    meta: propertiesMetadata.rashidiyaHome?.meta,
+    meta: metadataRelationships.rashidiyaHome,
     authors: [],
   },
   // 20. garhoudApartment
   garhoudApartment: {
-    classification: [
-      {
-        title: 'Residential Units',
-        slug: 'residential-units',
-      },
-      {
-        title: 'Apartment',
-        slug: 'apartment',
-      },
-      {
-        title: 'Single Family Apartment',
-        slug: 'single-family-apartment',
-      },
-    ],
-    contract: [
-      {
-        title: 'For Sale',
-        slug: 'for-sale',
-      },
-      {
-        title: 'Multiple Cheques',
-        slug: 'multiple-cheques',
-      },
-    ],
-    availability: [
-      {
-        title: 'Active',
-        slug: 'active',
-      },
-      {
-        title: 'Available',
-        slug: 'available',
-      },
-    ],
-    amenities: [],
-    gallery: {},
+    classification: classificationRelationships.garhoudApartment ?? [],
+    contract: contractRelationships.garhoudApartment ?? [],
+    availability: availabilityRelationships.garhoudApartment ?? [],
+    amenities: amenityRelationships.garhoudApartment ?? [],
+    gallery: galleryRelationships.garhoudApartment,
     categories: [],
     tags: [],
     relatedDocs: [],
-    meta: propertiesMetadata.garhoudApartment?.meta,
+    meta: metadataRelationships.garhoudApartment,
     authors: [],
   },
 }

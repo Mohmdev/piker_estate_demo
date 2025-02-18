@@ -1,9 +1,11 @@
 import type { CollectionSlug, File, Payload, PayloadRequest } from 'payload'
-import { mockAmenities } from './amenities'
-import { mockAvailabilities } from './availabilities'
-import { mockClassifications } from './classifications'
-import { mockContracts } from './contracts'
-import { mockProperties, propertyMetadata } from './properties/index.dubai'
+import { amenitiesIndex } from './amenities/index'
+import { availabilitiesIndex } from './availabilities/index'
+import { classificationsIndex } from './classifications/index'
+import { contractsIndex } from './contracts/index'
+import { propertiesDepthZero } from './properties/0-depth_0'
+import { propertiesRelationships } from './properties/1-relationships'
+import { propertiesDepthOne as propertiesIndex } from './properties/2-depth_1'
 
 // Define our image sources with meaningful names
 const PROPERTY_IMAGES = {
@@ -99,10 +101,10 @@ export const seedRealEstateGroupData = async ({
 
   payload.logger.info(`— Seeding classifications...`)
   const classifications = await Promise.all(
-    mockClassifications.map((type) =>
+    classificationsIndex.map((classification) =>
       payload.create({
         collection: 'classifications',
-        data: type,
+        data: classification,
       }),
     ),
   )
@@ -117,10 +119,10 @@ export const seedRealEstateGroupData = async ({
 
   payload.logger.info(`— Seeding contracts...`)
   const contracts = await Promise.all(
-    mockContracts.map((type) =>
+    contractsIndex.map((contract) =>
       payload.create({
         collection: 'contracts',
-        data: type,
+        data: contract,
       }),
     ),
   )
@@ -132,10 +134,10 @@ export const seedRealEstateGroupData = async ({
 
   payload.logger.info(`— Seeding availability...`)
   const availability = await Promise.all(
-    mockAvailabilities.map((status) =>
+    availabilitiesIndex.map((availability) =>
       payload.create({
         collection: 'availability',
-        data: status,
+        data: availability,
       }),
     ),
   )
@@ -147,10 +149,10 @@ export const seedRealEstateGroupData = async ({
 
   payload.logger.info(`— Seeding amenities...`)
   const amenities = await Promise.all(
-    mockAmenities.map((feature) =>
+    amenitiesIndex.map((amenity) =>
       payload.create({
         collection: 'amenities',
-        data: feature,
+        data: amenity,
       }),
     ),
   )
@@ -162,83 +164,70 @@ export const seedRealEstateGroupData = async ({
 
   payload.logger.info(`— Seeding properties`)
 
-  // Ensure we have all required related records
-  if (
-    !classifications[0] ||
-    !contracts[0] ||
-    !availability[0] ||
-    !amenities[0] ||
-    !amenities[1]
-  ) {
-    throw new Error('Failed to create required related records')
-  }
-
   // Create properties sequentially to maintain order
-  for (const property of mockProperties) {
-    const propertyTitle = property.title
-    if (
-      !propertyTitle ||
-      !(propertyTitle in propertyMetadata.contractMappings) ||
-      !(propertyTitle in propertyMetadata.availabilityMappings) ||
-      !(propertyTitle in propertyMetadata.classificationMappings) ||
-      !(propertyTitle in propertyMetadata.amenityMappings)
-    ) {
-      throw new Error(`Property "${propertyTitle}" not found in mappings`)
-    }
+  for (const property of propertiesIndex) {
+    const propertyKey = Object.keys(propertiesDepthZero).find(
+      (key) => propertiesDepthZero[key]?.title === property.title,
+    )
 
-    const contractSlug =
-      propertyMetadata.contractMappings[
-        propertyTitle as keyof typeof propertyMetadata.contractMappings
-      ]
-    const availabilitySlug =
-      propertyMetadata.availabilityMappings[
-        propertyTitle as keyof typeof propertyMetadata.availabilityMappings
-      ]
-    const classificationSlug =
-      propertyMetadata.classificationMappings[
-        propertyTitle as keyof typeof propertyMetadata.classificationMappings
-      ]
-    const amenitySlugs =
-      propertyMetadata.amenityMappings[
-        propertyTitle as keyof typeof propertyMetadata.amenityMappings
-      ]
-
-    const contractId = contractMap.get(contractSlug)
-    const availabilityId = availabilityMap.get(availabilitySlug)
-    const classificationId = classificationMap.get(classificationSlug)
-    const amenityIds = amenitySlugs
-      .map((slug) => amenityMap.get(slug))
-      .filter(Boolean)
-
-    if (
-      !contractId ||
-      !availabilityId ||
-      !classificationId ||
-      amenityIds.length !== amenitySlugs.length
-    ) {
+    if (!propertyKey) {
       throw new Error(
-        `Could not find all required IDs for property "${propertyTitle}"`,
+        `Property "${property.title}" not found in depth zero data`,
       )
     }
+
+    const relationships = propertiesRelationships[propertyKey]
+    if (!relationships) {
+      throw new Error(
+        `Property "${property.title}" not found in relationships data`,
+      )
+    }
+
+    const contractIds = relationships.contract.map((contract) => {
+      const id = contractMap.get(contract.slug)
+      if (!id) throw new Error(`Contract "${contract.slug}" not found`)
+      return id
+    })
+
+    const availabilityIds = relationships.availability.map((status) => {
+      const id = availabilityMap.get(status.slug)
+      if (!id) throw new Error(`Availability "${status.slug}" not found`)
+      return id
+    })
+
+    const classificationIds = relationships.classification.map(
+      (classification) => {
+        const id = classificationMap.get(classification.slug)
+        if (!id)
+          throw new Error(`Classification "${classification.slug}" not found`)
+        return id
+      },
+    )
+
+    const amenityIds = relationships.amenities.map((amenity) => {
+      const id = amenityMap.get(amenity.slug)
+      if (!id) throw new Error(`Amenity "${amenity.slug}" not found`)
+      return id
+    })
 
     const propertyData = JSON.parse(
       JSON.stringify({
         ...property,
-        contract: contractId,
-        availability: availabilityId,
-        classification: [classificationId],
+        contract: contractIds,
+        availability: availabilityIds,
+        classification: classificationIds,
         amenities: amenityIds,
         categories: property.categories?.map((category) => {
           if (category.relationTo === 'contracts') {
             return {
               ...category,
-              value: contractId,
+              value: contractIds[0],
             }
           }
           if (category.relationTo === 'classifications') {
             return {
               ...category,
-              value: classificationId,
+              value: classificationIds[0],
             }
           }
           return category
@@ -264,19 +253,7 @@ export const seedRealEstateGroupData = async ({
         .replace(
           /"image":\s*"\{\{FAMILY_HOME_INTERIOR\}\}"/g,
           `"image": ${mediaItems.get(PROPERTY_IMAGES.FAMILY_HOME.INTERIOR)}`,
-        )
-        // Replace the placeholder IDs with actual IDs
-        .replace(
-          '"classification": [1]',
-          `"classification": [${classifications[0].id}]`,
-        )
-        .replace('"availability": 1', `"availability": ${availability[0].id}`)
-        .replace(
-          '"amenities": []',
-          `"amenities": [${amenities[0].id}, ${amenities[1].id}]`,
-        )
-        // Replace other relationship values
-        .replace(/"value": 1/g, `"value": ${classifications[0].id}`),
+        ),
     )
 
     await payload.create({

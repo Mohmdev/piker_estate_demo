@@ -7,17 +7,12 @@ export const galleryGroup: GroupField = {
   fields: [
     {
       name: 'images',
-      type: 'array',
-      fields: [
-        {
-          name: 'image',
-          type: 'upload',
-          relationTo: 'media',
-        },
-      ],
+      type: 'upload',
+      relationTo: 'media',
+      hasMany: true,
       minRows: 1,
       maxRows: 24,
-      required: true,
+      displayPreview: true,
       admin: {
         description:
           'Upload up to 24 high-quality images. The first image will be used as the main image.',

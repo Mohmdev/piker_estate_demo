@@ -162,13 +162,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"starting_price" numeric
   );
   
-  CREATE TABLE IF NOT EXISTS "projects_gallery_images" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" integer NOT NULL,
-  	"id" varchar PRIMARY KEY NOT NULL,
-  	"image_id" integer
-  );
-  
   CREATE TABLE IF NOT EXISTS "projects_location_neighborhood_landmarks" (
   	"_order" integer NOT NULL,
   	"_parent_id" integer NOT NULL,
@@ -254,14 +247,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"_uuid" varchar
   );
   
-  CREATE TABLE IF NOT EXISTS "_projects_v_version_gallery_images" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" integer NOT NULL,
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"image_id" integer,
-  	"_uuid" varchar
-  );
-  
   CREATE TABLE IF NOT EXISTS "_projects_v_version_location_neighborhood_landmarks" (
   	"_order" integer NOT NULL,
   	"_parent_id" integer NOT NULL,
@@ -344,13 +329,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"users_id" integer
   );
   
-  CREATE TABLE IF NOT EXISTS "properties_gallery_images" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" integer NOT NULL,
-  	"id" varchar PRIMARY KEY NOT NULL,
-  	"image_id" integer
-  );
-  
   CREATE TABLE IF NOT EXISTS "properties_location_neighborhood_landmarks" (
   	"_order" integer NOT NULL,
   	"_parent_id" integer NOT NULL,
@@ -372,8 +350,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"price" numeric,
   	"condition" "enum_properties_condition",
   	"custom_condition" varchar,
-  	"contract_id" integer,
-  	"availability_id" integer,
   	"gallery_video_id" integer,
   	"gallery_virtual_tour_url" varchar,
   	"specs_measurements_size_range" "enum_properties_specs_measurements_size_range",
@@ -439,26 +415,18 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"order" integer,
   	"parent_id" integer NOT NULL,
   	"path" varchar NOT NULL,
+  	"contracts_id" integer,
+  	"availability_id" integer,
   	"classifications_id" integer,
   	"amenities_id" integer,
   	"media_id" integer,
   	"blog_categories_id" integer,
-  	"contracts_id" integer,
-  	"availability_id" integer,
   	"tags_id" integer,
   	"pages_id" integer,
   	"blog_id" integer,
   	"properties_id" integer,
   	"projects_id" integer,
   	"users_id" integer
-  );
-  
-  CREATE TABLE IF NOT EXISTS "_properties_v_version_gallery_images" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" integer NOT NULL,
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"image_id" integer,
-  	"_uuid" varchar
   );
   
   CREATE TABLE IF NOT EXISTS "_properties_v_version_location_neighborhood_landmarks" (
@@ -485,8 +453,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"version_price" numeric,
   	"version_condition" "enum__properties_v_version_condition",
   	"version_custom_condition" varchar,
-  	"version_contract_id" integer,
-  	"version_availability_id" integer,
   	"version_gallery_video_id" integer,
   	"version_gallery_virtual_tour_url" varchar,
   	"version_specs_measurements_size_range" "enum__properties_v_version_specs_measurements_size_range",
@@ -556,12 +522,12 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"order" integer,
   	"parent_id" integer NOT NULL,
   	"path" varchar NOT NULL,
+  	"contracts_id" integer,
+  	"availability_id" integer,
   	"classifications_id" integer,
   	"amenities_id" integer,
   	"media_id" integer,
   	"blog_categories_id" integer,
-  	"contracts_id" integer,
-  	"availability_id" integer,
   	"tags_id" integer,
   	"pages_id" integer,
   	"blog_id" integer,
@@ -2291,18 +2257,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   END $$;
   
   DO $$ BEGIN
-   ALTER TABLE "projects_gallery_images" ADD CONSTRAINT "projects_gallery_images_image_id_media_id_fk" FOREIGN KEY ("image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
-  EXCEPTION
-   WHEN duplicate_object THEN null;
-  END $$;
-  
-  DO $$ BEGIN
-   ALTER TABLE "projects_gallery_images" ADD CONSTRAINT "projects_gallery_images_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."projects"("id") ON DELETE cascade ON UPDATE no action;
-  EXCEPTION
-   WHEN duplicate_object THEN null;
-  END $$;
-  
-  DO $$ BEGIN
    ALTER TABLE "projects_location_neighborhood_landmarks" ADD CONSTRAINT "projects_location_neighborhood_landmarks_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."projects"("id") ON DELETE cascade ON UPDATE no action;
   EXCEPTION
    WHEN duplicate_object THEN null;
@@ -2418,18 +2372,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   
   DO $$ BEGIN
    ALTER TABLE "_projects_v_version_unit_types" ADD CONSTRAINT "_projects_v_version_unit_types_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_projects_v"("id") ON DELETE cascade ON UPDATE no action;
-  EXCEPTION
-   WHEN duplicate_object THEN null;
-  END $$;
-  
-  DO $$ BEGIN
-   ALTER TABLE "_projects_v_version_gallery_images" ADD CONSTRAINT "_projects_v_version_gallery_images_image_id_media_id_fk" FOREIGN KEY ("image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
-  EXCEPTION
-   WHEN duplicate_object THEN null;
-  END $$;
-  
-  DO $$ BEGIN
-   ALTER TABLE "_projects_v_version_gallery_images" ADD CONSTRAINT "_projects_v_version_gallery_images_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_projects_v"("id") ON DELETE cascade ON UPDATE no action;
   EXCEPTION
    WHEN duplicate_object THEN null;
   END $$;
@@ -2555,18 +2497,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   END $$;
   
   DO $$ BEGIN
-   ALTER TABLE "properties_gallery_images" ADD CONSTRAINT "properties_gallery_images_image_id_media_id_fk" FOREIGN KEY ("image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
-  EXCEPTION
-   WHEN duplicate_object THEN null;
-  END $$;
-  
-  DO $$ BEGIN
-   ALTER TABLE "properties_gallery_images" ADD CONSTRAINT "properties_gallery_images_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."properties"("id") ON DELETE cascade ON UPDATE no action;
-  EXCEPTION
-   WHEN duplicate_object THEN null;
-  END $$;
-  
-  DO $$ BEGIN
    ALTER TABLE "properties_location_neighborhood_landmarks" ADD CONSTRAINT "properties_location_neighborhood_landmarks_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."properties"("id") ON DELETE cascade ON UPDATE no action;
   EXCEPTION
    WHEN duplicate_object THEN null;
@@ -2574,18 +2504,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   
   DO $$ BEGIN
    ALTER TABLE "properties_populated_authors" ADD CONSTRAINT "properties_populated_authors_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."properties"("id") ON DELETE cascade ON UPDATE no action;
-  EXCEPTION
-   WHEN duplicate_object THEN null;
-  END $$;
-  
-  DO $$ BEGIN
-   ALTER TABLE "properties" ADD CONSTRAINT "properties_contract_id_contracts_id_fk" FOREIGN KEY ("contract_id") REFERENCES "public"."contracts"("id") ON DELETE set null ON UPDATE no action;
-  EXCEPTION
-   WHEN duplicate_object THEN null;
-  END $$;
-  
-  DO $$ BEGIN
-   ALTER TABLE "properties" ADD CONSTRAINT "properties_availability_id_availability_id_fk" FOREIGN KEY ("availability_id") REFERENCES "public"."availability"("id") ON DELETE set null ON UPDATE no action;
   EXCEPTION
    WHEN duplicate_object THEN null;
   END $$;
@@ -2604,6 +2522,18 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   
   DO $$ BEGIN
    ALTER TABLE "properties_rels" ADD CONSTRAINT "properties_rels_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."properties"("id") ON DELETE cascade ON UPDATE no action;
+  EXCEPTION
+   WHEN duplicate_object THEN null;
+  END $$;
+  
+  DO $$ BEGIN
+   ALTER TABLE "properties_rels" ADD CONSTRAINT "properties_rels_contracts_fk" FOREIGN KEY ("contracts_id") REFERENCES "public"."contracts"("id") ON DELETE cascade ON UPDATE no action;
+  EXCEPTION
+   WHEN duplicate_object THEN null;
+  END $$;
+  
+  DO $$ BEGIN
+   ALTER TABLE "properties_rels" ADD CONSTRAINT "properties_rels_availability_fk" FOREIGN KEY ("availability_id") REFERENCES "public"."availability"("id") ON DELETE cascade ON UPDATE no action;
   EXCEPTION
    WHEN duplicate_object THEN null;
   END $$;
@@ -2628,18 +2558,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   
   DO $$ BEGIN
    ALTER TABLE "properties_rels" ADD CONSTRAINT "properties_rels_blog_categories_fk" FOREIGN KEY ("blog_categories_id") REFERENCES "public"."blog_categories"("id") ON DELETE cascade ON UPDATE no action;
-  EXCEPTION
-   WHEN duplicate_object THEN null;
-  END $$;
-  
-  DO $$ BEGIN
-   ALTER TABLE "properties_rels" ADD CONSTRAINT "properties_rels_contracts_fk" FOREIGN KEY ("contracts_id") REFERENCES "public"."contracts"("id") ON DELETE cascade ON UPDATE no action;
-  EXCEPTION
-   WHEN duplicate_object THEN null;
-  END $$;
-  
-  DO $$ BEGIN
-   ALTER TABLE "properties_rels" ADD CONSTRAINT "properties_rels_availability_fk" FOREIGN KEY ("availability_id") REFERENCES "public"."availability"("id") ON DELETE cascade ON UPDATE no action;
   EXCEPTION
    WHEN duplicate_object THEN null;
   END $$;
@@ -2681,18 +2599,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   END $$;
   
   DO $$ BEGIN
-   ALTER TABLE "_properties_v_version_gallery_images" ADD CONSTRAINT "_properties_v_version_gallery_images_image_id_media_id_fk" FOREIGN KEY ("image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
-  EXCEPTION
-   WHEN duplicate_object THEN null;
-  END $$;
-  
-  DO $$ BEGIN
-   ALTER TABLE "_properties_v_version_gallery_images" ADD CONSTRAINT "_properties_v_version_gallery_images_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_properties_v"("id") ON DELETE cascade ON UPDATE no action;
-  EXCEPTION
-   WHEN duplicate_object THEN null;
-  END $$;
-  
-  DO $$ BEGIN
    ALTER TABLE "_properties_v_version_location_neighborhood_landmarks" ADD CONSTRAINT "_properties_v_version_location_neighborhood_landmarks_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_properties_v"("id") ON DELETE cascade ON UPDATE no action;
   EXCEPTION
    WHEN duplicate_object THEN null;
@@ -2711,18 +2617,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   END $$;
   
   DO $$ BEGIN
-   ALTER TABLE "_properties_v" ADD CONSTRAINT "_properties_v_version_contract_id_contracts_id_fk" FOREIGN KEY ("version_contract_id") REFERENCES "public"."contracts"("id") ON DELETE set null ON UPDATE no action;
-  EXCEPTION
-   WHEN duplicate_object THEN null;
-  END $$;
-  
-  DO $$ BEGIN
-   ALTER TABLE "_properties_v" ADD CONSTRAINT "_properties_v_version_availability_id_availability_id_fk" FOREIGN KEY ("version_availability_id") REFERENCES "public"."availability"("id") ON DELETE set null ON UPDATE no action;
-  EXCEPTION
-   WHEN duplicate_object THEN null;
-  END $$;
-  
-  DO $$ BEGIN
    ALTER TABLE "_properties_v" ADD CONSTRAINT "_properties_v_version_gallery_video_id_media_id_fk" FOREIGN KEY ("version_gallery_video_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
   EXCEPTION
    WHEN duplicate_object THEN null;
@@ -2736,6 +2630,18 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   
   DO $$ BEGIN
    ALTER TABLE "_properties_v_rels" ADD CONSTRAINT "_properties_v_rels_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."_properties_v"("id") ON DELETE cascade ON UPDATE no action;
+  EXCEPTION
+   WHEN duplicate_object THEN null;
+  END $$;
+  
+  DO $$ BEGIN
+   ALTER TABLE "_properties_v_rels" ADD CONSTRAINT "_properties_v_rels_contracts_fk" FOREIGN KEY ("contracts_id") REFERENCES "public"."contracts"("id") ON DELETE cascade ON UPDATE no action;
+  EXCEPTION
+   WHEN duplicate_object THEN null;
+  END $$;
+  
+  DO $$ BEGIN
+   ALTER TABLE "_properties_v_rels" ADD CONSTRAINT "_properties_v_rels_availability_fk" FOREIGN KEY ("availability_id") REFERENCES "public"."availability"("id") ON DELETE cascade ON UPDATE no action;
   EXCEPTION
    WHEN duplicate_object THEN null;
   END $$;
@@ -2760,18 +2666,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   
   DO $$ BEGIN
    ALTER TABLE "_properties_v_rels" ADD CONSTRAINT "_properties_v_rels_blog_categories_fk" FOREIGN KEY ("blog_categories_id") REFERENCES "public"."blog_categories"("id") ON DELETE cascade ON UPDATE no action;
-  EXCEPTION
-   WHEN duplicate_object THEN null;
-  END $$;
-  
-  DO $$ BEGIN
-   ALTER TABLE "_properties_v_rels" ADD CONSTRAINT "_properties_v_rels_contracts_fk" FOREIGN KEY ("contracts_id") REFERENCES "public"."contracts"("id") ON DELETE cascade ON UPDATE no action;
-  EXCEPTION
-   WHEN duplicate_object THEN null;
-  END $$;
-  
-  DO $$ BEGIN
-   ALTER TABLE "_properties_v_rels" ADD CONSTRAINT "_properties_v_rels_availability_fk" FOREIGN KEY ("availability_id") REFERENCES "public"."availability"("id") ON DELETE cascade ON UPDATE no action;
   EXCEPTION
    WHEN duplicate_object THEN null;
   END $$;
@@ -4590,9 +4484,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   
   CREATE INDEX IF NOT EXISTS "projects_unit_types_order_idx" ON "projects_unit_types" USING btree ("_order");
   CREATE INDEX IF NOT EXISTS "projects_unit_types_parent_id_idx" ON "projects_unit_types" USING btree ("_parent_id");
-  CREATE INDEX IF NOT EXISTS "projects_gallery_images_order_idx" ON "projects_gallery_images" USING btree ("_order");
-  CREATE INDEX IF NOT EXISTS "projects_gallery_images_parent_id_idx" ON "projects_gallery_images" USING btree ("_parent_id");
-  CREATE INDEX IF NOT EXISTS "projects_gallery_images_image_idx" ON "projects_gallery_images" USING btree ("image_id");
   CREATE INDEX IF NOT EXISTS "projects_location_neighborhood_landmarks_order_idx" ON "projects_location_neighborhood_landmarks" USING btree ("_order");
   CREATE INDEX IF NOT EXISTS "projects_location_neighborhood_landmarks_parent_id_idx" ON "projects_location_neighborhood_landmarks" USING btree ("_parent_id");
   CREATE INDEX IF NOT EXISTS "projects_populated_authors_order_idx" ON "projects_populated_authors" USING btree ("_order");
@@ -4623,9 +4514,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX IF NOT EXISTS "projects_rels_users_id_idx" ON "projects_rels" USING btree ("users_id");
   CREATE INDEX IF NOT EXISTS "_projects_v_version_unit_types_order_idx" ON "_projects_v_version_unit_types" USING btree ("_order");
   CREATE INDEX IF NOT EXISTS "_projects_v_version_unit_types_parent_id_idx" ON "_projects_v_version_unit_types" USING btree ("_parent_id");
-  CREATE INDEX IF NOT EXISTS "_projects_v_version_gallery_images_order_idx" ON "_projects_v_version_gallery_images" USING btree ("_order");
-  CREATE INDEX IF NOT EXISTS "_projects_v_version_gallery_images_parent_id_idx" ON "_projects_v_version_gallery_images" USING btree ("_parent_id");
-  CREATE INDEX IF NOT EXISTS "_projects_v_version_gallery_images_image_idx" ON "_projects_v_version_gallery_images" USING btree ("image_id");
   CREATE INDEX IF NOT EXISTS "_projects_v_version_location_neighborhood_landmarks_order_idx" ON "_projects_v_version_location_neighborhood_landmarks" USING btree ("_order");
   CREATE INDEX IF NOT EXISTS "_projects_v_version_location_neighborhood_landmarks_parent_id_idx" ON "_projects_v_version_location_neighborhood_landmarks" USING btree ("_parent_id");
   CREATE INDEX IF NOT EXISTS "_projects_v_version_populated_authors_order_idx" ON "_projects_v_version_populated_authors" USING btree ("_order");
@@ -4659,16 +4547,11 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX IF NOT EXISTS "_projects_v_rels_blog_id_idx" ON "_projects_v_rels" USING btree ("blog_id");
   CREATE INDEX IF NOT EXISTS "_projects_v_rels_projects_id_idx" ON "_projects_v_rels" USING btree ("projects_id");
   CREATE INDEX IF NOT EXISTS "_projects_v_rels_users_id_idx" ON "_projects_v_rels" USING btree ("users_id");
-  CREATE INDEX IF NOT EXISTS "properties_gallery_images_order_idx" ON "properties_gallery_images" USING btree ("_order");
-  CREATE INDEX IF NOT EXISTS "properties_gallery_images_parent_id_idx" ON "properties_gallery_images" USING btree ("_parent_id");
-  CREATE INDEX IF NOT EXISTS "properties_gallery_images_image_idx" ON "properties_gallery_images" USING btree ("image_id");
   CREATE INDEX IF NOT EXISTS "properties_location_neighborhood_landmarks_order_idx" ON "properties_location_neighborhood_landmarks" USING btree ("_order");
   CREATE INDEX IF NOT EXISTS "properties_location_neighborhood_landmarks_parent_id_idx" ON "properties_location_neighborhood_landmarks" USING btree ("_parent_id");
   CREATE INDEX IF NOT EXISTS "properties_populated_authors_order_idx" ON "properties_populated_authors" USING btree ("_order");
   CREATE INDEX IF NOT EXISTS "properties_populated_authors_parent_id_idx" ON "properties_populated_authors" USING btree ("_parent_id");
   CREATE UNIQUE INDEX IF NOT EXISTS "properties_title_idx" ON "properties" USING btree ("title");
-  CREATE INDEX IF NOT EXISTS "properties_contract_idx" ON "properties" USING btree ("contract_id");
-  CREATE INDEX IF NOT EXISTS "properties_availability_idx" ON "properties" USING btree ("availability_id");
   CREATE INDEX IF NOT EXISTS "properties_gallery_gallery_video_idx" ON "properties" USING btree ("gallery_video_id");
   CREATE INDEX IF NOT EXISTS "properties_meta_meta_image_idx" ON "properties" USING btree ("meta_image_id");
   CREATE UNIQUE INDEX IF NOT EXISTS "properties_slug_idx" ON "properties" USING btree ("slug");
@@ -4678,29 +4561,24 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX IF NOT EXISTS "properties_rels_order_idx" ON "properties_rels" USING btree ("order");
   CREATE INDEX IF NOT EXISTS "properties_rels_parent_idx" ON "properties_rels" USING btree ("parent_id");
   CREATE INDEX IF NOT EXISTS "properties_rels_path_idx" ON "properties_rels" USING btree ("path");
+  CREATE INDEX IF NOT EXISTS "properties_rels_contracts_id_idx" ON "properties_rels" USING btree ("contracts_id");
+  CREATE INDEX IF NOT EXISTS "properties_rels_availability_id_idx" ON "properties_rels" USING btree ("availability_id");
   CREATE INDEX IF NOT EXISTS "properties_rels_classifications_id_idx" ON "properties_rels" USING btree ("classifications_id");
   CREATE INDEX IF NOT EXISTS "properties_rels_amenities_id_idx" ON "properties_rels" USING btree ("amenities_id");
   CREATE INDEX IF NOT EXISTS "properties_rels_media_id_idx" ON "properties_rels" USING btree ("media_id");
   CREATE INDEX IF NOT EXISTS "properties_rels_blog_categories_id_idx" ON "properties_rels" USING btree ("blog_categories_id");
-  CREATE INDEX IF NOT EXISTS "properties_rels_contracts_id_idx" ON "properties_rels" USING btree ("contracts_id");
-  CREATE INDEX IF NOT EXISTS "properties_rels_availability_id_idx" ON "properties_rels" USING btree ("availability_id");
   CREATE INDEX IF NOT EXISTS "properties_rels_tags_id_idx" ON "properties_rels" USING btree ("tags_id");
   CREATE INDEX IF NOT EXISTS "properties_rels_pages_id_idx" ON "properties_rels" USING btree ("pages_id");
   CREATE INDEX IF NOT EXISTS "properties_rels_blog_id_idx" ON "properties_rels" USING btree ("blog_id");
   CREATE INDEX IF NOT EXISTS "properties_rels_properties_id_idx" ON "properties_rels" USING btree ("properties_id");
   CREATE INDEX IF NOT EXISTS "properties_rels_projects_id_idx" ON "properties_rels" USING btree ("projects_id");
   CREATE INDEX IF NOT EXISTS "properties_rels_users_id_idx" ON "properties_rels" USING btree ("users_id");
-  CREATE INDEX IF NOT EXISTS "_properties_v_version_gallery_images_order_idx" ON "_properties_v_version_gallery_images" USING btree ("_order");
-  CREATE INDEX IF NOT EXISTS "_properties_v_version_gallery_images_parent_id_idx" ON "_properties_v_version_gallery_images" USING btree ("_parent_id");
-  CREATE INDEX IF NOT EXISTS "_properties_v_version_gallery_images_image_idx" ON "_properties_v_version_gallery_images" USING btree ("image_id");
   CREATE INDEX IF NOT EXISTS "_properties_v_version_location_neighborhood_landmarks_order_idx" ON "_properties_v_version_location_neighborhood_landmarks" USING btree ("_order");
   CREATE INDEX IF NOT EXISTS "_properties_v_version_location_neighborhood_landmarks_parent_id_idx" ON "_properties_v_version_location_neighborhood_landmarks" USING btree ("_parent_id");
   CREATE INDEX IF NOT EXISTS "_properties_v_version_populated_authors_order_idx" ON "_properties_v_version_populated_authors" USING btree ("_order");
   CREATE INDEX IF NOT EXISTS "_properties_v_version_populated_authors_parent_id_idx" ON "_properties_v_version_populated_authors" USING btree ("_parent_id");
   CREATE INDEX IF NOT EXISTS "_properties_v_parent_idx" ON "_properties_v" USING btree ("parent_id");
   CREATE INDEX IF NOT EXISTS "_properties_v_version_version_title_idx" ON "_properties_v" USING btree ("version_title");
-  CREATE INDEX IF NOT EXISTS "_properties_v_version_version_contract_idx" ON "_properties_v" USING btree ("version_contract_id");
-  CREATE INDEX IF NOT EXISTS "_properties_v_version_version_availability_idx" ON "_properties_v" USING btree ("version_availability_id");
   CREATE INDEX IF NOT EXISTS "_properties_v_version_gallery_version_gallery_video_idx" ON "_properties_v" USING btree ("version_gallery_video_id");
   CREATE INDEX IF NOT EXISTS "_properties_v_version_meta_version_meta_image_idx" ON "_properties_v" USING btree ("version_meta_image_id");
   CREATE INDEX IF NOT EXISTS "_properties_v_version_version_slug_idx" ON "_properties_v" USING btree ("version_slug");
@@ -4714,12 +4592,12 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX IF NOT EXISTS "_properties_v_rels_order_idx" ON "_properties_v_rels" USING btree ("order");
   CREATE INDEX IF NOT EXISTS "_properties_v_rels_parent_idx" ON "_properties_v_rels" USING btree ("parent_id");
   CREATE INDEX IF NOT EXISTS "_properties_v_rels_path_idx" ON "_properties_v_rels" USING btree ("path");
+  CREATE INDEX IF NOT EXISTS "_properties_v_rels_contracts_id_idx" ON "_properties_v_rels" USING btree ("contracts_id");
+  CREATE INDEX IF NOT EXISTS "_properties_v_rels_availability_id_idx" ON "_properties_v_rels" USING btree ("availability_id");
   CREATE INDEX IF NOT EXISTS "_properties_v_rels_classifications_id_idx" ON "_properties_v_rels" USING btree ("classifications_id");
   CREATE INDEX IF NOT EXISTS "_properties_v_rels_amenities_id_idx" ON "_properties_v_rels" USING btree ("amenities_id");
   CREATE INDEX IF NOT EXISTS "_properties_v_rels_media_id_idx" ON "_properties_v_rels" USING btree ("media_id");
   CREATE INDEX IF NOT EXISTS "_properties_v_rels_blog_categories_id_idx" ON "_properties_v_rels" USING btree ("blog_categories_id");
-  CREATE INDEX IF NOT EXISTS "_properties_v_rels_contracts_id_idx" ON "_properties_v_rels" USING btree ("contracts_id");
-  CREATE INDEX IF NOT EXISTS "_properties_v_rels_availability_id_idx" ON "_properties_v_rels" USING btree ("availability_id");
   CREATE INDEX IF NOT EXISTS "_properties_v_rels_tags_id_idx" ON "_properties_v_rels" USING btree ("tags_id");
   CREATE INDEX IF NOT EXISTS "_properties_v_rels_pages_id_idx" ON "_properties_v_rels" USING btree ("pages_id");
   CREATE INDEX IF NOT EXISTS "_properties_v_rels_blog_id_idx" ON "_properties_v_rels" USING btree ("blog_id");
@@ -5333,23 +5211,19 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
 export async function down({ db, payload, req }: MigrateDownArgs): Promise<void> {
   await db.execute(sql`
    DROP TABLE "projects_unit_types" CASCADE;
-  DROP TABLE "projects_gallery_images" CASCADE;
   DROP TABLE "projects_location_neighborhood_landmarks" CASCADE;
   DROP TABLE "projects_populated_authors" CASCADE;
   DROP TABLE "projects" CASCADE;
   DROP TABLE "projects_rels" CASCADE;
   DROP TABLE "_projects_v_version_unit_types" CASCADE;
-  DROP TABLE "_projects_v_version_gallery_images" CASCADE;
   DROP TABLE "_projects_v_version_location_neighborhood_landmarks" CASCADE;
   DROP TABLE "_projects_v_version_populated_authors" CASCADE;
   DROP TABLE "_projects_v" CASCADE;
   DROP TABLE "_projects_v_rels" CASCADE;
-  DROP TABLE "properties_gallery_images" CASCADE;
   DROP TABLE "properties_location_neighborhood_landmarks" CASCADE;
   DROP TABLE "properties_populated_authors" CASCADE;
   DROP TABLE "properties" CASCADE;
   DROP TABLE "properties_rels" CASCADE;
-  DROP TABLE "_properties_v_version_gallery_images" CASCADE;
   DROP TABLE "_properties_v_version_location_neighborhood_landmarks" CASCADE;
   DROP TABLE "_properties_v_version_populated_authors" CASCADE;
   DROP TABLE "_properties_v" CASCADE;

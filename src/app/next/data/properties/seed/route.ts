@@ -1,6 +1,5 @@
 import config from '@payload-config'
 import { propertiesDepthOne } from '@services/seed/realestate-group/properties/2-depth_1'
-import { mockProperties } from '@services/seed/realestate-group/properties/index.dubai'
 import { headers } from 'next/headers'
 import { getPayload } from 'payload'
 
@@ -28,12 +27,66 @@ export async function POST(): Promise<Response> {
       })
 
       if (existingProperty.docs.length === 0) {
+        // First, create or get IDs for required relationships
+        const classificationIds = (
+          await Promise.all(
+            property.classification.map(async (classification) => {
+              const existingClassification = await payload.find({
+                collection: 'classifications',
+                where: {
+                  slug: { equals: classification.slug },
+                },
+              })
+              return existingClassification.docs[0]?.id
+            }),
+          )
+        ).filter((id): id is number => typeof id === 'number')
+
+        const contractIds = (
+          await Promise.all(
+            property.contract.map(async (contract) => {
+              const existingContract = await payload.find({
+                collection: 'contracts',
+                where: {
+                  slug: { equals: contract.slug },
+                },
+              })
+              return existingContract.docs[0]?.id
+            }),
+          )
+        ).filter((id): id is number => typeof id === 'number')
+
+        const availabilityIds = (
+          await Promise.all(
+            property.availability.map(async (availability) => {
+              const existingAvailability = await payload.find({
+                collection: 'availability',
+                where: {
+                  slug: { equals: availability.slug },
+                },
+              })
+              return existingAvailability.docs[0]?.id
+            }),
+          )
+        ).filter((id): id is number => typeof id === 'number')
+
+        // Create the property with resolved relationship IDs
         await payload.create({
           collection: 'properties',
           data: {
-            _status: 'published',
             title: property.title,
             slug: property.slug,
+            price: property.price,
+            condition: property.condition,
+            isFeatured: property.isFeatured,
+            description: property.description,
+            location: property.location,
+            specs: property.specs,
+            finance: property.finance,
+            // Required relationships with resolved IDs
+            classification: classificationIds,
+            contract: contractIds,
+            availability: availabilityIds,
           },
         })
         createdCount++
@@ -48,9 +101,9 @@ export async function POST(): Promise<Response> {
   }
 
   if (createdCount > 0) {
-    payload.logger.info(`✓ Successfully seeded ${createdCount} amenities.`)
+    payload.logger.info(`✓ Successfully seeded ${createdCount} properties.`)
   } else {
-    payload.logger.info(`No new amenities were seeded.`)
+    payload.logger.info(`No new properties were seeded.`)
   }
 
   return Response.json({ success: true })

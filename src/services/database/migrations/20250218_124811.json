@@ -1,5 +1,5 @@
 {
-  "id": "a7e6e6ad-2f40-4bf0-a993-93351f3af4ed",
+  "id": "41538fb7-3b87-4573-8f3d-9260f44d1564",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -81,116 +81,6 @@
         "projects_unit_types_parent_id_fk": {
           "name": "projects_unit_types_parent_id_fk",
           "tableFrom": "projects_unit_types",
-          "tableTo": "projects",
-          "columnsFrom": [
-            "_parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.projects_gallery_images": {
-      "name": "projects_gallery_images",
-      "schema": "",
-      "columns": {
-        "_order": {
-          "name": "_order",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "_parent_id": {
-          "name": "_parent_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "id": {
-          "name": "id",
-          "type": "varchar",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "image_id": {
-          "name": "image_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        }
-      },
-      "indexes": {
-        "projects_gallery_images_order_idx": {
-          "name": "projects_gallery_images_order_idx",
-          "columns": [
-            {
-              "expression": "_order",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "projects_gallery_images_parent_id_idx": {
-          "name": "projects_gallery_images_parent_id_idx",
-          "columns": [
-            {
-              "expression": "_parent_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "projects_gallery_images_image_idx": {
-          "name": "projects_gallery_images_image_idx",
-          "columns": [
-            {
-              "expression": "image_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "projects_gallery_images_image_id_media_id_fk": {
-          "name": "projects_gallery_images_image_id_media_id_fk",
-          "tableFrom": "projects_gallery_images",
-          "tableTo": "media",
-          "columnsFrom": [
-            "image_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "set null",
-          "onUpdate": "no action"
-        },
-        "projects_gallery_images_parent_id_fk": {
-          "name": "projects_gallery_images_parent_id_fk",
-          "tableFrom": "projects_gallery_images",
           "tableTo": "projects",
           "columnsFrom": [
             "_parent_id"
@@ -1409,122 +1299,6 @@
         "_projects_v_version_unit_types_parent_id_fk": {
           "name": "_projects_v_version_unit_types_parent_id_fk",
           "tableFrom": "_projects_v_version_unit_types",
-          "tableTo": "_projects_v",
-          "columnsFrom": [
-            "_parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public._projects_v_version_gallery_images": {
-      "name": "_projects_v_version_gallery_images",
-      "schema": "",
-      "columns": {
-        "_order": {
-          "name": "_order",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "_parent_id": {
-          "name": "_parent_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "id": {
-          "name": "id",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "image_id": {
-          "name": "image_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "_uuid": {
-          "name": "_uuid",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
-        }
-      },
-      "indexes": {
-        "_projects_v_version_gallery_images_order_idx": {
-          "name": "_projects_v_version_gallery_images_order_idx",
-          "columns": [
-            {
-              "expression": "_order",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "_projects_v_version_gallery_images_parent_id_idx": {
-          "name": "_projects_v_version_gallery_images_parent_id_idx",
-          "columns": [
-            {
-              "expression": "_parent_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "_projects_v_version_gallery_images_image_idx": {
-          "name": "_projects_v_version_gallery_images_image_idx",
-          "columns": [
-            {
-              "expression": "image_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "_projects_v_version_gallery_images_image_id_media_id_fk": {
-          "name": "_projects_v_version_gallery_images_image_id_media_id_fk",
-          "tableFrom": "_projects_v_version_gallery_images",
-          "tableTo": "media",
-          "columnsFrom": [
-            "image_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "set null",
-          "onUpdate": "no action"
-        },
-        "_projects_v_version_gallery_images_parent_id_fk": {
-          "name": "_projects_v_version_gallery_images_parent_id_fk",
-          "tableFrom": "_projects_v_version_gallery_images",
           "tableTo": "_projects_v",
           "columnsFrom": [
             "_parent_id"
@@ -2790,116 +2564,6 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.properties_gallery_images": {
-      "name": "properties_gallery_images",
-      "schema": "",
-      "columns": {
-        "_order": {
-          "name": "_order",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "_parent_id": {
-          "name": "_parent_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "id": {
-          "name": "id",
-          "type": "varchar",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "image_id": {
-          "name": "image_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        }
-      },
-      "indexes": {
-        "properties_gallery_images_order_idx": {
-          "name": "properties_gallery_images_order_idx",
-          "columns": [
-            {
-              "expression": "_order",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "properties_gallery_images_parent_id_idx": {
-          "name": "properties_gallery_images_parent_id_idx",
-          "columns": [
-            {
-              "expression": "_parent_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "properties_gallery_images_image_idx": {
-          "name": "properties_gallery_images_image_idx",
-          "columns": [
-            {
-              "expression": "image_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "properties_gallery_images_image_id_media_id_fk": {
-          "name": "properties_gallery_images_image_id_media_id_fk",
-          "tableFrom": "properties_gallery_images",
-          "tableTo": "media",
-          "columnsFrom": [
-            "image_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "set null",
-          "onUpdate": "no action"
-        },
-        "properties_gallery_images_parent_id_fk": {
-          "name": "properties_gallery_images_parent_id_fk",
-          "tableFrom": "properties_gallery_images",
-          "tableTo": "properties",
-          "columnsFrom": [
-            "_parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
     "public.properties_location_neighborhood_landmarks": {
       "name": "properties_location_neighborhood_landmarks",
       "schema": "",
@@ -3102,18 +2766,6 @@
         "custom_condition": {
           "name": "custom_condition",
           "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "contract_id": {
-          "name": "contract_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "availability_id": {
-          "name": "availability_id",
-          "type": "integer",
           "primaryKey": false,
           "notNull": false
         },
@@ -3504,36 +3156,6 @@
           "method": "btree",
           "with": {}
         },
-        "properties_contract_idx": {
-          "name": "properties_contract_idx",
-          "columns": [
-            {
-              "expression": "contract_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "properties_availability_idx": {
-          "name": "properties_availability_idx",
-          "columns": [
-            {
-              "expression": "availability_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
         "properties_gallery_gallery_video_idx": {
           "name": "properties_gallery_gallery_video_idx",
           "columns": [
@@ -3626,32 +3248,6 @@
         }
       },
       "foreignKeys": {
-        "properties_contract_id_contracts_id_fk": {
-          "name": "properties_contract_id_contracts_id_fk",
-          "tableFrom": "properties",
-          "tableTo": "contracts",
-          "columnsFrom": [
-            "contract_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "set null",
-          "onUpdate": "no action"
-        },
-        "properties_availability_id_availability_id_fk": {
-          "name": "properties_availability_id_availability_id_fk",
-          "tableFrom": "properties",
-          "tableTo": "availability",
-          "columnsFrom": [
-            "availability_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "set null",
-          "onUpdate": "no action"
-        },
         "properties_gallery_video_id_media_id_fk": {
           "name": "properties_gallery_video_id_media_id_fk",
           "tableFrom": "properties",
@@ -3713,6 +3309,18 @@
           "primaryKey": false,
           "notNull": true
         },
+        "contracts_id": {
+          "name": "contracts_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "availability_id": {
+          "name": "availability_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
         "classifications_id": {
           "name": "classifications_id",
           "type": "integer",
@@ -3733,18 +3341,6 @@
         },
         "blog_categories_id": {
           "name": "blog_categories_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "contracts_id": {
-          "name": "contracts_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "availability_id": {
-          "name": "availability_id",
           "type": "integer",
           "primaryKey": false,
           "notNull": false
@@ -3832,6 +3428,36 @@
           "method": "btree",
           "with": {}
         },
+        "properties_rels_contracts_id_idx": {
+          "name": "properties_rels_contracts_id_idx",
+          "columns": [
+            {
+              "expression": "contracts_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "properties_rels_availability_id_idx": {
+          "name": "properties_rels_availability_id_idx",
+          "columns": [
+            {
+              "expression": "availability_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
         "properties_rels_classifications_id_idx": {
           "name": "properties_rels_classifications_id_idx",
           "columns": [
@@ -3882,36 +3508,6 @@
           "columns": [
             {
               "expression": "blog_categories_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "properties_rels_contracts_id_idx": {
-          "name": "properties_rels_contracts_id_idx",
-          "columns": [
-            {
-              "expression": "contracts_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "properties_rels_availability_id_idx": {
-          "name": "properties_rels_availability_id_idx",
-          "columns": [
-            {
-              "expression": "availability_id",
               "isExpression": false,
               "asc": true,
               "nulls": "last"
@@ -4027,6 +3623,32 @@
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
+        "properties_rels_contracts_fk": {
+          "name": "properties_rels_contracts_fk",
+          "tableFrom": "properties_rels",
+          "tableTo": "contracts",
+          "columnsFrom": [
+            "contracts_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "properties_rels_availability_fk": {
+          "name": "properties_rels_availability_fk",
+          "tableFrom": "properties_rels",
+          "tableTo": "availability",
+          "columnsFrom": [
+            "availability_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
         "properties_rels_classifications_fk": {
           "name": "properties_rels_classifications_fk",
           "tableFrom": "properties_rels",
@@ -4072,32 +3694,6 @@
           "tableTo": "blog_categories",
           "columnsFrom": [
             "blog_categories_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        },
-        "properties_rels_contracts_fk": {
-          "name": "properties_rels_contracts_fk",
-          "tableFrom": "properties_rels",
-          "tableTo": "contracts",
-          "columnsFrom": [
-            "contracts_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        },
-        "properties_rels_availability_fk": {
-          "name": "properties_rels_availability_fk",
-          "tableFrom": "properties_rels",
-          "tableTo": "availability",
-          "columnsFrom": [
-            "availability_id"
           ],
           "columnsTo": [
             "id"
@@ -4176,122 +3772,6 @@
           "tableTo": "users",
           "columnsFrom": [
             "users_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public._properties_v_version_gallery_images": {
-      "name": "_properties_v_version_gallery_images",
-      "schema": "",
-      "columns": {
-        "_order": {
-          "name": "_order",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "_parent_id": {
-          "name": "_parent_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "id": {
-          "name": "id",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "image_id": {
-          "name": "image_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "_uuid": {
-          "name": "_uuid",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
-        }
-      },
-      "indexes": {
-        "_properties_v_version_gallery_images_order_idx": {
-          "name": "_properties_v_version_gallery_images_order_idx",
-          "columns": [
-            {
-              "expression": "_order",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "_properties_v_version_gallery_images_parent_id_idx": {
-          "name": "_properties_v_version_gallery_images_parent_id_idx",
-          "columns": [
-            {
-              "expression": "_parent_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "_properties_v_version_gallery_images_image_idx": {
-          "name": "_properties_v_version_gallery_images_image_idx",
-          "columns": [
-            {
-              "expression": "image_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "_properties_v_version_gallery_images_image_id_media_id_fk": {
-          "name": "_properties_v_version_gallery_images_image_id_media_id_fk",
-          "tableFrom": "_properties_v_version_gallery_images",
-          "tableTo": "media",
-          "columnsFrom": [
-            "image_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "set null",
-          "onUpdate": "no action"
-        },
-        "_properties_v_version_gallery_images_parent_id_fk": {
-          "name": "_properties_v_version_gallery_images_parent_id_fk",
-          "tableFrom": "_properties_v_version_gallery_images",
-          "tableTo": "_properties_v",
-          "columnsFrom": [
-            "_parent_id"
           ],
           "columnsTo": [
             "id"
@@ -4526,18 +4006,6 @@
         "version_custom_condition": {
           "name": "version_custom_condition",
           "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "version_contract_id": {
-          "name": "version_contract_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "version_availability_id": {
-          "name": "version_availability_id",
-          "type": "integer",
           "primaryKey": false,
           "notNull": false
         },
@@ -4967,36 +4435,6 @@
           "method": "btree",
           "with": {}
         },
-        "_properties_v_version_version_contract_idx": {
-          "name": "_properties_v_version_version_contract_idx",
-          "columns": [
-            {
-              "expression": "version_contract_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "_properties_v_version_version_availability_idx": {
-          "name": "_properties_v_version_version_availability_idx",
-          "columns": [
-            {
-              "expression": "version_availability_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
         "_properties_v_version_gallery_version_gallery_video_idx": {
           "name": "_properties_v_version_gallery_version_gallery_video_idx",
           "columns": [
@@ -5162,32 +4600,6 @@
           "onDelete": "set null",
           "onUpdate": "no action"
         },
-        "_properties_v_version_contract_id_contracts_id_fk": {
-          "name": "_properties_v_version_contract_id_contracts_id_fk",
-          "tableFrom": "_properties_v",
-          "tableTo": "contracts",
-          "columnsFrom": [
-            "version_contract_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "set null",
-          "onUpdate": "no action"
-        },
-        "_properties_v_version_availability_id_availability_id_fk": {
-          "name": "_properties_v_version_availability_id_availability_id_fk",
-          "tableFrom": "_properties_v",
-          "tableTo": "availability",
-          "columnsFrom": [
-            "version_availability_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "set null",
-          "onUpdate": "no action"
-        },
         "_properties_v_version_gallery_video_id_media_id_fk": {
           "name": "_properties_v_version_gallery_video_id_media_id_fk",
           "tableFrom": "_properties_v",
@@ -5249,6 +4661,18 @@
           "primaryKey": false,
           "notNull": true
         },
+        "contracts_id": {
+          "name": "contracts_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "availability_id": {
+          "name": "availability_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
         "classifications_id": {
           "name": "classifications_id",
           "type": "integer",
@@ -5269,18 +4693,6 @@
         },
         "blog_categories_id": {
           "name": "blog_categories_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "contracts_id": {
-          "name": "contracts_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "availability_id": {
-          "name": "availability_id",
           "type": "integer",
           "primaryKey": false,
           "notNull": false
@@ -5368,6 +4780,36 @@
           "method": "btree",
           "with": {}
         },
+        "_properties_v_rels_contracts_id_idx": {
+          "name": "_properties_v_rels_contracts_id_idx",
+          "columns": [
+            {
+              "expression": "contracts_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "_properties_v_rels_availability_id_idx": {
+          "name": "_properties_v_rels_availability_id_idx",
+          "columns": [
+            {
+              "expression": "availability_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
         "_properties_v_rels_classifications_id_idx": {
           "name": "_properties_v_rels_classifications_id_idx",
           "columns": [
@@ -5418,36 +4860,6 @@
           "columns": [
             {
               "expression": "blog_categories_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "_properties_v_rels_contracts_id_idx": {
-          "name": "_properties_v_rels_contracts_id_idx",
-          "columns": [
-            {
-              "expression": "contracts_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "_properties_v_rels_availability_id_idx": {
-          "name": "_properties_v_rels_availability_id_idx",
-          "columns": [
-            {
-              "expression": "availability_id",
               "isExpression": false,
               "asc": true,
               "nulls": "last"
@@ -5563,6 +4975,32 @@
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
+        "_properties_v_rels_contracts_fk": {
+          "name": "_properties_v_rels_contracts_fk",
+          "tableFrom": "_properties_v_rels",
+          "tableTo": "contracts",
+          "columnsFrom": [
+            "contracts_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "_properties_v_rels_availability_fk": {
+          "name": "_properties_v_rels_availability_fk",
+          "tableFrom": "_properties_v_rels",
+          "tableTo": "availability",
+          "columnsFrom": [
+            "availability_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
         "_properties_v_rels_classifications_fk": {
           "name": "_properties_v_rels_classifications_fk",
           "tableFrom": "_properties_v_rels",
@@ -5608,32 +5046,6 @@
           "tableTo": "blog_categories",
           "columnsFrom": [
             "blog_categories_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        },
-        "_properties_v_rels_contracts_fk": {
-          "name": "_properties_v_rels_contracts_fk",
-          "tableFrom": "_properties_v_rels",
-          "tableTo": "contracts",
-          "columnsFrom": [
-            "contracts_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        },
-        "_properties_v_rels_availability_fk": {
-          "name": "_properties_v_rels_availability_fk",
-          "tableFrom": "_properties_v_rels",
-          "tableTo": "availability",
-          "columnsFrom": [
-            "availability_id"
           ],
           "columnsTo": [
             "id"

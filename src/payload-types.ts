@@ -227,14 +227,11 @@ export interface Project {
   contract: number | Contract;
   availability: number | Availability;
   amenities?: (number | Amenity)[] | null;
-  gallery: {
+  gallery?: {
     /**
      * Upload up to 24 high-quality images. The first image will be used as the main image.
      */
-    images: {
-      image?: (number | null) | Media;
-      id?: string | null;
-    }[];
+    images?: (number | Media)[] | null;
     /**
      * Upload a walkthrough video (MP4 format recommended)
      */
@@ -372,14 +369,11 @@ export interface Property {
   availability: (number | Availability)[];
   classification: (number | Classification)[];
   amenities?: (number | Amenity)[] | null;
-  gallery: {
+  gallery?: {
     /**
      * Upload up to 24 high-quality images. The first image will be used as the main image.
      */
-    images: {
-      image?: (number | null) | Media;
-      id?: string | null;
-    }[];
+    images?: (number | Media)[] | null;
     /**
      * Upload a walkthrough video (MP4 format recommended)
      */
@@ -2768,12 +2762,7 @@ export interface ProjectsSelect<T extends boolean = true> {
   gallery?:
     | T
     | {
-        images?:
-          | T
-          | {
-              image?: T;
-              id?: T;
-            };
+        images?: T;
         video?: T;
         virtualTourUrl?: T;
         floorPlan?: T;
@@ -2874,12 +2863,7 @@ export interface PropertiesSelect<T extends boolean = true> {
   gallery?:
     | T
     | {
-        images?:
-          | T
-          | {
-              image?: T;
-              id?: T;
-            };
+        images?: T;
         video?: T;
         virtualTourUrl?: T;
         floorPlan?: T;
