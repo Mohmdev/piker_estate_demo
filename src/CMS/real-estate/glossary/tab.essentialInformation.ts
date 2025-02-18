@@ -49,7 +49,7 @@ export const EssentialInformationTab: UnnamedTab = {
           name: 'contract',
           type: 'relationship',
           relationTo: 'contracts',
-          hasMany: false,
+          hasMany: true,
           required: true,
         },
         {
@@ -57,7 +57,7 @@ export const EssentialInformationTab: UnnamedTab = {
           name: 'availability',
           type: 'relationship',
           relationTo: 'availability',
-          hasMany: false,
+          hasMany: true,
           required: true,
         },
       ],

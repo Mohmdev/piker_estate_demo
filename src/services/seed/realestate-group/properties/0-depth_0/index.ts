@@ -1,20 +1,20 @@
 import type { Property } from '@payload-types'
-import { mockDescriptions } from './descriptions'
-import { mockLocations } from './locations'
-import { mockSpecs } from './specs'
+import { descriptionData } from './descriptions'
+import { financeData } from './finances'
+import { locationData } from './locations'
+import { specsData } from './specs'
 
 export type PropertyDepthZero = Pick<
   Property,
   | 'title'
   | 'slug'
   | 'description'
-  | 'market'
   | 'condition'
   | 'price'
-  | 'contractDetails'
   | 'isFeatured'
   | 'location'
   | 'specs'
+  | 'finance'
   // | 'populatedAuthors'
 >
 
@@ -24,319 +24,239 @@ export const propertiesDepthZero: Record<string, PropertyDepthZero> = {
     title: 'Modern Al Barsha Heights Apartment',
     slug: 'modern-al-barsha-heights-apartment',
     price: 425000,
-    market: 'mid-market', // Good location, recent renovation, standard specs
     condition: 'renovated', // Renovated in 2021
     isFeatured: true,
-    contractDetails: {
-      requiresContract: true,
-      requiresDeposit: null,
-    },
-    description: mockDescriptions.barshaApartment,
-    location: mockLocations.barshaApartment,
-    specs: mockSpecs.barshaApartment,
+    description: descriptionData.barshaApartment,
+    location: locationData.barshaApartment,
+    specs: specsData.barshaApartment,
+    finance: financeData.barshaApartment,
   },
   // 2. jvcResidence
   jvcResidence: {
     title: 'Spacious JVC Family Home',
     slug: 'spacious-jvc-family-home',
     price: 520000,
-    market: 'mid-market', // Family-oriented area, good specs
     condition: 'well-maintained', // Built in 2018, no renovations needed yet
     isFeatured: false,
-    contractDetails: {
-      requiresContract: true,
-      requiresDeposit: null,
-    },
-    description: mockDescriptions.jvcResidence,
-    location: mockLocations.jvcResidence,
-    specs: mockSpecs.jvcResidence,
+    description: descriptionData.jvcResidence,
+    location: locationData.jvcResidence,
+    specs: specsData.jvcResidence,
+    finance: financeData.jvcResidence,
   },
   // 3. siliconOasisStudio
   siliconOasisStudio: {
     title: 'Silicon Oasis Smart Studio',
     slug: 'silicon-oasis-smart-studio',
     price: 165000,
-    market: 'economy', // Studio apartment, basic specs
     condition: 'renovated', // Renovated in 2022
     isFeatured: false,
-    contractDetails: {
-      requiresContract: true,
-      requiresDeposit: null,
-    },
-    description: mockDescriptions.siliconOasisStudio,
-    location: mockLocations.siliconOasisStudio,
-    specs: mockSpecs.siliconOasisStudio,
+    description: descriptionData.siliconOasisStudio,
+    location: locationData.siliconOasisStudio,
+    specs: specsData.siliconOasisStudio,
+    finance: financeData.siliconOasisStudio,
   },
   // 4. alQuozLoft
   alQuozLoft: {
     title: 'Al Quoz Industrial Loft',
     slug: 'al-quoz-industrial-loft',
     price: 480000,
-    market: 'industrial', // Industrial area conversion
     condition: 'well-maintained', // Built in 2019, modern design
     isFeatured: false,
-    contractDetails: {
-      requiresContract: true,
-      requiresDeposit: null,
-    },
-    description: mockDescriptions.alQuozLoft,
-    location: mockLocations.alQuozLoft,
-    specs: mockSpecs.alQuozLoft,
+    description: descriptionData.alQuozLoft,
+    location: locationData.alQuozLoft,
+    specs: specsData.alQuozLoft,
+    finance: financeData.alQuozLoft,
   },
   // 5. businessBayFlat
   businessBayFlat: {
     title: 'Business Bay Executive Apartment',
     slug: 'business-bay-executive-apartment',
     price: 495000,
-    market: 'luxury', // Premium location, high-end finishes
     condition: 'renovated', // Renovated in 2023
     isFeatured: false,
-    contractDetails: {
-      requiresContract: true,
-      requiresDeposit: null,
-    },
-    description: mockDescriptions.businessBayFlat,
-    location: mockLocations.businessBayFlat,
-    specs: mockSpecs.businessBayFlat,
+    description: descriptionData.businessBayFlat,
+    location: locationData.businessBayFlat,
+    specs: specsData.businessBayFlat,
+    finance: financeData.businessBayFlat,
   },
   // 6. alNahdaHome
   alNahdaHome: {
     title: 'Al Nahda Family Residence',
     slug: 'al-nahda-family-residence',
     price: 380000,
-    market: 'mid-market', // Standard family apartment
     condition: 'renovated', // Renovated in 2020
     isFeatured: false,
-    contractDetails: {
-      requiresContract: true,
-      requiresDeposit: null,
-    },
-    description: mockDescriptions.alNahdaHome,
-    location: mockLocations.alNahdaHome,
-    specs: mockSpecs.alNahdaHome,
+    description: descriptionData.alNahdaHome,
+    location: locationData.alNahdaHome,
+    specs: specsData.alNahdaHome,
+    finance: financeData.alNahdaHome,
   },
   // 7. mirdifVilla
   mirdifVilla: {
     title: 'Mirdif Luxury Villa',
     slug: 'mirdif-luxury-villa',
     price: 980000,
-    market: 'ultra-luxury', // Large villa, premium finishes
     condition: 'renovated', // Renovated in 2021
     isFeatured: true,
-    contractDetails: {
-      requiresContract: true,
-      requiresDeposit: null,
-    },
-    description: mockDescriptions.mirdifVilla,
-    location: mockLocations.mirdifVilla,
-    specs: mockSpecs.mirdifVilla,
+    description: descriptionData.mirdifVilla,
+    location: locationData.mirdifVilla,
+    specs: specsData.mirdifVilla,
+    finance: financeData.mirdifVilla,
   },
   // 8. internationalCityFlat
   internationalCityFlat: {
     title: 'International City Starter Home',
     slug: 'international-city-starter-home',
     price: 195000,
-    market: 'economy', // Budget-friendly area
     condition: 'well-maintained', // Renovated in 2019
     isFeatured: false,
-    contractDetails: {
-      requiresContract: true,
-      requiresDeposit: null,
-    },
-    description: mockDescriptions.internationalCityFlat,
-    location: mockLocations.internationalCityFlat,
-    specs: mockSpecs.internationalCityFlat,
+    description: descriptionData.internationalCityFlat,
+    location: locationData.internationalCityFlat,
+    specs: specsData.internationalCityFlat,
+    finance: financeData.internationalCityFlat,
   },
   // 9. sportsCityApartment
   sportsCityApartment: {
     title: 'Sports City Modern Apartment',
     slug: 'sports-city-modern-apartment',
     price: 385000,
-    market: 'mid-market', // Modern community, standard specs
     condition: 'renovated', // Renovated in 2022
     isFeatured: false,
-    contractDetails: {
-      requiresContract: true,
-      requiresDeposit: null,
-    },
-    description: mockDescriptions.sportsCityApartment,
-    location: mockLocations.sportsCityApartment,
-    specs: mockSpecs.sportsCityApartment,
+    description: descriptionData.sportsCityApartment,
+    location: locationData.sportsCityApartment,
+    specs: specsData.sportsCityApartment,
+    finance: financeData.sportsCityApartment,
   },
   // 10. alQusaisResidence
   alQusaisResidence: {
     title: 'Al Qusais Metro Apartment',
     slug: 'al-qusais-metro-apartment',
     price: 320000,
-    market: 'economy', // Basic specs, older area
     condition: 'renovated', // Renovated in 2020
     isFeatured: false,
-    contractDetails: {
-      requiresContract: true,
-      requiresDeposit: null,
-    },
-    description: mockDescriptions.alQusaisResidence,
-    location: mockLocations.alQusaisResidence,
-    specs: mockSpecs.alQusaisResidence,
+    description: descriptionData.alQusaisResidence,
+    location: locationData.alQusaisResidence,
+    specs: specsData.alQusaisResidence,
+    finance: financeData.alQusaisResidence,
   },
   // 11. discoveryGardens
   discoveryGardens: {
     title: 'Discovery Gardens Mediterranean Apartment',
     slug: 'discovery-gardens-mediterranean-apartment',
     price: 275000,
-    market: 'economy', // Affordable community
     condition: 'well-maintained', // Renovated in 2018
     isFeatured: false,
-    contractDetails: {
-      requiresContract: true,
-      requiresDeposit: null,
-    },
-    description: mockDescriptions.discoveryGardens,
-    location: mockLocations.discoveryGardens,
-    specs: mockSpecs.discoveryGardens,
+    description: descriptionData.discoveryGardens,
+    location: locationData.discoveryGardens,
+    specs: specsData.discoveryGardens,
+    finance: financeData.discoveryGardens,
   },
   // 12. remramApartment
   remramApartment: {
     title: 'Remram Community Residence',
     slug: 'remram-community-residence',
     price: 340000,
-    market: 'mid-market', // Standard community specs
     condition: 'renovated', // Renovated in 2022
     isFeatured: false,
-    contractDetails: {
-      requiresContract: true,
-      requiresDeposit: null,
-    },
-    description: mockDescriptions.remramApartment,
-    location: mockLocations.remramApartment,
-    specs: mockSpecs.remramApartment,
+    description: descriptionData.remramApartment,
+    location: locationData.remramApartment,
+    specs: specsData.remramApartment,
+    finance: financeData.remramApartment,
   },
   // 13. dubailandTownhouse
   dubailandTownhouse: {
     title: 'Dubailand Townhouse',
     slug: 'dubailand-townhouse',
     price: 720000,
-    market: 'luxury', // Premium townhouse, high-end community
     condition: 'brand-new', // Built in 2019, no renovations needed
     isFeatured: true,
-    contractDetails: {
-      requiresContract: true,
-      requiresDeposit: null,
-    },
-    description: mockDescriptions.dubailandTownhouse,
-    location: mockLocations.dubailandTownhouse,
-    specs: mockSpecs.dubailandTownhouse,
+    description: descriptionData.dubailandTownhouse,
+    location: locationData.dubailandTownhouse,
+    specs: specsData.dubailandTownhouse,
+    finance: financeData.dubailandTownhouse,
   },
   // 14. warqaaResidence
   warqaaResidence: {
     title: 'Al Warqaa Family Apartment',
     slug: 'al-warqaa-family-apartment',
     price: 420000,
-    market: 'mid-market', // Family area, standard specs
     condition: 'renovated', // Renovated in 2021
     isFeatured: true,
-    contractDetails: {
-      requiresContract: true,
-      requiresDeposit: null,
-    },
-    description: mockDescriptions.warqaaResidence,
-    location: mockLocations.warqaaResidence,
-    specs: mockSpecs.warqaaResidence,
+    description: descriptionData.warqaaResidence,
+    location: locationData.warqaaResidence,
+    specs: specsData.warqaaResidence,
+    finance: financeData.warqaaResidence,
   },
   // 15. karamaFlat
   karamaFlat: {
     title: 'Karama Urban Apartment',
     slug: 'karama-urban-apartment',
     price: 245000,
-    market: 'economy', // Older area, basic specs
     condition: 'well-maintained', // Renovated in 2019
     isFeatured: false,
-    contractDetails: {
-      requiresContract: true,
-      requiresDeposit: null,
-    },
-    description: mockDescriptions.karamaFlat,
-    location: mockLocations.karamaFlat,
-    specs: mockSpecs.karamaFlat,
+    description: descriptionData.karamaFlat,
+    location: locationData.karamaFlat,
+    specs: specsData.karamaFlat,
+    finance: financeData.karamaFlat,
   },
   // 16. tecomApartment
   tecomApartment: {
     title: 'TECOM Professional Residence',
     slug: 'tecom-professional-residence',
     price: 460000,
-    market: 'luxury', // Premium location, high-end specs
     condition: 'renovated', // Renovated in 2022
     isFeatured: true,
-    contractDetails: {
-      requiresContract: true,
-      requiresDeposit: null,
-    },
-    description: mockDescriptions.tecomApartment,
-    location: mockLocations.tecomApartment,
-    specs: mockSpecs.tecomApartment,
+    description: descriptionData.tecomApartment,
+    location: locationData.tecomApartment,
+    specs: specsData.tecomApartment,
+    finance: financeData.tecomApartment,
   },
   // 17. deiraCondo
   deiraCondo: {
     title: 'Deira City Apartment',
     slug: 'deira-city-apartment',
     price: 295000,
-    market: 'economy', // Traditional area, basic specs
     condition: 'renovated', // Renovated in 2020
     isFeatured: false,
-    contractDetails: {
-      requiresContract: true,
-      requiresDeposit: null,
-    },
-    description: mockDescriptions.deiraCondo,
-    location: mockLocations.deiraCondo,
-    specs: mockSpecs.deiraCondo,
+    description: descriptionData.deiraCondo,
+    location: locationData.deiraCondo,
+    specs: specsData.deiraCondo,
+    finance: financeData.deiraCondo,
   },
   // 18. satwaResidence
   satwaResidence: {
     title: 'Satwa Budget Studio',
     slug: 'satwa-budget-studio',
     price: 185000,
-    market: 'economy', // Budget area, basic amenities
     condition: 'well-maintained', // Renovated in 2018
     isFeatured: false,
-    contractDetails: {
-      requiresContract: true,
-      requiresDeposit: null,
-    },
-    description: mockDescriptions.satwaResidence,
-    location: mockLocations.satwaResidence,
-    specs: mockSpecs.satwaResidence,
+    description: descriptionData.satwaResidence,
+    location: locationData.satwaResidence,
+    specs: specsData.satwaResidence,
+    finance: financeData.satwaResidence,
   },
   // 19. rashidiyaHome
   rashidiyaHome: {
     title: 'Al Rashidiya Metro Home',
     slug: 'al-rashidiya-metro-home',
     price: 365000,
-    market: 'mid-market', // Standard specs, good connectivity
     condition: 'renovated', // Renovated in 2021
     isFeatured: false,
-    contractDetails: {
-      requiresContract: true,
-      requiresDeposit: null,
-    },
-    description: mockDescriptions.rashidiyaHome,
-    location: mockLocations.rashidiyaHome,
-    specs: mockSpecs.rashidiyaHome,
+    description: descriptionData.rashidiyaHome,
+    location: locationData.rashidiyaHome,
+    specs: specsData.rashidiyaHome,
+    finance: financeData.rashidiyaHome,
   },
   // 20. garhoudApartment
   garhoudApartment: {
     title: 'Garhoud Premium Apartment',
     slug: 'garhoud-premium-apartment',
     price: 410000,
-    market: 'luxury', // Upscale area, premium finishes
     condition: 'renovated', // Renovated in 2022
     isFeatured: false,
-    contractDetails: {
-      requiresContract: true,
-      requiresDeposit: null,
-    },
-    description: mockDescriptions.garhoudApartment,
-    location: mockLocations.garhoudApartment,
-    specs: mockSpecs.garhoudApartment,
+    description: descriptionData.garhoudApartment,
+    location: locationData.garhoudApartment,
+    specs: specsData.garhoudApartment,
+    finance: financeData.garhoudApartment,
   },
 }

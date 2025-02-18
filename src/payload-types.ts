@@ -368,8 +368,8 @@ export interface Property {
    * Enter a custom condition
    */
   customCondition?: string | null;
-  contract: number | Contract;
-  availability: number | Availability;
+  contract: (number | Contract)[];
+  availability: (number | Availability)[];
   classification: (number | Classification)[];
   amenities?: (number | Amenity)[] | null;
   gallery: {

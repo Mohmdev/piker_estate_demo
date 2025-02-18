@@ -1,11 +1,11 @@
-import { activeAvailability } from './active'
-import { inactiveAvailability } from './inactive'
-import { specialAvailability } from './special'
+import { activeRecords } from './active-records'
+import { inactiveRecords } from './inactive-records'
+import { otherRecords } from './other-records'
 
-export const mockAvailabilities = [
-  ...activeAvailability,
-  ...inactiveAvailability,
-  ...specialAvailability,
+export const availabilitiesIndex = [
+  ...activeRecords,
+  ...inactiveRecords,
+  ...otherRecords,
 ]
 
-export { activeAvailability, inactiveAvailability, specialAvailability }
+export { activeRecords, inactiveRecords, otherRecords }

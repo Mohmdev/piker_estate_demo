@@ -13,8 +13,8 @@ import type {
 
 export type PropertyRelationships = {
   classification: Partial<Classification>[]
-  contract: Partial<Contract>
-  availability: Partial<Availability>
+  contract: Partial<Contract>[]
+  availability: Partial<Availability>[]
   amenities: Partial<Amenity>[]
   gallery?: {
     images?: Partial<Media>[]
@@ -42,17 +42,39 @@ export const propertiesRelationships: Record<string, PropertyRelationships> = {
   // 1. barshaApartment
   barshaApartment: {
     classification: [
-      // Parent: Residential Units (100)
-      // - Apartment (105)
-      // - Single Family Apartment (106) - Due to its size (95m²) and 2bed/2bath configuration
+      {
+        title: 'Residential Units',
+        slug: 'residential-units',
+      },
+      {
+        title: 'Apartment',
+        slug: 'apartment',
+      },
+      {
+        title: 'Single Family Apartment',
+        slug: 'single-family-apartment',
+      },
     ],
-    contract: {
-      // Parent: Sales Contracts
-      // - Multiple Cheques - New property suitable for flexible payment structure
-    },
-    availability: {
-      // New (Active Properties)
-    },
+    contract: [
+      {
+        title: 'For Sale',
+        slug: 'for-sale',
+      },
+      {
+        title: 'Installments',
+        slug: 'installments',
+      },
+    ],
+    availability: [
+      {
+        title: 'Active',
+        slug: 'active',
+      },
+      {
+        title: 'New',
+        slug: 'new',
+      },
+    ],
     amenities: [],
     gallery: {},
     categories: [],
@@ -64,17 +86,39 @@ export const propertiesRelationships: Record<string, PropertyRelationships> = {
   // 2. jvcResidence
   jvcResidence: {
     classification: [
-      // Parent: Residential Units (100)
-      // - Apartment (105)
-      // - Single Family Apartment (106) - Due to its large size (120m²) and 3bed/2.5bath family configuration
+      {
+        title: 'Residential Units',
+        slug: 'residential-units',
+      },
+      {
+        title: 'Apartment',
+        slug: 'apartment',
+      },
+      {
+        title: 'Single Family Apartment',
+        slug: 'single-family-apartment',
+      },
     ],
-    contract: {
-      // Parent: Sales Contracts
-      // - Outright Purchase - Ready family home in established community
-    },
-    availability: {
-      // Available (Active Properties)
-    },
+    contract: [
+      {
+        title: 'For Sale',
+        slug: 'for-sale',
+      },
+      {
+        title: 'Outright Purchase',
+        slug: 'outright-purchase',
+      },
+    ],
+    availability: [
+      {
+        title: 'Active',
+        slug: 'active',
+      },
+      {
+        title: 'Available',
+        slug: 'available',
+      },
+    ],
     amenities: [],
     gallery: {},
     categories: [],
@@ -86,16 +130,35 @@ export const propertiesRelationships: Record<string, PropertyRelationships> = {
   // 3. siliconOasisStudio
   siliconOasisStudio: {
     classification: [
-      // Parent: Residential Units (100)
-      // - Apartment (105) - Studio configuration with 45m²
+      {
+        title: 'Residential Units',
+        slug: 'residential-units',
+      },
+      {
+        title: 'Apartment',
+        slug: 'apartment',
+      },
     ],
-    contract: {
-      // Parent: Sales Contracts
-      // - Installments - Affordable studio suitable for first-time buyers
-    },
-    availability: {
-      // Available (Active Properties)
-    },
+    contract: [
+      {
+        title: 'For Sale',
+        slug: 'for-sale',
+      },
+      {
+        title: 'Installments',
+        slug: 'installments',
+      },
+    ],
+    availability: [
+      {
+        title: 'Active',
+        slug: 'active',
+      },
+      {
+        title: 'Available',
+        slug: 'available',
+      },
+    ],
     amenities: [],
     gallery: {},
     categories: [],
@@ -107,17 +170,39 @@ export const propertiesRelationships: Record<string, PropertyRelationships> = {
   // 4. alQuozLoft
   alQuozLoft: {
     classification: [
-      // Parent: Residential Units (100)
-      // - Apartment (105)
-      // - Single Family Apartment (106) - Due to its duplex design and 150m² size
+      {
+        title: 'Residential Units',
+        slug: 'residential-units',
+      },
+      {
+        title: 'Apartment',
+        slug: 'apartment',
+      },
+      {
+        title: 'Single Family Apartment',
+        slug: 'single-family-apartment',
+      },
     ],
-    contract: {
-      // Parent: Sales Contracts
-      // - Outright Purchase - Unique property in artistic area
-    },
-    availability: {
-      // Available (Active Properties)
-    },
+    contract: [
+      {
+        title: 'For Sale',
+        slug: 'for-sale',
+      },
+      {
+        title: 'Outright Purchase',
+        slug: 'outright-purchase',
+      },
+    ],
+    availability: [
+      {
+        title: 'Active',
+        slug: 'active',
+      },
+      {
+        title: 'Available',
+        slug: 'available',
+      },
+    ],
     amenities: [],
     gallery: {},
     categories: [],
@@ -129,16 +214,35 @@ export const propertiesRelationships: Record<string, PropertyRelationships> = {
   // 5. businessBayFlat
   businessBayFlat: {
     classification: [
-      // Parent: Residential Units (100)
-      // - Apartment (105) - Executive style 85m² with 1bed/1.5bath
+      {
+        title: 'Residential Units',
+        slug: 'residential-units',
+      },
+      {
+        title: 'Apartment',
+        slug: 'apartment',
+      },
     ],
-    contract: {
-      // Parent: Sales Contracts
-      // - Developer Finance - Premium property with financing options
-    },
-    availability: {
-      // Reserved (Inactive Properties)
-    },
+    contract: [
+      {
+        title: 'For Sale',
+        slug: 'for-sale',
+      },
+      {
+        title: 'Developer Finance',
+        slug: 'developer-finance',
+      },
+    ],
+    availability: [
+      {
+        title: 'Inactive',
+        slug: 'inactive',
+      },
+      {
+        title: 'Reserved',
+        slug: 'reserved',
+      },
+    ],
     amenities: [],
     gallery: {},
     categories: [],
@@ -150,17 +254,39 @@ export const propertiesRelationships: Record<string, PropertyRelationships> = {
   // 6. alNahdaHome
   alNahdaHome: {
     classification: [
-      // Parent: Residential Units (100)
-      // - Apartment (105)
-      // - Single Family Apartment (106) - 110m² family-oriented with 2bed/2bath
+      {
+        title: 'Residential Units',
+        slug: 'residential-units',
+      },
+      {
+        title: 'Apartment',
+        slug: 'apartment',
+      },
+      {
+        title: 'Single Family Apartment',
+        slug: 'single-family-apartment',
+      },
     ],
-    contract: {
-      // Parent: Sales Contracts
-      // - Multiple Cheques - Family home with flexible payment terms
-    },
-    availability: {
-      // Available (Active Properties)
-    },
+    contract: [
+      {
+        title: 'For Sale',
+        slug: 'for-sale',
+      },
+      {
+        title: 'Multiple Cheques',
+        slug: 'multiple-cheques',
+      },
+    ],
+    availability: [
+      {
+        title: 'Active',
+        slug: 'active',
+      },
+      {
+        title: 'Available',
+        slug: 'available',
+      },
+    ],
     amenities: [],
     gallery: {},
     categories: [],
@@ -172,16 +298,35 @@ export const propertiesRelationships: Record<string, PropertyRelationships> = {
   // 7. mirdifVilla
   mirdifVilla: {
     classification: [
-      // Parent: Residential Units (100)
-      // - Single Family Apartment (106) - Luxury 280m² villa with 4bed/4.5bath
+      {
+        title: 'Residential Units',
+        slug: 'residential-units',
+      },
+      {
+        title: 'Single Family Apartment',
+        slug: 'single-family-apartment',
+      },
     ],
-    contract: {
-      // Parent: Sales Contracts
-      // - Extended Payment Terms - Luxury villa with extended payment plan
-    },
-    availability: {
-      // Reserved (Inactive Properties)
-    },
+    contract: [
+      {
+        title: 'For Sale',
+        slug: 'for-sale',
+      },
+      {
+        title: 'Extended Payment Terms',
+        slug: 'extended-payment-terms',
+      },
+    ],
+    availability: [
+      {
+        title: 'Inactive',
+        slug: 'inactive',
+      },
+      {
+        title: 'Reserved',
+        slug: 'reserved',
+      },
+    ],
     amenities: [],
     gallery: {},
     categories: [],
@@ -193,16 +338,35 @@ export const propertiesRelationships: Record<string, PropertyRelationships> = {
   // 8. internationalCityFlat
   internationalCityFlat: {
     classification: [
-      // Parent: Residential Units (100)
-      // - Apartment (105) - Starter home 65m² with 1bed/1bath
+      {
+        title: 'Residential Units',
+        slug: 'residential-units',
+      },
+      {
+        title: 'Apartment',
+        slug: 'apartment',
+      },
     ],
-    contract: {
-      // Parent: Sales Contracts
-      // - Installments - Affordable starter home with payment plan
-    },
-    availability: {
-      // Available (Active Properties)
-    },
+    contract: [
+      {
+        title: 'For Sale',
+        slug: 'for-sale',
+      },
+      {
+        title: 'Installments',
+        slug: 'installments',
+      },
+    ],
+    availability: [
+      {
+        title: 'Active',
+        slug: 'active',
+      },
+      {
+        title: 'Available',
+        slug: 'available',
+      },
+    ],
     amenities: [],
     gallery: {},
     categories: [],
@@ -214,17 +378,39 @@ export const propertiesRelationships: Record<string, PropertyRelationships> = {
   // 9. sportsCityApartment
   sportsCityApartment: {
     classification: [
-      // Parent: Residential Units (100)
-      // - Apartment (105)
-      // - Single Family Apartment (106) - 105m² with 2bed/2bath modern family layout
+      {
+        title: 'Residential Units',
+        slug: 'residential-units',
+      },
+      {
+        title: 'Apartment',
+        slug: 'apartment',
+      },
+      {
+        title: 'Single Family Apartment',
+        slug: 'single-family-apartment',
+      },
     ],
-    contract: {
-      // Parent: Sales Contracts
-      // - Multiple Cheques - Modern apartment with payment flexibility
-    },
-    availability: {
-      // Available (Active Properties)
-    },
+    contract: [
+      {
+        title: 'For Sale',
+        slug: 'for-sale',
+      },
+      {
+        title: 'Multiple Cheques',
+        slug: 'multiple-cheques',
+      },
+    ],
+    availability: [
+      {
+        title: 'Active',
+        slug: 'active',
+      },
+      {
+        title: 'Available',
+        slug: 'available',
+      },
+    ],
     amenities: [],
     gallery: {},
     categories: [],
@@ -236,17 +422,39 @@ export const propertiesRelationships: Record<string, PropertyRelationships> = {
   // 10. alQusaisResidence
   alQusaisResidence: {
     classification: [
-      // Parent: Residential Units (100)
-      // - Apartment (105)
-      // - Single Family Apartment (106) - 90m² with 2bed/2bath family configuration
+      {
+        title: 'Residential Units',
+        slug: 'residential-units',
+      },
+      {
+        title: 'Apartment',
+        slug: 'apartment',
+      },
+      {
+        title: 'Single Family Apartment',
+        slug: 'single-family-apartment',
+      },
     ],
-    contract: {
-      // Parent: Sales Contracts
-      // - Developer Finance - New property with developer financing options
-    },
-    availability: {
-      // New (Active Properties)
-    },
+    contract: [
+      {
+        title: 'For Sale',
+        slug: 'for-sale',
+      },
+      {
+        title: 'Developer Finance',
+        slug: 'developer-finance',
+      },
+    ],
+    availability: [
+      {
+        title: 'Active',
+        slug: 'active',
+      },
+      {
+        title: 'New',
+        slug: 'new',
+      },
+    ],
     amenities: [],
     gallery: {},
     categories: [],
@@ -258,16 +466,35 @@ export const propertiesRelationships: Record<string, PropertyRelationships> = {
   // 11. discoveryGardens
   discoveryGardens: {
     classification: [
-      // Parent: Residential Units (100)
-      // - Apartment (105) - Mediterranean style 75m² with 1bed/1.5bath
+      {
+        title: 'Residential Units',
+        slug: 'residential-units',
+      },
+      {
+        title: 'Apartment',
+        slug: 'apartment',
+      },
     ],
-    contract: {
-      // Parent: Sales Contracts
-      // - Flexible Terms - Mediterranean-style apartment with adaptable terms
-    },
-    availability: {
-      // Reserved (Active Properties)
-    },
+    contract: [
+      {
+        title: 'For Sale',
+        slug: 'for-sale',
+      },
+      {
+        title: 'Flexible Terms',
+        slug: 'flexible-terms',
+      },
+    ],
+    availability: [
+      {
+        title: 'Inactive',
+        slug: 'inactive',
+      },
+      {
+        title: 'Reserved',
+        slug: 'reserved',
+      },
+    ],
     amenities: [],
     gallery: {},
     categories: [],
@@ -279,17 +506,39 @@ export const propertiesRelationships: Record<string, PropertyRelationships> = {
   // 12. remramApartment
   remramApartment: {
     classification: [
-      // Parent: Residential Units (100)
-      // - Apartment (105)
-      // - Single Family Apartment (106) - 95m² with 2bed/2bath family layout
+      {
+        title: 'Residential Units',
+        slug: 'residential-units',
+      },
+      {
+        title: 'Apartment',
+        slug: 'apartment',
+      },
+      {
+        title: 'Single Family Apartment',
+        slug: 'single-family-apartment',
+      },
     ],
-    contract: {
-      // Parent: Sales Contracts
-      // - Multiple Cheques - Updated apartment with payment options
-    },
-    availability: {
-      // Available (Active Properties)
-    },
+    contract: [
+      {
+        title: 'For Sale',
+        slug: 'for-sale',
+      },
+      {
+        title: 'Multiple Cheques',
+        slug: 'multiple-cheques',
+      },
+    ],
+    availability: [
+      {
+        title: 'Active',
+        slug: 'active',
+      },
+      {
+        title: 'Available',
+        slug: 'available',
+      },
+    ],
     amenities: [],
     gallery: {},
     categories: [],
@@ -301,16 +550,35 @@ export const propertiesRelationships: Record<string, PropertyRelationships> = {
   // 13. dubailandTownhouse
   dubailandTownhouse: {
     classification: [
-      // Parent: Residential Units (100)
-      // - Single Family Apartment (106) - Elegant 200m² townhouse with 3bed/3.5bath
+      {
+        title: 'Residential Units',
+        slug: 'residential-units',
+      },
+      {
+        title: 'Single Family Apartment',
+        slug: 'single-family-apartment',
+      },
     ],
-    contract: {
-      // Parent: Sales Contracts
-      // - Pre-Launch Purchase - New development with early-bird pricing
-    },
-    availability: {
-      // Status: Pre-Launch Registration (Active Properties)
-    },
+    contract: [
+      {
+        title: 'For Sale',
+        slug: 'for-sale',
+      },
+      {
+        title: 'Pre-Launch Purchase',
+        slug: 'pre-launch-purchase',
+      },
+    ],
+    availability: [
+      {
+        title: 'Active',
+        slug: 'active',
+      },
+      {
+        title: 'Pre-Launch Registration',
+        slug: 'pre-launch-registration',
+      },
+    ],
     amenities: [],
     gallery: {},
     categories: [],
@@ -322,17 +590,39 @@ export const propertiesRelationships: Record<string, PropertyRelationships> = {
   // 14. warqaaResidence
   warqaaResidence: {
     classification: [
-      // Parent: Residential Units (100)
-      // - Apartment (105)
-      // - Single Family Apartment (106) - 130m² with 3bed/2bath family design
+      {
+        title: 'Residential Units',
+        slug: 'residential-units',
+      },
+      {
+        title: 'Apartment',
+        slug: 'apartment',
+      },
+      {
+        title: 'Single Family Apartment',
+        slug: 'single-family-apartment',
+      },
     ],
-    contract: {
-      // Parent: Sales Contracts
-      // - Multiple Cheques - Spacious family home with payment plan
-    },
-    availability: {
-      // Available (Active Properties)
-    },
+    contract: [
+      {
+        title: 'For Sale',
+        slug: 'for-sale',
+      },
+      {
+        title: 'Multiple Cheques',
+        slug: 'multiple-cheques',
+      },
+    ],
+    availability: [
+      {
+        title: 'Active',
+        slug: 'active',
+      },
+      {
+        title: 'Available',
+        slug: 'available',
+      },
+    ],
     amenities: [],
     gallery: {},
     categories: [],
@@ -344,16 +634,31 @@ export const propertiesRelationships: Record<string, PropertyRelationships> = {
   // 15. karamaFlat
   karamaFlat: {
     classification: [
-      // Parent: Residential Units (100)
-      // - Apartment (105) - Urban 70m² with 1bed/1bath
+      {
+        title: 'Residential Units',
+        slug: 'residential-units',
+      },
+      {
+        title: 'Apartment',
+        slug: 'apartment',
+      },
     ],
-    contract: {
-      // Parent: Sales Contracts
-      // - Pre-Launch Purchase - New development in launch preparation
-    },
-    availability: {
-      // Launch Preparation (Special States)
-    },
+    contract: [
+      {
+        title: 'For Sale',
+        slug: 'for-sale',
+      },
+      {
+        title: 'Pre-Launch Purchase',
+        slug: 'pre-launch-purchase',
+      },
+    ],
+    availability: [
+      {
+        title: 'Launch Preparation',
+        slug: 'launch-preparation',
+      },
+    ],
     amenities: [],
     gallery: {},
     categories: [],
@@ -365,17 +670,39 @@ export const propertiesRelationships: Record<string, PropertyRelationships> = {
   // 16. tecomApartment
   tecomApartment: {
     classification: [
-      // Parent: Residential Units (100)
-      // - Apartment (105)
-      // - Single Family Apartment (106) - Professional 100m² with 2bed/2bath
+      {
+        title: 'Residential Units',
+        slug: 'residential-units',
+      },
+      {
+        title: 'Apartment',
+        slug: 'apartment',
+      },
+      {
+        title: 'Single Family Apartment',
+        slug: 'single-family-apartment',
+      },
     ],
-    contract: {
-      // Parent: Sales Contracts
-      // - Developer Finance - New property with attractive financing
-    },
-    availability: {
-      // Status: New (Active Properties)
-    },
+    contract: [
+      {
+        title: 'For Sale',
+        slug: 'for-sale',
+      },
+      {
+        title: 'Developer Finance',
+        slug: 'developer-finance',
+      },
+    ],
+    availability: [
+      {
+        title: 'Active',
+        slug: 'active',
+      },
+      {
+        title: 'New',
+        slug: 'new',
+      },
+    ],
     amenities: [],
     gallery: {},
     categories: [],
@@ -387,17 +714,39 @@ export const propertiesRelationships: Record<string, PropertyRelationships> = {
   // 17. deiraCondo
   deiraCondo: {
     classification: [
-      // Parent: Residential Units (100)
-      // - Apartment (105)
-      // - Single Family Apartment (106) - Traditional 85m² with 2bed/1.5bath
+      {
+        title: 'Residential Units',
+        slug: 'residential-units',
+      },
+      {
+        title: 'Apartment',
+        slug: 'apartment',
+      },
+      {
+        title: 'Single Family Apartment',
+        slug: 'single-family-apartment',
+      },
     ],
-    contract: {
-      // Parent: Sales Contracts
-      // - Flexible Terms - Traditional property with adaptable payment structure
-    },
-    availability: {
-      // Status: Reserved (Inactive Properties)
-    },
+    contract: [
+      {
+        title: 'For Sale',
+        slug: 'for-sale',
+      },
+      {
+        title: 'Flexible Terms',
+        slug: 'flexible-terms',
+      },
+    ],
+    availability: [
+      {
+        title: 'Inactive',
+        slug: 'inactive',
+      },
+      {
+        title: 'Reserved',
+        slug: 'reserved',
+      },
+    ],
     amenities: [],
     gallery: {},
     categories: [],
@@ -409,16 +758,35 @@ export const propertiesRelationships: Record<string, PropertyRelationships> = {
   // 18. satwaResidence
   satwaResidence: {
     classification: [
-      // Parent: Residential Units (100)
-      // - Apartment (105) - Budget 60m² with 1bed/1bath
+      {
+        title: 'Residential Units',
+        slug: 'residential-units',
+      },
+      {
+        title: 'Apartment',
+        slug: 'apartment',
+      },
     ],
-    contract: {
-      // Parent: Sales Contracts
-      // - Installments - Budget-friendly option with installment plan
-    },
-    availability: {
-      // Status: Available (Active Properties)
-    },
+    contract: [
+      {
+        title: 'For Sale',
+        slug: 'for-sale',
+      },
+      {
+        title: 'Installments',
+        slug: 'installments',
+      },
+    ],
+    availability: [
+      {
+        title: 'Active',
+        slug: 'active',
+      },
+      {
+        title: 'Available',
+        slug: 'available',
+      },
+    ],
     amenities: [],
     gallery: {},
     categories: [],
@@ -430,17 +798,39 @@ export const propertiesRelationships: Record<string, PropertyRelationships> = {
   // 19. rashidiyaHome
   rashidiyaHome: {
     classification: [
-      // Parent: Residential Units (100)
-      // - Apartment (105)
-      // - Single Family Apartment (106) - 115m² with 2bed/2bath family layout
+      {
+        title: 'Residential Units',
+        slug: 'residential-units',
+      },
+      {
+        title: 'Apartment',
+        slug: 'apartment',
+      },
+      {
+        title: 'Single Family Apartment',
+        slug: 'single-family-apartment',
+      },
     ],
-    contract: {
-      // Parent: Sales Contracts
-      // - Developer Finance - New property with developer support
-    },
-    availability: {
-      // Status: New (Active Properties)
-    },
+    contract: [
+      {
+        title: 'For Sale',
+        slug: 'for-sale',
+      },
+      {
+        title: 'Developer Finance',
+        slug: 'developer-finance',
+      },
+    ],
+    availability: [
+      {
+        title: 'Active',
+        slug: 'active',
+      },
+      {
+        title: 'New',
+        slug: 'new',
+      },
+    ],
     amenities: [],
     gallery: {},
     categories: [],
@@ -452,17 +842,39 @@ export const propertiesRelationships: Record<string, PropertyRelationships> = {
   // 20. garhoudApartment
   garhoudApartment: {
     classification: [
-      // Parent: Residential Units (100)
-      // - Apartment (105)
-      // - Single Family Apartment (106) - Upscale 95m² with 2bed/2bath
+      {
+        title: 'Residential Units',
+        slug: 'residential-units',
+      },
+      {
+        title: 'Apartment',
+        slug: 'apartment',
+      },
+      {
+        title: 'Single Family Apartment',
+        slug: 'single-family-apartment',
+      },
     ],
-    contract: {
-      // Parent: Sales Contracts
-      // - Multiple Cheques - Upscale property with flexible payments
-    },
-    availability: {
-      // Status: Available (Active Properties)
-    },
+    contract: [
+      {
+        title: 'For Sale',
+        slug: 'for-sale',
+      },
+      {
+        title: 'Multiple Cheques',
+        slug: 'multiple-cheques',
+      },
+    ],
+    availability: [
+      {
+        title: 'Active',
+        slug: 'active',
+      },
+      {
+        title: 'Available',
+        slug: 'available',
+      },
+    ],
     amenities: [],
     gallery: {},
     categories: [],

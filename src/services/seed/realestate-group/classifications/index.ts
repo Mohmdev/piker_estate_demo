@@ -1,6 +1,6 @@
-import { classificationsMockData } from './classificationsData'
+import { classificationRecords } from './classification-records'
 
-export const mockClassifications = [
-  // doc numbers offset by 100
-  ...classificationsMockData,
+export const classificationsIndex = [
+  //
+  ...classificationRecords,
 ]

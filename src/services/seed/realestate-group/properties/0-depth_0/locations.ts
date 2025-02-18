@@ -1,8 +1,10 @@
 import type { Property } from '@payload-types'
 
-export type LocationData = Property['location']
+type LocationInterface = Property['location']
+type CreateLocation = Record<string, LocationInterface>
 
-export const mockLocations: Record<string, LocationData> = {
+export const locationData: CreateLocation = {
+  // 1. barshaApartment
   barshaApartment: {
     address_line1: '12B Al Barsha Heights',
     unit: '304',
@@ -26,6 +28,7 @@ export const mockLocations: Record<string, LocationData> = {
       ],
     },
   },
+  // 2. jvcResidence
   jvcResidence: {
     address_line1: 'District 14, JVC',
     unit: '1205',
@@ -49,6 +52,7 @@ export const mockLocations: Record<string, LocationData> = {
       ],
     },
   },
+  // 3. siliconOasisStudio
   siliconOasisStudio: {
     address_line1: 'Silicon Heights',
     unit: '506',
@@ -72,6 +76,7 @@ export const mockLocations: Record<string, LocationData> = {
       ],
     },
   },
+  // 4. alQuozLoft
   alQuozLoft: {
     address_line1: 'Al Quoz Industrial Area 1',
     unit: '203',
@@ -95,6 +100,7 @@ export const mockLocations: Record<string, LocationData> = {
       ],
     },
   },
+  // 5. businessBayFlat
   businessBayFlat: {
     address_line1: 'The Residences at Business Central',
     unit: '1102',
@@ -118,6 +124,7 @@ export const mockLocations: Record<string, LocationData> = {
       ],
     },
   },
+  // 6. alNahdaHome
   alNahdaHome: {
     address_line1: 'Al Nahda Residence Complex',
     unit: '705',
@@ -141,6 +148,7 @@ export const mockLocations: Record<string, LocationData> = {
       ],
     },
   },
+  // 7. mirdifVilla
   mirdifVilla: {
     address_line1: '15 Mirdif Villas',
     postcode: '78901',
@@ -163,6 +171,7 @@ export const mockLocations: Record<string, LocationData> = {
       ],
     },
   },
+  // 8. internationalCityFlat
   internationalCityFlat: {
     address_line1: 'England Cluster',
     unit: '408',
@@ -186,6 +195,7 @@ export const mockLocations: Record<string, LocationData> = {
       ],
     },
   },
+  // 9. sportsCityApartment
   sportsCityApartment: {
     address_line1: 'Victory Heights',
     unit: '903',
@@ -209,6 +219,7 @@ export const mockLocations: Record<string, LocationData> = {
       ],
     },
   },
+  // 10. alQusaisResidence
   alQusaisResidence: {
     address_line1: 'Al Qusais Residential Area',
     unit: '605',
@@ -232,6 +243,7 @@ export const mockLocations: Record<string, LocationData> = {
       ],
     },
   },
+  // 11. discoveryGardens
   discoveryGardens: {
     address_line1: 'Mediterranean Cluster',
     unit: '802',
@@ -255,6 +267,7 @@ export const mockLocations: Record<string, LocationData> = {
       ],
     },
   },
+  // 12. remramApartment
   remramApartment: {
     address_line1: 'Remram Community',
     unit: '405',
@@ -278,6 +291,7 @@ export const mockLocations: Record<string, LocationData> = {
       ],
     },
   },
+  // 13. dubailandTownhouse
   dubailandTownhouse: {
     address_line1: 'Mudon Community',
     unit: '27',
@@ -301,6 +315,7 @@ export const mockLocations: Record<string, LocationData> = {
       ],
     },
   },
+  // 14. warqaaResidence
   warqaaResidence: {
     address_line1: 'Al Warqaa 1',
     unit: '503',
@@ -324,6 +339,7 @@ export const mockLocations: Record<string, LocationData> = {
       ],
     },
   },
+  // 15. karamaFlat
   karamaFlat: {
     address_line1: 'Karama Shopping Complex',
     unit: '304',
@@ -347,6 +363,7 @@ export const mockLocations: Record<string, LocationData> = {
       ],
     },
   },
+  // 16. tecomApartment
   tecomApartment: {
     address_line1: 'Two Towers',
     unit: '1504',
@@ -370,6 +387,7 @@ export const mockLocations: Record<string, LocationData> = {
       ],
     },
   },
+  // 17. deiraCondo
   deiraCondo: {
     address_line1: 'Abu Hail Road',
     unit: '902',
@@ -393,6 +411,7 @@ export const mockLocations: Record<string, LocationData> = {
       ],
     },
   },
+  // 18. satwaResidence
   satwaResidence: {
     address_line1: 'Al Satwa Road',
     unit: '205',
@@ -416,6 +435,7 @@ export const mockLocations: Record<string, LocationData> = {
       ],
     },
   },
+  // 19. rashidiyaHome
   rashidiyaHome: {
     address_line1: 'Al Rashidiya Buildings',
     unit: '703',
@@ -439,6 +459,7 @@ export const mockLocations: Record<string, LocationData> = {
       ],
     },
   },
+  // 20. garhoudApartment
   garhoudApartment: {
     address_line1: 'Garhoud Views',
     unit: '1103',

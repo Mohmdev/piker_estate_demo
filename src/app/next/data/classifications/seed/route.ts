@@ -1,5 +1,5 @@
 import config from '@payload-config'
-import { mockClassifications } from '@services/seed/realestate-group/classifications'
+import { classificationsIndex } from '@services/seed/realestate-group/classifications'
 import { headers } from 'next/headers'
 import { getPayload } from 'payload'
 
@@ -16,7 +16,7 @@ export async function POST(): Promise<Response> {
 
   let createdCount = 0
 
-  for (const classification of mockClassifications) {
+  for (const classification of classificationsIndex) {
     try {
       // Check if classification already exists
       const existingClassification = await payload.find({

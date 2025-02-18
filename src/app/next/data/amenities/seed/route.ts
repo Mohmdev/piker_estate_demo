@@ -1,5 +1,5 @@
 import config from '@payload-config'
-import { mockAmenities } from '@services/seed/realestate-group/amenities'
+import { amenitiesIndex } from '@services/seed/realestate-group/amenities'
 import { headers } from 'next/headers'
 import { getPayload } from 'payload'
 
@@ -16,7 +16,7 @@ export async function POST(): Promise<Response> {
 
   let createdCount = 0
 
-  for (const amenity of mockAmenities) {
+  for (const amenity of amenitiesIndex) {
     try {
       // Check if amenity already exists
       const existingAmenity = await payload.find({

@@ -5,7 +5,7 @@ type CreateClassification = Omit<
   'id' | 'createdAt' | 'updatedAt' | 'properties'
 >
 
-export const classificationsMockData: CreateClassification[] = [
+export const classificationRecords: CreateClassification[] = [
   // Root Categories
   {
     title: 'Residential Units',

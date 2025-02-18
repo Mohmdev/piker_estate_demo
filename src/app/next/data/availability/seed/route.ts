@@ -1,5 +1,5 @@
 import config from '@payload-config'
-import { mockAvailabilities } from '@services/seed/realestate-group/availabilities'
+import { availabilitiesIndex } from '@services/seed/realestate-group/availabilities'
 import { headers } from 'next/headers'
 import { getPayload } from 'payload'
 
@@ -16,7 +16,7 @@ export async function POST(): Promise<Response> {
 
   let createdCount = 0
 
-  for (const availability of mockAvailabilities) {
+  for (const availability of availabilitiesIndex) {
     try {
       // Check if availability already exists
       const existingAvailability = await payload.find({

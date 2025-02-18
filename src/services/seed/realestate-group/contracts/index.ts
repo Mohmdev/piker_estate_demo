@@ -1,11 +1,11 @@
-import { mockRentalContracts } from './rentals'
-import { mockSalesContracts } from './sales'
+import { forRentRecords } from './forRent-records'
+import { forSaleRecords } from './forSale-records'
 
-export const mockContracts = [
+export const contractsIndex = [
   // doc numbers offset by 100
-  ...mockRentalContracts,
+  ...forRentRecords,
   // doc numbers offset by 200
-  ...mockSalesContracts,
+  ...forSaleRecords,
 ]
 
-export { mockRentalContracts, mockSalesContracts }
+export { forRentRecords, forSaleRecords }

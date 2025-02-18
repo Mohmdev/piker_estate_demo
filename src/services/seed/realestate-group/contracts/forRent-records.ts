@@ -5,10 +5,10 @@ type CreateContract = Omit<
   'id' | 'createdAt' | 'updatedAt' | 'properties'
 >
 
-export const mockRentalContracts: CreateContract[] = [
-  // Rental Contracts (Parent)
+export const forRentRecords: CreateContract[] = [
+  // For Rent (Parent)
   {
-    title: 'Rental Contracts',
+    title: 'For Rent',
     description: null,
     image: null,
     relatedDocs: [],
@@ -21,15 +21,15 @@ export const mockRentalContracts: CreateContract[] = [
     authors: [],
     populatedAuthors: [],
     publishedAt: '2025-02-15T15:50:17.675Z',
-    slug: 'rental-contracts',
+    slug: 'for-rent',
     slugLock: true,
     parent: null,
     breadcrumbs: [
       {
         id: '67b0b7b99a1e4304421b439c',
         doc: 100,
-        url: '/rental-contracts',
-        label: 'Rental Contracts',
+        url: '/for-rent',
+        label: 'For Rent',
       },
     ],
     _status: 'published',
@@ -56,13 +56,13 @@ export const mockRentalContracts: CreateContract[] = [
       {
         id: '67b0b7de9a1e4304421b43a2',
         doc: 100,
-        url: '/rental-contracts',
-        label: 'Rental Contracts',
+        url: '/for-rent',
+        label: 'For Rent',
       },
       {
         id: '67b0b7de9a1e4304421b43a3',
         doc: 101,
-        url: '/rental-contracts/long-term-rental',
+        url: '/for-rent/long-term-rental',
         label: 'Long-Term Rental',
       },
     ],
@@ -90,13 +90,13 @@ export const mockRentalContracts: CreateContract[] = [
       {
         id: '67b0b8449a1e4304421b43c4',
         doc: 100,
-        url: '/rental-contracts',
-        label: 'Rental Contracts',
+        url: '/for-rent',
+        label: 'For Rent',
       },
       {
         id: '67b0b8449a1e4304421b43c5',
         doc: 102,
-        url: '/rental-contracts/short-term-rental',
+        url: '/for-rent/short-term-rental',
         label: 'Short-Term Rental',
       },
     ],
@@ -124,13 +124,13 @@ export const mockRentalContracts: CreateContract[] = [
       {
         id: '67b0b8449a1e4304421b43c6',
         doc: 100,
-        url: '/rental-contracts',
-        label: 'Rental Contracts',
+        url: '/for-rent',
+        label: 'For Rent',
       },
       {
         id: '67b0b8449a1e4304421b43c7',
         doc: 103,
-        url: '/rental-contracts/daily-rental',
+        url: '/for-rent/daily-rental',
         label: 'Daily Rental',
       },
     ],
@@ -158,13 +158,13 @@ export const mockRentalContracts: CreateContract[] = [
       {
         id: '67b0b8449a1e4304421b43c8',
         doc: 100,
-        url: '/rental-contracts',
-        label: 'Rental Contracts',
+        url: '/for-rent',
+        label: 'For Rent',
       },
       {
         id: '67b0b8449a1e4304421b43c9',
         doc: 104,
-        url: '/rental-contracts/weekly-rental',
+        url: '/for-rent/weekly-rental',
         label: 'Weekly Rental',
       },
     ],
@@ -192,13 +192,13 @@ export const mockRentalContracts: CreateContract[] = [
       {
         id: '67b0b8449a1e4304421b43ca',
         doc: 100,
-        url: '/rental-contracts',
-        label: 'Rental Contracts',
+        url: '/for-rent',
+        label: 'For Rent',
       },
       {
         id: '67b0b8449a1e4304421b43cb',
         doc: 105,
-        url: '/rental-contracts/monthly-rental',
+        url: '/for-rent/monthly-rental',
         label: 'Monthly Rental',
       },
     ],
@@ -226,13 +226,13 @@ export const mockRentalContracts: CreateContract[] = [
       {
         id: '67b0b8449a1e4304421b43cc',
         doc: 100,
-        url: '/rental-contracts',
-        label: 'Rental Contracts',
+        url: '/for-rent',
+        label: 'For Rent',
       },
       {
         id: '67b0b8449a1e4304421b43cd',
         doc: 106,
-        url: '/rental-contracts/seasonal-rental',
+        url: '/for-rent/seasonal-rental',
         label: 'Seasonal Rental',
       },
     ],
@@ -260,13 +260,13 @@ export const mockRentalContracts: CreateContract[] = [
       {
         id: '67b0b8449a1e4304421b43ce',
         doc: 100,
-        url: '/rental-contracts',
-        label: 'Rental Contracts',
+        url: '/for-rent',
+        label: 'For Rent',
       },
       {
         id: '67b0b8449a1e4304421b43cf',
         doc: 107,
-        url: '/rental-contracts/annual-rental',
+        url: '/for-rent/annual-rental',
         label: 'Annual Rental',
       },
     ],
@@ -294,13 +294,13 @@ export const mockRentalContracts: CreateContract[] = [
       {
         id: '67b0b8449a1e4304421b43d0',
         doc: 100,
-        url: '/rental-contracts',
-        label: 'Rental Contracts',
+        url: '/for-rent',
+        label: 'For Rent',
       },
       {
         id: '67b0b8449a1e4304421b43d1',
         doc: 108,
-        url: '/rental-contracts/holiday-home',
+        url: '/for-rent/holiday-home',
         label: 'Holiday Home',
       },
     ],
@@ -328,13 +328,13 @@ export const mockRentalContracts: CreateContract[] = [
       {
         id: '67b0b8449a1e4304421b43d2',
         doc: 100,
-        url: '/rental-contracts',
-        label: 'Rental Contracts',
+        url: '/for-rent',
+        label: 'For Rent',
       },
       {
         id: '67b0b8449a1e4304421b43d3',
         doc: 109,
-        url: '/rental-contracts/corporate-short-stay',
+        url: '/for-rent/corporate-short-stay',
         label: 'Corporate Short Stay',
       },
     ],

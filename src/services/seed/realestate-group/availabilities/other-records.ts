@@ -5,40 +5,8 @@ type CreateAvailability = Omit<
   'id' | 'createdAt' | 'updatedAt' | 'properties'
 >
 
-export const specialAvailability: CreateAvailability[] = [
-  // Special States (Parent)
-  {
-    title: 'Special States',
-    allowInquiries: false,
-    showInSearch: false,
-    color: 'purple',
-    description: null,
-    image: null,
-    icon: null,
-    relatedDocs: [],
-    meta: {
-      title: null,
-      image: null,
-      description: null,
-    },
-    noindex: null,
-    authors: [],
-    populatedAuthors: [],
-    publishedAt: '2025-02-15T15:50:17.675Z',
-    slug: 'special-states',
-    slugLock: true,
-    parent: null,
-    breadcrumbs: [
-      {
-        id: '67b0b7b99a1e4304421b539b',
-        doc: 201,
-        url: '/special-states',
-        label: 'Special States',
-      },
-    ],
-    _status: 'published',
-  },
-  // Coming Soon (Child of Special States)
+export const otherRecords: CreateAvailability[] = [
+  // Coming Soon
   {
     title: 'Coming Soon',
     allowInquiries: false,
@@ -59,24 +27,18 @@ export const specialAvailability: CreateAvailability[] = [
     publishedAt: '2025-02-15T15:51:50.276Z',
     slug: 'coming-soon',
     slugLock: true,
-    parent: 201,
+    parent: null,
     breadcrumbs: [
-      {
-        id: '67b0b8449a1e4304421b53a7',
-        doc: 201,
-        url: '/special-states',
-        label: 'Special States',
-      },
       {
         id: '67b0b8449a1e4304421b53a8',
         doc: 202,
-        url: '/special-states/coming-soon',
+        url: '/coming-soon',
         label: 'Coming Soon',
       },
     ],
     _status: 'published',
   },
-  // Under Construction (Child of Special States)
+  // Under Construction
   {
     title: 'Under Construction',
     allowInquiries: false,
@@ -97,24 +59,18 @@ export const specialAvailability: CreateAvailability[] = [
     publishedAt: '2025-02-15T15:52:50.276Z',
     slug: 'under-construction',
     slugLock: true,
-    parent: 201,
+    parent: null,
     breadcrumbs: [
-      {
-        id: '67b0b8449a1e4304421b53b0',
-        doc: 201,
-        url: '/special-states',
-        label: 'Special States',
-      },
       {
         id: '67b0b8449a1e4304421b53b1',
         doc: 203,
-        url: '/special-states/under-construction',
+        url: '/under-construction',
         label: 'Under Construction',
       },
     ],
     _status: 'published',
   },
-  // Launch Preparation (Child of Special States)
+  // Launch Preparation
   {
     title: 'Launch Preparation',
     allowInquiries: false,
@@ -135,24 +91,18 @@ export const specialAvailability: CreateAvailability[] = [
     publishedAt: '2025-02-15T15:54:50.276Z',
     slug: 'launch-preparation',
     slugLock: true,
-    parent: 201,
+    parent: null,
     breadcrumbs: [
-      {
-        id: '67b0b8449a1e4304421b53d0',
-        doc: 201,
-        url: '/special-states',
-        label: 'Special States',
-      },
       {
         id: '67b0b8449a1e4304421b53d1',
         doc: 204,
-        url: '/special-states/launch-preparation',
+        url: '/launch-preparation',
         label: 'Launch Preparation',
       },
     ],
     _status: 'published',
   },
-  // Off-Market (Child of Special States)
+  // Off-Market
   {
     title: 'Off-Market',
     allowInquiries: false,
@@ -173,24 +123,18 @@ export const specialAvailability: CreateAvailability[] = [
     publishedAt: '2025-02-15T15:55:50.276Z',
     slug: 'off-market',
     slugLock: true,
-    parent: 201,
+    parent: null,
     breadcrumbs: [
-      {
-        id: '67b0b8449a1e4304421b53e0',
-        doc: 201,
-        url: '/special-states',
-        label: 'Special States',
-      },
       {
         id: '67b0b8449a1e4304421b53e1',
         doc: 205,
-        url: '/special-states/off-market',
+        url: '/off-market',
         label: 'Off-Market',
       },
     ],
     _status: 'published',
   },
-  // Private Listing (Child of Special States)
+  // Private Listing
   {
     title: 'Private Listing',
     allowInquiries: false,
@@ -211,24 +155,18 @@ export const specialAvailability: CreateAvailability[] = [
     publishedAt: '2025-02-15T15:56:50.276Z',
     slug: 'private-listing',
     slugLock: true,
-    parent: 201,
+    parent: null,
     breadcrumbs: [
-      {
-        id: '67b0b8449a1e4304421b53f0',
-        doc: 201,
-        url: '/special-states',
-        label: 'Special States',
-      },
       {
         id: '67b0b8449a1e4304421b53f1',
         doc: 206,
-        url: '/special-states/private-listing',
+        url: '/private-listing',
         label: 'Private Listing',
       },
     ],
     _status: 'published',
   },
-  // Archive (Child of Special States)
+  // Archive
   {
     title: 'Archive',
     allowInquiries: false,
@@ -249,24 +187,18 @@ export const specialAvailability: CreateAvailability[] = [
     publishedAt: '2025-02-15T15:59:50.276Z',
     slug: 'archive',
     slugLock: true,
-    parent: 201,
+    parent: null,
     breadcrumbs: [
-      {
-        id: '67b0b8449a1e4304421b5420',
-        doc: 201,
-        url: '/special-states',
-        label: 'Special States',
-      },
       {
         id: '67b0b8449a1e4304421b5421',
         doc: 207,
-        url: '/special-states/archive',
+        url: '/archive',
         label: 'Archive',
       },
     ],
     _status: 'published',
   },
-  // Historical (Child of Special States)
+  // Historical
   {
     title: 'Historical',
     allowInquiries: false,
@@ -287,18 +219,12 @@ export const specialAvailability: CreateAvailability[] = [
     publishedAt: '2025-02-15T16:00:50.276Z',
     slug: 'historical',
     slugLock: true,
-    parent: 201,
+    parent: null,
     breadcrumbs: [
-      {
-        id: '67b0b8449a1e4304421b5430',
-        doc: 201,
-        url: '/special-states',
-        label: 'Special States',
-      },
       {
         id: '67b0b8449a1e4304421b5431',
         doc: 208,
-        url: '/special-states/historical',
+        url: '/historical',
         label: 'Historical',
       },
     ],

@@ -5,10 +5,10 @@ type CreateAvailability = Omit<
   'id' | 'createdAt' | 'updatedAt' | 'properties'
 >
 
-export const activeAvailability: CreateAvailability[] = [
+export const activeRecords: CreateAvailability[] = [
   // Active Properties (Parent)
   {
-    title: 'Active Properties',
+    title: 'Active',
     allowInquiries: true,
     showInSearch: true,
     color: 'green',
@@ -25,15 +25,15 @@ export const activeAvailability: CreateAvailability[] = [
     authors: [],
     populatedAuthors: [],
     publishedAt: '2025-02-15T15:50:17.675Z',
-    slug: 'active-properties',
+    slug: 'active',
     slugLock: true,
     parent: null,
     breadcrumbs: [
       {
         id: '67b0b7b99a1e4304421b439b',
         doc: 1,
-        url: '/active-properties',
-        label: 'Active Properties',
+        url: '/active',
+        label: 'Active',
       },
     ],
     _status: 'published',
@@ -64,13 +64,13 @@ export const activeAvailability: CreateAvailability[] = [
       {
         id: '67b0b7de9a1e4304421b43a0',
         doc: 1,
-        url: '/active-properties',
-        label: 'Active Properties',
+        url: '/active',
+        label: 'Active',
       },
       {
         id: '67b0b7de9a1e4304421b43a1',
         doc: 2,
-        url: '/active-properties/available',
+        url: '/active/available',
         label: 'Available',
       },
     ],
@@ -102,13 +102,13 @@ export const activeAvailability: CreateAvailability[] = [
       {
         id: '67b0b8449a1e4304421b43a7',
         doc: 1,
-        url: '/active-properties',
-        label: 'Active Properties',
+        url: '/active',
+        label: 'Active',
       },
       {
         id: '67b0b8449a1e4304421b43a8',
         doc: 3,
-        url: '/active-properties/new',
+        url: '/active/new',
         label: 'New',
       },
     ],
@@ -140,13 +140,13 @@ export const activeAvailability: CreateAvailability[] = [
       {
         id: '67b0b8899a1e4304421b43ba',
         doc: 1,
-        url: '/active-properties',
-        label: 'Active Properties',
+        url: '/active',
+        label: 'Active',
       },
       {
         id: '67b0b8899a1e4304421b43bb',
         doc: 4,
-        url: '/active-properties/pre-launch-registration',
+        url: '/active/pre-launch-registration',
         label: 'Pre-Launch Registration',
       },
     ],

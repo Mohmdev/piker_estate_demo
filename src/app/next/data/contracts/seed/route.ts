@@ -1,5 +1,5 @@
 import config from '@payload-config'
-import { mockContracts } from '@services/seed/realestate-group/contracts'
+import { contractsIndex } from '@services/seed/realestate-group/contracts'
 import { headers } from 'next/headers'
 import { getPayload } from 'payload'
 
@@ -16,7 +16,7 @@ export async function POST(): Promise<Response> {
 
   let createdCount = 0
 
-  for (const contract of mockContracts) {
+  for (const contract of contractsIndex) {
     try {
       // Check if contract already exists
       const existingContract = await payload.find({

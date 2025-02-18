@@ -5,10 +5,10 @@ type CreateContract = Omit<
   'id' | 'createdAt' | 'updatedAt' | 'properties'
 >
 
-export const mockSalesContracts: CreateContract[] = [
-  // Sales Contracts (Parent)
+export const forSaleRecords: CreateContract[] = [
+  // For Sale (Parent)
   {
-    title: 'Sales Contracts',
+    title: 'For Sale',
     description: null,
     image: null,
     relatedDocs: [],
@@ -21,15 +21,15 @@ export const mockSalesContracts: CreateContract[] = [
     authors: [],
     populatedAuthors: [],
     publishedAt: '2025-02-15T16:20:50.276Z',
-    slug: 'sales-contracts',
+    slug: 'for-sale',
     slugLock: true,
     parent: null,
     breadcrumbs: [
       {
         id: '67b0b8449a1e4304421b43f3',
         doc: 200,
-        url: '/sales-contracts',
-        label: 'Sales Contracts',
+        url: '/for-sale',
+        label: 'For Sale',
       },
     ],
     _status: 'published',
@@ -56,13 +56,13 @@ export const mockSalesContracts: CreateContract[] = [
       {
         id: '67b0b8449a1e4304421b43f4',
         doc: 200,
-        url: '/sales-contracts',
-        label: 'Sales Contracts',
+        url: '/for-sale',
+        label: 'For Sale',
       },
       {
         id: '67b0b8449a1e4304421b43f5',
         doc: 201,
-        url: '/sales-contracts/outright-purchase',
+        url: '/for-sale/outright-purchase',
         label: 'Outright Purchase',
       },
     ],
@@ -90,13 +90,13 @@ export const mockSalesContracts: CreateContract[] = [
       {
         id: '67b0b8449a1e4304421b43f6',
         doc: 200,
-        url: '/sales-contracts',
-        label: 'Sales Contracts',
+        url: '/for-sale',
+        label: 'For Sale',
       },
       {
         id: '67b0b8449a1e4304421b43f7',
         doc: 202,
-        url: '/sales-contracts/pre-launch-purchase',
+        url: '/for-sale/pre-launch-purchase',
         label: 'Pre-Launch Purchase',
       },
     ],
@@ -124,13 +124,13 @@ export const mockSalesContracts: CreateContract[] = [
       {
         id: '67b0b8449a1e4304421b43f8',
         doc: 200,
-        url: '/sales-contracts',
-        label: 'Sales Contracts',
+        url: '/for-sale',
+        label: 'For Sale',
       },
       {
         id: '67b0b8449a1e4304421b43f9',
         doc: 203,
-        url: '/sales-contracts/installments',
+        url: '/for-sale/installments',
         label: 'Installments',
       },
     ],
@@ -158,13 +158,13 @@ export const mockSalesContracts: CreateContract[] = [
       {
         id: '67b0b8449a1e4304421b43fa',
         doc: 200,
-        url: '/sales-contracts',
-        label: 'Sales Contracts',
+        url: '/for-sale',
+        label: 'For Sale',
       },
       {
         id: '67b0b8449a1e4304421b43fb',
         doc: 204,
-        url: '/sales-contracts/down-payment',
+        url: '/for-sale/down-payment',
         label: 'Down Payment',
       },
     ],
@@ -192,13 +192,13 @@ export const mockSalesContracts: CreateContract[] = [
       {
         id: '67b0b8449a1e4304421b43fc',
         doc: 200,
-        url: '/sales-contracts',
-        label: 'Sales Contracts',
+        url: '/for-sale',
+        label: 'For Sale',
       },
       {
         id: '67b0b8449a1e4304421b43fd',
         doc: 205,
-        url: '/sales-contracts/developer-finance',
+        url: '/for-sale/developer-finance',
         label: 'Developer Finance',
       },
     ],
@@ -226,13 +226,13 @@ export const mockSalesContracts: CreateContract[] = [
       {
         id: '67b0b8449a1e4304421b43fe',
         doc: 200,
-        url: '/sales-contracts',
-        label: 'Sales Contracts',
+        url: '/for-sale',
+        label: 'For Sale',
       },
       {
         id: '67b0b8449a1e4304421b43ff',
         doc: 206,
-        url: '/sales-contracts/extended-payment-terms',
+        url: '/for-sale/extended-payment-terms',
         label: 'Extended Payment Terms',
       },
     ],
@@ -260,13 +260,13 @@ export const mockSalesContracts: CreateContract[] = [
       {
         id: '67b0b8449a1e4304421b4400',
         doc: 200,
-        url: '/sales-contracts',
-        label: 'Sales Contracts',
+        url: '/for-sale',
+        label: 'For Sale',
       },
       {
         id: '67b0b8449a1e4304421b4401',
         doc: 207,
-        url: '/sales-contracts/flexible-terms',
+        url: '/for-sale/flexible-terms',
         label: 'Flexible Terms',
       },
     ],
@@ -294,13 +294,13 @@ export const mockSalesContracts: CreateContract[] = [
       {
         id: '67b0b8449a1e4304421b4402',
         doc: 200,
-        url: '/sales-contracts',
-        label: 'Sales Contracts',
+        url: '/for-sale',
+        label: 'For Sale',
       },
       {
         id: '67b0b8449a1e4304421b4403',
         doc: 208,
-        url: '/sales-contracts/multiple-cheques',
+        url: '/for-sale/multiple-cheques',
         label: 'Multiple Cheques',
       },
     ],
@@ -328,13 +328,13 @@ export const mockSalesContracts: CreateContract[] = [
       {
         id: '67b0b8449a1e4304421b4404',
         doc: 200,
-        url: '/sales-contracts',
-        label: 'Sales Contracts',
+        url: '/for-sale',
+        label: 'For Sale',
       },
       {
         id: '67b0b8449a1e4304421b4405',
         doc: 209,
-        url: '/sales-contracts/security-deposit',
+        url: '/for-sale/security-deposit',
         label: 'Security Deposit',
       },
     ],

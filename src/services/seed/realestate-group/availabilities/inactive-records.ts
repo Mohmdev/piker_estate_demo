@@ -5,10 +5,10 @@ type CreateAvailability = Omit<
   'id' | 'createdAt' | 'updatedAt' | 'properties'
 >
 
-export const inactiveAvailability: CreateAvailability[] = [
+export const inactiveRecords: CreateAvailability[] = [
   // Inactive Properties (Parent)
   {
-    title: 'Inactive Properties',
+    title: 'Inactive',
     allowInquiries: false,
     showInSearch: false,
     color: 'gray',
@@ -25,15 +25,15 @@ export const inactiveAvailability: CreateAvailability[] = [
     authors: [],
     populatedAuthors: [],
     publishedAt: '2025-02-15T15:50:17.675Z',
-    slug: 'inactive-properties',
+    slug: 'inactive',
     slugLock: true,
     parent: null,
     breadcrumbs: [
       {
         id: '67b0b7b99a1e4304421b440b',
         doc: 101,
-        url: '/inactive-properties',
-        label: 'Inactive Properties',
+        url: '/inactive',
+        label: 'Inactive',
       },
     ],
     _status: 'published',
@@ -64,13 +64,13 @@ export const inactiveAvailability: CreateAvailability[] = [
       {
         id: '67b0b7de9a1e4304421b441c',
         doc: 101,
-        url: '/inactive-properties',
-        label: 'Inactive Properties',
+        url: '/inactive',
+        label: 'Inactive',
       },
       {
         id: '67b0b7de9a1e4304421b441d',
         doc: 102,
-        url: '/inactive-properties/reserved',
+        url: '/inactive/reserved',
         label: 'Reserved',
       },
     ],
@@ -102,13 +102,13 @@ export const inactiveAvailability: CreateAvailability[] = [
       {
         id: '67b0b8449a1e4304421b442e',
         doc: 101,
-        url: '/inactive-properties',
-        label: 'Inactive Properties',
+        url: '/inactive',
+        label: 'Inactive',
       },
       {
         id: '67b0b8449a1e4304421b442f',
         doc: 103,
-        url: '/inactive-properties/occupied',
+        url: '/inactive/occupied',
         label: 'Occupied',
       },
     ],
@@ -140,13 +140,13 @@ export const inactiveAvailability: CreateAvailability[] = [
       {
         id: '67b0b8449a1e4304421b4441',
         doc: 101,
-        url: '/inactive-properties',
-        label: 'Inactive Properties',
+        url: '/inactive',
+        label: 'Inactive',
       },
       {
         id: '67b0b8449a1e4304421b4442',
         doc: 104,
-        url: '/inactive-properties/rented',
+        url: '/inactive/rented',
         label: 'Rented',
       },
     ],
@@ -178,13 +178,13 @@ export const inactiveAvailability: CreateAvailability[] = [
       {
         id: '67b0b8449a1e4304421b4451',
         doc: 101,
-        url: '/inactive-properties',
-        label: 'Inactive Properties',
+        url: '/inactive',
+        label: 'Inactive',
       },
       {
         id: '67b0b8449a1e4304421b4452',
         doc: 105,
-        url: '/inactive-properties/sold',
+        url: '/inactive/sold',
         label: 'Sold',
       },
     ],
@@ -216,13 +216,13 @@ export const inactiveAvailability: CreateAvailability[] = [
       {
         id: '67b0b8449a1e4304421b4461',
         doc: 101,
-        url: '/inactive-properties',
-        label: 'Inactive Properties',
+        url: '/inactive',
+        label: 'Inactive',
       },
       {
         id: '67b0b8449a1e4304421b4462',
         doc: 106,
-        url: '/inactive-properties/on-hold',
+        url: '/inactive/on-hold',
         label: 'On Hold',
       },
     ],
@@ -254,13 +254,13 @@ export const inactiveAvailability: CreateAvailability[] = [
       {
         id: '67b0b8449a1e4304421b4471',
         doc: 101,
-        url: '/inactive-properties',
-        label: 'Inactive Properties',
+        url: '/inactive',
+        label: 'Inactive',
       },
       {
         id: '67b0b8449a1e4304421b4472',
         doc: 107,
-        url: '/inactive-properties/no-longer-available',
+        url: '/inactive/no-longer-available',
         label: 'No Longer Available',
       },
     ],
@@ -292,13 +292,13 @@ export const inactiveAvailability: CreateAvailability[] = [
       {
         id: '67b0b8449a1e4304421b4481',
         doc: 101,
-        url: '/inactive-properties',
-        label: 'Inactive Properties',
+        url: '/inactive',
+        label: 'Inactive',
       },
       {
         id: '67b0b8449a1e4304421b4482',
         doc: 108,
-        url: '/inactive-properties/demolished',
+        url: '/inactive/demolished',
         label: 'Demolished',
       },
     ],

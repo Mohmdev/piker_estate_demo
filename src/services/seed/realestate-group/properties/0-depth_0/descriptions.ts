@@ -1,8 +1,9 @@
 import type { Property } from '@payload-types'
 
-export type CreateDescription = Property['description']
+type DescriptionInterface = Property['description']
+type CreateDescription = Record<string, DescriptionInterface>
 
-export const mockDescriptions: Record<string, CreateDescription> = {
+export const descriptionData: CreateDescription = {
   barshaApartment: {
     root: {
       type: 'root',

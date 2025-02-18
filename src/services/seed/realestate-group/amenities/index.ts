@@ -1,22 +1,8 @@
-import { buildingAmenities } from './building'
-import { communityAmenities } from './community'
-import { premiumAmenities } from './premium'
-import { unitAmenities } from './unit'
+import { amenityRecords } from './amenity-records'
 
-export const mockAmenities = [
-  // doc numbers offset by 100
-  ...buildingAmenities,
-  // doc numbers offset by 200
-  ...unitAmenities,
-  // doc numbers offset by 300
-  ...premiumAmenities,
-  // doc numbers offset by 400
-  ...communityAmenities,
+export const amenitiesIndex = [
+  //
+  ...amenityRecords,
 ]
 
-export {
-  buildingAmenities,
-  unitAmenities,
-  communityAmenities,
-  premiumAmenities,
-}
+export { amenityRecords }

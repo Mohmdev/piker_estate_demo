@@ -1,4 +1,5 @@
 import config from '@payload-config'
+import { propertiesDepthOne } from '@services/seed/realestate-group/properties/2-depth_1'
 import { mockProperties } from '@services/seed/realestate-group/properties/index.dubai'
 import { headers } from 'next/headers'
 import { getPayload } from 'payload'
@@ -16,7 +17,7 @@ export async function POST(): Promise<Response> {
 
   let createdCount = 0
 
-  for (const property of mockProperties) {
+  for (const property of propertiesDepthOne) {
     try {
       // Check if property already exists
       const existingProperty = await payload.find({

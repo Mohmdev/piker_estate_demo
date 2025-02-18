@@ -1,8 +1,9 @@
 import type { Property } from '@payload-types'
 
-export type SpecsData = Property['specs']
+type SpecsInterface = Property['specs']
+type CreateSpecs = Record<string, SpecsInterface>
 
-export const mockSpecs: Record<string, SpecsData> = {
+export const specsData: CreateSpecs = {
   barshaApartment: {
     measurements: {
       sizeRange: 'medium',
