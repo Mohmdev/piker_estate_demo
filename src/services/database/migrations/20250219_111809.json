@@ -1,5 +1,5 @@
 {
-  "id": "41538fb7-3b87-4573-8f3d-9260f44d1564",
+  "id": "121d4ced-2918-4096-8b53-3d8cd59265e9",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -14066,6 +14066,12 @@
           "primaryKey": false,
           "notNull": false
         },
+        "projects_id": {
+          "name": "projects_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
         "contracts_id": {
           "name": "contracts_id",
           "type": "integer",
@@ -14208,6 +14214,21 @@
           "columns": [
             {
               "expression": "classifications_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "pages_rels_projects_id_idx": {
+          "name": "pages_rels_projects_id_idx",
+          "columns": [
+            {
+              "expression": "projects_id",
               "isExpression": false,
               "asc": true,
               "nulls": "last"
@@ -14366,6 +14387,19 @@
           "tableTo": "classifications",
           "columnsFrom": [
             "classifications_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "pages_rels_projects_fk": {
+          "name": "pages_rels_projects_fk",
+          "tableFrom": "pages_rels",
+          "tableTo": "projects",
+          "columnsFrom": [
+            "projects_id"
           ],
           "columnsTo": [
             "id"
@@ -16935,6 +16969,12 @@
           "primaryKey": false,
           "notNull": false
         },
+        "projects_id": {
+          "name": "projects_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
         "contracts_id": {
           "name": "contracts_id",
           "type": "integer",
@@ -17077,6 +17117,21 @@
           "columns": [
             {
               "expression": "classifications_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "_pages_v_rels_projects_id_idx": {
+          "name": "_pages_v_rels_projects_id_idx",
+          "columns": [
+            {
+              "expression": "projects_id",
               "isExpression": false,
               "asc": true,
               "nulls": "last"
@@ -17235,6 +17290,19 @@
           "tableTo": "classifications",
           "columnsFrom": [
             "classifications_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "_pages_v_rels_projects_fk": {
+          "name": "_pages_v_rels_projects_fk",
+          "tableFrom": "_pages_v_rels",
+          "tableTo": "projects",
+          "columnsFrom": [
+            "projects_id"
           ],
           "columnsTo": [
             "id"
@@ -29776,7 +29844,9 @@
       "name": "enum_pages_blocks_archive_relation_to",
       "schema": "public",
       "values": [
-        "blog"
+        "blog",
+        "properties",
+        "projects"
       ]
     },
     "public.enum_listingBlock_card_enabled_fields": {
@@ -30153,7 +30223,9 @@
       "name": "enum__pages_v_blocks_archive_relation_to",
       "schema": "public",
       "values": [
-        "blog"
+        "blog",
+        "properties",
+        "projects"
       ]
     },
     "public.enum__listingBlock_v_card_enabled_fields": {

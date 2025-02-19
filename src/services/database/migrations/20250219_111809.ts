@@ -59,7 +59,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE TYPE "public"."enum_pages_blocks_content_columns_link_type" AS ENUM('reference', 'custom');
   CREATE TYPE "public"."enum_pages_blocks_content_columns_link_appearance" AS ENUM('default', 'outline');
   CREATE TYPE "public"."enum_pages_blocks_archive_populate_by" AS ENUM('collection', 'selection');
-  CREATE TYPE "public"."enum_pages_blocks_archive_relation_to" AS ENUM('blog');
+  CREATE TYPE "public"."enum_pages_blocks_archive_relation_to" AS ENUM('blog', 'properties', 'projects');
   CREATE TYPE "public"."enum_listingBlock_card_enabled_fields" AS ENUM('price', 'bedrooms', 'bathrooms', 'lotSize', 'yearBuilt', 'areaSize', 'parkingSpaces', 'description', 'categories', 'thumbnail', 'tags');
   CREATE TYPE "public"."enum_listingBlock_view_layout" AS ENUM('grid', 'list', 'ftrd', 'crsl');
   CREATE TYPE "public"."enum_listingBlock_card_thumbnail_fit" AS ENUM('cover', 'contain', 'fill');
@@ -96,7 +96,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE TYPE "public"."enum__pages_v_blocks_content_columns_link_type" AS ENUM('reference', 'custom');
   CREATE TYPE "public"."enum__pages_v_blocks_content_columns_link_appearance" AS ENUM('default', 'outline');
   CREATE TYPE "public"."enum__pages_v_blocks_archive_populate_by" AS ENUM('collection', 'selection');
-  CREATE TYPE "public"."enum__pages_v_blocks_archive_relation_to" AS ENUM('blog');
+  CREATE TYPE "public"."enum__pages_v_blocks_archive_relation_to" AS ENUM('blog', 'properties', 'projects');
   CREATE TYPE "public"."enum__listingBlock_v_card_enabled_fields" AS ENUM('price', 'bedrooms', 'bathrooms', 'lotSize', 'yearBuilt', 'areaSize', 'parkingSpaces', 'description', 'categories', 'thumbnail', 'tags');
   CREATE TYPE "public"."enum__listingBlock_v_view_layout" AS ENUM('grid', 'list', 'ftrd', 'crsl');
   CREATE TYPE "public"."enum__listingBlock_v_card_thumbnail_fit" AS ENUM('cover', 'contain', 'fill');
@@ -1155,6 +1155,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"properties_id" integer,
   	"blog_categories_id" integer,
   	"classifications_id" integer,
+  	"projects_id" integer,
   	"contracts_id" integer,
   	"availability_id" integer,
   	"amenities_id" integer,
@@ -1391,6 +1392,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"properties_id" integer,
   	"blog_categories_id" integer,
   	"classifications_id" integer,
+  	"projects_id" integer,
   	"contracts_id" integer,
   	"availability_id" integer,
   	"amenities_id" integer,
@@ -3493,6 +3495,12 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   END $$;
   
   DO $$ BEGIN
+   ALTER TABLE "pages_rels" ADD CONSTRAINT "pages_rels_projects_fk" FOREIGN KEY ("projects_id") REFERENCES "public"."projects"("id") ON DELETE cascade ON UPDATE no action;
+  EXCEPTION
+   WHEN duplicate_object THEN null;
+  END $$;
+  
+  DO $$ BEGIN
    ALTER TABLE "pages_rels" ADD CONSTRAINT "pages_rels_contracts_fk" FOREIGN KEY ("contracts_id") REFERENCES "public"."contracts"("id") ON DELETE cascade ON UPDATE no action;
   EXCEPTION
    WHEN duplicate_object THEN null;
@@ -3686,6 +3694,12 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   
   DO $$ BEGIN
    ALTER TABLE "_pages_v_rels" ADD CONSTRAINT "_pages_v_rels_classifications_fk" FOREIGN KEY ("classifications_id") REFERENCES "public"."classifications"("id") ON DELETE cascade ON UPDATE no action;
+  EXCEPTION
+   WHEN duplicate_object THEN null;
+  END $$;
+  
+  DO $$ BEGIN
+   ALTER TABLE "_pages_v_rels" ADD CONSTRAINT "_pages_v_rels_projects_fk" FOREIGN KEY ("projects_id") REFERENCES "public"."projects"("id") ON DELETE cascade ON UPDATE no action;
   EXCEPTION
    WHEN duplicate_object THEN null;
   END $$;
@@ -4852,6 +4866,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX IF NOT EXISTS "pages_rels_properties_id_idx" ON "pages_rels" USING btree ("properties_id");
   CREATE INDEX IF NOT EXISTS "pages_rels_blog_categories_id_idx" ON "pages_rels" USING btree ("blog_categories_id");
   CREATE INDEX IF NOT EXISTS "pages_rels_classifications_id_idx" ON "pages_rels" USING btree ("classifications_id");
+  CREATE INDEX IF NOT EXISTS "pages_rels_projects_id_idx" ON "pages_rels" USING btree ("projects_id");
   CREATE INDEX IF NOT EXISTS "pages_rels_contracts_id_idx" ON "pages_rels" USING btree ("contracts_id");
   CREATE INDEX IF NOT EXISTS "pages_rels_availability_id_idx" ON "pages_rels" USING btree ("availability_id");
   CREATE INDEX IF NOT EXISTS "pages_rels_amenities_id_idx" ON "pages_rels" USING btree ("amenities_id");
@@ -4918,6 +4933,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX IF NOT EXISTS "_pages_v_rels_properties_id_idx" ON "_pages_v_rels" USING btree ("properties_id");
   CREATE INDEX IF NOT EXISTS "_pages_v_rels_blog_categories_id_idx" ON "_pages_v_rels" USING btree ("blog_categories_id");
   CREATE INDEX IF NOT EXISTS "_pages_v_rels_classifications_id_idx" ON "_pages_v_rels" USING btree ("classifications_id");
+  CREATE INDEX IF NOT EXISTS "_pages_v_rels_projects_id_idx" ON "_pages_v_rels" USING btree ("projects_id");
   CREATE INDEX IF NOT EXISTS "_pages_v_rels_contracts_id_idx" ON "_pages_v_rels" USING btree ("contracts_id");
   CREATE INDEX IF NOT EXISTS "_pages_v_rels_availability_id_idx" ON "_pages_v_rels" USING btree ("availability_id");
   CREATE INDEX IF NOT EXISTS "_pages_v_rels_amenities_id_idx" ON "_pages_v_rels" USING btree ("amenities_id");
