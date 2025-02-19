@@ -3,30 +3,38 @@
  * @returns The return value of the function is an object with a props property.
  */
 "use client";
-import React, { Fragment, useEffect } from "react";
-import Head from "next/head";
-import NavbarFour from "@/layout/headers/NavbarFour";
-import FooterThree from "@/layout/footers/FooterThree";
 import BodyContent from "@/components/home/modern-video";
 import { ConfigDB } from "@/config/themeCustomizerConfig";
+import FooterThree from "@/layout/footers/FooterThree";
+import NavbarFour from "@/layout/headers/NavbarFour";
+import Head from "next/head";
+import React, { Fragment, useEffect } from "react";
 
 const ModernVideo = () => {
-  useEffect(() => {
-    setTimeout(() => {
-      !ConfigDB.PrimaryColor && document.documentElement.style.setProperty("--theme-default", "#ff5c41");
-      !ConfigDB.SecondaryColor && document.documentElement.style.setProperty("--theme-default2", "#ff8c41");
-    }, 0.1);
-  }, []);
-  return (
-    <Fragment>
-      <Head>
-        <title>nexweb</title>
-      </Head>
-      <NavbarFour />
-      <BodyContent />
-      <FooterThree />
-    </Fragment>
-  );
+	useEffect(() => {
+		setTimeout(() => {
+			!ConfigDB.PrimaryColor &&
+				document.documentElement.style.setProperty(
+					"--theme-default",
+					"#ff5c41",
+				);
+			!ConfigDB.SecondaryColor &&
+				document.documentElement.style.setProperty(
+					"--theme-default2",
+					"#ff8c41",
+				);
+		}, 0.1);
+	}, []);
+	return (
+		<Fragment>
+			<Head>
+				<title>Webora Estates</title>
+			</Head>
+			<NavbarFour />
+			<BodyContent />
+			<FooterThree />
+		</Fragment>
+	);
 };
 
 export default ModernVideo;

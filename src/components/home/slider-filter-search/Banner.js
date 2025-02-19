@@ -1,3 +1,10 @@
+import {
+	BannerDetail,
+	BrowseProperty,
+	BuyOrSell,
+	SubmitProperty,
+	WeboraRealEstate,
+} from "@/constValues/constValues";
 /**
  * It returns a section with a container, row, and column. The column contains a div with a class of
  * title-1 color-6, which contains a span with a class of label label-gradient color-6. The column also
@@ -12,36 +19,40 @@
 import Link from "next/link";
 import React from "react";
 import { Col, Container, Row } from "reactstrap";
-import { BannerDetail, BrowseProperty, BuyOrSell, NexwebRealEstate, SubmitProperty } from "@/constValues/constValues";
 
 const BannerSection = ({ purple }) => {
-  return (
-    <section className={`banner-section  parallax-image ${!purple ? "banner-4" : "layout1-bg"}`}>
-      <Container>
-        <Row>
-          <Col>
-            <div className="title-1">
-              <span className="label label-gradient">{BuyOrSell}</span>
-            </div>
-            <div className="light-bg banner-1">
-              <span className="big-gradient">*</span>
-              <span className="small-white">*</span>
-              <h6>{NexwebRealEstate}</h6>
-              <h2>{BannerDetail}</h2>
-              <div className="button-banner">
-                <Link href="/agent/submit-property" className="btn btn-gradient">
-                  {SubmitProperty}
-                </Link>
-                <Link href="/pages/portfolio/details" className="btn btn-white">
-                  <span>{BrowseProperty}</span>
-                </Link>
-              </div>
-            </div>
-          </Col>
-        </Row>
-      </Container>
-    </section>
-  );
+	return (
+		<section
+			className={`banner-section  parallax-image ${!purple ? "banner-4" : "layout1-bg"}`}
+		>
+			<Container>
+				<Row>
+					<Col>
+						<div className="title-1">
+							<span className="label label-gradient">{BuyOrSell}</span>
+						</div>
+						<div className="light-bg banner-1">
+							<span className="big-gradient">*</span>
+							<span className="small-white">*</span>
+							<h6>{WeboraRealEstate}</h6>
+							<h2>{BannerDetail}</h2>
+							<div className="button-banner">
+								<Link
+									href="/agent/submit-property"
+									className="btn btn-gradient"
+								>
+									{SubmitProperty}
+								</Link>
+								<Link href="/pages/portfolio/details" className="btn btn-white">
+									<span>{BrowseProperty}</span>
+								</Link>
+							</div>
+						</div>
+					</Col>
+				</Row>
+			</Container>
+		</section>
+	);
 };
 
 export default BannerSection;

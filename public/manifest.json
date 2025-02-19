@@ -1,22 +1,22 @@
 {
-  "name": "Nexweb Studio - Filter search with slider home page",
-  "short_name": "Nexweb Studio",
-  "icons": [
-    {
-      "src": "/icon.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
+	"name": "Webora Estates - Real Estate Management Platform",
+	"short_name": "Webora Estates",
+	"icons": [
+		{
+			"src": "/icon.png",
+			"sizes": "192x192",
+			"type": "image/png"
+		},
 
-    {
-      "src": "/icon-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
-  ],
-  "theme_color": "#FFFFFF",
-  "background_color": "#FFFFFF",
-  "start_url": "/",
-  "display": "standalone",
-  "orientation": "portrait"
+		{
+			"src": "/icon-512x512.png",
+			"sizes": "512x512",
+			"type": "image/png"
+		}
+	],
+	"theme_color": "#FFFFFF",
+	"background_color": "#FFFFFF",
+	"start_url": "/",
+	"display": "standalone",
+	"orientation": "portrait"
 }

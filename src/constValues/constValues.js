@@ -1,5 +1,5 @@
 // path: home/slider-filter-search
-export const MainTitle = "Reality Properties solve your problems";
+export const MainTitle = "Next Generation Real Estate Management Platform";
 export const LatestForSale = "Latest For Sale";
 export const SubmitProperty = "submit property";
 export const WantToBuyOrRentHome = "Want to buy or rent Home ?";
@@ -12,8 +12,9 @@ export const NewOffer = "New Offer";
 export const City = "City";
 export const FindPropertiesInTheseCities = "Find Properties in These Cities";
 export const BuyOrSell = "Buy or Sell";
-export const NexwebRealEstate = "Nexweb Real Estate";
-export const BannerDetail = "Looking to Buy a new property or Sell an existing one? Real Homes provides an easy solution!";
+export const WeboraRealEstate = "Webora Estates";
+export const BannerDetail =
+	"Looking to Buy a new property or Sell an existing one? Webora Estates provides an easy solution!";
 export const BrowseProperty = "Browse property";
 export const MeetOurAgent = "Meet Our Agent";
 export const Agent = "Agent";
@@ -21,36 +22,43 @@ export const ViewPortfolio = "View Portfolio";
 export const Connect = "Connect";
 export const HappyClients = "Happy clients";
 export const Our = "Our";
-export const LatestPropertyDetail = "Elegant retreat in Coral Gables setting. This home provides entertaining spaces with kitchen opening";
+export const LatestPropertyDetail =
+	"Elegant retreat in Coral Gables setting. This home provides entertaining spaces with kitchen opening";
 export const PropertyServices = "Property Services";
-export const PropertyServicesDetail = "Residences can be classified into different type of housing tenure can used for same physical type.";
+export const PropertyServicesDetail =
+	"Residences can be classified into different type of housing tenure can used for same physical type.";
 export const ListingProperty = "Listing Property";
 export const AreYouWorried = "Are you worried";
 export const SlickAboutMovingOut = "sick about moving out?";
 export const VideoDetail =
-  "We know how it feels! Elegant retreat in a quiet Coral Gables setting. This home provides wonderful entertaining spaces with a chef kitchen opening Elegant retreat in a quiet Coral Gables setting.";
+	"We know how it feels! Elegant retreat in a quiet Coral Gables setting. This home provides wonderful entertaining spaces with a chef kitchen opening Elegant retreat in a quiet Coral Gables setting.";
 export const SearchNow = "Search now";
 export const StayUpToDate = "Stay Up to Date";
 export const OurHappyClient = "Our Happy Client";
-export const Discover = "Discover New York’s best things to do, restaurants, theatre, nightlife and more";
+export const Discover =
+	"Discover New York’s best things to do, restaurants, theatre, nightlife and more";
 export const PropertyOfTheDay = "Property of the day";
 export const FeaturedCities = "Featured Cities";
-export const proCity = "See why ProCity is one of the best friends for exploring the city.";
+export const proCity =
+	"See why ProCity is one of the best friends for exploring the city.";
 export const freeDownload = "free Download";
 export const homeSearch = "Take your home search everywhere You go....";
 export const searchAnyTime =
-  "Search anytime, anywhere with ZipRealty's award-winning real estate app for iPhone, iPad and Android. See what's for sale around you and instantly request to tour homes you like.";
+	"Search anytime, anywhere with Webora Estates's award-winning real estate app for iPhone, iPad and Android. See what's for sale around you and instantly request to tour homes you like.";
 export const WhatPeopleSay = "What People Say";
-export const docuts = "Cum doctus civibus efficiantur in imperdiet deterruisset.";
+export const docuts =
+	"Cum doctus civibus efficiantur in imperdiet deterruisset.";
 export const CEOofDesees = "CEO of Desees";
 export const LatestBlog = "Latest Blog";
 export const localRealEstate = "You're local Real estate";
-export const classified = "Residences can be classified by and connected to residences. Different types of housing can be use same physical type.";
+export const classified =
+	"Residences can be classified by and connected to residences. Different types of housing can be use same physical type.";
 export const aboutMoving = "Sick about moving out?";
 export const property = "Latest Property Listing";
 export const propertyListing = "Property <span>Listing</span>";
 export const pricingPlan = "pricing <span>Plan</span>";
 export const providerServices = "Provided <span>Services</span>";
-export const propertyDescription = "Residences can be classified into different types of housing tenure can used for same physical type.";
-export const Realestate = "Realestate";
+export const propertyDescription =
+	"Residences can be classified into different types of housing tenure can used for same physical type.";
+export const Realestate = "Real Estate";
 export const WhatAreYouLookingFor = "What Are You Looking For";
