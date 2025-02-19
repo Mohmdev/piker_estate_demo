@@ -5,6 +5,7 @@ import type {
   Payload,
   PayloadRequest,
 } from 'payload'
+import { fetchFileByURL } from '../fetchFile'
 import { image1 } from './_images/image-1'
 import { image2 } from './_images/image-2'
 import { imageHero1 } from './_images/image-hero-1'
@@ -417,24 +418,4 @@ export const seed = async ({
   ])
 
   payload.logger.info('Seeded database successfully!')
-}
-
-async function fetchFileByURL(url: string): Promise<File> {
-  const res = await fetch(url, {
-    credentials: 'include',
-    method: 'GET',
-  })
-
-  if (!res.ok) {
-    throw new Error(`Failed to fetch file from ${url}, status: ${res.status}`)
-  }
-
-  const data = await res.arrayBuffer()
-
-  return {
-    name: url.split('/').pop() || `file-${Date.now()}`,
-    data: Buffer.from(data),
-    mimetype: `image/${url.split('.').pop()}`,
-    size: data.byteLength,
-  }
 }

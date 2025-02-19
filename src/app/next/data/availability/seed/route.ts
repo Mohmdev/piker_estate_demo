@@ -15,34 +15,106 @@ export async function POST(): Promise<Response> {
   }
 
   let createdCount = 0
+  const createdAvailabilities = new Map<number, number>() // Map mock ID to real ID
 
+  // First pass: Create all root availabilities (those without parents)
   for (const availability of availabilitiesIndex) {
-    try {
-      // Check if availability already exists
-      const existingAvailability = await payload.find({
-        collection: 'availability',
-        where: {
-          slug: { equals: availability.slug },
-        },
-      })
-
-      if (existingAvailability.docs.length === 0) {
-        await payload.create({
+    if (!availability.parent) {
+      try {
+        const existingAvailability = await payload.find({
           collection: 'availability',
-          data: {
-            _status: 'published',
-            title: availability.title,
-            slug: availability.slug,
+          where: {
+            slug: { equals: availability.slug },
           },
         })
-        createdCount++
+
+        if (existingAvailability.docs.length === 0) {
+          const created = await payload.create({
+            collection: 'availability',
+            data: {
+              _status: 'published',
+              title: availability.title,
+              description: availability.description,
+              slug: availability.slug,
+              slugLock: availability.slugLock,
+              publishedAt: availability.publishedAt,
+            },
+          })
+          if (availability.breadcrumbs?.[0]?.doc) {
+            createdAvailabilities.set(
+              Number(availability.breadcrumbs[0].doc),
+              created.id,
+            )
+          }
+          createdCount++
+        } else if (
+          existingAvailability.docs[0] &&
+          availability.breadcrumbs?.[0]?.doc
+        ) {
+          createdAvailabilities.set(
+            Number(availability.breadcrumbs[0].doc),
+            existingAvailability.docs[0].id,
+          )
+        }
+      } catch (error) {
+        payload.logger.error(
+          `Error creating root availability "${availability.title}":`,
+          error,
+        )
+        throw error
       }
-    } catch (error) {
-      payload.logger.error(
-        `Error creating availability "${availability.title}":`,
-        error,
-      )
-      throw error
+    }
+  }
+
+  // Second pass: Create all child availabilities
+  for (const availability of availabilitiesIndex) {
+    if (availability.parent) {
+      try {
+        const existingAvailability = await payload.find({
+          collection: 'availability',
+          where: {
+            slug: { equals: availability.slug },
+          },
+        })
+
+        if (existingAvailability.docs.length === 0) {
+          const realParentId = createdAvailabilities.get(
+            Number(availability.parent),
+          )
+          if (!realParentId) {
+            payload.logger.error(
+              `Parent not found for availability "${availability.title}"`,
+            )
+            continue
+          }
+
+          const created = await payload.create({
+            collection: 'availability',
+            data: {
+              _status: 'published',
+              title: availability.title,
+              description: availability.description,
+              slug: availability.slug,
+              slugLock: availability.slugLock,
+              publishedAt: availability.publishedAt,
+              parent: realParentId,
+            },
+          })
+          if (availability.breadcrumbs?.[1]?.doc) {
+            createdAvailabilities.set(
+              Number(availability.breadcrumbs[1].doc),
+              created.id,
+            )
+          }
+          createdCount++
+        }
+      } catch (error) {
+        payload.logger.error(
+          `Error creating child availability "${availability.title}":`,
+          error,
+        )
+        throw error
+      }
     }
   }
 
