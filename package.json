@@ -1,5 +1,5 @@
 {
-  "name": "webora-realestate",
+  "name": "webora-estates",
   "version": "0.14.0",
   "private": true,
   "license": "MIT",
@@ -7,7 +7,7 @@
   "author": "Mohmdev",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Mohmdev/webora-realestate"
+    "url": "https://github.com/Mohmdev/webora-estates"
   },
   "scripts": {
     "ci": "pnpm i --frozen-lockfile",
