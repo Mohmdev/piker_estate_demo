@@ -1,0 +1,87 @@
+/* Main Buttons */
+@layer base {
+  [data-theme="light"] {
+    --bg-disabled: hsl(217 15% 76%);
+    --color-disabled: hsl(218 21% 95%);
+  }
+
+  [data-theme="dark"] {
+    --bg-disabled: hsl(203 12% 17%);
+    --color-disabled: hsl(207 10% 30%);
+  }
+
+  :root {
+    --button-bg-disabled: var(--bg-disabled);
+    --button-color-disabled: var(--color-disabled);
+  }
+
+  .btn {
+    /* border: unset;
+    border-width: unset;
+    border-color: unset; */
+
+    @apply min-w-max rounded-md;
+  }
+
+  .btn--style-primary {
+    --color: light-dark(hsl(0 0% 100%), var(--text-default));
+    /* --bg-color: light-dark(hsl(204 21% 50%), hsl(198 38% 15%)); */
+    --bg-color: light-dark(var(--color-indigo-600), var(--color-indigo-800));
+
+    /* --hover-bg: light-dark(hsl(204 21% 50%), hsl(198 38% 15% / 0.7)); */
+    --hover-bg: light-dark(hsl(204 21% 50%), (var(--color-indigo-800)));
+    --hover-color: var(--color);
+
+    /* @apply border-1 border-border bg-muted; */
+    @apply bg-(--bg-color) border-1 border-border rounded-lg;
+  }
+
+  .btn--style-secondary {
+    --color: light-dark(hsl(198 11% 30%), hsl(225 19% 87%));
+    --bg-color: var(--color-muted);
+    --box-shadow: inset 0 0 0 1px hsl(var(--border));
+    --hover-color: unset;
+    --hover-box-shadow: inset 0 0 0 1px var(--theme-elevation-400);
+
+    @apply hover:bg-muted/60  border-1 border-transparent;
+  }
+
+  button:disabled {
+    /* @apply text-muted-foreground bg-inherit border-inherit; */
+    @apply saturate-50 brightness-50 opacity-50;
+  }
+
+  .popup__caret,
+  .caret {
+    @apply hidden;
+  }
+}
+
+/* Secondary buttons */
+@layer base {
+  .btn--style-pill {
+    --bg-color: var(--theme-elevation-150);
+    --bg-color: var(--bg-default-primary);
+    --color: var(--theme-elevation-800);
+    --hover-color: var(--color);
+    --hover-bg: var(--theme-elevation-100);
+
+    /* @apply rounded-lg border-1 border-border/50 text-muted-foreground; */
+  }
+
+  .pill {
+    /* border: unset;
+    color: unset;
+    border-color: unset; */
+
+    @apply rounded-lg bg-muted text-muted-foreground border-1 border-border/50;
+  }
+
+  .edit-many__toggle {
+    @apply rounded-lg border-border border-1 bg-muted;
+  }
+
+  .nav__log-out {
+    @apply text-muted-foreground;
+  }
+}

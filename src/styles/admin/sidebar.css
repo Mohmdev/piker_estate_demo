@@ -1,0 +1,77 @@
+@layer components {
+  .nav__wrap {
+    .nav-group {
+      &.Real.Estate {
+        order: 1;
+        margin-bottom: 1rem;
+      }
+
+      &.Marketing {
+        order: 2;
+        margin-bottom: 1rem;
+      }
+
+      &.Design {
+        order: 3;
+        margin-bottom: 1rem;
+
+        .nav-group__content {
+          display: flex;
+          flex-direction: column;
+
+          #nav-redirects {
+            order: 99;
+          }
+        }
+      }
+
+      &.Resources {
+        order: 4;
+        margin-bottom: 1rem;
+      }
+
+      &.Accounts {
+        order: 5;
+        margin-bottom: 1rem;
+      }
+    }
+    /* controls is a direct child with just .nav__controls */
+    > .nav__controls {
+      order: 100;
+      margin-bottom: 1rem;
+    }
+  }
+}
+
+@layer components {
+  .nav nav a {
+    font-size: 1rem;
+    line-height: 1.825rem;
+
+    @media (max-width: 1024px) {
+      font-size: 1.125rem;
+      line-height: 1.825rem;
+    }
+  }
+
+  aside {
+    background-color: var(--sidebar-bg);
+    border-right: solid 1px var(--border-ui);
+    max-height: 100vh;
+    max-height: 100dvh;
+
+    .nav__wrap {
+      margin-bottom: 3rem;
+    }
+  }
+
+  .nav-group__label {
+    font-size: 1.125rem;
+    line-height: 2.25rem;
+
+    @media (max-width: 1024px) {
+      font-size: 1.225rem;
+      line-height: 2.25rem;
+    }
+  }
+}

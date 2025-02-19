@@ -1,0 +1,343 @@
+import type { Contract } from '@payload-types'
+
+type CreateContract = Omit<
+  Contract,
+  'id' | 'createdAt' | 'updatedAt' | 'properties'
+>
+
+export const forRentRecords: CreateContract[] = [
+  // For Rent (Parent)
+  {
+    title: 'For Rent',
+    description: null,
+    image: null,
+    relatedDocs: [],
+    meta: {
+      title: null,
+      image: null,
+      description: null,
+    },
+    noindex: null,
+    authors: [],
+    populatedAuthors: [],
+    publishedAt: '2025-02-15T15:50:17.675Z',
+    slug: 'for-rent',
+    slugLock: true,
+    parent: null,
+    breadcrumbs: [
+      {
+        id: '67b0b7b99a1e4304421b439c',
+        doc: 100,
+        url: '/for-rent',
+        label: 'For Rent',
+      },
+    ],
+    _status: 'published',
+  },
+  // Long-Term Rental
+  {
+    title: 'Long-Term Rental',
+    description: null,
+    image: null,
+    relatedDocs: [],
+    meta: {
+      title: null,
+      image: null,
+      description: null,
+    },
+    noindex: null,
+    authors: [],
+    populatedAuthors: [],
+    publishedAt: '2025-02-15T15:50:54.156Z',
+    slug: 'long-term-rental',
+    slugLock: true,
+    parent: 100,
+    breadcrumbs: [
+      {
+        id: '67b0b7de9a1e4304421b43a2',
+        doc: 100,
+        url: '/for-rent',
+        label: 'For Rent',
+      },
+      {
+        id: '67b0b7de9a1e4304421b43a3',
+        doc: 101,
+        url: '/for-rent/long-term-rental',
+        label: 'Long-Term Rental',
+      },
+    ],
+    _status: 'published',
+  },
+  // Short-Term Rental
+  {
+    title: 'Short-Term Rental',
+    description: null,
+    image: null,
+    relatedDocs: [],
+    meta: {
+      title: null,
+      image: null,
+      description: null,
+    },
+    noindex: null,
+    authors: [],
+    populatedAuthors: [],
+    publishedAt: '2025-02-15T15:51:50.276Z',
+    slug: 'short-term-rental',
+    slugLock: true,
+    parent: 100,
+    breadcrumbs: [
+      {
+        id: '67b0b8449a1e4304421b43c4',
+        doc: 100,
+        url: '/for-rent',
+        label: 'For Rent',
+      },
+      {
+        id: '67b0b8449a1e4304421b43c5',
+        doc: 102,
+        url: '/for-rent/short-term-rental',
+        label: 'Short-Term Rental',
+      },
+    ],
+    _status: 'published',
+  },
+  // Daily Rental
+  {
+    title: 'Daily Rental',
+    description: null,
+    image: null,
+    relatedDocs: [],
+    meta: {
+      title: null,
+      image: null,
+      description: null,
+    },
+    noindex: null,
+    authors: [],
+    populatedAuthors: [],
+    publishedAt: '2025-02-15T15:52:50.276Z',
+    slug: 'daily-rental',
+    slugLock: true,
+    parent: 100,
+    breadcrumbs: [
+      {
+        id: '67b0b8449a1e4304421b43c6',
+        doc: 100,
+        url: '/for-rent',
+        label: 'For Rent',
+      },
+      {
+        id: '67b0b8449a1e4304421b43c7',
+        doc: 103,
+        url: '/for-rent/daily-rental',
+        label: 'Daily Rental',
+      },
+    ],
+    _status: 'published',
+  },
+  // Weekly Rental
+  {
+    title: 'Weekly Rental',
+    description: null,
+    image: null,
+    relatedDocs: [],
+    meta: {
+      title: null,
+      image: null,
+      description: null,
+    },
+    noindex: null,
+    authors: [],
+    populatedAuthors: [],
+    publishedAt: '2025-02-15T15:53:50.276Z',
+    slug: 'weekly-rental',
+    slugLock: true,
+    parent: 100,
+    breadcrumbs: [
+      {
+        id: '67b0b8449a1e4304421b43c8',
+        doc: 100,
+        url: '/for-rent',
+        label: 'For Rent',
+      },
+      {
+        id: '67b0b8449a1e4304421b43c9',
+        doc: 104,
+        url: '/for-rent/weekly-rental',
+        label: 'Weekly Rental',
+      },
+    ],
+    _status: 'published',
+  },
+  // Monthly Rental
+  {
+    title: 'Monthly Rental',
+    description: null,
+    image: null,
+    relatedDocs: [],
+    meta: {
+      title: null,
+      image: null,
+      description: null,
+    },
+    noindex: null,
+    authors: [],
+    populatedAuthors: [],
+    publishedAt: '2025-02-15T15:54:50.276Z',
+    slug: 'monthly-rental',
+    slugLock: true,
+    parent: 100,
+    breadcrumbs: [
+      {
+        id: '67b0b8449a1e4304421b43ca',
+        doc: 100,
+        url: '/for-rent',
+        label: 'For Rent',
+      },
+      {
+        id: '67b0b8449a1e4304421b43cb',
+        doc: 105,
+        url: '/for-rent/monthly-rental',
+        label: 'Monthly Rental',
+      },
+    ],
+    _status: 'published',
+  },
+  // Seasonal Rental
+  {
+    title: 'Seasonal Rental',
+    description: null,
+    image: null,
+    relatedDocs: [],
+    meta: {
+      title: null,
+      image: null,
+      description: null,
+    },
+    noindex: null,
+    authors: [],
+    populatedAuthors: [],
+    publishedAt: '2025-02-15T15:55:50.276Z',
+    slug: 'seasonal-rental',
+    slugLock: true,
+    parent: 100,
+    breadcrumbs: [
+      {
+        id: '67b0b8449a1e4304421b43cc',
+        doc: 100,
+        url: '/for-rent',
+        label: 'For Rent',
+      },
+      {
+        id: '67b0b8449a1e4304421b43cd',
+        doc: 106,
+        url: '/for-rent/seasonal-rental',
+        label: 'Seasonal Rental',
+      },
+    ],
+    _status: 'published',
+  },
+  // Annual Rental
+  {
+    title: 'Annual Rental',
+    description: null,
+    image: null,
+    relatedDocs: [],
+    meta: {
+      title: null,
+      image: null,
+      description: null,
+    },
+    noindex: null,
+    authors: [],
+    populatedAuthors: [],
+    publishedAt: '2025-02-15T15:56:50.276Z',
+    slug: 'annual-rental',
+    slugLock: true,
+    parent: 100,
+    breadcrumbs: [
+      {
+        id: '67b0b8449a1e4304421b43ce',
+        doc: 100,
+        url: '/for-rent',
+        label: 'For Rent',
+      },
+      {
+        id: '67b0b8449a1e4304421b43cf',
+        doc: 107,
+        url: '/for-rent/annual-rental',
+        label: 'Annual Rental',
+      },
+    ],
+    _status: 'published',
+  },
+  // Holiday Home
+  {
+    title: 'Holiday Home',
+    description: null,
+    image: null,
+    relatedDocs: [],
+    meta: {
+      title: null,
+      image: null,
+      description: null,
+    },
+    noindex: null,
+    authors: [],
+    populatedAuthors: [],
+    publishedAt: '2025-02-15T15:57:50.276Z',
+    slug: 'holiday-home',
+    slugLock: true,
+    parent: 100,
+    breadcrumbs: [
+      {
+        id: '67b0b8449a1e4304421b43d0',
+        doc: 100,
+        url: '/for-rent',
+        label: 'For Rent',
+      },
+      {
+        id: '67b0b8449a1e4304421b43d1',
+        doc: 108,
+        url: '/for-rent/holiday-home',
+        label: 'Holiday Home',
+      },
+    ],
+    _status: 'published',
+  },
+  // Corporate Short Stay
+  {
+    title: 'Corporate Short Stay',
+    description: null,
+    image: null,
+    relatedDocs: [],
+    meta: {
+      title: null,
+      image: null,
+      description: null,
+    },
+    noindex: null,
+    authors: [],
+    populatedAuthors: [],
+    publishedAt: '2025-02-15T15:58:50.276Z',
+    slug: 'corporate-short-stay',
+    slugLock: true,
+    parent: 100,
+    breadcrumbs: [
+      {
+        id: '67b0b8449a1e4304421b43d2',
+        doc: 100,
+        url: '/for-rent',
+        label: 'For Rent',
+      },
+      {
+        id: '67b0b8449a1e4304421b43d3',
+        doc: 109,
+        url: '/for-rent/corporate-short-stay',
+        label: 'Corporate Short Stay',
+      },
+    ],
+    _status: 'published',
+  },
+]

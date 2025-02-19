@@ -1,0 +1,343 @@
+import type { Contract } from '@payload-types'
+
+type CreateContract = Omit<
+  Contract,
+  'id' | 'createdAt' | 'updatedAt' | 'properties'
+>
+
+export const forSaleRecords: CreateContract[] = [
+  // For Sale (Parent)
+  {
+    title: 'For Sale',
+    description: null,
+    image: null,
+    relatedDocs: [],
+    meta: {
+      title: null,
+      image: null,
+      description: null,
+    },
+    noindex: null,
+    authors: [],
+    populatedAuthors: [],
+    publishedAt: '2025-02-15T16:20:50.276Z',
+    slug: 'for-sale',
+    slugLock: true,
+    parent: null,
+    breadcrumbs: [
+      {
+        id: '67b0b8449a1e4304421b43f3',
+        doc: 200,
+        url: '/for-sale',
+        label: 'For Sale',
+      },
+    ],
+    _status: 'published',
+  },
+  // Outright Purchase
+  {
+    title: 'Outright Purchase',
+    description: null,
+    image: null,
+    relatedDocs: [],
+    meta: {
+      title: null,
+      image: null,
+      description: null,
+    },
+    noindex: null,
+    authors: [],
+    populatedAuthors: [],
+    publishedAt: '2025-02-15T16:21:50.276Z',
+    slug: 'outright-purchase',
+    slugLock: true,
+    parent: 200,
+    breadcrumbs: [
+      {
+        id: '67b0b8449a1e4304421b43f4',
+        doc: 200,
+        url: '/for-sale',
+        label: 'For Sale',
+      },
+      {
+        id: '67b0b8449a1e4304421b43f5',
+        doc: 201,
+        url: '/for-sale/outright-purchase',
+        label: 'Outright Purchase',
+      },
+    ],
+    _status: 'published',
+  },
+  // Pre-Launch Purchase
+  {
+    title: 'Pre-Launch Purchase',
+    description: null,
+    image: null,
+    relatedDocs: [],
+    meta: {
+      title: null,
+      image: null,
+      description: null,
+    },
+    noindex: null,
+    authors: [],
+    populatedAuthors: [],
+    publishedAt: '2025-02-15T16:22:50.276Z',
+    slug: 'pre-launch-purchase',
+    slugLock: true,
+    parent: 200,
+    breadcrumbs: [
+      {
+        id: '67b0b8449a1e4304421b43f6',
+        doc: 200,
+        url: '/for-sale',
+        label: 'For Sale',
+      },
+      {
+        id: '67b0b8449a1e4304421b43f7',
+        doc: 202,
+        url: '/for-sale/pre-launch-purchase',
+        label: 'Pre-Launch Purchase',
+      },
+    ],
+    _status: 'published',
+  },
+  // Installments
+  {
+    title: 'Installments',
+    description: null,
+    image: null,
+    relatedDocs: [],
+    meta: {
+      title: null,
+      image: null,
+      description: null,
+    },
+    noindex: null,
+    authors: [],
+    populatedAuthors: [],
+    publishedAt: '2025-02-15T16:23:50.276Z',
+    slug: 'installments',
+    slugLock: true,
+    parent: 200,
+    breadcrumbs: [
+      {
+        id: '67b0b8449a1e4304421b43f8',
+        doc: 200,
+        url: '/for-sale',
+        label: 'For Sale',
+      },
+      {
+        id: '67b0b8449a1e4304421b43f9',
+        doc: 203,
+        url: '/for-sale/installments',
+        label: 'Installments',
+      },
+    ],
+    _status: 'published',
+  },
+  // Down Payment
+  {
+    title: 'Down Payment',
+    description: null,
+    image: null,
+    relatedDocs: [],
+    meta: {
+      title: null,
+      image: null,
+      description: null,
+    },
+    noindex: null,
+    authors: [],
+    populatedAuthors: [],
+    publishedAt: '2025-02-15T16:24:50.276Z',
+    slug: 'down-payment',
+    slugLock: true,
+    parent: 200,
+    breadcrumbs: [
+      {
+        id: '67b0b8449a1e4304421b43fa',
+        doc: 200,
+        url: '/for-sale',
+        label: 'For Sale',
+      },
+      {
+        id: '67b0b8449a1e4304421b43fb',
+        doc: 204,
+        url: '/for-sale/down-payment',
+        label: 'Down Payment',
+      },
+    ],
+    _status: 'published',
+  },
+  // Developer Finance
+  {
+    title: 'Developer Finance',
+    description: null,
+    image: null,
+    relatedDocs: [],
+    meta: {
+      title: null,
+      image: null,
+      description: null,
+    },
+    noindex: null,
+    authors: [],
+    populatedAuthors: [],
+    publishedAt: '2025-02-15T16:25:50.276Z',
+    slug: 'developer-finance',
+    slugLock: true,
+    parent: 200,
+    breadcrumbs: [
+      {
+        id: '67b0b8449a1e4304421b43fc',
+        doc: 200,
+        url: '/for-sale',
+        label: 'For Sale',
+      },
+      {
+        id: '67b0b8449a1e4304421b43fd',
+        doc: 205,
+        url: '/for-sale/developer-finance',
+        label: 'Developer Finance',
+      },
+    ],
+    _status: 'published',
+  },
+  // Extended Payment Terms
+  {
+    title: 'Extended Payment Terms',
+    description: null,
+    image: null,
+    relatedDocs: [],
+    meta: {
+      title: null,
+      image: null,
+      description: null,
+    },
+    noindex: null,
+    authors: [],
+    populatedAuthors: [],
+    publishedAt: '2025-02-15T16:26:50.276Z',
+    slug: 'extended-payment-terms',
+    slugLock: true,
+    parent: 200,
+    breadcrumbs: [
+      {
+        id: '67b0b8449a1e4304421b43fe',
+        doc: 200,
+        url: '/for-sale',
+        label: 'For Sale',
+      },
+      {
+        id: '67b0b8449a1e4304421b43ff',
+        doc: 206,
+        url: '/for-sale/extended-payment-terms',
+        label: 'Extended Payment Terms',
+      },
+    ],
+    _status: 'published',
+  },
+  // Flexible Terms
+  {
+    title: 'Flexible Terms',
+    description: null,
+    image: null,
+    relatedDocs: [],
+    meta: {
+      title: null,
+      image: null,
+      description: null,
+    },
+    noindex: null,
+    authors: [],
+    populatedAuthors: [],
+    publishedAt: '2025-02-15T16:27:50.276Z',
+    slug: 'flexible-terms',
+    slugLock: true,
+    parent: 200,
+    breadcrumbs: [
+      {
+        id: '67b0b8449a1e4304421b4400',
+        doc: 200,
+        url: '/for-sale',
+        label: 'For Sale',
+      },
+      {
+        id: '67b0b8449a1e4304421b4401',
+        doc: 207,
+        url: '/for-sale/flexible-terms',
+        label: 'Flexible Terms',
+      },
+    ],
+    _status: 'published',
+  },
+  // Multiple Cheques
+  {
+    title: 'Multiple Cheques',
+    description: null,
+    image: null,
+    relatedDocs: [],
+    meta: {
+      title: null,
+      image: null,
+      description: null,
+    },
+    noindex: null,
+    authors: [],
+    populatedAuthors: [],
+    publishedAt: '2025-02-15T16:28:50.276Z',
+    slug: 'multiple-cheques',
+    slugLock: true,
+    parent: 200,
+    breadcrumbs: [
+      {
+        id: '67b0b8449a1e4304421b4402',
+        doc: 200,
+        url: '/for-sale',
+        label: 'For Sale',
+      },
+      {
+        id: '67b0b8449a1e4304421b4403',
+        doc: 208,
+        url: '/for-sale/multiple-cheques',
+        label: 'Multiple Cheques',
+      },
+    ],
+    _status: 'published',
+  },
+  // Security Deposit
+  {
+    title: 'Security Deposit',
+    description: null,
+    image: null,
+    relatedDocs: [],
+    meta: {
+      title: null,
+      image: null,
+      description: null,
+    },
+    noindex: null,
+    authors: [],
+    populatedAuthors: [],
+    publishedAt: '2025-02-15T16:29:50.276Z',
+    slug: 'security-deposit',
+    slugLock: true,
+    parent: 200,
+    breadcrumbs: [
+      {
+        id: '67b0b8449a1e4304421b4404',
+        doc: 200,
+        url: '/for-sale',
+        label: 'For Sale',
+      },
+      {
+        id: '67b0b8449a1e4304421b4405',
+        doc: 209,
+        url: '/for-sale/security-deposit',
+        label: 'Security Deposit',
+      },
+    ],
+    _status: 'published',
+  },
+]
