@@ -37,64 +37,12 @@ export const footerMock: Partial<Footer> = {
       ],
     },
     {
-      label: 'Developers',
-      navItems: [
-        {
-          link: {
-            type: 'custom',
-            url: 'https://nexweb.studio/cloud',
-            label: 'Nexweb Cloud',
-          },
-        },
-
-        {
-          link: {
-            type: 'custom',
-            url: 'https://nexweb.studio/docs',
-            label: 'Documentation',
-          },
-        },
-        {
-          link: {
-            type: 'custom',
-            url: 'https://nexweb.studio/community-help',
-            label: 'Community Help',
-          },
-        },
-        {
-          link: {
-            type: 'custom',
-            newTab: true,
-            url: 'https://github.com/nexweb-studio/nexweb/discussions/categories/roadmap?discussions_q=category%3ARoadmap+',
-            label: 'Roadmap',
-          },
-        },
-        {
-          link: {
-            type: 'custom',
-            newTab: true,
-            url: 'https://github.com/nexweb-studio/nexweb/tree/main/templates',
-            label: 'Templates',
-          },
-        },
-        {
-          link: {
-            type: 'custom',
-            newTab: true,
-            url: 'https://github.com/nexweb-studio/nexweb/releases',
-            label: 'Releases',
-          },
-        },
-      ],
-    },
-
-    {
       label: 'Company',
       navItems: [
         {
           link: {
             type: 'custom',
-            url: 'https://nexweb.studio/pricing',
+            url: 'https://webora.app/pricing',
             label: 'Pricing',
           },
         },
@@ -102,14 +50,14 @@ export const footerMock: Partial<Footer> = {
         {
           link: {
             type: 'custom',
-            url: 'https://nexweb.studio/talk-to-us',
+            url: 'https://webora.app/talk-to-us',
             label: 'Talk to us',
           },
         },
         {
           link: {
             type: 'custom',
-            url: 'https://nexweb.studio/case-studies',
+            url: 'https://webora.app/case-studies',
             label: 'Case Studies',
           },
         },
@@ -117,7 +65,7 @@ export const footerMock: Partial<Footer> = {
         {
           link: {
             type: 'custom',
-            url: 'https://nexweb.studio/partners',
+            url: 'https://webora.app/partners',
             label: 'Partner With Us',
           },
         },
@@ -125,35 +73,35 @@ export const footerMock: Partial<Footer> = {
         {
           link: {
             type: 'custom',
-            url: 'https://nexweb.studio/partners',
+            url: 'https://webora.app/partners',
             label: 'Find a Partner',
           },
         },
         {
           link: {
             type: 'custom',
-            url: 'https://nexweb.studio/blog',
+            url: 'https://webora.app/blog',
             label: 'Blog',
           },
         },
         {
           link: {
             type: 'custom',
-            url: 'https://nexweb.studio/security',
+            url: 'https://webora.app/security',
             label: 'Security',
           },
         },
         {
           link: {
             type: 'custom',
-            url: 'https://nexweb.studio/compare',
+            url: 'https://webora.app/compare',
             label: 'Compare',
           },
         },
         {
           link: {
             type: 'custom',
-            url: 'https://nexweb.studio/cloud-terms',
+            url: 'https://webora.app/cloud-terms',
             label: 'Terms of Service',
           },
           id: '65e09da839c8d261526eba48',
@@ -161,7 +109,7 @@ export const footerMock: Partial<Footer> = {
         {
           link: {
             type: 'custom',
-            url: 'https://nexweb.studio/privacy',
+            url: 'https://webora.app/privacy',
             label: 'Privacy Policy',
           },
           id: '65e09db439c8d261526eba49',
@@ -169,7 +117,7 @@ export const footerMock: Partial<Footer> = {
         {
           link: {
             type: 'custom',
-            url: 'https://nexweb.studio/contact',
+            url: 'https://webora.app/contact',
             label: 'Contact',
           },
         },

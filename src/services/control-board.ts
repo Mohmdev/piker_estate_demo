@@ -1,8 +1,8 @@
 import type { CollectionSlug, GlobalSlug } from 'payload'
 export const ROLES_WITH_ADMIN_ACCESS = ['admin', 'editor'] as const
 // export const DASHBOARD_SLUG = 'dashboard'
-// export const SITE_NAME_SHORT = 'Nexweb' as const
-// export const SITE_NAME = 'Nexweb Studio' as const
+// export const SITE_NAME_SHORT = 'Webora' as const
+// export const SITE_NAME = 'Webora Studio' as const
 /* -------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------- */
 const mainCollections: CollectionSlug[] = [

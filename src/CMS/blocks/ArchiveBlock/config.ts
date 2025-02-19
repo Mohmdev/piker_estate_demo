@@ -54,6 +54,14 @@ export const Archive: Block = {
           label: 'Blog Posts',
           value: 'blog',
         },
+        {
+          label: 'Properties',
+          value: 'properties',
+        },
+        {
+          label: 'Projects',
+          value: 'projects',
+        },
       ],
     },
     {
@@ -64,7 +72,7 @@ export const Archive: Block = {
       },
       hasMany: true,
       label: 'Categories To Show',
-      relationTo: 'blog-categories',
+      relationTo: ['blog-categories', 'classifications'],
     },
     {
       name: 'limit',
@@ -84,7 +92,7 @@ export const Archive: Block = {
       },
       hasMany: true,
       label: 'Selection',
-      relationTo: ['blog'],
+      relationTo: ['blog', 'properties', 'projects'],
     },
   ],
   labels: {

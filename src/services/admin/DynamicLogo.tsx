@@ -9,7 +9,7 @@ import { cn } from '@utils/ui'
 
 import type { Asset, GlobalSetting } from '@payload-types'
 
-import { NexwebRectangleSVG, NexwebSVG } from './white-label-svg'
+import { WeboraRectangleSVG, WeboraSVG } from './white-label-svg'
 
 export const RectangleLogo = ({ graphics }: { graphics?: Asset }) => {
   const loading = 'lazy'
@@ -31,7 +31,7 @@ export const RectangleLogo = ({ graphics }: { graphics?: Asset }) => {
           className={cn('h-[34px] w-full max-w-[9.375rem]')}
         />
       ) : (
-        <NexwebRectangleSVG />
+        <WeboraRectangleSVG />
       )}
     </>
   )
@@ -57,7 +57,7 @@ export const SquareLogo = ({ graphics }: { graphics?: Asset }) => {
           className={cn('h-[34px] w-full max-w-[9.375rem]')}
         />
       ) : (
-        <NexwebSVG />
+        <WeboraSVG />
       )}
     </>
   )

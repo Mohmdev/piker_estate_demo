@@ -1548,14 +1548,35 @@ export interface ArchiveBlock {
     [k: string]: unknown;
   } | null;
   populateBy?: ('collection' | 'selection') | null;
-  relationTo?: 'blog' | null;
-  categories?: (number | BlogCategory)[] | null;
+  relationTo?: ('blog' | 'properties' | 'projects') | null;
+  categories?:
+    | (
+        | {
+            relationTo: 'blog-categories';
+            value: number | BlogCategory;
+          }
+        | {
+            relationTo: 'classifications';
+            value: number | Classification;
+          }
+      )[]
+    | null;
   limit?: number | null;
   selectedDocs?:
-    | {
-        relationTo: 'blog';
-        value: number | Blog;
-      }[]
+    | (
+        | {
+            relationTo: 'blog';
+            value: number | Blog;
+          }
+        | {
+            relationTo: 'properties';
+            value: number | Property;
+          }
+        | {
+            relationTo: 'projects';
+            value: number | Project;
+          }
+      )[]
     | null;
   id?: string | null;
   blockName?: string | null;

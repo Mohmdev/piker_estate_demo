@@ -86,10 +86,10 @@ export const seed = async ({
     depth: 0,
     where: {
       email: {
-        equals: 'demo@nexweb.studio',
+        equals: 'demo@webora.app',
       },
       username: {
-        equals: 'nexeditor',
+        equals: 'weboraeditor',
       },
     },
   })
@@ -128,11 +128,11 @@ export const seed = async ({
     payload.create({
       collection: 'users',
       data: {
-        firstName: 'Nexweb',
+        firstName: 'Webora',
         lastName: 'Author',
-        email: 'demo@nexweb.studio',
+        email: 'demo@webora.app',
         password: 'password',
-        username: 'nexeditor',
+        username: 'weboraeditor',
         role: 'editor',
       },
     }),

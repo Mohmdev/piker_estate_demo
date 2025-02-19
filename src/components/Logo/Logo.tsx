@@ -1,4 +1,4 @@
-import { NexwebSVG } from '@services/admin/white-label-svg'
+import { WeboraSVG } from '@services/admin/white-label-svg'
 import { cn } from '@utils/ui'
 
 import React from 'react'
@@ -38,7 +38,7 @@ export const Logo = (props: Props) => {
         className,
       )}
     >
-      <NexwebSVG />
+      <WeboraSVG />
     </div>
   )
 }

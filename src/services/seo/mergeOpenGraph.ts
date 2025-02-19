@@ -10,9 +10,9 @@ export const mergeOpenGraph = async (
     siteName: string
     description: string
   } = {
-    siteName: 'Nexweb - Modern Web Development Platform',
+    siteName: 'Webora Estates - Property Management Platform',
     description:
-      'Nexweb is a modern web development platform that lets you build, deploy, and scale websites and web applications with ease.',
+      'Enterprise-grade real estate management platform for property listings, tenant management, and portfolio operations.',
   },
 ): Promise<Metadata['openGraph']> => {
   const { siteName, siteDescription } = await getDynamicMeta()
