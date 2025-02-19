@@ -4,7 +4,7 @@ type Props = {
   className?: string
 }
 
-export const NexwebSVG: React.FC<Props> = () => {
+export const WeboraSVG: React.FC<Props> = () => {
   return (
     <svg
       width="100%"
@@ -28,14 +28,14 @@ export const NexwebSVG: React.FC<Props> = () => {
   )
 }
 
-export const NexwebRectangleSVG: React.FC<Props> = () => {
+export const WeboraRectangleSVG: React.FC<Props> = () => {
   return (
     <div className="RectangleWrapper">
       <div className="logoWrapper">
-        <NexwebSVG />
+        <WeboraSVG />
       </div>
       <div className="textWrapper">
-        <span className="textMain">NEXWEB</span>
+        <span className="textMain">Webora</span>
       </div>
     </div>
   )

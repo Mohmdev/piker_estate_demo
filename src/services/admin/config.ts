@@ -1,8 +1,8 @@
 import path from 'path'
 import { fileURLToPath } from 'url'
-
 import { Users } from '@auth/Users/config'
 import type { Config } from 'payload'
+import { timeZones } from './timeZones'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -10,6 +10,14 @@ const dirname = path.dirname(filename)
 export const adminConfig: Config['admin'] = {
   avatar: {
     Component: '@services/admin/AdminAvatar',
+  },
+  autoLogin: {
+    username: process.env.ROOT_USER_USERNAME,
+    password: process.env.ROOT_USER_PASSWORD,
+  },
+  timezones: {
+    defaultTimezone: 'Europe/Istanbul',
+    supportedTimezones: timeZones,
   },
   components: {
     graphics: {
@@ -22,7 +30,8 @@ export const adminConfig: Config['admin'] = {
     // beforeDashboard: ['@admin-components/BeforeDashboard']
   },
   meta: {
-    description: 'Nexweb Management Dashboard',
+    description:
+      'Webora Estates Admin Dashboard - Property Management Platform',
     icons: [
       {
         rel: 'icon',
@@ -42,8 +51,9 @@ export const adminConfig: Config['admin'] = {
     ],
     // you share links to your admin panel online and through social media.
     openGraph: {
-      title: 'Nexweb Management Dashboard',
-      // description: 'This is a custom OG description',
+      title: 'Webora Estates Admin Dashboard',
+      description:
+        'Enterprise real estate management platform for property professionals. Manage listings, tenants, and operations.',
       images: [
         {
           height: 600,
@@ -53,7 +63,7 @@ export const adminConfig: Config['admin'] = {
       ],
     },
     // Text that appends the meta/page title displayed in the browser tab.
-    titleSuffix: '| Nexweb Dashboard',
+    titleSuffix: '| Webora Estates',
   },
   importMap: {
     baseDir: path.resolve(dirname),

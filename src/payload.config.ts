@@ -3,11 +3,16 @@ import { fileURLToPath } from 'url'
 import { Footer } from '@CMS/design/Footer/config'
 import { GlobalSettings } from '@CMS/design/GlobalSettings/config'
 import { MainMenu } from '@CMS/design/MainMenu/config'
-import { Categories } from '@CMS/marketing/config.Categories'
+import { Blog } from '@CMS/marketing/config.Blog'
+import { BlogCategories } from '@CMS/marketing/config.BlogCategories'
 import { Pages } from '@CMS/marketing/config.Pages'
-import { Posts } from '@CMS/marketing/config.Posts'
 import { Tags } from '@CMS/marketing/config.Tags'
+import { Projects } from '@CMS/real-estate/config.Projects'
 import { Properties } from '@CMS/real-estate/config.Properties'
+import { Amenities } from '@CMS/real-estate/config.amenities'
+import { Availability } from '@CMS/real-estate/config.availability'
+import { Classifications } from '@CMS/real-estate/config.classifications'
+import { Contracts } from '@CMS/real-estate/config.contracts'
 import { Users } from '@auth/Users/config'
 import { getServerSideURL } from '@data/getURL'
 import { adminConfig } from '@services/admin/config'
@@ -33,8 +38,15 @@ const dirname = path.dirname(filename)
 
 export default buildConfig({
   collections: [
-    ...collectionGroup('Real Estate', [Properties]),
-    ...collectionGroup('Marketing', [Pages, Posts, Categories, Tags]),
+    ...collectionGroup('Real Estate', [
+      Projects,
+      Properties,
+      Classifications,
+      Amenities,
+      Availability,
+      Contracts,
+    ]),
+    ...collectionGroup('Marketing', [Pages, Blog, BlogCategories, Tags]),
     ...collectionGroup('Resources', [Media, Assets]),
     ...collectionGroup('Accounts', [Users, UserPhotos]),
   ],

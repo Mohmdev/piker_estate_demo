@@ -3,7 +3,7 @@ import { cn } from '@utils/ui'
 import Link from 'next/link'
 import React from 'react'
 
-import type { Page, Post } from '@payload-types'
+import type { Blog, Page } from '@payload-types'
 
 type CMSLinkType = {
   appearance?: 'inline' | ButtonProps['variant']
@@ -12,8 +12,8 @@ type CMSLinkType = {
   label?: string | null
   newTab?: boolean | null
   reference?: {
-    relationTo: 'pages' | 'posts' | 'properties'
-    value: Page | Post | string | number
+    relationTo: 'pages' | 'blog' | 'properties'
+    value: Page | Blog | string | number
   } | null
   size?: ButtonProps['size'] | null
   type?: 'custom' | 'reference' | null
@@ -34,7 +34,6 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
   } = props
 
   const getPathPrefix = (relationTo: string) => {
-    if (relationTo === 'posts') return '/blog'
     if (relationTo === 'pages') return '' // home page
     return `/${relationTo}`
   }

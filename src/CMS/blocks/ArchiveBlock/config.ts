@@ -1,11 +1,11 @@
-import type { Block } from 'payload'
-
 import {
   FixedToolbarFeature,
   HeadingFeature,
   InlineToolbarFeature,
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
+import { isIncludedInSibling } from '@utils/siblingFieldCondition'
+import type { Block } from 'payload'
 
 export const Archive: Block = {
   slug: 'archive',
@@ -45,14 +45,22 @@ export const Archive: Block = {
       name: 'relationTo',
       type: 'select',
       admin: {
-        condition: (_, siblingData) => siblingData.populateBy === 'collection',
+        condition: isIncludedInSibling('populateBy', 'collection'),
       },
-      defaultValue: 'posts',
+      defaultValue: 'blog',
       label: 'Collections To Show',
       options: [
         {
-          label: 'Posts',
-          value: 'posts',
+          label: 'Blog Posts',
+          value: 'blog',
+        },
+        {
+          label: 'Properties',
+          value: 'properties',
+        },
+        {
+          label: 'Projects',
+          value: 'projects',
         },
       ],
     },
@@ -60,17 +68,17 @@ export const Archive: Block = {
       name: 'categories',
       type: 'relationship',
       admin: {
-        condition: (_, siblingData) => siblingData.populateBy === 'collection',
+        condition: isIncludedInSibling('populateBy', 'collection'),
       },
       hasMany: true,
       label: 'Categories To Show',
-      relationTo: 'categories',
+      relationTo: ['blog-categories', 'classifications'],
     },
     {
       name: 'limit',
       type: 'number',
       admin: {
-        condition: (_, siblingData) => siblingData.populateBy === 'collection',
+        condition: isIncludedInSibling('populateBy', 'collection'),
         step: 1,
       },
       defaultValue: 10,
@@ -80,11 +88,11 @@ export const Archive: Block = {
       name: 'selectedDocs',
       type: 'relationship',
       admin: {
-        condition: (_, siblingData) => siblingData.populateBy === 'selection',
+        condition: isIncludedInSibling('populateBy', 'selection'),
       },
       hasMany: true,
       label: 'Selection',
-      relationTo: ['posts'],
+      relationTo: ['blog', 'properties', 'projects'],
     },
   ],
   labels: {

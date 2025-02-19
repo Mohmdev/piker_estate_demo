@@ -17,7 +17,7 @@ export const beforeSyncWithSearch: BeforeSync = async ({
     //  excerpt
   } = originalDoc
 
-  const modifiedDoc: DocToSync = {
+  const generatedSearchDoc: DocToSync = {
     ...searchDoc,
     slug,
     meta: {
@@ -30,19 +30,18 @@ export const beforeSyncWithSearch: BeforeSync = async ({
   }
 
   if (categories && Array.isArray(categories) && categories.length > 0) {
-    // get full categories and keep a flattened copy of their most important properties
     try {
       const mappedCategories = categories.map((category) => {
-        const { id, title } = category
+        const { id, title, relationTo } = category
 
         return {
-          relationTo: 'categories',
+          relationTo,
           id,
           title,
         }
       })
 
-      modifiedDoc.categories = mappedCategories
+      generatedSearchDoc.categories = mappedCategories
     } catch (err) {
       console.error(
         `Failed. Category not found when syncing collection '${collection}' with id: '${id}' to search. | ${err}`,
@@ -50,5 +49,26 @@ export const beforeSyncWithSearch: BeforeSync = async ({
     }
   }
 
-  return modifiedDoc
+  // if (categories && Array.isArray(categories) && categories.length > 0) {
+  //   // get full categories and keep a flattened copy of their most important properties
+  //   try {
+  //     const mappedCategories = categories.map((category) => {
+  //       const { id, title } = category
+
+  //       return {
+  //         relationTo: 'blog-categories',
+  //         id,
+  //         title,
+  //       }
+  //     })
+
+  //     generatedSearchDoc.categories = mappedCategories
+  //   } catch (err) {
+  //     console.error(
+  //       `Failed. Category not found when syncing collection '${collection}' with id: '${id}' to search. | ${err}`,
+  //     )
+  //   }
+  // }
+
+  return generatedSearchDoc
 }

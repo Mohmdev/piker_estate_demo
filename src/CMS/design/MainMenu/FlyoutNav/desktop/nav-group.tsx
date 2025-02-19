@@ -122,7 +122,10 @@ export const DesktopNavGroup: React.FC<NavGroupProps> = (props) => {
                   'rounded-lg',
                 )}
               >
-                <DropdownContent dscrpArea={descriptionArea} navItems={navItems} />
+                <DropdownContent
+                  dscrpArea={descriptionArea}
+                  navItems={navItems}
+                />
               </motion.div>
             )}
           </AnimatePresence>

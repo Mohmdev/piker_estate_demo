@@ -30,25 +30,50 @@ html {
   }
 } */
 
-* {
-  &::-webkit-scrollbar {
-    width: 0.5em;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    /* background-color: hsla(var(--theme-text-gray) / 0.5); */
-    background-color: light-dark(
-      hsla(199, 20%, 22%, 0.5),
-      hsla(200 10% 37% / 0.5)
-    );
-    border-radius: 1rem;
-
-    &:hover {
-      background-color: hsla(var(--theme-text-gray) / 0.5);
+@layer base {
+  * {
+    &::-webkit-scrollbar {
+      width: 0.25em;
+      height: 0.25em;
     }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      /* background-color: hsla(var(--theme-text-gray) / 0.5); */
+      background-color: light-dark(
+        hsla(199, 20%, 22%, 0.5),
+        hsla(200 10% 37% / 0.5)
+      );
+      border-radius: 1rem;
+
+      &:hover {
+        background-color: hsla(var(--theme-text-gray) / 0.5);
+      }
+    }
+  }
+  .create-first-user > .form > .render-fields {
+    @apply hidden;
+  }
+
+  .auth-fields > .field-type > .checkbox-input > * {
+    @apply font-bold;
+  }
+}
+
+@layer base {
+  .fixed-toolbar {
+    @apply border-0;
+  }
+  .fixed-toolbar:before {
+    @apply border-0 bg-[hsl(var(--space-bg-less))];
+  }
+  .fixed-toolbar:after {
+    @apply rounded-lg  overflow-hidden border-1 border-border;
+  }
+  #field-breadcrumbs {
+    @apply hidden;
   }
 }

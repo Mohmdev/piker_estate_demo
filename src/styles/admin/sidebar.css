@@ -1,7 +1,7 @@
 @layer components {
   .nav__wrap {
     .nav-group {
-      &.Realty.Estate {
+      &.Real.Estate {
         order: 1;
         margin-bottom: 1rem;
       }

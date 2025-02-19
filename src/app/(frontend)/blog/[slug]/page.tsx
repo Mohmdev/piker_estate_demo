@@ -1,12 +1,11 @@
 import { RelatedDocs } from '@CMS/blocks/RelatedDocs/Component'
+import { BlogHero } from '@CMS/heros/Blog'
 import { LivePreviewListener } from '@components/LivePreviewListener'
 import { PayloadRedirects } from '@components/PayloadRedirects'
 import RichText from '@components/RichText'
 import { getDynamicMeta } from '@data/getDynamicMeta'
 import { getPostBySlug } from '@data/getPost'
-import { PostHero } from '@heros/PostHero'
 import configPromise from '@payload-config'
-import type { Post } from '@payload-types'
 import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
 import { generateMeta } from '@services/seo/generateMeta'
 import type { Metadata } from 'next'
@@ -17,8 +16,8 @@ import PageClient from './page.client'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
-  const posts = await payload.find({
-    collection: 'posts',
+  const blogPosts = await payload.find({
+    collection: 'blog',
     draft: false,
     limit: 1000,
     overrideAccess: false,
@@ -28,7 +27,7 @@ export async function generateStaticParams() {
     },
   })
 
-  const params = posts.docs.map(({ slug }) => {
+  const params = blogPosts.docs.map(({ slug }) => {
     return { slug }
   })
 
@@ -41,13 +40,13 @@ type Args = {
   }>
 }
 
-export default async function Post({ params: paramsPromise }: Args) {
+export default async function BlogPost({ params: paramsPromise }: Args) {
   const { isEnabled: draft } = await draftMode()
   const { slug = '' } = await paramsPromise
   const url = '/blog/' + slug
-  const post = await getPostBySlug({ slug })
+  const blogPost = await getPostBySlug({ slug })
 
-  if (!post) return <PayloadRedirects url={url} />
+  if (!blogPost) return <PayloadRedirects url={url} />
 
   return (
     <article className="pt-16 pb-16">
@@ -58,19 +57,21 @@ export default async function Post({ params: paramsPromise }: Args) {
 
       {draft && <LivePreviewListener />}
 
-      <PostHero post={post} />
+      <BlogHero post={blogPost} />
 
       <div className="flex flex-col items-center gap-4 pt-8">
         <div className="container">
           <RichText
             className="max-w-[48rem] mx-auto"
-            data={post.content as SerializedEditorState}
+            data={blogPost.content as SerializedEditorState}
             enableGutter={false}
           />
-          {post.relatedDocs && post.relatedDocs.length > 0 && (
+          {blogPost.relatedDocs && blogPost.relatedDocs.length > 0 && (
             <RelatedDocs
               className="mt-12 max-w-[52rem] lg:grid lg:grid-cols-subgrid col-start-1 col-span-3 grid-rows-[2fr]"
-              docs={post.relatedDocs.filter((post) => typeof post === 'object')}
+              docs={blogPost.relatedDocs.filter(
+                (blogPost) => typeof blogPost === 'object',
+              )}
             />
           )}
         </div>
@@ -83,9 +84,9 @@ export async function generateMetadata({
   params: paramsPromise,
 }: Args): Promise<Metadata> {
   const { slug = '' } = await paramsPromise
-  const post = await getPostBySlug({ slug })
+  const blogPost = await getPostBySlug({ slug })
 
-  if (!post) {
+  if (!blogPost) {
     const { siteName, siteDescription } = await getDynamicMeta()
     return {
       title: `Not Found | ${siteName}`,
@@ -93,5 +94,5 @@ export async function generateMetadata({
     }
   }
 
-  return generateMeta({ doc: post })
+  return generateMeta({ doc: blogPost })
 }

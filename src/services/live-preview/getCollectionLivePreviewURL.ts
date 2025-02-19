@@ -5,11 +5,10 @@ import type { CollectionSlug, LivePreviewConfig } from 'payload'
 export const getCollectionLivePreviewURL = (
   collection: CollectionSlug,
 ): LivePreviewConfig => ({
-  url: ({ data, req }) => {
+  url: ({ data }) => {
     const path = generateCollectionPreviewPath({
       slug: typeof data?.slug === 'string' ? data.slug : '',
       collection,
-      req,
     })
 
     return path

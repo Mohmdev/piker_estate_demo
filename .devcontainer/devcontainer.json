@@ -49,18 +49,19 @@
         "ms-vscode.remote-server",
         "ms-vscode.remote-explorer",
         "macieklad.tailwind-sass-syntax",
-        "vscode-icons-team.vscode-icons",
         "WakaTime.vscode-wakatime",
         "biomejs.biome",
         "esbenp.prettier-vscode",
         "jock.svg",
         "henoc.svgeditor",
         "matt-meyers.vscode-dbml",
-        "tomoki1207.pdf"
+        "tomoki1207.pdf",
+        "PKief.material-icon-theme",
+        "MylesMurphy.prettify-ts"
       ],
 
       "settings": {
-        "workbench.iconTheme": "vscode-icons",
+        "workbench.iconTheme": "material-icon-theme",
         "workbench.editor.scrollToSwitchTabs": true,
         "workbench.colorTheme": "Andromeda Mariana - Italic Bordered"
       }

@@ -53,7 +53,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title,
     description: siteDescription,
-    openGraph: mergeOpenGraph(
+    openGraph: await mergeOpenGraph(
       {
         title,
         description: siteDescription,

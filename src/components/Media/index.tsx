@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react'
 
+import { cn } from '@utils/ui'
 import type { Props } from './types'
 
 import { ImageMedia } from './ImageMedia'
@@ -15,9 +16,7 @@ export const Media: React.FC<Props> = (props) => {
   return (
     <Tag
       {...(htmlElement !== null
-        ? {
-            className,
-          }
+        ? { className: cn(className, 'size-full relative') }
         : {})}
     >
       {isVideo ? <VideoMedia {...props} /> : <ImageMedia {...props} />}

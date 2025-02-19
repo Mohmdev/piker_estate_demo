@@ -2,9 +2,10 @@ import { revalidateMainMenu } from '@CMS/_hooks/revalidateMainMenu'
 import { isAdminOrEditor } from '@auth/access/isAdminOrEditor'
 import { publishedOnly } from '@auth/access/publishedOnly'
 import { link } from '@fields/link'
-import { essentialsLexical } from '@services/editor/essentialsLexical'
+import { extendedLexical } from '@services/editor/extendedLexical'
 import { getGlobalLivePreviewURL } from '@services/live-preview/getGlobalLivePreviewURL'
 import { getGlobalPreviewURL } from '@services/live-preview/getGlobalPreviewURL'
+import { isIncludedInSibling } from '@utils/siblingFieldCondition'
 import type { GlobalConfig } from 'payload'
 
 export const MainMenu: GlobalConfig = {
@@ -64,7 +65,7 @@ export const MainMenu: GlobalConfig = {
         {
           type: 'collapsible',
           admin: {
-            condition: (_, siblingData) => siblingData.enableDirectLink,
+            condition: isIncludedInSibling('enableDirectLink', true),
           },
           fields: [
             link({
@@ -78,7 +79,7 @@ export const MainMenu: GlobalConfig = {
           // Dropdown Config collapible
           type: 'collapsible',
           admin: {
-            condition: (_, siblingData) => siblingData.enableDropdown,
+            condition: isIncludedInSibling('enableDropdown', true),
           },
           fields: [
             {
@@ -98,14 +99,14 @@ export const MainMenu: GlobalConfig = {
                   type: 'collapsible',
                   label: 'Customize',
                   admin: {
-                    condition: (_, siblingData) => siblingData.enable,
+                    condition: isIncludedInSibling('enable', true),
                   },
                   fields: [
                     {
                       name: 'text',
                       label: 'Group Description Area',
                       type: 'richText',
-                      editor: essentialsLexical,
+                      editor: extendedLexical(),
                       admin: {
                         description: 'Describe the group and its contents.',
                       },
@@ -143,7 +144,8 @@ export const MainMenu: GlobalConfig = {
               type: 'array',
               admin: {
                 components: {
-                  RowLabel: '@CMS/design/MainMenu/NavItemRowLabel#NavItemRowLabel',
+                  RowLabel:
+                    '@CMS/design/MainMenu/NavItemRowLabel#NavItemRowLabel',
                 },
               },
               fields: [
@@ -171,7 +173,7 @@ export const MainMenu: GlobalConfig = {
                   label: 'Default Link',
                   type: 'group',
                   admin: {
-                    condition: (_, siblingData) => siblingData.style === 'default',
+                    condition: isIncludedInSibling('style', 'default'),
                   },
                   fields: [
                     link({
@@ -191,7 +193,7 @@ export const MainMenu: GlobalConfig = {
                   label: 'Featured Link',
                   type: 'group',
                   admin: {
-                    condition: (_, siblingData) => siblingData.style === 'featured',
+                    condition: isIncludedInSibling('style', 'featured'),
                   },
                   fields: [
                     {
@@ -201,7 +203,10 @@ export const MainMenu: GlobalConfig = {
                     {
                       name: 'label',
                       type: 'richText',
-                      editor: essentialsLexical,
+                      editor: extendedLexical(),
+                      admin: {
+                        description: 'Label for the featured link.',
+                      },
                     },
                     {
                       name: 'links',
@@ -225,7 +230,7 @@ export const MainMenu: GlobalConfig = {
                   name: 'listLinks',
                   type: 'group',
                   admin: {
-                    condition: (_, siblingData) => siblingData.style === 'list',
+                    condition: isIncludedInSibling('style', 'list'),
                   },
                   fields: [
                     {
@@ -273,7 +278,7 @@ export const MainMenu: GlobalConfig = {
           type: 'collapsible',
           label: 'Button Link',
           admin: {
-            condition: (_, siblingData) => siblingData.enableCta,
+            condition: isIncludedInSibling('enableCta', true),
           },
           fields: [
             link({

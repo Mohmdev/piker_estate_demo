@@ -1,25 +1,28 @@
+import { getDynamicMeta } from '@data/getDynamicMeta'
 import { getServerSideURL } from '@data/getURL'
 import type { Metadata } from 'next'
 
 const defaultImage = `${getServerSideURL()}/assets/website-template-OG.webp`
 
-export const mergeOpenGraph = (
+export const mergeOpenGraph = async (
   og?: Metadata['openGraph'],
   defaults: {
     siteName: string
     description: string
   } = {
-    siteName: 'Nexweb - Modern Web Development Platform',
+    siteName: 'Webora Estates - Property Management Platform',
     description:
-      'Nexweb is a modern web development platform that lets you build, deploy, and scale websites and web applications with ease.',
+      'Enterprise-grade real estate management platform for property listings, tenant management, and portfolio operations.',
   },
-): Metadata['openGraph'] => {
+): Promise<Metadata['openGraph']> => {
+  const { siteName, siteDescription } = await getDynamicMeta()
+
   const defaultOpenGraph: Metadata['openGraph'] = {
     type: 'website',
-    description: defaults.description,
+    description: siteDescription || defaults.description || '',
     images: [{ url: defaultImage }],
-    siteName: defaults.siteName,
-    title: defaults.siteName,
+    siteName: siteName || defaults.siteName || '',
+    title: siteName || defaults.siteName || '',
   }
 
   return {

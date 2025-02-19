@@ -1,5 +1,3 @@
-import type { CollectionConfig } from 'payload'
-
 import { populateAuthors } from '@CMS/_hooks/populateAuthors'
 import { populatePublishedAt } from '@CMS/_hooks/populatePublishedAt'
 import { revalidateDelete, revalidatePage } from '@CMS/_hooks/revalidatePage'
@@ -8,20 +6,23 @@ import { CallToAction } from '@CMS/blocks/CallToAction/config'
 import { Content } from '@CMS/blocks/Content/config'
 import { FormBlock } from '@CMS/blocks/Form/config'
 import { MediaBlock } from '@CMS/blocks/MediaBlock/config'
-import { slugField } from '@CMS/fields/shared/slug/config'
-import { hero } from '@CMS/heros/config'
-
+import { ListingArchiveBlock } from '@CMS/blocks/real-estate/ListingArchiveBlock/config'
+import { ListingBlock } from '@CMS/blocks/real-estate/ListingBlock/config'
 import { authorsField } from '@CMS/fields/shared/authorsField'
+import { categoriesField } from '@CMS/fields/shared/categoriesField'
 import { noindexField } from '@CMS/fields/shared/noindexField'
 import { populateAuthorsField } from '@CMS/fields/shared/populatedAuthorsField'
 import { publishedAtField } from '@CMS/fields/shared/publishedAtField'
 import { seoTab } from '@CMS/fields/shared/seoTab'
+import { slugField } from '@CMS/fields/shared/slug/config'
 import { tagsField } from '@CMS/fields/shared/tagsField'
+import { herosInterface } from '@CMS/heros/config.heros'
 import { isAdminOrEditor } from '@auth/access/isAdminOrEditor'
 import { isAdminOrSelf } from '@auth/access/isAdminOrSelf'
 import { publishedOnly } from '@auth/access/publishedOnly'
 import { getCollectionLivePreviewURL } from '@services/live-preview/getCollectionLivePreviewURL'
 import { getCollectionPreviewURL } from '@services/live-preview/getCollectionPreviewURL'
+import type { CollectionConfig } from 'payload'
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -60,27 +61,38 @@ export const Pages: CollectionConfig<'pages'> = {
       type: 'tabs',
       tabs: [
         {
-          fields: [hero],
-          label: 'Hero',
+          label: 'Hero Section',
+          fields: [herosInterface],
         },
         {
+          label: 'Blocks',
           fields: [
             {
-              name: 'layout',
+              name: 'blocks',
               type: 'blocks',
-              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock],
+              blocks: [
+                CallToAction,
+                Content,
+                MediaBlock,
+                Archive,
+                FormBlock,
+                ListingBlock,
+                ListingArchiveBlock,
+              ],
               admin: {
-                initCollapsed: true,
+                initCollapsed: false,
               },
             },
           ],
-          label: 'Content',
+        },
+        {
+          label: 'Options',
+          fields: [categoriesField, tagsField],
         },
         seoTab,
       ],
     },
     noindexField,
-    tagsField,
     authorsField,
     populateAuthorsField,
     publishedAtField,

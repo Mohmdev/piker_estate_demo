@@ -20,10 +20,18 @@ export const Footer: React.FC<FooterType> = (props) => {
                     key={columnIndex}
                     className="flex flex-col gap-4 items-start justify-start"
                   >
-                    <h3 className="text-foreground prose prose-lg">{column.label}</h3>
+                    <h3 className="text-foreground prose prose-lg">
+                      {column.label}
+                    </h3>
                     <div className="flex flex-col gap-2 items-start justify-start">
                       {column?.navItems?.map(({ link }, i) => {
-                        return <CMSLink className="text-foreground" key={i} {...link} />
+                        return (
+                          <CMSLink
+                            className="text-foreground"
+                            key={i}
+                            {...link}
+                          />
+                        )
                       })}
                     </div>
                   </div>

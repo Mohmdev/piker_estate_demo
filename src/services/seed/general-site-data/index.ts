@@ -5,29 +5,30 @@ import type {
   Payload,
   PayloadRequest,
 } from 'payload'
-import { contactForm as contactFormData } from './contact-form'
-import { contact as contactPageData } from './contact-page'
+import { fetchFileByURL } from '../fetchFile'
+import { image1 } from './_images/image-1'
+import { image2 } from './_images/image-2'
+import { imageHero1 } from './_images/image-hero-1'
+import { post1 } from './blog/post-1'
+import { post2 } from './blog/post-2'
+import { post3 } from './blog/post-3'
+import { contactForm as contactFormData } from './contact/contact-form'
+import { contact as contactPageData } from './contact/contact-page'
 import { footerMock } from './footer'
-import { home } from './home'
-import { image1 } from './image-1'
-import { image2 } from './image-2'
-import { imageHero1 } from './image-hero-1'
-import { mainMenuMock } from './mainMenu'
-import { post1 } from './post-1'
-import { post2 } from './post-2'
-import { post3 } from './post-3'
+import { home } from './home/home'
+import { mainMenuMock } from './main-menu'
 
-const collections: CollectionSlug[] = [
-  'categories',
+export const targetCollections: CollectionSlug[] = [
+  'blog-categories',
   'media',
   'pages',
-  'posts',
+  'blog',
   'forms',
   'form-submissions',
   'search',
 ]
 
-const globals: GlobalSlug[] = ['main-menu', 'footer']
+export const targetGlobals: GlobalSlug[] = ['main-menu', 'footer']
 
 // Next.js revalidation errors are normal when seeding the database without a server running
 // i.e. running `yarn seed` locally instead of using the admin UI within an active app
@@ -50,7 +51,7 @@ export const seed = async ({
 
   // clear the database
   await Promise.all(
-    globals.map((global) =>
+    targetGlobals.map((global) =>
       payload.updateGlobal({
         slug: global,
         data: {},
@@ -63,13 +64,13 @@ export const seed = async ({
   )
 
   await Promise.all(
-    collections.map((collection) =>
+    targetCollections.map((collection) =>
       payload.db.deleteMany({ collection, req, where: {} }),
     ),
   )
 
   await Promise.all(
-    collections
+    targetCollections
       .filter((collection) =>
         Boolean(payload.collections[collection].config.versions),
       )
@@ -85,10 +86,10 @@ export const seed = async ({
     depth: 0,
     where: {
       email: {
-        equals: 'demo@nexweb.studio',
+        equals: 'demo@webora.app',
       },
       username: {
-        equals: 'nexeditor',
+        equals: 'weboraeditor',
       },
     },
   })
@@ -127,11 +128,11 @@ export const seed = async ({
     payload.create({
       collection: 'users',
       data: {
-        firstName: 'Nexweb',
+        firstName: 'Webora',
         lastName: 'Author',
-        email: 'demo@nexweb.studio',
+        email: 'demo@webora.app',
         password: 'password',
-        username: 'nexeditor',
+        username: 'weboraeditor',
         role: 'editor',
       },
     }),
@@ -157,7 +158,7 @@ export const seed = async ({
     }),
 
     payload.create({
-      collection: 'categories',
+      collection: 'blog-categories',
       data: {
         title: 'Technology',
         breadcrumbs: [
@@ -170,7 +171,7 @@ export const seed = async ({
     }),
 
     payload.create({
-      collection: 'categories',
+      collection: 'blog-categories',
       data: {
         title: 'News',
         breadcrumbs: [
@@ -183,7 +184,7 @@ export const seed = async ({
     }),
 
     payload.create({
-      collection: 'categories',
+      collection: 'blog-categories',
       data: {
         title: 'Finance',
         breadcrumbs: [
@@ -195,7 +196,7 @@ export const seed = async ({
       },
     }),
     payload.create({
-      collection: 'categories',
+      collection: 'blog-categories',
       data: {
         title: 'Design',
         breadcrumbs: [
@@ -208,7 +209,7 @@ export const seed = async ({
     }),
 
     payload.create({
-      collection: 'categories',
+      collection: 'blog-categories',
       data: {
         title: 'Software',
         breadcrumbs: [
@@ -221,7 +222,7 @@ export const seed = async ({
     }),
 
     payload.create({
-      collection: 'categories',
+      collection: 'blog-categories',
       data: {
         title: 'Engineering',
         breadcrumbs: [
@@ -254,7 +255,7 @@ export const seed = async ({
   // Do not create posts with `Promise.all` because we want the posts to be created in order
   // This way we can sort them by `createdAt` or `publishedAt` and they will be in the expected order
   const post1Doc = await payload.create({
-    collection: 'posts',
+    collection: 'blog',
     depth: 1,
     context: {
       disableRevalidate: true,
@@ -262,7 +263,16 @@ export const seed = async ({
     data: JSON.parse(
       JSON.stringify({
         ...post1,
-        categories: [technologyCategory.id, softwareCategory.id],
+        categories: [
+          {
+            relationTo: 'blog-categories',
+            value: technologyCategory.id,
+          },
+          {
+            relationTo: 'blog-categories',
+            value: softwareCategory.id,
+          },
+        ],
       })
         .replace(/"\{\{IMAGE_1\}\}"/g, String(image1ID))
         .replace(/"\{\{IMAGE_2\}\}"/g, String(image2ID))
@@ -271,7 +281,7 @@ export const seed = async ({
   })
 
   const post2Doc = await payload.create({
-    collection: 'posts',
+    collection: 'blog',
     depth: 1,
     context: {
       disableRevalidate: true,
@@ -279,7 +289,16 @@ export const seed = async ({
     data: JSON.parse(
       JSON.stringify({
         ...post2,
-        categories: [newsCategory.id, designCategory.id],
+        categories: [
+          {
+            relationTo: 'blog-categories',
+            value: newsCategory.id,
+          },
+          {
+            relationTo: 'blog-categories',
+            value: designCategory.id,
+          },
+        ],
       })
         .replace(/"\{\{IMAGE_1\}\}"/g, String(image2ID))
         .replace(/"\{\{IMAGE_2\}\}"/g, String(image3ID))
@@ -288,7 +307,7 @@ export const seed = async ({
   })
 
   const post3Doc = await payload.create({
-    collection: 'posts',
+    collection: 'blog',
     depth: 1,
     context: {
       disableRevalidate: true,
@@ -296,7 +315,16 @@ export const seed = async ({
     data: JSON.parse(
       JSON.stringify({
         ...post3,
-        categories: [financeCategory.id, engineeringCategory.id],
+        categories: [
+          {
+            relationTo: 'blog-categories',
+            value: financeCategory.id,
+          },
+          {
+            relationTo: 'blog-categories',
+            value: engineeringCategory.id,
+          },
+        ],
       })
         .replace(/"\{\{IMAGE_1\}\}"/g, String(image3ID))
         .replace(/"\{\{IMAGE_2\}\}"/g, String(image1ID))
@@ -307,31 +335,31 @@ export const seed = async ({
   // update each post with related posts
   await payload.update({
     id: post1Doc.id,
-    collection: 'posts',
+    collection: 'blog',
     data: {
       relatedDocs: [
-        { relationTo: 'posts', value: post2Doc.id },
-        { relationTo: 'posts', value: post3Doc.id },
+        { relationTo: 'blog', value: post2Doc.id },
+        { relationTo: 'blog', value: post3Doc.id },
       ],
     },
   })
   await payload.update({
     id: post2Doc.id,
-    collection: 'posts',
+    collection: 'blog',
     data: {
       relatedDocs: [
-        { relationTo: 'posts', value: post1Doc.id },
-        { relationTo: 'posts', value: post3Doc.id },
+        { relationTo: 'blog', value: post1Doc.id },
+        { relationTo: 'blog', value: post3Doc.id },
       ],
     },
   })
   await payload.update({
     id: post3Doc.id,
-    collection: 'posts',
+    collection: 'blog',
     data: {
       relatedDocs: [
-        { relationTo: 'posts', value: post1Doc.id },
-        { relationTo: 'posts', value: post2Doc.id },
+        { relationTo: 'blog', value: post1Doc.id },
+        { relationTo: 'blog', value: post2Doc.id },
       ],
     },
   })
@@ -390,24 +418,4 @@ export const seed = async ({
   ])
 
   payload.logger.info('Seeded database successfully!')
-}
-
-async function fetchFileByURL(url: string): Promise<File> {
-  const res = await fetch(url, {
-    credentials: 'include',
-    method: 'GET',
-  })
-
-  if (!res.ok) {
-    throw new Error(`Failed to fetch file from ${url}, status: ${res.status}`)
-  }
-
-  const data = await res.arrayBuffer()
-
-  return {
-    name: url.split('/').pop() || `file-${Date.now()}`,
-    data: Buffer.from(data),
-    mimetype: `image/${url.split('.').pop()}`,
-    size: data.byteLength,
-  }
 }

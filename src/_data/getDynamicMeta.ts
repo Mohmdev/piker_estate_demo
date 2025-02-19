@@ -29,9 +29,10 @@ export const getDynamicMeta = async (): Promise<DynamicMeta> => {
   const favicon = globaldata.branding?.favicon
 
   return {
-    siteName: cachedSiteName || 'Nexweb',
+    siteName: cachedSiteName || 'Webora Estates - Property Management Platform',
     siteDescription:
-      cachedSiteDescription || 'Nexweb Content Management Systems',
+      cachedSiteDescription ||
+      'Enterprise-grade real estate management platform for property listings, tenant management, and portfolio operations.',
     favicon:
       favicon && typeof favicon === 'object' && 'url' in favicon && favicon.url
         ? { url: favicon.url }

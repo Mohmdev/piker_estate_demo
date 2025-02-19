@@ -4,6 +4,7 @@ import Link from 'next/link'
 import type { Dispatch, SetStateAction } from 'react'
 import { FiSearch } from 'react-icons/fi'
 import { CTAs } from '../CTAs'
+import { AccountNav } from './accountNav'
 import { DesktopNavGroup } from './nav-group'
 
 export const DesktopNav: React.FC<
@@ -29,7 +30,17 @@ export const DesktopNav: React.FC<
         <span className="sr-only">Search</span>
         <FiSearch className="w-5 text-primary" />
       </Link>
-      <CTAs {...menuCta} />
+      <div
+        className={cn(
+          'flex-1',
+          'flex gap-3',
+          'justify-between items-center',
+          '*:transition-colors *:duration-400 *:ease-in-out text-sm text-white',
+        )}
+      >
+        <AccountNav />
+        <CTAs {...menuCta} />
+      </div>
     </div>
   )
 }

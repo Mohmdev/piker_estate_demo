@@ -6,15 +6,75 @@
  * and re-run `payload generate:types` to regenerate this file.
  */
 
+/**
+ * Supported timezones in IANA format.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "supportedTimezones".
+ */
+export type SupportedTimezones =
+  | 'Europe/Istanbul'
+  | 'Pacific/Midway'
+  | 'Pacific/Niue'
+  | 'Pacific/Honolulu'
+  | 'Pacific/Rarotonga'
+  | 'Pacific/Gambier'
+  | 'America/Anchorage'
+  | 'America/Los_Angeles'
+  | 'America/Tijuana'
+  | 'America/Denver'
+  | 'America/Phoenix'
+  | 'America/Chicago'
+  | 'America/Guatemala'
+  | 'America/New_York'
+  | 'America/Bogota'
+  | 'America/Caracas'
+  | 'America/Santiago'
+  | 'America/Buenos_Aires'
+  | 'America/Sao_Paulo'
+  | 'Atlantic/South_Georgia'
+  | 'Atlantic/Azores'
+  | 'Atlantic/Cape_Verde'
+  | 'Europe/London'
+  | 'Europe/Berlin'
+  | 'Africa/Lagos'
+  | 'Europe/Athens'
+  | 'Africa/Cairo'
+  | 'Europe/Moscow'
+  | 'Asia/Riyadh'
+  | 'Asia/Dubai'
+  | 'Asia/Baku'
+  | 'Asia/Karachi'
+  | 'Asia/Tashkent'
+  | 'Asia/Calcutta'
+  | 'Asia/Dhaka'
+  | 'Asia/Almaty'
+  | 'Asia/Jakarta'
+  | 'Asia/Bangkok'
+  | 'Asia/Shanghai'
+  | 'Asia/Singapore'
+  | 'Asia/Tokyo'
+  | 'Asia/Seoul'
+  | 'Australia/Sydney'
+  | 'Pacific/Guam'
+  | 'Pacific/Noumea'
+  | 'Pacific/Auckland'
+  | 'Pacific/Fiji';
+
 export interface Config {
   auth: {
     users: UserAuthOperations;
   };
   collections: {
+    projects: Project;
     properties: Property;
+    classifications: Classification;
+    amenities: Amenity;
+    availability: Availability;
+    contracts: Contract;
     pages: Page;
-    posts: Post;
-    categories: Category;
+    blog: Blog;
+    'blog-categories': BlogCategory;
     tags: Tag;
     media: Media;
     assets: Asset;
@@ -30,19 +90,39 @@ export interface Config {
     'payload-migrations': PayloadMigration;
   };
   collectionsJoins: {
+    classifications: {
+      properties: 'properties';
+    };
+    amenities: {
+      properties: 'properties';
+    };
+    availability: {
+      properties: 'properties';
+    };
+    contracts: {
+      properties: 'properties';
+    };
+    'blog-categories': {
+      records: 'blog';
+    };
     tags: {
       pages: 'pages';
-      posts: 'posts';
+      blog: 'blog';
     };
     'user-photos': {
       user: 'users';
     };
   };
   collectionsSelect: {
+    projects: ProjectsSelect<false> | ProjectsSelect<true>;
     properties: PropertiesSelect<false> | PropertiesSelect<true>;
+    classifications: ClassificationsSelect<false> | ClassificationsSelect<true>;
+    amenities: AmenitiesSelect<false> | AmenitiesSelect<true>;
+    availability: AvailabilitySelect<false> | AvailabilitySelect<true>;
+    contracts: ContractsSelect<false> | ContractsSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
-    posts: PostsSelect<false> | PostsSelect<true>;
-    categories: CategoriesSelect<false> | CategoriesSelect<true>;
+    blog: BlogSelect<false> | BlogSelect<true>;
+    'blog-categories': BlogCategoriesSelect<false> | BlogCategoriesSelect<true>;
     tags: TagsSelect<false> | TagsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     assets: AssetsSelect<false> | AssetsSelect<true>;
@@ -117,286 +197,72 @@ export interface UserAuthOperations {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "properties".
+ * via the `definition` "projects".
  */
-export interface Property {
+export interface Project {
   id: number;
   title: string;
-  location?: {
-    address_line1?: string | null;
-    address_line2?: string | null;
-    unit?: string | null;
-    postcode?: string | null;
-    city?: string | null;
-    state?: string | null;
-    country?:
-      | (
-          | 'AF'
-          | 'AX'
-          | 'AL'
-          | 'DZ'
-          | 'AS'
-          | 'AD'
-          | 'AO'
-          | 'AI'
-          | 'AQ'
-          | 'AG'
-          | 'AR'
-          | 'AM'
-          | 'AW'
-          | 'AU'
-          | 'AT'
-          | 'AZ'
-          | 'BS'
-          | 'BH'
-          | 'BD'
-          | 'BB'
-          | 'BY'
-          | 'BE'
-          | 'BZ'
-          | 'BJ'
-          | 'BM'
-          | 'BT'
-          | 'BO'
-          | 'BA'
-          | 'BW'
-          | 'BV'
-          | 'BR'
-          | 'IO'
-          | 'BN'
-          | 'BG'
-          | 'BF'
-          | 'BI'
-          | 'KH'
-          | 'CM'
-          | 'CA'
-          | 'CV'
-          | 'KY'
-          | 'CF'
-          | 'TD'
-          | 'CL'
-          | 'CN'
-          | 'CX'
-          | 'CC'
-          | 'CO'
-          | 'KM'
-          | 'CG'
-          | 'CD'
-          | 'CK'
-          | 'CR'
-          | 'CI'
-          | 'HR'
-          | 'CU'
-          | 'CY'
-          | 'CZ'
-          | 'DK'
-          | 'DJ'
-          | 'DM'
-          | 'DO'
-          | 'EC'
-          | 'EG'
-          | 'SV'
-          | 'GQ'
-          | 'ER'
-          | 'EE'
-          | 'ET'
-          | 'FK'
-          | 'FO'
-          | 'FJ'
-          | 'FI'
-          | 'FR'
-          | 'GF'
-          | 'PF'
-          | 'TF'
-          | 'GA'
-          | 'GM'
-          | 'GE'
-          | 'DE'
-          | 'GH'
-          | 'GI'
-          | 'GR'
-          | 'GL'
-          | 'GD'
-          | 'GP'
-          | 'GU'
-          | 'GT'
-          | 'GG'
-          | 'GN'
-          | 'GW'
-          | 'GY'
-          | 'HT'
-          | 'HM'
-          | 'VA'
-          | 'HN'
-          | 'HK'
-          | 'HU'
-          | 'IS'
-          | 'IN'
-          | 'ID'
-          | 'IR'
-          | 'IQ'
-          | 'IE'
-          | 'IM'
-          | 'IL'
-          | 'IT'
-          | 'JM'
-          | 'JP'
-          | 'JE'
-          | 'JO'
-          | 'KZ'
-          | 'KE'
-          | 'KI'
-          | 'KP'
-          | 'KR'
-          | 'XK'
-          | 'KW'
-          | 'KG'
-          | 'LA'
-          | 'LV'
-          | 'LB'
-          | 'LS'
-          | 'LR'
-          | 'LY'
-          | 'LI'
-          | 'LT'
-          | 'LU'
-          | 'MO'
-          | 'MK'
-          | 'MG'
-          | 'MW'
-          | 'MY'
-          | 'MV'
-          | 'ML'
-          | 'MT'
-          | 'MH'
-          | 'MQ'
-          | 'MR'
-          | 'MU'
-          | 'YT'
-          | 'MX'
-          | 'FM'
-          | 'MD'
-          | 'MC'
-          | 'MN'
-          | 'ME'
-          | 'MS'
-          | 'MA'
-          | 'MZ'
-          | 'MM'
-          | 'NA'
-          | 'NR'
-          | 'NP'
-          | 'NL'
-          | 'AN'
-          | 'NC'
-          | 'NZ'
-          | 'NI'
-          | 'NE'
-          | 'NG'
-          | 'NU'
-          | 'NF'
-          | 'MP'
-          | 'NO'
-          | 'OM'
-          | 'PK'
-          | 'PW'
-          | 'PS'
-          | 'PA'
-          | 'PG'
-          | 'PY'
-          | 'PE'
-          | 'PH'
-          | 'PN'
-          | 'PL'
-          | 'PT'
-          | 'PR'
-          | 'QA'
-          | 'RE'
-          | 'RO'
-          | 'RU'
-          | 'RW'
-          | 'SH'
-          | 'KN'
-          | 'LC'
-          | 'PM'
-          | 'VC'
-          | 'WS'
-          | 'SM'
-          | 'ST'
-          | 'SA'
-          | 'SN'
-          | 'RS'
-          | 'SC'
-          | 'SL'
-          | 'SG'
-          | 'SK'
-          | 'SI'
-          | 'SB'
-          | 'SO'
-          | 'ZA'
-          | 'GS'
-          | 'ES'
-          | 'LK'
-          | 'SD'
-          | 'SR'
-          | 'SJ'
-          | 'SZ'
-          | 'SE'
-          | 'CH'
-          | 'SY'
-          | 'TW'
-          | 'TJ'
-          | 'TZ'
-          | 'TH'
-          | 'TL'
-          | 'TG'
-          | 'TK'
-          | 'TO'
-          | 'TT'
-          | 'TN'
-          | 'TR'
-          | 'TM'
-          | 'TC'
-          | 'TV'
-          | 'UG'
-          | 'UA'
-          | 'AE'
-          | 'GB'
-          | 'US'
-          | 'UM'
-          | 'UY'
-          | 'UZ'
-          | 'VU'
-          | 'VE'
-          | 'VN'
-          | 'VG'
-          | 'VI'
-          | 'WF'
-          | 'EH'
-          | 'YE'
-          | 'ZM'
-          | 'ZW'
-        )
-      | null;
-    coordinates?: {
-      latitude?: number | null;
-      longitude?: number | null;
-    };
-  };
-  specs?: {
-    property_size?: number | null;
-    block_size?: number | null;
-    num_bedrooms?: number | null;
-    num_bathrooms?: number | null;
-    num_carspaces?: number | null;
-  };
+  market?:
+    | ('economy' | 'mid-market' | 'luxury' | 'ultra-luxury' | 'commercial' | 'industrial' | 'other' | 'custom')
+    | null;
+  /**
+   * Enter a custom market segment
+   */
+  customMarket?: string | null;
+  totalUnits: number;
+  completionYear?: number | null;
+  unitTypes?:
+    | {
+        type: string;
+        quantity: number;
+        startingPrice?: number | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Individual units that are part of this project
+   */
+  properties?: (number | Property)[] | null;
+  classification: (number | Classification)[];
+  contract: number | Contract;
+  availability: number | Availability;
+  amenities?: (number | Amenity)[] | null;
   gallery?: {
     /**
-     * Up to 24 images; The first image will be used as the main image.
+     * Upload up to 24 high-quality images. The first image will be used as the main image.
      */
     images?: (number | Media)[] | null;
+    /**
+     * Upload a walkthrough video (MP4 format recommended)
+     */
     video?: (number | null) | Media;
+    /**
+     * External virtual tour link (e.g., Matterport, etc.)
+     */
+    virtualTourUrl?: string | null;
+    /**
+     * Upload floor plan documents (PDF format recommended)
+     */
+    floorPlan?: (number | Media)[] | null;
+    /**
+     * Upload additional documents (brochures, certificates, etc.)
+     */
+    documents?: (number | Media)[] | null;
   };
+  location?: LocationInterface;
+  contractDetails?: {
+    /**
+     * Does this property require a formal contract?
+     */
+    requiresContract?: boolean | null;
+    /**
+     * Does this transaction type require a deposit?
+     */
+    requiresDeposit?: boolean | null;
+  };
+  /**
+   * Describe the property in a few sentences.
+   */
   description?: {
     root: {
       type: string;
@@ -412,7 +278,61 @@ export interface Property {
     };
     [k: string]: unknown;
   } | null;
+  /**
+   * Show this property in featured sections
+   */
+  isFeatured?: boolean | null;
+  /**
+   * General categorization for the built-in Search Engine and filtering purposes
+   */
+  categories?:
+    | (
+        | {
+            relationTo: 'blog-categories';
+            value: number | BlogCategory;
+          }
+        | {
+            relationTo: 'classifications';
+            value: number | Classification;
+          }
+        | {
+            relationTo: 'contracts';
+            value: number | Contract;
+          }
+        | {
+            relationTo: 'availability';
+            value: number | Availability;
+          }
+        | {
+            relationTo: 'amenities';
+            value: number | Amenity;
+          }
+      )[]
+    | null;
   tags?: (number | Tag)[] | null;
+  /**
+   * Content that are related to this one. Could be a page, or post, that you would like to feature in this document.
+   */
+  relatedDocs?:
+    | (
+        | {
+            relationTo: 'pages';
+            value: number | Page;
+          }
+        | {
+            relationTo: 'blog';
+            value: number | Blog;
+          }
+        | {
+            relationTo: 'properties';
+            value: number | Property;
+          }
+        | {
+            relationTo: 'projects';
+            value: number | Project;
+          }
+      )[]
+    | null;
   meta?: Meta;
   /**
    * When checked, this page will not appear in search engines like Google. Use this for private pages or temporary content that should not be publicly searchable.
@@ -422,12 +342,232 @@ export interface Property {
   populatedAuthors?:
     | {
         id?: string | null;
-        name?: string | null;
+        username?: string | null;
       }[]
     | null;
   publishedAt?: string | null;
   slug?: string | null;
   slugLock?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "properties".
+ */
+export interface Property {
+  id: number;
+  title: string;
+  price: number;
+  condition?: ('brand-new' | 'renovated' | 'well-maintained' | 'needs-renovation' | 'custom') | null;
+  /**
+   * Enter a custom condition
+   */
+  customCondition?: string | null;
+  contract: (number | Contract)[];
+  availability: (number | Availability)[];
+  classification: (number | Classification)[];
+  amenities?: (number | Amenity)[] | null;
+  gallery?: {
+    /**
+     * Upload up to 24 high-quality images. The first image will be used as the main image.
+     */
+    images?: (number | Media)[] | null;
+    /**
+     * Upload a walkthrough video (MP4 format recommended)
+     */
+    video?: (number | null) | Media;
+    /**
+     * External virtual tour link (e.g., Matterport, etc.)
+     */
+    virtualTourUrl?: string | null;
+    /**
+     * Upload floor plan documents (PDF format recommended)
+     */
+    floorPlan?: (number | Media)[] | null;
+    /**
+     * Upload additional documents (brochures, certificates, etc.)
+     */
+    documents?: (number | Media)[] | null;
+  };
+  specs?: SpecificationsInterface;
+  location?: LocationInterface;
+  finance?: FinanceInterface;
+  /**
+   * Describe the property in a few sentences.
+   */
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Show this property in featured sections
+   */
+  isFeatured?: boolean | null;
+  /**
+   * General categorization for the built-in Search Engine and filtering purposes
+   */
+  categories?:
+    | (
+        | {
+            relationTo: 'blog-categories';
+            value: number | BlogCategory;
+          }
+        | {
+            relationTo: 'classifications';
+            value: number | Classification;
+          }
+        | {
+            relationTo: 'contracts';
+            value: number | Contract;
+          }
+        | {
+            relationTo: 'availability';
+            value: number | Availability;
+          }
+        | {
+            relationTo: 'amenities';
+            value: number | Amenity;
+          }
+      )[]
+    | null;
+  tags?: (number | Tag)[] | null;
+  /**
+   * Content that are related to this one. Could be a page, or post, that you would like to feature in this document.
+   */
+  relatedDocs?:
+    | (
+        | {
+            relationTo: 'pages';
+            value: number | Page;
+          }
+        | {
+            relationTo: 'blog';
+            value: number | Blog;
+          }
+        | {
+            relationTo: 'properties';
+            value: number | Property;
+          }
+        | {
+            relationTo: 'projects';
+            value: number | Project;
+          }
+      )[]
+    | null;
+  meta?: Meta;
+  /**
+   * When checked, this page will not appear in search engines like Google. Use this for private pages or temporary content that should not be publicly searchable.
+   */
+  noindex?: boolean | null;
+  authors?: (number | User)[] | null;
+  populatedAuthors?:
+    | {
+        id?: string | null;
+        username?: string | null;
+      }[]
+    | null;
+  publishedAt?: string | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * Define different types of property transactions (sale, rent, lease, etc.)
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contracts".
+ */
+export interface Contract {
+  id: number;
+  title: string;
+  properties?: {
+    docs?: (number | Property)[] | null;
+    hasNextPage?: boolean | null;
+  } | null;
+  /**
+   * Describe this type of contract/transaction
+   */
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Icon or representative image for this sale type
+   */
+  image?: (number | null) | Media;
+  /**
+   * Content that are related to this one. Could be a page, or post, that you would like to feature in this document.
+   */
+  relatedDocs?:
+    | (
+        | {
+            relationTo: 'pages';
+            value: number | Page;
+          }
+        | {
+            relationTo: 'blog';
+            value: number | Blog;
+          }
+        | {
+            relationTo: 'properties';
+            value: number | Property;
+          }
+        | {
+            relationTo: 'projects';
+            value: number | Project;
+          }
+      )[]
+    | null;
+  meta?: Meta;
+  /**
+   * When checked, this page will not appear in search engines like Google. Use this for private pages or temporary content that should not be publicly searchable.
+   */
+  noindex?: boolean | null;
+  authors?: (number | User)[] | null;
+  populatedAuthors?:
+    | {
+        id?: string | null;
+        username?: string | null;
+      }[]
+    | null;
+  publishedAt?: string | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  parent?: (number | null) | Contract;
+  breadcrumbs?:
+    | {
+        doc?: (number | null) | Contract;
+        url?: string | null;
+        label?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -573,8 +713,8 @@ export interface Tag {
     docs?: (number | Page)[] | null;
     hasNextPage?: boolean | null;
   } | null;
-  posts?: {
-    docs?: (number | Post)[] | null;
+  blog?: {
+    docs?: (number | Blog)[] | null;
     hasNextPage?: boolean | null;
   } | null;
   slug?: string | null;
@@ -590,79 +730,188 @@ export interface Tag {
 export interface Page {
   id: number;
   title: string;
-  hero: {
-    type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact';
-    richText?: {
-      root: {
-        type: string;
-        children: {
-          type: string;
-          version: number;
-          [k: string]: unknown;
-        }[];
-        direction: ('ltr' | 'rtl') | null;
-        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-        indent: number;
-        version: number;
-      };
-      [k: string]: unknown;
-    } | null;
-    links?:
-      | {
-          link: {
-            type?: ('reference' | 'custom') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: number | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: number | Post;
-                } | null)
-              | ({
-                  relationTo: 'properties';
-                  value: number | Property;
-                } | null);
-            url?: string | null;
-            label: string;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline') | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
-    media?: (number | null) | Media;
-  };
-  layout?: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock)[] | null;
+  heros: HerosInterface;
+  blocks?:
+    | (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | ListingBlock | ListingArchiveBlock)[]
+    | null;
+  /**
+   * General categorization for the built-in Search Engine and filtering purposes
+   */
+  categories?:
+    | (
+        | {
+            relationTo: 'blog-categories';
+            value: number | BlogCategory;
+          }
+        | {
+            relationTo: 'classifications';
+            value: number | Classification;
+          }
+        | {
+            relationTo: 'contracts';
+            value: number | Contract;
+          }
+        | {
+            relationTo: 'availability';
+            value: number | Availability;
+          }
+        | {
+            relationTo: 'amenities';
+            value: number | Amenity;
+          }
+      )[]
+    | null;
+  tags?: (number | Tag)[] | null;
   meta?: Meta;
   /**
    * When checked, this page will not appear in search engines like Google. Use this for private pages or temporary content that should not be publicly searchable.
    */
   noindex?: boolean | null;
-  tags?: (number | Tag)[] | null;
   authors?: (number | User)[] | null;
   populatedAuthors?:
     | {
         id?: string | null;
-        name?: string | null;
+        username?: string | null;
       }[]
     | null;
   publishedAt?: string | null;
   slug?: string | null;
   slugLock?: boolean | null;
+  parent?: (number | null) | Page;
+  breadcrumbs?:
+    | {
+        doc?: (number | null) | Page;
+        url?: string | null;
+        label?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "posts".
+ * via the `definition` "herosInterface".
  */
-export interface Post {
+export interface HerosInterface {
+  type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact' | 'advancedComponents';
+  richText?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'blog';
+                value: number | Blog;
+              } | null)
+            | ({
+                relationTo: 'properties';
+                value: number | Property;
+              } | null);
+          url?: string | null;
+          label: string;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'outline') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  media?: (number | null) | Media;
+  searchComponent?: {
+    enablePropertyStatus?: boolean | null;
+    enablePropertyType?: boolean | null;
+    enableRooms?: boolean | null;
+    enableBeds?: boolean | null;
+    enableBaths?: boolean | null;
+    priceRange?: {
+      enabled?: boolean | null;
+      min?: number | null;
+      max?: number | null;
+    };
+    areaRange?: {
+      enabled?: boolean | null;
+      min?: number | null;
+      max?: number | null;
+    };
+    button?: {
+      label?: string | null;
+      style?: ('primary' | 'secondary') | null;
+      icon?: ('house' | 'booking' | 'garage') | null;
+    };
+  };
+  iconGrid?:
+    | {
+        icon?:
+          | (
+              | 'house'
+              | 'booking'
+              | 'garage'
+              | 'bath'
+              | 'bed'
+              | 'area'
+              | 'price'
+              | 'rooms'
+              | 'parking'
+              | 'pool'
+              | 'garden'
+              | 'land'
+              | 'other'
+            )
+          | null;
+        label?: string | null;
+        /**
+         * Optional link when clicking the icon
+         */
+        link?: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'blog';
+                value: number | Blog;
+              } | null)
+            | ({
+                relationTo: 'properties';
+                value: number | Property;
+              } | null);
+          url?: string | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "blog".
+ */
+export interface Blog {
   id: number;
   title: string;
   heroImage?: (number | null) | Media;
@@ -681,7 +930,33 @@ export interface Post {
     };
     [k: string]: unknown;
   } | null;
-  categories?: (number | Category)[] | null;
+  /**
+   * General categorization for the built-in Search Engine and filtering purposes
+   */
+  categories?:
+    | (
+        | {
+            relationTo: 'blog-categories';
+            value: number | BlogCategory;
+          }
+        | {
+            relationTo: 'classifications';
+            value: number | Classification;
+          }
+        | {
+            relationTo: 'contracts';
+            value: number | Contract;
+          }
+        | {
+            relationTo: 'availability';
+            value: number | Availability;
+          }
+        | {
+            relationTo: 'amenities';
+            value: number | Amenity;
+          }
+      )[]
+    | null;
   /**
    * Content that are related to this one. Could be a page, or post, that you would like to feature in this document.
    */
@@ -692,16 +967,16 @@ export interface Post {
             value: number | Page;
           }
         | {
-            relationTo: 'posts';
-            value: number | Post;
-          }
-        | {
-            relationTo: 'categories';
-            value: number | Category;
+            relationTo: 'blog';
+            value: number | Blog;
           }
         | {
             relationTo: 'properties';
             value: number | Property;
+          }
+        | {
+            relationTo: 'projects';
+            value: number | Project;
           }
       )[]
     | null;
@@ -715,7 +990,7 @@ export interface Post {
   populatedAuthors?:
     | {
         id?: string | null;
-        name?: string | null;
+        username?: string | null;
       }[]
     | null;
   publishedAt?: string | null;
@@ -727,9 +1002,9 @@ export interface Post {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "categories".
+ * via the `definition` "blog-categories".
  */
-export interface Category {
+export interface BlogCategory {
   id: number;
   title: string;
   /**
@@ -750,12 +1025,16 @@ export interface Category {
     };
     [k: string]: unknown;
   } | null;
+  records?: {
+    docs?: (number | Blog)[] | null;
+    hasNextPage?: boolean | null;
+  } | null;
   slug?: string | null;
   slugLock?: boolean | null;
-  parent?: (number | null) | Category;
+  parent?: (number | null) | BlogCategory;
   breadcrumbs?:
     | {
-        doc?: (number | null) | Category;
+        doc?: (number | null) | BlogCategory;
         url?: string | null;
         label?: string | null;
         id?: string | null;
@@ -763,6 +1042,96 @@ export interface Category {
     | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * Define different categories of properties (Residential, Commercial, Industrial, Land, etc.)
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "classifications".
+ */
+export interface Classification {
+  id: number;
+  title: string;
+  properties?: {
+    docs?: (number | Property)[] | null;
+    hasNextPage?: boolean | null;
+  } | null;
+  /**
+   * Describe what this property category is
+   */
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Representative image for this property category
+   */
+  image?: (number | null) | Media;
+  /**
+   * Icon for this property category
+   */
+  icon?: (number | null) | Media;
+  /**
+   * Content that are related to this one. Could be a page, or post, that you would like to feature in this document.
+   */
+  relatedDocs?:
+    | (
+        | {
+            relationTo: 'pages';
+            value: number | Page;
+          }
+        | {
+            relationTo: 'blog';
+            value: number | Blog;
+          }
+        | {
+            relationTo: 'properties';
+            value: number | Property;
+          }
+        | {
+            relationTo: 'projects';
+            value: number | Project;
+          }
+      )[]
+    | null;
+  meta?: Meta;
+  /**
+   * When checked, this page will not appear in search engines like Google. Use this for private pages or temporary content that should not be publicly searchable.
+   */
+  noindex?: boolean | null;
+  authors?: (number | User)[] | null;
+  populatedAuthors?:
+    | {
+        id?: string | null;
+        username?: string | null;
+      }[]
+    | null;
+  publishedAt?: string | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  parent?: (number | null) | Classification;
+  breadcrumbs?:
+    | {
+        doc?: (number | null) | Classification;
+        url?: string | null;
+        label?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -782,9 +1151,9 @@ export interface Meta {
  */
 export interface User {
   id: number;
-  firstName: string;
-  lastName?: string | null;
   photo?: (number | null) | UserPhoto;
+  firstName?: string | null;
+  lastName?: string | null;
   role: 'admin' | 'editor' | 'public';
   updatedAt: string;
   createdAt: string;
@@ -851,6 +1220,198 @@ export interface UserPhoto {
   };
 }
 /**
+ * Define and manage different states a property listing can have
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "availability".
+ */
+export interface Availability {
+  id: number;
+  title: string;
+  properties?: {
+    docs?: (number | Property)[] | null;
+    hasNextPage?: boolean | null;
+  } | null;
+  /**
+   * Can users make inquiries about properties with this status?
+   */
+  allowInquiries?: boolean | null;
+  /**
+   * Should properties with this status appear in search results?
+   */
+  showInSearch?: boolean | null;
+  /**
+   * Describe what this availability status means
+   */
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Color used to visually identify this status
+   */
+  color?: ('green' | 'blue' | 'yellow' | 'red' | 'gray' | 'purple') | null;
+  /**
+   * Representative image for this availability status
+   */
+  image?: (number | null) | Media;
+  /**
+   * Icon for this availability status
+   */
+  icon?: (number | null) | Media;
+  /**
+   * Content that are related to this one. Could be a page, or post, that you would like to feature in this document.
+   */
+  relatedDocs?:
+    | (
+        | {
+            relationTo: 'pages';
+            value: number | Page;
+          }
+        | {
+            relationTo: 'blog';
+            value: number | Blog;
+          }
+        | {
+            relationTo: 'properties';
+            value: number | Property;
+          }
+        | {
+            relationTo: 'projects';
+            value: number | Project;
+          }
+      )[]
+    | null;
+  meta?: Meta;
+  /**
+   * When checked, this page will not appear in search engines like Google. Use this for private pages or temporary content that should not be publicly searchable.
+   */
+  noindex?: boolean | null;
+  authors?: (number | User)[] | null;
+  populatedAuthors?:
+    | {
+        id?: string | null;
+        username?: string | null;
+      }[]
+    | null;
+  publishedAt?: string | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  parent?: (number | null) | Availability;
+  breadcrumbs?:
+    | {
+        doc?: (number | null) | Availability;
+        url?: string | null;
+        label?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * Manage property amenities and features that can be assigned to properties
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "amenities".
+ */
+export interface Amenity {
+  id: number;
+  title: string;
+  properties?: {
+    docs?: (number | Property)[] | null;
+    hasNextPage?: boolean | null;
+  } | null;
+  /**
+   * Mark if this is a premium or luxury amenity
+   */
+  isPremium?: boolean | null;
+  /**
+   * Brief description of this amenity and its benefits
+   */
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Upload an image or icon for this amenity
+   */
+  image?: (number | null) | Media;
+  /**
+   * Content that are related to this one. Could be a page, or post, that you would like to feature in this document.
+   */
+  relatedDocs?:
+    | (
+        | {
+            relationTo: 'pages';
+            value: number | Page;
+          }
+        | {
+            relationTo: 'blog';
+            value: number | Blog;
+          }
+        | {
+            relationTo: 'properties';
+            value: number | Property;
+          }
+        | {
+            relationTo: 'projects';
+            value: number | Project;
+          }
+      )[]
+    | null;
+  meta?: Meta;
+  /**
+   * When checked, this page will not appear in search engines like Google. Use this for private pages or temporary content that should not be publicly searchable.
+   */
+  noindex?: boolean | null;
+  authors?: (number | User)[] | null;
+  populatedAuthors?:
+    | {
+        id?: string | null;
+        username?: string | null;
+      }[]
+    | null;
+  publishedAt?: string | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  parent?: (number | null) | Amenity;
+  breadcrumbs?:
+    | {
+        doc?: (number | null) | Amenity;
+        url?: string | null;
+        label?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "CallToActionBlock".
  */
@@ -881,8 +1442,8 @@ export interface CallToActionBlock {
                 value: number | Page;
               } | null)
             | ({
-                relationTo: 'posts';
-                value: number | Post;
+                relationTo: 'blog';
+                value: number | Blog;
               } | null)
             | ({
                 relationTo: 'properties';
@@ -935,8 +1496,8 @@ export interface ContentBlock {
                 value: number | Page;
               } | null)
             | ({
-                relationTo: 'posts';
-                value: number | Post;
+                relationTo: 'blog';
+                value: number | Blog;
               } | null)
             | ({
                 relationTo: 'properties';
@@ -987,14 +1548,35 @@ export interface ArchiveBlock {
     [k: string]: unknown;
   } | null;
   populateBy?: ('collection' | 'selection') | null;
-  relationTo?: 'posts' | null;
-  categories?: (number | Category)[] | null;
+  relationTo?: ('blog' | 'properties' | 'projects') | null;
+  categories?:
+    | (
+        | {
+            relationTo: 'blog-categories';
+            value: number | BlogCategory;
+          }
+        | {
+            relationTo: 'classifications';
+            value: number | Classification;
+          }
+      )[]
+    | null;
   limit?: number | null;
   selectedDocs?:
-    | {
-        relationTo: 'posts';
-        value: number | Post;
-      }[]
+    | (
+        | {
+            relationTo: 'blog';
+            value: number | Blog;
+          }
+        | {
+            relationTo: 'properties';
+            value: number | Property;
+          }
+        | {
+            relationTo: 'projects';
+            value: number | Project;
+          }
+      )[]
     | null;
   id?: string | null;
   blockName?: string | null;
@@ -1201,6 +1783,628 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ListingBlock".
+ */
+export interface ListingBlock {
+  /**
+   * Note: By default, the latest listings are displayed. This setting will override that behavior.
+   */
+  listings?: (number | Property)[] | null;
+  view: ViewSettingsInterface;
+  card: CardSettingsInterface;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'listingBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ViewSettingsInterface".
+ */
+export interface ViewSettingsInterface {
+  /**
+   * Select the fields that should be displayed in the listing card.
+   */
+  layout: 'grid' | 'list' | 'ftrd' | 'crsl';
+  grid?: {
+    columns?: number | null;
+  };
+  list?: {
+    columns?: number | null;
+  };
+  ftrd?: {
+    columns?: number | null;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CardSettingsInterface".
+ */
+export interface CardSettingsInterface {
+  /**
+   * Select the fields that should be displayed in the listing card.
+   */
+  enabledFields: (
+    | 'price'
+    | 'bedrooms'
+    | 'bathrooms'
+    | 'lotSize'
+    | 'yearBuilt'
+    | 'areaSize'
+    | 'parkingSpaces'
+    | 'description'
+    | 'categories'
+    | 'thumbnail'
+    | 'tags'
+  )[];
+  thumbnail?: {
+    fit?: ('cover' | 'contain' | 'fill') | null;
+    position?: ('top' | 'center' | 'bottom') | null;
+    size?: ('small' | 'medium' | 'large') | null;
+  };
+  price?: {
+    decimals?: ('none' | 'one' | 'two') | null;
+    currencyFormat?: ('text' | 'symbol') | null;
+    overrideGlobalCurrency?: ('yes' | 'no') | null;
+    currencySelect?:
+      | (
+          | 'د.إ'
+          | 'AU$'
+          | 'R$'
+          | 'CA$'
+          | 'CHF'
+          | 'CN¥'
+          | '€'
+          | '£'
+          | 'HK$'
+          | '₹'
+          | '¥'
+          | 'MX$'
+          | 'NZ$'
+          | '₽'
+          | 'SG$'
+          | '฿'
+          | 'US$'
+          | '₫'
+          | 'R'
+        )
+      | null;
+  };
+  tags?: {
+    buttonStyle?: ('primary' | 'secondary' | 'outline') | null;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ListingArchiveBlock".
+ */
+export interface ListingArchiveBlock {
+  mainTitle?: string | null;
+  /**
+   * Optional
+   */
+  subTitle?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  layout?: {
+    layoutType?: ('grid' | 'list' | 'carousel') | null;
+  };
+  archive?: {
+    populateBy?: ('latest' | 'custom') | null;
+    /**
+     * Select the listings to display
+     */
+    selection?: (number | Property)[] | null;
+    /**
+     * General categorization for the built-in Search Engine and filtering purposes
+     */
+    categories?:
+      | (
+          | {
+              relationTo: 'blog-categories';
+              value: number | BlogCategory;
+            }
+          | {
+              relationTo: 'classifications';
+              value: number | Classification;
+            }
+          | {
+              relationTo: 'contracts';
+              value: number | Contract;
+            }
+          | {
+              relationTo: 'availability';
+              value: number | Availability;
+            }
+          | {
+              relationTo: 'amenities';
+              value: number | Amenity;
+            }
+        )[]
+      | null;
+    /**
+     * Limit the number of listings to display. (Min: 1, Max: 54)
+     */
+    limit?: number | null;
+    /**
+     * Pagination behavior
+     */
+    pagination?: ('paginated' | 'loadMore') | null;
+  };
+  card?: ListingCardOptions;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'listingArchiveBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ListingCardOptions".
+ */
+export interface ListingCardOptions {
+  /**
+   * Select the fields that should be displayed in the listing card.
+   */
+  enabledFields?:
+    | (
+        | 'price'
+        | 'bedrooms'
+        | 'bathrooms'
+        | 'lotSize'
+        | 'yearBuilt'
+        | 'areaSize'
+        | 'parkingSpaces'
+        | 'description'
+        | 'categories'
+        | 'thumbnail'
+        | 'tags'
+      )[]
+    | null;
+  buttonStyle?: ('primary' | 'secondary' | 'outline') | null;
+  fit?: ('cover' | 'contain' | 'fill') | null;
+  position?: ('top' | 'center' | 'bottom') | null;
+  size?: ('small' | 'medium' | 'large') | null;
+  decimals?: ('none' | 'one' | 'two') | null;
+  currencyFormat?: ('text' | 'symbol') | null;
+  overrideGlobalCurrency?: ('yes' | 'no') | null;
+  currencySelect?:
+    | (
+        | 'د.إ'
+        | 'AU$'
+        | 'R$'
+        | 'CA$'
+        | 'CHF'
+        | 'CN¥'
+        | '€'
+        | '£'
+        | 'HK$'
+        | '₹'
+        | '¥'
+        | 'MX$'
+        | 'NZ$'
+        | '₽'
+        | 'SG$'
+        | '฿'
+        | 'US$'
+        | '₫'
+        | 'R'
+      )
+    | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SpecificationsInterface".
+ */
+export interface SpecificationsInterface {
+  measurements?: {
+    sizeRange?: ('small' | 'medium' | 'large' | 'xlarge') | null;
+    /**
+     * Interior living space in square meters
+     */
+    property_size?: number | null;
+    /**
+     * Total land area in square meters
+     */
+    block_size?: number | null;
+    /**
+     * Property frontage in meters
+     */
+    frontage?: number | null;
+    /**
+     * Property depth in meters
+     */
+    depth?: number | null;
+  };
+  rooms?: {
+    /**
+     * Number of bedrooms
+     */
+    num_bedrooms?: number | null;
+    /**
+     * Number of bathrooms (0.5 = powder room)
+     */
+    num_bathrooms?: number | null;
+    /**
+     * Number of car parking spaces
+     */
+    num_carspaces?: number | null;
+    /**
+     * Number of floors in the property
+     */
+    num_floors?: number | null;
+  };
+  construction?: {
+    /**
+     * Year the property was constructed
+     */
+    year_built?: number | null;
+    /**
+     * Year of last major renovation
+     */
+    last_renovated?: number | null;
+    /**
+     * Primary construction material/method
+     */
+    construction_type?: ('brick' | 'timber' | 'concrete' | 'steel' | 'mixed') | null;
+  };
+  utilities?: {
+    /**
+     * Energy efficiency rating
+     */
+    energy_rating?: ('A' | 'B' | 'C' | 'D' | 'E') | null;
+    heating_type?: ('central' | 'electric' | 'gas' | 'heat-pump' | 'none') | null;
+    cooling_type?: ('central' | 'split' | 'window' | 'none') | null;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LocationInterface".
+ */
+export interface LocationInterface {
+  address_line1?: string | null;
+  unit?: string | null;
+  address_line2?: string | null;
+  city?: string | null;
+  state?: string | null;
+  postcode?: string | null;
+  accessibility?: ('metro-connected' | 'bus-connected' | 'car-dependent' | 'walk-friendly' | 'custom') | null;
+  customAccessibility?: string | null;
+  countrySelect?: CountrySelect;
+  /**
+   * Precise geographical coordinates for mapping
+   */
+  coordinates?: {
+    /**
+     * North-South position
+     */
+    latitude?: number | null;
+    /**
+     * East-West position
+     */
+    longitude?: number | null;
+  };
+  neighborhood?: {
+    neighborhoodType?:
+      | ('city-center' | 'business-district' | 'suburban-area' | 'industrial-area' | 'mixed-development' | 'custom')
+      | null;
+    customNeighborhoodType?: string | null;
+    /**
+     * Neighborhood or district name
+     */
+    area?: string | null;
+    /**
+     * Notable places near the property
+     */
+    landmarks?:
+      | {
+          name?: string | null;
+          distance?: number | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CountrySelect".
+ */
+export interface CountrySelect {
+  country?:
+    | (
+        | 'AF'
+        | 'AX'
+        | 'AL'
+        | 'DZ'
+        | 'AS'
+        | 'AD'
+        | 'AO'
+        | 'AI'
+        | 'AQ'
+        | 'AG'
+        | 'AR'
+        | 'AM'
+        | 'AW'
+        | 'AU'
+        | 'AT'
+        | 'AZ'
+        | 'BS'
+        | 'BH'
+        | 'BD'
+        | 'BB'
+        | 'BY'
+        | 'BE'
+        | 'BZ'
+        | 'BJ'
+        | 'BM'
+        | 'BT'
+        | 'BO'
+        | 'BA'
+        | 'BW'
+        | 'BV'
+        | 'BR'
+        | 'IO'
+        | 'BN'
+        | 'BG'
+        | 'BF'
+        | 'BI'
+        | 'KH'
+        | 'CM'
+        | 'CA'
+        | 'CV'
+        | 'KY'
+        | 'CF'
+        | 'TD'
+        | 'CL'
+        | 'CN'
+        | 'CX'
+        | 'CC'
+        | 'CO'
+        | 'KM'
+        | 'CG'
+        | 'CD'
+        | 'CK'
+        | 'CR'
+        | 'CI'
+        | 'HR'
+        | 'CU'
+        | 'CY'
+        | 'CZ'
+        | 'DK'
+        | 'DJ'
+        | 'DM'
+        | 'DO'
+        | 'EC'
+        | 'EG'
+        | 'SV'
+        | 'GQ'
+        | 'ER'
+        | 'EE'
+        | 'ET'
+        | 'FK'
+        | 'FO'
+        | 'FJ'
+        | 'FI'
+        | 'FR'
+        | 'GF'
+        | 'PF'
+        | 'TF'
+        | 'GA'
+        | 'GM'
+        | 'GE'
+        | 'DE'
+        | 'GH'
+        | 'GI'
+        | 'GR'
+        | 'GL'
+        | 'GD'
+        | 'GP'
+        | 'GU'
+        | 'GT'
+        | 'GG'
+        | 'GN'
+        | 'GW'
+        | 'GY'
+        | 'HT'
+        | 'HM'
+        | 'VA'
+        | 'HN'
+        | 'HK'
+        | 'HU'
+        | 'IS'
+        | 'IN'
+        | 'ID'
+        | 'IR'
+        | 'IQ'
+        | 'IE'
+        | 'IM'
+        | 'IL'
+        | 'IT'
+        | 'JM'
+        | 'JP'
+        | 'JE'
+        | 'JO'
+        | 'KZ'
+        | 'KE'
+        | 'KI'
+        | 'KP'
+        | 'KR'
+        | 'XK'
+        | 'KW'
+        | 'KG'
+        | 'LA'
+        | 'LV'
+        | 'LB'
+        | 'LS'
+        | 'LR'
+        | 'LY'
+        | 'LI'
+        | 'LT'
+        | 'LU'
+        | 'MO'
+        | 'MK'
+        | 'MG'
+        | 'MW'
+        | 'MY'
+        | 'MV'
+        | 'ML'
+        | 'MT'
+        | 'MH'
+        | 'MQ'
+        | 'MR'
+        | 'MU'
+        | 'YT'
+        | 'MX'
+        | 'FM'
+        | 'MD'
+        | 'MC'
+        | 'MN'
+        | 'ME'
+        | 'MS'
+        | 'MA'
+        | 'MZ'
+        | 'MM'
+        | 'NA'
+        | 'NR'
+        | 'NP'
+        | 'NL'
+        | 'AN'
+        | 'NC'
+        | 'NZ'
+        | 'NI'
+        | 'NE'
+        | 'NG'
+        | 'NU'
+        | 'NF'
+        | 'MP'
+        | 'NO'
+        | 'OM'
+        | 'PK'
+        | 'PW'
+        | 'PS'
+        | 'PA'
+        | 'PG'
+        | 'PY'
+        | 'PE'
+        | 'PH'
+        | 'PN'
+        | 'PL'
+        | 'PT'
+        | 'PR'
+        | 'QA'
+        | 'RE'
+        | 'RO'
+        | 'RU'
+        | 'RW'
+        | 'SH'
+        | 'KN'
+        | 'LC'
+        | 'PM'
+        | 'VC'
+        | 'WS'
+        | 'SM'
+        | 'ST'
+        | 'SA'
+        | 'SN'
+        | 'RS'
+        | 'SC'
+        | 'SL'
+        | 'SG'
+        | 'SK'
+        | 'SI'
+        | 'SB'
+        | 'SO'
+        | 'ZA'
+        | 'GS'
+        | 'ES'
+        | 'LK'
+        | 'SD'
+        | 'SR'
+        | 'SJ'
+        | 'SZ'
+        | 'SE'
+        | 'CH'
+        | 'SY'
+        | 'TW'
+        | 'TJ'
+        | 'TZ'
+        | 'TH'
+        | 'TL'
+        | 'TG'
+        | 'TK'
+        | 'TO'
+        | 'TT'
+        | 'TN'
+        | 'TR'
+        | 'TM'
+        | 'TC'
+        | 'TV'
+        | 'UG'
+        | 'UA'
+        | 'AE'
+        | 'GB'
+        | 'US'
+        | 'UM'
+        | 'UY'
+        | 'UZ'
+        | 'VU'
+        | 'VE'
+        | 'VN'
+        | 'VG'
+        | 'VI'
+        | 'WF'
+        | 'EH'
+        | 'YE'
+        | 'ZM'
+        | 'ZW'
+      )
+    | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FinanceInterface".
+ */
+export interface FinanceInterface {
+  market?:
+    | ('economy' | 'mid-market' | 'luxury' | 'ultra-luxury' | 'commercial' | 'industrial' | 'other' | 'custom')
+    | null;
+  /**
+   * Enter a custom market segment
+   */
+  customMarket?: string | null;
+  /**
+   * Does this transaction type require a deposit?
+   */
+  requiresDeposit?: boolean | null;
+  depositType?: ('percentage' | 'amount') | null;
+  depositAmount?: number | null;
+  depositPercentage?: number | null;
+  /**
+   * Does this property have installments?
+   */
+  hasInstallments?: boolean | null;
+  installmentsNumber?: number | null;
+  installmentAmount?: number | null;
+  targetResidents?:
+    | ('families' | 'couples' | 'professionals' | 'executives' | 'singles' | 'students' | 'retired' | 'custom')
+    | null;
+  customTargetResidents?: string | null;
+  investmentPotential?: ('high' | 'medium' | 'low' | 'custom') | null;
+  customInvestmentPotential?: string | null;
+  investmentType?: ('rental-income' | 'value-appreciation' | 'mixed-use' | 'custom') | null;
+  customInvestmentType?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "assets".
  */
 export interface Asset {
@@ -1236,10 +2440,19 @@ export interface Search {
   id: number;
   title?: string | null;
   priority?: number | null;
-  doc: {
-    relationTo: 'posts';
-    value: number | Post;
-  };
+  doc:
+    | {
+        relationTo: 'blog';
+        value: number | Blog;
+      }
+    | {
+        relationTo: 'properties';
+        value: number | Property;
+      }
+    | {
+        relationTo: 'projects';
+        value: number | Project;
+      };
   slug?: string | null;
   meta?: {
     title?: string | null;
@@ -1291,12 +2504,36 @@ export interface Redirect {
           value: number | Page;
         } | null)
       | ({
-          relationTo: 'posts';
-          value: number | Post;
+          relationTo: 'blog';
+          value: number | Blog;
         } | null)
       | ({
           relationTo: 'properties';
           value: number | Property;
+        } | null)
+      | ({
+          relationTo: 'projects';
+          value: number | Project;
+        } | null)
+      | ({
+          relationTo: 'blog-categories';
+          value: number | BlogCategory;
+        } | null)
+      | ({
+          relationTo: 'classifications';
+          value: number | Classification;
+        } | null)
+      | ({
+          relationTo: 'contracts';
+          value: number | Contract;
+        } | null)
+      | ({
+          relationTo: 'availability';
+          value: number | Availability;
+        } | null)
+      | ({
+          relationTo: 'amenities';
+          value: number | Amenity;
         } | null);
     url?: string | null;
   };
@@ -1403,20 +2640,40 @@ export interface PayloadLockedDocument {
   id: number;
   document?:
     | ({
+        relationTo: 'projects';
+        value: number | Project;
+      } | null)
+    | ({
         relationTo: 'properties';
         value: number | Property;
+      } | null)
+    | ({
+        relationTo: 'classifications';
+        value: number | Classification;
+      } | null)
+    | ({
+        relationTo: 'amenities';
+        value: number | Amenity;
+      } | null)
+    | ({
+        relationTo: 'availability';
+        value: number | Availability;
+      } | null)
+    | ({
+        relationTo: 'contracts';
+        value: number | Contract;
       } | null)
     | ({
         relationTo: 'pages';
         value: number | Page;
       } | null)
     | ({
-        relationTo: 'posts';
-        value: number | Post;
+        relationTo: 'blog';
+        value: number | Blog;
       } | null)
     | ({
-        relationTo: 'categories';
-        value: number | Category;
+        relationTo: 'blog-categories';
+        value: number | BlogCategory;
       } | null)
     | ({
         relationTo: 'tags';
@@ -1502,44 +2759,48 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "properties_select".
+ * via the `definition` "projects_select".
  */
-export interface PropertiesSelect<T extends boolean = true> {
+export interface ProjectsSelect<T extends boolean = true> {
   title?: T;
-  location?:
+  market?: T;
+  customMarket?: T;
+  totalUnits?: T;
+  completionYear?: T;
+  unitTypes?:
     | T
     | {
-        address_line1?: T;
-        address_line2?: T;
-        unit?: T;
-        postcode?: T;
-        city?: T;
-        state?: T;
-        country?: T;
-        coordinates?:
-          | T
-          | {
-              latitude?: T;
-              longitude?: T;
-            };
+        type?: T;
+        quantity?: T;
+        startingPrice?: T;
+        id?: T;
       };
-  specs?:
-    | T
-    | {
-        property_size?: T;
-        block_size?: T;
-        num_bedrooms?: T;
-        num_bathrooms?: T;
-        num_carspaces?: T;
-      };
+  properties?: T;
+  classification?: T;
+  contract?: T;
+  availability?: T;
+  amenities?: T;
   gallery?:
     | T
     | {
         images?: T;
         video?: T;
+        virtualTourUrl?: T;
+        floorPlan?: T;
+        documents?: T;
+      };
+  location?: T | LocationInterfaceSelect<T>;
+  contractDetails?:
+    | T
+    | {
+        requiresContract?: T;
+        requiresDeposit?: T;
       };
   description?: T;
+  isFeatured?: T;
+  categories?: T;
   tags?: T;
+  relatedDocs?: T;
   meta?: T | MetaSelect<T>;
   noindex?: T;
   authors?: T;
@@ -1547,7 +2808,7 @@ export interface PropertiesSelect<T extends boolean = true> {
     | T
     | {
         id?: T;
-        name?: T;
+        username?: T;
       };
   publishedAt?: T;
   slug?: T;
@@ -1555,6 +2816,48 @@ export interface PropertiesSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LocationInterface_select".
+ */
+export interface LocationInterfaceSelect<T extends boolean = true> {
+  address_line1?: T;
+  unit?: T;
+  address_line2?: T;
+  city?: T;
+  state?: T;
+  postcode?: T;
+  accessibility?: T;
+  customAccessibility?: T;
+  countrySelect?: T | CountrySelectSelect<T>;
+  coordinates?:
+    | T
+    | {
+        latitude?: T;
+        longitude?: T;
+      };
+  neighborhood?:
+    | T
+    | {
+        neighborhoodType?: T;
+        customNeighborhoodType?: T;
+        area?: T;
+        landmarks?:
+          | T
+          | {
+              name?: T;
+              distance?: T;
+              id?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CountrySelect_select".
+ */
+export interface CountrySelectSelect<T extends boolean = true> {
+  country?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1567,50 +2870,42 @@ export interface MetaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "pages_select".
+ * via the `definition` "properties_select".
  */
-export interface PagesSelect<T extends boolean = true> {
+export interface PropertiesSelect<T extends boolean = true> {
   title?: T;
-  hero?:
+  price?: T;
+  condition?: T;
+  customCondition?: T;
+  contract?: T;
+  availability?: T;
+  classification?: T;
+  amenities?: T;
+  gallery?:
     | T
     | {
-        type?: T;
-        richText?: T;
-        links?:
-          | T
-          | {
-              link?:
-                | T
-                | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    label?: T;
-                    appearance?: T;
-                  };
-              id?: T;
-            };
-        media?: T;
+        images?: T;
+        video?: T;
+        virtualTourUrl?: T;
+        floorPlan?: T;
+        documents?: T;
       };
-  layout?:
-    | T
-    | {
-        cta?: T | CallToActionBlockSelect<T>;
-        content?: T | ContentBlockSelect<T>;
-        mediaBlock?: T | MediaBlockSelect<T>;
-        archive?: T | ArchiveBlockSelect<T>;
-        formBlock?: T | FormBlockSelect<T>;
-      };
+  specs?: T | SpecificationsInterfaceSelect<T>;
+  location?: T | LocationInterfaceSelect<T>;
+  finance?: T | FinanceInterfaceSelect<T>;
+  description?: T;
+  isFeatured?: T;
+  categories?: T;
+  tags?: T;
+  relatedDocs?: T;
   meta?: T | MetaSelect<T>;
   noindex?: T;
-  tags?: T;
   authors?: T;
   populatedAuthors?:
     | T
     | {
         id?: T;
-        name?: T;
+        username?: T;
       };
   publishedAt?: T;
   slug?: T;
@@ -1618,6 +2913,324 @@ export interface PagesSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SpecificationsInterface_select".
+ */
+export interface SpecificationsInterfaceSelect<T extends boolean = true> {
+  measurements?:
+    | T
+    | {
+        sizeRange?: T;
+        property_size?: T;
+        block_size?: T;
+        frontage?: T;
+        depth?: T;
+      };
+  rooms?:
+    | T
+    | {
+        num_bedrooms?: T;
+        num_bathrooms?: T;
+        num_carspaces?: T;
+        num_floors?: T;
+      };
+  construction?:
+    | T
+    | {
+        year_built?: T;
+        last_renovated?: T;
+        construction_type?: T;
+      };
+  utilities?:
+    | T
+    | {
+        energy_rating?: T;
+        heating_type?: T;
+        cooling_type?: T;
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FinanceInterface_select".
+ */
+export interface FinanceInterfaceSelect<T extends boolean = true> {
+  market?: T;
+  customMarket?: T;
+  requiresDeposit?: T;
+  depositType?: T;
+  depositAmount?: T;
+  depositPercentage?: T;
+  hasInstallments?: T;
+  installmentsNumber?: T;
+  installmentAmount?: T;
+  targetResidents?: T;
+  customTargetResidents?: T;
+  investmentPotential?: T;
+  customInvestmentPotential?: T;
+  investmentType?: T;
+  customInvestmentType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "classifications_select".
+ */
+export interface ClassificationsSelect<T extends boolean = true> {
+  title?: T;
+  properties?: T;
+  description?: T;
+  image?: T;
+  icon?: T;
+  relatedDocs?: T;
+  meta?: T | MetaSelect<T>;
+  noindex?: T;
+  authors?: T;
+  populatedAuthors?:
+    | T
+    | {
+        id?: T;
+        username?: T;
+      };
+  publishedAt?: T;
+  slug?: T;
+  slugLock?: T;
+  parent?: T;
+  breadcrumbs?:
+    | T
+    | {
+        doc?: T;
+        url?: T;
+        label?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "amenities_select".
+ */
+export interface AmenitiesSelect<T extends boolean = true> {
+  title?: T;
+  properties?: T;
+  isPremium?: T;
+  description?: T;
+  image?: T;
+  relatedDocs?: T;
+  meta?: T | MetaSelect<T>;
+  noindex?: T;
+  authors?: T;
+  populatedAuthors?:
+    | T
+    | {
+        id?: T;
+        username?: T;
+      };
+  publishedAt?: T;
+  slug?: T;
+  slugLock?: T;
+  parent?: T;
+  breadcrumbs?:
+    | T
+    | {
+        doc?: T;
+        url?: T;
+        label?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "availability_select".
+ */
+export interface AvailabilitySelect<T extends boolean = true> {
+  title?: T;
+  properties?: T;
+  allowInquiries?: T;
+  showInSearch?: T;
+  description?: T;
+  color?: T;
+  image?: T;
+  icon?: T;
+  relatedDocs?: T;
+  meta?: T | MetaSelect<T>;
+  noindex?: T;
+  authors?: T;
+  populatedAuthors?:
+    | T
+    | {
+        id?: T;
+        username?: T;
+      };
+  publishedAt?: T;
+  slug?: T;
+  slugLock?: T;
+  parent?: T;
+  breadcrumbs?:
+    | T
+    | {
+        doc?: T;
+        url?: T;
+        label?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contracts_select".
+ */
+export interface ContractsSelect<T extends boolean = true> {
+  title?: T;
+  properties?: T;
+  description?: T;
+  image?: T;
+  relatedDocs?: T;
+  meta?: T | MetaSelect<T>;
+  noindex?: T;
+  authors?: T;
+  populatedAuthors?:
+    | T
+    | {
+        id?: T;
+        username?: T;
+      };
+  publishedAt?: T;
+  slug?: T;
+  slugLock?: T;
+  parent?: T;
+  breadcrumbs?:
+    | T
+    | {
+        doc?: T;
+        url?: T;
+        label?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages_select".
+ */
+export interface PagesSelect<T extends boolean = true> {
+  title?: T;
+  heros?: T | HerosInterfaceSelect<T>;
+  blocks?:
+    | T
+    | {
+        cta?: T | CallToActionBlockSelect<T>;
+        content?: T | ContentBlockSelect<T>;
+        mediaBlock?: T | MediaBlockSelect<T>;
+        archive?: T | ArchiveBlockSelect<T>;
+        formBlock?: T | FormBlockSelect<T>;
+        listingBlock?: T | ListingBlockSelect<T>;
+        listingArchiveBlock?: T | ListingArchiveBlockSelect<T>;
+      };
+  categories?: T;
+  tags?: T;
+  meta?: T | MetaSelect<T>;
+  noindex?: T;
+  authors?: T;
+  populatedAuthors?:
+    | T
+    | {
+        id?: T;
+        username?: T;
+      };
+  publishedAt?: T;
+  slug?: T;
+  slugLock?: T;
+  parent?: T;
+  breadcrumbs?:
+    | T
+    | {
+        doc?: T;
+        url?: T;
+        label?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "herosInterface_select".
+ */
+export interface HerosInterfaceSelect<T extends boolean = true> {
+  type?: T;
+  richText?: T;
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              appearance?: T;
+            };
+        id?: T;
+      };
+  media?: T;
+  searchComponent?:
+    | T
+    | {
+        enablePropertyStatus?: T;
+        enablePropertyType?: T;
+        enableRooms?: T;
+        enableBeds?: T;
+        enableBaths?: T;
+        priceRange?:
+          | T
+          | {
+              enabled?: T;
+              min?: T;
+              max?: T;
+            };
+        areaRange?:
+          | T
+          | {
+              enabled?: T;
+              min?: T;
+              max?: T;
+            };
+        button?:
+          | T
+          | {
+              label?: T;
+              style?: T;
+              icon?: T;
+            };
+      };
+  iconGrid?:
+    | T
+    | {
+        icon?: T;
+        label?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+            };
+        id?: T;
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1705,9 +3318,109 @@ export interface FormBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "posts_select".
+ * via the `definition` "ListingBlock_select".
  */
-export interface PostsSelect<T extends boolean = true> {
+export interface ListingBlockSelect<T extends boolean = true> {
+  listings?: T;
+  view?: T | ViewSettingsInterfaceSelect<T>;
+  card?: T | CardSettingsInterfaceSelect<T>;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ViewSettingsInterface_select".
+ */
+export interface ViewSettingsInterfaceSelect<T extends boolean = true> {
+  layout?: T;
+  grid?:
+    | T
+    | {
+        columns?: T;
+      };
+  list?:
+    | T
+    | {
+        columns?: T;
+      };
+  ftrd?:
+    | T
+    | {
+        columns?: T;
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CardSettingsInterface_select".
+ */
+export interface CardSettingsInterfaceSelect<T extends boolean = true> {
+  enabledFields?: T;
+  thumbnail?:
+    | T
+    | {
+        fit?: T;
+        position?: T;
+        size?: T;
+      };
+  price?:
+    | T
+    | {
+        decimals?: T;
+        currencyFormat?: T;
+        overrideGlobalCurrency?: T;
+        currencySelect?: T;
+      };
+  tags?:
+    | T
+    | {
+        buttonStyle?: T;
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ListingArchiveBlock_select".
+ */
+export interface ListingArchiveBlockSelect<T extends boolean = true> {
+  mainTitle?: T;
+  subTitle?: T;
+  layout?:
+    | T
+    | {
+        layoutType?: T;
+      };
+  archive?:
+    | T
+    | {
+        populateBy?: T;
+        selection?: T;
+        categories?: T;
+        limit?: T;
+        pagination?: T;
+      };
+  card?: T | ListingCardOptionsSelect<T>;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ListingCardOptions_select".
+ */
+export interface ListingCardOptionsSelect<T extends boolean = true> {
+  enabledFields?: T;
+  buttonStyle?: T;
+  fit?: T;
+  position?: T;
+  size?: T;
+  decimals?: T;
+  currencyFormat?: T;
+  overrideGlobalCurrency?: T;
+  currencySelect?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "blog_select".
+ */
+export interface BlogSelect<T extends boolean = true> {
   title?: T;
   heroImage?: T;
   content?: T;
@@ -1721,7 +3434,7 @@ export interface PostsSelect<T extends boolean = true> {
     | T
     | {
         id?: T;
-        name?: T;
+        username?: T;
       };
   publishedAt?: T;
   slug?: T;
@@ -1732,11 +3445,12 @@ export interface PostsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "categories_select".
+ * via the `definition` "blog-categories_select".
  */
-export interface CategoriesSelect<T extends boolean = true> {
+export interface BlogCategoriesSelect<T extends boolean = true> {
   title?: T;
   description?: T;
+  records?: T;
   slug?: T;
   slugLock?: T;
   parent?: T;
@@ -1760,7 +3474,7 @@ export interface TagsSelect<T extends boolean = true> {
   image?: T;
   description?: T;
   pages?: T;
-  posts?: T;
+  blog?: T;
   slug?: T;
   slugLock?: T;
   updatedAt?: T;
@@ -1897,9 +3611,9 @@ export interface AssetsSelect<T extends boolean = true> {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
+  photo?: T;
   firstName?: T;
   lastName?: T;
-  photo?: T;
   role?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -2247,8 +3961,8 @@ export interface MainMenu {
                 value: number | Page;
               } | null)
             | ({
-                relationTo: 'posts';
-                value: number | Post;
+                relationTo: 'blog';
+                value: number | Blog;
               } | null)
             | ({
                 relationTo: 'properties';
@@ -2293,8 +4007,8 @@ export interface MainMenu {
                         value: number | Page;
                       } | null)
                     | ({
-                        relationTo: 'posts';
-                        value: number | Post;
+                        relationTo: 'blog';
+                        value: number | Blog;
                       } | null)
                     | ({
                         relationTo: 'properties';
@@ -2320,8 +4034,8 @@ export interface MainMenu {
                         value: number | Page;
                       } | null)
                     | ({
-                        relationTo: 'posts';
-                        value: number | Post;
+                        relationTo: 'blog';
+                        value: number | Blog;
                       } | null)
                     | ({
                         relationTo: 'properties';
@@ -2334,6 +4048,9 @@ export interface MainMenu {
               };
               ftrdLink?: {
                 tag?: string | null;
+                /**
+                 * Label for the featured link.
+                 */
                 label?: {
                   root: {
                     type: string;
@@ -2360,8 +4077,8 @@ export interface MainMenu {
                               value: number | Page;
                             } | null)
                           | ({
-                              relationTo: 'posts';
-                              value: number | Post;
+                              relationTo: 'blog';
+                              value: number | Blog;
                             } | null)
                           | ({
                               relationTo: 'properties';
@@ -2387,8 +4104,8 @@ export interface MainMenu {
                               value: number | Page;
                             } | null)
                           | ({
-                              relationTo: 'posts';
-                              value: number | Post;
+                              relationTo: 'blog';
+                              value: number | Blog;
                             } | null)
                           | ({
                               relationTo: 'properties';
@@ -2418,8 +4135,8 @@ export interface MainMenu {
             value: number | Page;
           } | null)
         | ({
-            relationTo: 'posts';
-            value: number | Post;
+            relationTo: 'blog';
+            value: number | Blog;
           } | null)
         | ({
             relationTo: 'properties';
@@ -2453,8 +4170,8 @@ export interface Footer {
                       value: number | Page;
                     } | null)
                   | ({
-                      relationTo: 'posts';
-                      value: number | Post;
+                      relationTo: 'blog';
+                      value: number | Blog;
                     } | null)
                   | ({
                       relationTo: 'properties';
@@ -2728,6 +4445,10 @@ export interface TaskSchedulePublish {
     locale?: string | null;
     doc?:
       | ({
+          relationTo: 'projects';
+          value: number | Project;
+        } | null)
+      | ({
           relationTo: 'properties';
           value: number | Property;
         } | null)
@@ -2736,8 +4457,8 @@ export interface TaskSchedulePublish {
           value: number | Page;
         } | null)
       | ({
-          relationTo: 'posts';
-          value: number | Post;
+          relationTo: 'blog';
+          value: number | Blog;
         } | null);
     global?: ('main-menu' | 'footer') | null;
     user?: (number | null) | User;

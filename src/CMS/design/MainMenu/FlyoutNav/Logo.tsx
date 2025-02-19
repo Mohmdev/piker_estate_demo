@@ -5,7 +5,7 @@ export const Logo = ({ color = 'white' }: { color?: string }) => {
   return (
     <div className="flex items-center gap-2">
       {/* <span className="text-2xl font-bold" style={{ color }}>
-        Nexweb
+        Webora
       </span> */}
       <svg
         width="50"

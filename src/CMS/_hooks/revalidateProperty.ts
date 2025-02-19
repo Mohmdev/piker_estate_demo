@@ -1,11 +1,9 @@
+import type { Property } from '@payload-types'
+import { revalidatePath, revalidateTag } from 'next/cache'
 import type {
   CollectionAfterChangeHook,
   CollectionAfterDeleteHook,
 } from 'payload'
-
-import { revalidatePath, revalidateTag } from 'next/cache'
-
-import type { Property } from '@payload-types'
 
 export const revalidateProperty: CollectionAfterChangeHook<Property> = ({
   doc,
@@ -25,7 +23,7 @@ export const revalidateProperty: CollectionAfterChangeHook<Property> = ({
       payload.logger.info(``)
     }
 
-    // If the post was previously published, we need to revalidate the old path
+    // If the property was previously published, we need to revalidate the old path
     if (previousDoc._status === 'published' && doc._status !== 'published') {
       const oldPath = `/properties/${previousDoc.slug}`
 

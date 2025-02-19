@@ -1,11 +1,11 @@
-import type { Metadata } from 'next/types'
-
+import type { CardPostData } from '@components/Card'
 import { CollectionArchive } from '@components/CollectionArchive'
 import { PageRange } from '@components/PageRange'
 import { Pagination } from '@components/Pagination'
 import { getDynamicMeta } from '@data/getDynamicMeta'
 import { getPaginatedPosts } from '@data/getPost'
 import { mergeOpenGraph } from '@services/seo/mergeOpenGraph'
+import type { Metadata } from 'next/types'
 import React from 'react'
 import PageClient from './page.client'
 
@@ -27,7 +27,7 @@ export default async function Page() {
 
       <div className="container mb-8">
         <PageRange
-          collection="posts"
+          collection="blog"
           currentPage={page}
           limit={12}
           totalDocs={totalDocs}
@@ -35,13 +35,15 @@ export default async function Page() {
       </div>
 
       {posts && totalDocs > 0 ? (
-        <CollectionArchive posts={docs} />
+        <CollectionArchive posts={docs as CardPostData[]} />
       ) : (
         <p className="text-sm text-muted-foreground prose">Blog is empty.</p>
       )}
 
       <div className="container">
-        {totalPages > 1 && page && <Pagination page={page} totalPages={totalPages} />}
+        {totalPages > 1 && page && (
+          <Pagination page={page} totalPages={totalPages} />
+        )}
       </div>
     </div>
   )
@@ -54,7 +56,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title,
     description: siteDescription,
-    openGraph: mergeOpenGraph(
+    openGraph: await mergeOpenGraph(
       {
         title,
         description: siteDescription,
