@@ -7,6 +7,7 @@ import {
   UnderlineFeature,
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
+import { mainCollections, taxonomyCollections } from '@services/control-board'
 import { Config, type TextFieldSingleValidation } from 'payload'
 
 export const defaultLexical: Config['editor'] = lexicalEditor({
@@ -17,7 +18,7 @@ export const defaultLexical: Config['editor'] = lexicalEditor({
       BoldFeature(),
       ItalicFeature(),
       LinkFeature({
-        enabledCollections: ['pages', 'blog', 'properties'],
+        enabledCollections: [...mainCollections, ...taxonomyCollections],
         fields: ({ defaultFields }) => {
           const defaultFieldsWithoutUrl = defaultFields.filter((field) => {
             if ('name' in field && field.name === 'url') return false

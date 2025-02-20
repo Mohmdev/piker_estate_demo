@@ -17,6 +17,7 @@ export const ArchiveBlock: React.FC<
     limit: limitFromProps,
     populateBy,
     selectedDocs,
+    relationTo,
   } = props
 
   const limit = limitFromProps || 3
@@ -27,7 +28,7 @@ export const ArchiveBlock: React.FC<
     const payload = await getPayload({ config: configPromise })
 
     const flattenedCategories = categories?.map((category) => {
-      if (typeof category === 'object') return category.id
+      if (typeof category === 'object') return category.value
       else return category
     })
 
@@ -61,14 +62,26 @@ export const ArchiveBlock: React.FC<
     <div className="my-16" id={`block-${id}`}>
       {introContent && (
         <div className="container mb-16">
-          <RichText className="ml-0" data={introContent} enableGutter={false} />
+          <RichText className="ms-0" data={introContent} enableGutter={false} />
         </div>
       )}
       <CollectionArchive
         posts={posts.map((post) => ({
           ...post,
-          categories: post.categories?.map((category) => category.value),
+          categories: post.categories?.map((category) =>
+            typeof category === 'object'
+              ? {
+                  relationTo: category.relationTo,
+                  value: category.value,
+                }
+              : category,
+          ),
         }))}
+        relationTo={
+          populateBy === 'collection'
+            ? relationTo || 'blog'
+            : selectedDocs?.[0]?.relationTo || 'blog'
+        }
       />
     </div>
   )

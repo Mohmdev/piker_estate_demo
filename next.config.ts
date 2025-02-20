@@ -3,6 +3,28 @@ import { withPayload } from '@payloadcms/next/withPayload'
 import type { NextConfig } from 'next'
 import redirects from './redirects.cjs'
 
+let hasLogged = false
+const isProd =
+  process.env.NODE_ENV === 'production' ||
+  process.env.VERCEL_ENV === 'production'
+const ENV_TAG = isProd ? '🚀 [PROD]' : '🛠️ [DEV]'
+
+if (!hasLogged) {
+  console.log('\n=== Webora Estates Environment ===')
+  console.log(
+    `${ENV_TAG} Vercel Environment: ${process.env.VERCEL_ENV || 'local'}`,
+  )
+  console.log(`${ENV_TAG} Node Environment: ${process.env.NODE_ENV}`)
+  console.log(
+    `${ENV_TAG} Database: ${isProd ? 'Production DB' : 'Development DB'}`,
+  )
+  console.log(
+    `${ENV_TAG} Connection: ${isProd ? 'Vercel Postgres Integration' : process.env.POSTGRES_URL_DEVELOPMENT?.split('?')[0]}`,
+  )
+  console.log('=======================================\n')
+  hasLogged = true
+}
+
 const NEXT_PUBLIC_SERVER_URL = process.env.VERCEL_PROJECT_PRODUCTION_URL
   ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
   : process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'

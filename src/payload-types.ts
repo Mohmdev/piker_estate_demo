@@ -7,6 +7,259 @@
  */
 
 /**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CountrySelect".
+ */
+export type CountrySelect =
+  | (
+      | 'AF'
+      | 'AX'
+      | 'AL'
+      | 'DZ'
+      | 'AS'
+      | 'AD'
+      | 'AO'
+      | 'AI'
+      | 'AQ'
+      | 'AG'
+      | 'AR'
+      | 'AM'
+      | 'AW'
+      | 'AU'
+      | 'AT'
+      | 'AZ'
+      | 'BS'
+      | 'BH'
+      | 'BD'
+      | 'BB'
+      | 'BY'
+      | 'BE'
+      | 'BZ'
+      | 'BJ'
+      | 'BM'
+      | 'BT'
+      | 'BO'
+      | 'BA'
+      | 'BW'
+      | 'BV'
+      | 'BR'
+      | 'IO'
+      | 'BN'
+      | 'BG'
+      | 'BF'
+      | 'BI'
+      | 'KH'
+      | 'CM'
+      | 'CA'
+      | 'CV'
+      | 'KY'
+      | 'CF'
+      | 'TD'
+      | 'CL'
+      | 'CN'
+      | 'CX'
+      | 'CC'
+      | 'CO'
+      | 'KM'
+      | 'CG'
+      | 'CD'
+      | 'CK'
+      | 'CR'
+      | 'CI'
+      | 'HR'
+      | 'CU'
+      | 'CY'
+      | 'CZ'
+      | 'DK'
+      | 'DJ'
+      | 'DM'
+      | 'DO'
+      | 'EC'
+      | 'EG'
+      | 'SV'
+      | 'GQ'
+      | 'ER'
+      | 'EE'
+      | 'ET'
+      | 'FK'
+      | 'FO'
+      | 'FJ'
+      | 'FI'
+      | 'FR'
+      | 'GF'
+      | 'PF'
+      | 'TF'
+      | 'GA'
+      | 'GM'
+      | 'GE'
+      | 'DE'
+      | 'GH'
+      | 'GI'
+      | 'GR'
+      | 'GL'
+      | 'GD'
+      | 'GP'
+      | 'GU'
+      | 'GT'
+      | 'GG'
+      | 'GN'
+      | 'GW'
+      | 'GY'
+      | 'HT'
+      | 'HM'
+      | 'VA'
+      | 'HN'
+      | 'HK'
+      | 'HU'
+      | 'IS'
+      | 'IN'
+      | 'ID'
+      | 'IR'
+      | 'IQ'
+      | 'IE'
+      | 'IM'
+      | 'IL'
+      | 'IT'
+      | 'JM'
+      | 'JP'
+      | 'JE'
+      | 'JO'
+      | 'KZ'
+      | 'KE'
+      | 'KI'
+      | 'KP'
+      | 'KR'
+      | 'XK'
+      | 'KW'
+      | 'KG'
+      | 'LA'
+      | 'LV'
+      | 'LB'
+      | 'LS'
+      | 'LR'
+      | 'LY'
+      | 'LI'
+      | 'LT'
+      | 'LU'
+      | 'MO'
+      | 'MK'
+      | 'MG'
+      | 'MW'
+      | 'MY'
+      | 'MV'
+      | 'ML'
+      | 'MT'
+      | 'MH'
+      | 'MQ'
+      | 'MR'
+      | 'MU'
+      | 'YT'
+      | 'MX'
+      | 'FM'
+      | 'MD'
+      | 'MC'
+      | 'MN'
+      | 'ME'
+      | 'MS'
+      | 'MA'
+      | 'MZ'
+      | 'MM'
+      | 'NA'
+      | 'NR'
+      | 'NP'
+      | 'NL'
+      | 'AN'
+      | 'NC'
+      | 'NZ'
+      | 'NI'
+      | 'NE'
+      | 'NG'
+      | 'NU'
+      | 'NF'
+      | 'MP'
+      | 'NO'
+      | 'OM'
+      | 'PK'
+      | 'PW'
+      | 'PS'
+      | 'PA'
+      | 'PG'
+      | 'PY'
+      | 'PE'
+      | 'PH'
+      | 'PN'
+      | 'PL'
+      | 'PT'
+      | 'PR'
+      | 'QA'
+      | 'RE'
+      | 'RO'
+      | 'RU'
+      | 'RW'
+      | 'SH'
+      | 'KN'
+      | 'LC'
+      | 'PM'
+      | 'VC'
+      | 'WS'
+      | 'SM'
+      | 'ST'
+      | 'SA'
+      | 'SN'
+      | 'RS'
+      | 'SC'
+      | 'SL'
+      | 'SG'
+      | 'SK'
+      | 'SI'
+      | 'SB'
+      | 'SO'
+      | 'ZA'
+      | 'GS'
+      | 'ES'
+      | 'LK'
+      | 'SD'
+      | 'SR'
+      | 'SJ'
+      | 'SZ'
+      | 'SE'
+      | 'CH'
+      | 'SY'
+      | 'TW'
+      | 'TJ'
+      | 'TZ'
+      | 'TH'
+      | 'TL'
+      | 'TG'
+      | 'TK'
+      | 'TO'
+      | 'TT'
+      | 'TN'
+      | 'TR'
+      | 'TM'
+      | 'TC'
+      | 'TV'
+      | 'UG'
+      | 'UA'
+      | 'AE'
+      | 'GB'
+      | 'US'
+      | 'UM'
+      | 'UY'
+      | 'UZ'
+      | 'VU'
+      | 'VE'
+      | 'VN'
+      | 'VG'
+      | 'VI'
+      | 'WF'
+      | 'EH'
+      | 'YE'
+      | 'ZM'
+      | 'ZW'
+    )
+  | null;
+/**
  * Supported timezones in IANA format.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -64,6 +317,17 @@ export type SupportedTimezones =
 export interface Config {
   auth: {
     users: UserAuthOperations;
+  };
+  blocks: {
+    cta: CallToActionBlock;
+    banner: BannerBlock;
+    code: CodeBlock;
+    content: ContentBlock;
+    mediaBlock: MediaBlock;
+    archive: ArchiveBlock;
+    formBlock: FormBlock;
+    listingBlock: ListingBlock;
+    listingArchiveBlock: ListingArchiveBlock;
   };
   collections: {
     projects: Project;
@@ -197,73 +461,10 @@ export interface UserAuthOperations {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "projects".
+ * via the `definition` "CallToActionBlock".
  */
-export interface Project {
-  id: number;
-  title: string;
-  market?:
-    | ('economy' | 'mid-market' | 'luxury' | 'ultra-luxury' | 'commercial' | 'industrial' | 'other' | 'custom')
-    | null;
-  /**
-   * Enter a custom market segment
-   */
-  customMarket?: string | null;
-  totalUnits: number;
-  completionYear?: number | null;
-  unitTypes?:
-    | {
-        type: string;
-        quantity: number;
-        startingPrice?: number | null;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Individual units that are part of this project
-   */
-  properties?: (number | Property)[] | null;
-  classification: (number | Classification)[];
-  contract: number | Contract;
-  availability: number | Availability;
-  amenities?: (number | Amenity)[] | null;
-  gallery?: {
-    /**
-     * Upload up to 24 high-quality images. The first image will be used as the main image.
-     */
-    images?: (number | Media)[] | null;
-    /**
-     * Upload a walkthrough video (MP4 format recommended)
-     */
-    video?: (number | null) | Media;
-    /**
-     * External virtual tour link (e.g., Matterport, etc.)
-     */
-    virtualTourUrl?: string | null;
-    /**
-     * Upload floor plan documents (PDF format recommended)
-     */
-    floorPlan?: (number | Media)[] | null;
-    /**
-     * Upload additional documents (brochures, certificates, etc.)
-     */
-    documents?: (number | Media)[] | null;
-  };
-  location?: LocationInterface;
-  contractDetails?: {
-    /**
-     * Does this property require a formal contract?
-     */
-    requiresContract?: boolean | null;
-    /**
-     * Does this transaction type require a deposit?
-     */
-    requiresDeposit?: boolean | null;
-  };
-  /**
-   * Describe the property in a few sentences.
-   */
-  description?: {
+export interface CallToActionBlock {
+  richText?: {
     root: {
       type: string;
       children: {
@@ -278,450 +479,37 @@ export interface Project {
     };
     [k: string]: unknown;
   } | null;
-  /**
-   * Show this property in featured sections
-   */
-  isFeatured?: boolean | null;
-  /**
-   * General categorization for the built-in Search Engine and filtering purposes
-   */
-  categories?:
-    | (
-        | {
-            relationTo: 'blog-categories';
-            value: number | BlogCategory;
-          }
-        | {
-            relationTo: 'classifications';
-            value: number | Classification;
-          }
-        | {
-            relationTo: 'contracts';
-            value: number | Contract;
-          }
-        | {
-            relationTo: 'availability';
-            value: number | Availability;
-          }
-        | {
-            relationTo: 'amenities';
-            value: number | Amenity;
-          }
-      )[]
-    | null;
-  tags?: (number | Tag)[] | null;
-  /**
-   * Content that are related to this one. Could be a page, or post, that you would like to feature in this document.
-   */
-  relatedDocs?:
-    | (
-        | {
-            relationTo: 'pages';
-            value: number | Page;
-          }
-        | {
-            relationTo: 'blog';
-            value: number | Blog;
-          }
-        | {
-            relationTo: 'properties';
-            value: number | Property;
-          }
-        | {
-            relationTo: 'projects';
-            value: number | Project;
-          }
-      )[]
-    | null;
-  meta?: Meta;
-  /**
-   * When checked, this page will not appear in search engines like Google. Use this for private pages or temporary content that should not be publicly searchable.
-   */
-  noindex?: boolean | null;
-  authors?: (number | User)[] | null;
-  populatedAuthors?:
+  links?:
     | {
-        id?: string | null;
-        username?: string | null;
-      }[]
-    | null;
-  publishedAt?: string | null;
-  slug?: string | null;
-  slugLock?: boolean | null;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "properties".
- */
-export interface Property {
-  id: number;
-  title: string;
-  price: number;
-  condition?: ('brand-new' | 'renovated' | 'well-maintained' | 'needs-renovation' | 'custom') | null;
-  /**
-   * Enter a custom condition
-   */
-  customCondition?: string | null;
-  contract: (number | Contract)[];
-  availability: (number | Availability)[];
-  classification: (number | Classification)[];
-  amenities?: (number | Amenity)[] | null;
-  gallery?: {
-    /**
-     * Upload up to 24 high-quality images. The first image will be used as the main image.
-     */
-    images?: (number | Media)[] | null;
-    /**
-     * Upload a walkthrough video (MP4 format recommended)
-     */
-    video?: (number | null) | Media;
-    /**
-     * External virtual tour link (e.g., Matterport, etc.)
-     */
-    virtualTourUrl?: string | null;
-    /**
-     * Upload floor plan documents (PDF format recommended)
-     */
-    floorPlan?: (number | Media)[] | null;
-    /**
-     * Upload additional documents (brochures, certificates, etc.)
-     */
-    documents?: (number | Media)[] | null;
-  };
-  specs?: SpecificationsInterface;
-  location?: LocationInterface;
-  finance?: FinanceInterface;
-  /**
-   * Describe the property in a few sentences.
-   */
-  description?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  /**
-   * Show this property in featured sections
-   */
-  isFeatured?: boolean | null;
-  /**
-   * General categorization for the built-in Search Engine and filtering purposes
-   */
-  categories?:
-    | (
-        | {
-            relationTo: 'blog-categories';
-            value: number | BlogCategory;
-          }
-        | {
-            relationTo: 'classifications';
-            value: number | Classification;
-          }
-        | {
-            relationTo: 'contracts';
-            value: number | Contract;
-          }
-        | {
-            relationTo: 'availability';
-            value: number | Availability;
-          }
-        | {
-            relationTo: 'amenities';
-            value: number | Amenity;
-          }
-      )[]
-    | null;
-  tags?: (number | Tag)[] | null;
-  /**
-   * Content that are related to this one. Could be a page, or post, that you would like to feature in this document.
-   */
-  relatedDocs?:
-    | (
-        | {
-            relationTo: 'pages';
-            value: number | Page;
-          }
-        | {
-            relationTo: 'blog';
-            value: number | Blog;
-          }
-        | {
-            relationTo: 'properties';
-            value: number | Property;
-          }
-        | {
-            relationTo: 'projects';
-            value: number | Project;
-          }
-      )[]
-    | null;
-  meta?: Meta;
-  /**
-   * When checked, this page will not appear in search engines like Google. Use this for private pages or temporary content that should not be publicly searchable.
-   */
-  noindex?: boolean | null;
-  authors?: (number | User)[] | null;
-  populatedAuthors?:
-    | {
-        id?: string | null;
-        username?: string | null;
-      }[]
-    | null;
-  publishedAt?: string | null;
-  slug?: string | null;
-  slugLock?: boolean | null;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * Define different types of property transactions (sale, rent, lease, etc.)
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "contracts".
- */
-export interface Contract {
-  id: number;
-  title: string;
-  properties?: {
-    docs?: (number | Property)[] | null;
-    hasNextPage?: boolean | null;
-  } | null;
-  /**
-   * Describe this type of contract/transaction
-   */
-  description?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  /**
-   * Icon or representative image for this sale type
-   */
-  image?: (number | null) | Media;
-  /**
-   * Content that are related to this one. Could be a page, or post, that you would like to feature in this document.
-   */
-  relatedDocs?:
-    | (
-        | {
-            relationTo: 'pages';
-            value: number | Page;
-          }
-        | {
-            relationTo: 'blog';
-            value: number | Blog;
-          }
-        | {
-            relationTo: 'properties';
-            value: number | Property;
-          }
-        | {
-            relationTo: 'projects';
-            value: number | Project;
-          }
-      )[]
-    | null;
-  meta?: Meta;
-  /**
-   * When checked, this page will not appear in search engines like Google. Use this for private pages or temporary content that should not be publicly searchable.
-   */
-  noindex?: boolean | null;
-  authors?: (number | User)[] | null;
-  populatedAuthors?:
-    | {
-        id?: string | null;
-        username?: string | null;
-      }[]
-    | null;
-  publishedAt?: string | null;
-  slug?: string | null;
-  slugLock?: boolean | null;
-  parent?: (number | null) | Contract;
-  breadcrumbs?:
-    | {
-        doc?: (number | null) | Contract;
-        url?: string | null;
-        label?: string | null;
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'blog';
+                value: number | Blog;
+              } | null)
+            | ({
+                relationTo: 'properties';
+                value: number | Property;
+              } | null);
+          url?: string | null;
+          label: string;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'outline') | null;
+        };
         id?: string | null;
       }[]
     | null;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
- */
-export interface Media {
-  id: number;
-  /**
-   * For SEO and accessibility
-   */
-  alt?: string | null;
-  /**
-   * Custom caption for the image
-   */
-  caption?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  tags?: (number | Tag)[] | null;
-  prefix?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
-  sizes?: {
-    original?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    thumbnail?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    square?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    small?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    medium?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    large?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    xlarge?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    og?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-  };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "tags".
- */
-export interface Tag {
-  id: number;
-  title: string;
-  /**
-   * Optional
-   */
-  image?: (number | null) | Media;
-  /**
-   * Optional
-   */
-  description?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  pages?: {
-    docs?: (number | Page)[] | null;
-    hasNextPage?: boolean | null;
-  } | null;
-  blog?: {
-    docs?: (number | Blog)[] | null;
-    hasNextPage?: boolean | null;
-  } | null;
-  slug?: string | null;
-  slugLock?: boolean | null;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'cta';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -732,7 +520,17 @@ export interface Page {
   title: string;
   heros: HerosInterface;
   blocks?:
-    | (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | ListingBlock | ListingArchiveBlock)[]
+    | (
+        | CallToActionBlock
+        | ContentBlock
+        | MediaBlock
+        | BannerBlock
+        | CodeBlock
+        | ArchiveBlock
+        | FormBlock
+        | ListingBlock
+        | ListingArchiveBlock
+      )[]
     | null;
   /**
    * General categorization for the built-in Search Engine and filtering purposes
@@ -1002,6 +800,157 @@ export interface Blog {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+  id: number;
+  /**
+   * For SEO and accessibility
+   */
+  alt?: string | null;
+  /**
+   * Custom caption for the image
+   */
+  caption?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  tags?: (number | Tag)[] | null;
+  prefix?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+  sizes?: {
+    original?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    thumbnail?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    square?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    small?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    medium?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    large?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    xlarge?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    og?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tags".
+ */
+export interface Tag {
+  id: number;
+  title: string;
+  /**
+   * Optional
+   */
+  image?: (number | null) | Media;
+  /**
+   * Optional
+   */
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  pages?: {
+    docs?: (number | Page)[] | null;
+    hasNextPage?: boolean | null;
+  } | null;
+  blog?: {
+    docs?: (number | Blog)[] | null;
+    hasNextPage?: boolean | null;
+  } | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "blog-categories".
  */
 export interface BlogCategory {
@@ -1135,89 +1084,380 @@ export interface Classification {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "meta".
+ * via the `definition` "properties".
  */
-export interface Meta {
-  title?: string | null;
-  /**
-   * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-   */
-  image?: (number | null) | Media;
-  description?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users".
- */
-export interface User {
+export interface Property {
   id: number;
-  photo?: (number | null) | UserPhoto;
-  firstName?: string | null;
-  lastName?: string | null;
-  role: 'admin' | 'editor' | 'public';
+  title: string;
+  price: number;
+  condition?: ('brand-new' | 'renovated' | 'well-maintained' | 'needs-renovation' | 'custom') | null;
+  /**
+   * Enter a custom condition
+   */
+  customCondition?: string | null;
+  contract: (number | Contract)[];
+  availability: (number | Availability)[];
+  classification: (number | Classification)[];
+  amenities?: (number | Amenity)[] | null;
+  gallery?: {
+    /**
+     * Upload up to 24 high-quality images. The first image will be used as the main image.
+     */
+    images?: (number | Media)[] | null;
+    /**
+     * Upload a walkthrough video (MP4 format recommended)
+     */
+    video?: (number | null) | Media;
+    /**
+     * External virtual tour link (e.g., Matterport, etc.)
+     */
+    virtualTourUrl?: string | null;
+    /**
+     * Upload floor plan documents (PDF format recommended)
+     */
+    floorPlan?: (number | Media)[] | null;
+    /**
+     * Upload additional documents (brochures, certificates, etc.)
+     */
+    documents?: (number | Media)[] | null;
+  };
+  specs?: SpecificationsInterface;
+  location?: LocationInterface;
+  finance?: FinanceInterface;
+  /**
+   * Describe the property in a few sentences.
+   */
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Show this property in featured sections
+   */
+  isFeatured?: boolean | null;
+  /**
+   * General categorization for the built-in Search Engine and filtering purposes
+   */
+  categories?:
+    | (
+        | {
+            relationTo: 'blog-categories';
+            value: number | BlogCategory;
+          }
+        | {
+            relationTo: 'classifications';
+            value: number | Classification;
+          }
+        | {
+            relationTo: 'contracts';
+            value: number | Contract;
+          }
+        | {
+            relationTo: 'availability';
+            value: number | Availability;
+          }
+        | {
+            relationTo: 'amenities';
+            value: number | Amenity;
+          }
+      )[]
+    | null;
+  tags?: (number | Tag)[] | null;
+  /**
+   * Content that are related to this one. Could be a page, or post, that you would like to feature in this document.
+   */
+  relatedDocs?:
+    | (
+        | {
+            relationTo: 'pages';
+            value: number | Page;
+          }
+        | {
+            relationTo: 'blog';
+            value: number | Blog;
+          }
+        | {
+            relationTo: 'properties';
+            value: number | Property;
+          }
+        | {
+            relationTo: 'projects';
+            value: number | Project;
+          }
+      )[]
+    | null;
+  meta?: Meta;
+  /**
+   * When checked, this page will not appear in search engines like Google. Use this for private pages or temporary content that should not be publicly searchable.
+   */
+  noindex?: boolean | null;
+  authors?: (number | User)[] | null;
+  populatedAuthors?:
+    | {
+        id?: string | null;
+        username?: string | null;
+      }[]
+    | null;
+  publishedAt?: string | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
   updatedAt: string;
   createdAt: string;
-  email: string;
-  username: string;
-  resetPasswordToken?: string | null;
-  resetPasswordExpiration?: string | null;
-  salt?: string | null;
-  hash?: string | null;
-  _verified?: boolean | null;
-  _verificationToken?: string | null;
-  loginAttempts?: number | null;
-  lockUntil?: string | null;
-  password?: string | null;
+  _status?: ('draft' | 'published') | null;
 }
 /**
+ * Define different types of property transactions (sale, rent, lease, etc.)
+ *
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "user-photos".
+ * via the `definition` "contracts".
  */
-export interface UserPhoto {
+export interface Contract {
   id: number;
-  alt?: string | null;
-  user?: {
-    docs?: (number | User)[] | null;
+  title: string;
+  properties?: {
+    docs?: (number | Property)[] | null;
     hasNextPage?: boolean | null;
   } | null;
-  prefix?: string | null;
+  /**
+   * Describe this type of contract/transaction
+   */
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Icon or representative image for this sale type
+   */
+  image?: (number | null) | Media;
+  /**
+   * Content that are related to this one. Could be a page, or post, that you would like to feature in this document.
+   */
+  relatedDocs?:
+    | (
+        | {
+            relationTo: 'pages';
+            value: number | Page;
+          }
+        | {
+            relationTo: 'blog';
+            value: number | Blog;
+          }
+        | {
+            relationTo: 'properties';
+            value: number | Property;
+          }
+        | {
+            relationTo: 'projects';
+            value: number | Project;
+          }
+      )[]
+    | null;
+  meta?: Meta;
+  /**
+   * When checked, this page will not appear in search engines like Google. Use this for private pages or temporary content that should not be publicly searchable.
+   */
+  noindex?: boolean | null;
+  authors?: (number | User)[] | null;
+  populatedAuthors?:
+    | {
+        id?: string | null;
+        username?: string | null;
+      }[]
+    | null;
+  publishedAt?: string | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  parent?: (number | null) | Contract;
+  breadcrumbs?:
+    | {
+        doc?: (number | null) | Contract;
+        url?: string | null;
+        label?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
-  sizes?: {
-    thumbnail?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    avatar?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    original?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects".
+ */
+export interface Project {
+  id: number;
+  title: string;
+  market?:
+    | ('economy' | 'mid-market' | 'luxury' | 'ultra-luxury' | 'commercial' | 'industrial' | 'other' | 'custom')
+    | null;
+  /**
+   * Enter a custom market segment
+   */
+  customMarket?: string | null;
+  totalUnits: number;
+  completionYear?: number | null;
+  unitTypes?:
+    | {
+        type: string;
+        quantity: number;
+        startingPrice?: number | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Individual units that are part of this project
+   */
+  properties?: (number | Property)[] | null;
+  classification: (number | Classification)[];
+  contract: number | Contract;
+  availability: number | Availability;
+  amenities?: (number | Amenity)[] | null;
+  gallery?: {
+    /**
+     * Upload up to 24 high-quality images. The first image will be used as the main image.
+     */
+    images?: (number | Media)[] | null;
+    /**
+     * Upload a walkthrough video (MP4 format recommended)
+     */
+    video?: (number | null) | Media;
+    /**
+     * External virtual tour link (e.g., Matterport, etc.)
+     */
+    virtualTourUrl?: string | null;
+    /**
+     * Upload floor plan documents (PDF format recommended)
+     */
+    floorPlan?: (number | Media)[] | null;
+    /**
+     * Upload additional documents (brochures, certificates, etc.)
+     */
+    documents?: (number | Media)[] | null;
   };
+  location?: LocationInterface;
+  contractDetails?: {
+    /**
+     * Does this property require a formal contract?
+     */
+    requiresContract?: boolean | null;
+    /**
+     * Does this transaction type require a deposit?
+     */
+    requiresDeposit?: boolean | null;
+  };
+  /**
+   * Describe the property in a few sentences.
+   */
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Show this property in featured sections
+   */
+  isFeatured?: boolean | null;
+  /**
+   * General categorization for the built-in Search Engine and filtering purposes
+   */
+  categories?:
+    | (
+        | {
+            relationTo: 'blog-categories';
+            value: number | BlogCategory;
+          }
+        | {
+            relationTo: 'classifications';
+            value: number | Classification;
+          }
+        | {
+            relationTo: 'contracts';
+            value: number | Contract;
+          }
+        | {
+            relationTo: 'availability';
+            value: number | Availability;
+          }
+        | {
+            relationTo: 'amenities';
+            value: number | Amenity;
+          }
+      )[]
+    | null;
+  tags?: (number | Tag)[] | null;
+  /**
+   * Content that are related to this one. Could be a page, or post, that you would like to feature in this document.
+   */
+  relatedDocs?:
+    | (
+        | {
+            relationTo: 'pages';
+            value: number | Page;
+          }
+        | {
+            relationTo: 'blog';
+            value: number | Blog;
+          }
+        | {
+            relationTo: 'properties';
+            value: number | Property;
+          }
+        | {
+            relationTo: 'projects';
+            value: number | Project;
+          }
+      )[]
+    | null;
+  meta?: Meta;
+  /**
+   * When checked, this page will not appear in search engines like Google. Use this for private pages or temporary content that should not be publicly searchable.
+   */
+  noindex?: boolean | null;
+  authors?: (number | User)[] | null;
+  populatedAuthors?:
+    | {
+        id?: string | null;
+        username?: string | null;
+      }[]
+    | null;
+  publishedAt?: string | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * Define and manage different states a property listing can have
@@ -1322,6 +1562,92 @@ export interface Availability {
   _status?: ('draft' | 'published') | null;
 }
 /**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "meta".
+ */
+export interface Meta {
+  title?: string | null;
+  /**
+   * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+   */
+  image?: (number | null) | Media;
+  description?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users".
+ */
+export interface User {
+  id: number;
+  photo?: (number | null) | UserPhoto;
+  firstName?: string | null;
+  lastName?: string | null;
+  role: 'admin' | 'editor' | 'public';
+  updatedAt: string;
+  createdAt: string;
+  email: string;
+  username: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  _verified?: boolean | null;
+  _verificationToken?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  password?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "user-photos".
+ */
+export interface UserPhoto {
+  id: number;
+  alt?: string | null;
+  user?: {
+    docs?: (number | User)[] | null;
+    hasNextPage?: boolean | null;
+  } | null;
+  prefix?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+  sizes?: {
+    thumbnail?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    avatar?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    original?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+  };
+}
+/**
  * Manage property amenities and features that can be assigned to properties
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1413,55 +1739,150 @@ export interface Amenity {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CallToActionBlock".
+ * via the `definition` "LocationInterface".
  */
-export interface CallToActionBlock {
-  richText?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  links?:
-    | {
-        link: {
-          type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: number | Page;
-              } | null)
-            | ({
-                relationTo: 'blog';
-                value: number | Blog;
-              } | null)
-            | ({
-                relationTo: 'properties';
-                value: number | Property;
-              } | null);
-          url?: string | null;
-          label: string;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'outline') | null;
-        };
-        id?: string | null;
-      }[]
+export interface LocationInterface {
+  address_line1?: string | null;
+  unit?: string | null;
+  address_line2?: string | null;
+  city?: string | null;
+  state?: string | null;
+  postcode?: string | null;
+  countrySelect?: CountrySelect;
+  accessibility?: ('metro-connected' | 'bus-connected' | 'car-dependent' | 'walk-friendly' | 'custom') | null;
+  customAccessibility?: string | null;
+  /**
+   * Precise geographical coordinates for mapping
+   */
+  coordinates?: {
+    /**
+     * North-South position
+     */
+    latitude?: number | null;
+    /**
+     * East-West position
+     */
+    longitude?: number | null;
+  };
+  neighborhood?: {
+    neighborhoodType?:
+      | ('city-center' | 'business-district' | 'suburban-area' | 'industrial-area' | 'mixed-development' | 'custom')
+      | null;
+    customNeighborhoodType?: string | null;
+    /**
+     * Neighborhood or district name
+     */
+    area?: string | null;
+    /**
+     * Notable places near the property
+     */
+    landmarks?:
+      | {
+          name?: string | null;
+          distance?: number | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SpecificationsInterface".
+ */
+export interface SpecificationsInterface {
+  measurements?: {
+    sizeRange?: ('small' | 'medium' | 'large' | 'xlarge') | null;
+    /**
+     * Interior living space in square meters
+     */
+    property_size?: number | null;
+    /**
+     * Total land area in square meters
+     */
+    block_size?: number | null;
+    /**
+     * Property frontage in meters
+     */
+    frontage?: number | null;
+    /**
+     * Property depth in meters
+     */
+    depth?: number | null;
+  };
+  rooms?: {
+    /**
+     * Number of bedrooms
+     */
+    num_bedrooms?: number | null;
+    /**
+     * Number of bathrooms (0.5 = powder room)
+     */
+    num_bathrooms?: number | null;
+    /**
+     * Number of car parking spaces
+     */
+    num_carspaces?: number | null;
+    /**
+     * Number of floors in the property
+     */
+    num_floors?: number | null;
+  };
+  construction?: {
+    /**
+     * Year the property was constructed
+     */
+    year_built?: number | null;
+    /**
+     * Year of last major renovation
+     */
+    last_renovated?: number | null;
+    /**
+     * Primary construction material/method
+     */
+    construction_type?: ('brick' | 'timber' | 'concrete' | 'steel' | 'mixed') | null;
+  };
+  utilities?: {
+    /**
+     * Energy efficiency rating
+     */
+    energy_rating?: ('A' | 'B' | 'C' | 'D' | 'E') | null;
+    heating_type?: ('central' | 'electric' | 'gas' | 'heat-pump' | 'none') | null;
+    cooling_type?: ('central' | 'split' | 'window' | 'none') | null;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FinanceInterface".
+ */
+export interface FinanceInterface {
+  market?:
+    | ('economy' | 'mid-market' | 'luxury' | 'ultra-luxury' | 'commercial' | 'industrial' | 'other' | 'custom')
     | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'cta';
+  /**
+   * Enter a custom market segment
+   */
+  customMarket?: string | null;
+  /**
+   * Does this transaction type require a deposit?
+   */
+  requiresDeposit?: boolean | null;
+  depositType?: ('percentage' | 'amount') | null;
+  depositAmount?: number | null;
+  depositPercentage?: number | null;
+  /**
+   * Does this property have installments?
+   */
+  hasInstallments?: boolean | null;
+  installmentsNumber?: number | null;
+  installmentAmount?: number | null;
+  targetResidents?:
+    | ('families' | 'couples' | 'professionals' | 'executives' | 'singles' | 'students' | 'retired' | 'custom')
+    | null;
+  customTargetResidents?: string | null;
+  investmentPotential?: ('high' | 'medium' | 'low' | 'custom') | null;
+  customInvestmentPotential?: string | null;
+  investmentType?: ('rental-income' | 'value-appreciation' | 'mixed-use' | 'custom') | null;
+  customInvestmentType?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1526,6 +1947,42 @@ export interface MediaBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'mediaBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BannerBlock".
+ */
+export interface BannerBlock {
+  style: 'info' | 'warning' | 'error' | 'success';
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'banner';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CodeBlock".
+ */
+export interface CodeBlock {
+  language?: ('typescript' | 'javascript' | 'css') | null;
+  code: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'code';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2003,408 +2460,6 @@ export interface ListingCardOptions {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "SpecificationsInterface".
- */
-export interface SpecificationsInterface {
-  measurements?: {
-    sizeRange?: ('small' | 'medium' | 'large' | 'xlarge') | null;
-    /**
-     * Interior living space in square meters
-     */
-    property_size?: number | null;
-    /**
-     * Total land area in square meters
-     */
-    block_size?: number | null;
-    /**
-     * Property frontage in meters
-     */
-    frontage?: number | null;
-    /**
-     * Property depth in meters
-     */
-    depth?: number | null;
-  };
-  rooms?: {
-    /**
-     * Number of bedrooms
-     */
-    num_bedrooms?: number | null;
-    /**
-     * Number of bathrooms (0.5 = powder room)
-     */
-    num_bathrooms?: number | null;
-    /**
-     * Number of car parking spaces
-     */
-    num_carspaces?: number | null;
-    /**
-     * Number of floors in the property
-     */
-    num_floors?: number | null;
-  };
-  construction?: {
-    /**
-     * Year the property was constructed
-     */
-    year_built?: number | null;
-    /**
-     * Year of last major renovation
-     */
-    last_renovated?: number | null;
-    /**
-     * Primary construction material/method
-     */
-    construction_type?: ('brick' | 'timber' | 'concrete' | 'steel' | 'mixed') | null;
-  };
-  utilities?: {
-    /**
-     * Energy efficiency rating
-     */
-    energy_rating?: ('A' | 'B' | 'C' | 'D' | 'E') | null;
-    heating_type?: ('central' | 'electric' | 'gas' | 'heat-pump' | 'none') | null;
-    cooling_type?: ('central' | 'split' | 'window' | 'none') | null;
-  };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "LocationInterface".
- */
-export interface LocationInterface {
-  address_line1?: string | null;
-  unit?: string | null;
-  address_line2?: string | null;
-  city?: string | null;
-  state?: string | null;
-  postcode?: string | null;
-  accessibility?: ('metro-connected' | 'bus-connected' | 'car-dependent' | 'walk-friendly' | 'custom') | null;
-  customAccessibility?: string | null;
-  countrySelect?: CountrySelect;
-  /**
-   * Precise geographical coordinates for mapping
-   */
-  coordinates?: {
-    /**
-     * North-South position
-     */
-    latitude?: number | null;
-    /**
-     * East-West position
-     */
-    longitude?: number | null;
-  };
-  neighborhood?: {
-    neighborhoodType?:
-      | ('city-center' | 'business-district' | 'suburban-area' | 'industrial-area' | 'mixed-development' | 'custom')
-      | null;
-    customNeighborhoodType?: string | null;
-    /**
-     * Neighborhood or district name
-     */
-    area?: string | null;
-    /**
-     * Notable places near the property
-     */
-    landmarks?:
-      | {
-          name?: string | null;
-          distance?: number | null;
-          id?: string | null;
-        }[]
-      | null;
-  };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CountrySelect".
- */
-export interface CountrySelect {
-  country?:
-    | (
-        | 'AF'
-        | 'AX'
-        | 'AL'
-        | 'DZ'
-        | 'AS'
-        | 'AD'
-        | 'AO'
-        | 'AI'
-        | 'AQ'
-        | 'AG'
-        | 'AR'
-        | 'AM'
-        | 'AW'
-        | 'AU'
-        | 'AT'
-        | 'AZ'
-        | 'BS'
-        | 'BH'
-        | 'BD'
-        | 'BB'
-        | 'BY'
-        | 'BE'
-        | 'BZ'
-        | 'BJ'
-        | 'BM'
-        | 'BT'
-        | 'BO'
-        | 'BA'
-        | 'BW'
-        | 'BV'
-        | 'BR'
-        | 'IO'
-        | 'BN'
-        | 'BG'
-        | 'BF'
-        | 'BI'
-        | 'KH'
-        | 'CM'
-        | 'CA'
-        | 'CV'
-        | 'KY'
-        | 'CF'
-        | 'TD'
-        | 'CL'
-        | 'CN'
-        | 'CX'
-        | 'CC'
-        | 'CO'
-        | 'KM'
-        | 'CG'
-        | 'CD'
-        | 'CK'
-        | 'CR'
-        | 'CI'
-        | 'HR'
-        | 'CU'
-        | 'CY'
-        | 'CZ'
-        | 'DK'
-        | 'DJ'
-        | 'DM'
-        | 'DO'
-        | 'EC'
-        | 'EG'
-        | 'SV'
-        | 'GQ'
-        | 'ER'
-        | 'EE'
-        | 'ET'
-        | 'FK'
-        | 'FO'
-        | 'FJ'
-        | 'FI'
-        | 'FR'
-        | 'GF'
-        | 'PF'
-        | 'TF'
-        | 'GA'
-        | 'GM'
-        | 'GE'
-        | 'DE'
-        | 'GH'
-        | 'GI'
-        | 'GR'
-        | 'GL'
-        | 'GD'
-        | 'GP'
-        | 'GU'
-        | 'GT'
-        | 'GG'
-        | 'GN'
-        | 'GW'
-        | 'GY'
-        | 'HT'
-        | 'HM'
-        | 'VA'
-        | 'HN'
-        | 'HK'
-        | 'HU'
-        | 'IS'
-        | 'IN'
-        | 'ID'
-        | 'IR'
-        | 'IQ'
-        | 'IE'
-        | 'IM'
-        | 'IL'
-        | 'IT'
-        | 'JM'
-        | 'JP'
-        | 'JE'
-        | 'JO'
-        | 'KZ'
-        | 'KE'
-        | 'KI'
-        | 'KP'
-        | 'KR'
-        | 'XK'
-        | 'KW'
-        | 'KG'
-        | 'LA'
-        | 'LV'
-        | 'LB'
-        | 'LS'
-        | 'LR'
-        | 'LY'
-        | 'LI'
-        | 'LT'
-        | 'LU'
-        | 'MO'
-        | 'MK'
-        | 'MG'
-        | 'MW'
-        | 'MY'
-        | 'MV'
-        | 'ML'
-        | 'MT'
-        | 'MH'
-        | 'MQ'
-        | 'MR'
-        | 'MU'
-        | 'YT'
-        | 'MX'
-        | 'FM'
-        | 'MD'
-        | 'MC'
-        | 'MN'
-        | 'ME'
-        | 'MS'
-        | 'MA'
-        | 'MZ'
-        | 'MM'
-        | 'NA'
-        | 'NR'
-        | 'NP'
-        | 'NL'
-        | 'AN'
-        | 'NC'
-        | 'NZ'
-        | 'NI'
-        | 'NE'
-        | 'NG'
-        | 'NU'
-        | 'NF'
-        | 'MP'
-        | 'NO'
-        | 'OM'
-        | 'PK'
-        | 'PW'
-        | 'PS'
-        | 'PA'
-        | 'PG'
-        | 'PY'
-        | 'PE'
-        | 'PH'
-        | 'PN'
-        | 'PL'
-        | 'PT'
-        | 'PR'
-        | 'QA'
-        | 'RE'
-        | 'RO'
-        | 'RU'
-        | 'RW'
-        | 'SH'
-        | 'KN'
-        | 'LC'
-        | 'PM'
-        | 'VC'
-        | 'WS'
-        | 'SM'
-        | 'ST'
-        | 'SA'
-        | 'SN'
-        | 'RS'
-        | 'SC'
-        | 'SL'
-        | 'SG'
-        | 'SK'
-        | 'SI'
-        | 'SB'
-        | 'SO'
-        | 'ZA'
-        | 'GS'
-        | 'ES'
-        | 'LK'
-        | 'SD'
-        | 'SR'
-        | 'SJ'
-        | 'SZ'
-        | 'SE'
-        | 'CH'
-        | 'SY'
-        | 'TW'
-        | 'TJ'
-        | 'TZ'
-        | 'TH'
-        | 'TL'
-        | 'TG'
-        | 'TK'
-        | 'TO'
-        | 'TT'
-        | 'TN'
-        | 'TR'
-        | 'TM'
-        | 'TC'
-        | 'TV'
-        | 'UG'
-        | 'UA'
-        | 'AE'
-        | 'GB'
-        | 'US'
-        | 'UM'
-        | 'UY'
-        | 'UZ'
-        | 'VU'
-        | 'VE'
-        | 'VN'
-        | 'VG'
-        | 'VI'
-        | 'WF'
-        | 'EH'
-        | 'YE'
-        | 'ZM'
-        | 'ZW'
-      )
-    | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "FinanceInterface".
- */
-export interface FinanceInterface {
-  market?:
-    | ('economy' | 'mid-market' | 'luxury' | 'ultra-luxury' | 'commercial' | 'industrial' | 'other' | 'custom')
-    | null;
-  /**
-   * Enter a custom market segment
-   */
-  customMarket?: string | null;
-  /**
-   * Does this transaction type require a deposit?
-   */
-  requiresDeposit?: boolean | null;
-  depositType?: ('percentage' | 'amount') | null;
-  depositAmount?: number | null;
-  depositPercentage?: number | null;
-  /**
-   * Does this property have installments?
-   */
-  hasInstallments?: boolean | null;
-  installmentsNumber?: number | null;
-  installmentAmount?: number | null;
-  targetResidents?:
-    | ('families' | 'couples' | 'professionals' | 'executives' | 'singles' | 'students' | 'retired' | 'custom')
-    | null;
-  customTargetResidents?: string | null;
-  investmentPotential?: ('high' | 'medium' | 'low' | 'custom') | null;
-  customInvestmentPotential?: string | null;
-  investmentType?: ('rental-income' | 'value-appreciation' | 'mixed-use' | 'custom') | null;
-  customInvestmentType?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "assets".
  */
 export interface Asset {
@@ -2828,9 +2883,9 @@ export interface LocationInterfaceSelect<T extends boolean = true> {
   city?: T;
   state?: T;
   postcode?: T;
+  countrySelect?: T;
   accessibility?: T;
   customAccessibility?: T;
-  countrySelect?: T | CountrySelectSelect<T>;
   coordinates?:
     | T
     | {
@@ -2851,13 +2906,6 @@ export interface LocationInterfaceSelect<T extends boolean = true> {
               id?: T;
             };
       };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CountrySelect_select".
- */
-export interface CountrySelectSelect<T extends boolean = true> {
-  country?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3125,17 +3173,7 @@ export interface ContractsSelect<T extends boolean = true> {
 export interface PagesSelect<T extends boolean = true> {
   title?: T;
   heros?: T | HerosInterfaceSelect<T>;
-  blocks?:
-    | T
-    | {
-        cta?: T | CallToActionBlockSelect<T>;
-        content?: T | ContentBlockSelect<T>;
-        mediaBlock?: T | MediaBlockSelect<T>;
-        archive?: T | ArchiveBlockSelect<T>;
-        formBlock?: T | FormBlockSelect<T>;
-        listingBlock?: T | ListingBlockSelect<T>;
-        listingArchiveBlock?: T | ListingArchiveBlockSelect<T>;
-      };
+  blocks?: T | {};
   categories?: T;
   tags?: T;
   meta?: T | MetaSelect<T>;
@@ -3231,190 +3269,6 @@ export interface HerosInterfaceSelect<T extends boolean = true> {
             };
         id?: T;
       };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CallToActionBlock_select".
- */
-export interface CallToActionBlockSelect<T extends boolean = true> {
-  richText?: T;
-  links?:
-    | T
-    | {
-        link?:
-          | T
-          | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              label?: T;
-              appearance?: T;
-            };
-        id?: T;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ContentBlock_select".
- */
-export interface ContentBlockSelect<T extends boolean = true> {
-  columns?:
-    | T
-    | {
-        size?: T;
-        richText?: T;
-        enableLink?: T;
-        link?:
-          | T
-          | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              label?: T;
-              appearance?: T;
-            };
-        id?: T;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "MediaBlock_select".
- */
-export interface MediaBlockSelect<T extends boolean = true> {
-  media?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ArchiveBlock_select".
- */
-export interface ArchiveBlockSelect<T extends boolean = true> {
-  introContent?: T;
-  populateBy?: T;
-  relationTo?: T;
-  categories?: T;
-  limit?: T;
-  selectedDocs?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "FormBlock_select".
- */
-export interface FormBlockSelect<T extends boolean = true> {
-  form?: T;
-  enableIntro?: T;
-  introContent?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ListingBlock_select".
- */
-export interface ListingBlockSelect<T extends boolean = true> {
-  listings?: T;
-  view?: T | ViewSettingsInterfaceSelect<T>;
-  card?: T | CardSettingsInterfaceSelect<T>;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ViewSettingsInterface_select".
- */
-export interface ViewSettingsInterfaceSelect<T extends boolean = true> {
-  layout?: T;
-  grid?:
-    | T
-    | {
-        columns?: T;
-      };
-  list?:
-    | T
-    | {
-        columns?: T;
-      };
-  ftrd?:
-    | T
-    | {
-        columns?: T;
-      };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CardSettingsInterface_select".
- */
-export interface CardSettingsInterfaceSelect<T extends boolean = true> {
-  enabledFields?: T;
-  thumbnail?:
-    | T
-    | {
-        fit?: T;
-        position?: T;
-        size?: T;
-      };
-  price?:
-    | T
-    | {
-        decimals?: T;
-        currencyFormat?: T;
-        overrideGlobalCurrency?: T;
-        currencySelect?: T;
-      };
-  tags?:
-    | T
-    | {
-        buttonStyle?: T;
-      };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ListingArchiveBlock_select".
- */
-export interface ListingArchiveBlockSelect<T extends boolean = true> {
-  mainTitle?: T;
-  subTitle?: T;
-  layout?:
-    | T
-    | {
-        layoutType?: T;
-      };
-  archive?:
-    | T
-    | {
-        populateBy?: T;
-        selection?: T;
-        categories?: T;
-        limit?: T;
-        pagination?: T;
-      };
-  card?: T | ListingCardOptionsSelect<T>;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ListingCardOptions_select".
- */
-export interface ListingCardOptionsSelect<T extends boolean = true> {
-  enabledFields?: T;
-  buttonStyle?: T;
-  fit?: T;
-  position?: T;
-  size?: T;
-  decimals?: T;
-  currencyFormat?: T;
-  overrideGlobalCurrency?: T;
-  currencySelect?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -4464,42 +4318,6 @@ export interface TaskSchedulePublish {
     user?: (number | null) | User;
   };
   output?: unknown;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "BannerBlock".
- */
-export interface BannerBlock {
-  style: 'info' | 'warning' | 'error' | 'success';
-  content: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'banner';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CodeBlock".
- */
-export interface CodeBlock {
-  language?: ('typescript' | 'javascript' | 'css') | null;
-  code: string;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'code';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

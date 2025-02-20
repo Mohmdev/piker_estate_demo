@@ -82,6 +82,7 @@ export const LocationInterface: NamedTab = {
             className: 'p-0 my-2',
           },
         },
+        countrySelectField,
       ],
     },
     {
@@ -111,13 +112,6 @@ export const LocationInterface: NamedTab = {
           },
         },
       ],
-    },
-    {
-      type: 'row',
-      admin: {
-        className: 'p-0 my-2 pb-12',
-      },
-      fields: [countrySelectField],
     },
     {
       type: 'group',

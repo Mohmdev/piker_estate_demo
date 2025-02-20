@@ -1,18 +1,32 @@
 'use client'
 
 import { Media } from '@components/Media'
-import type { BlogCategory, Meta } from '@payload-types'
+import type {
+  Blog,
+  Media as MediaType,
+  Project,
+  Property,
+} from '@payload-types'
 import { cn } from '@utils/ui'
 import useClickableCard from '@utils/useClickableCard'
 import Link from 'next/link'
 import React, { Fragment } from 'react'
 
-export type CardPostData = {
-  meta?: Meta | undefined
+type CommonFields = {
+  slug?: string | null
   title: string
-  categories?: (number | BlogCategory)[] | null | undefined
-  slug?: string | null | undefined
+  meta?: {
+    description?: string | null
+    image?: MediaType | number | null
+  } | null
+  categories?:
+    | Blog['categories']
+    | Property['categories']
+    | Project['categories']
+    | null
 }
+
+export type CardPostData = CommonFields & Partial<Blog | Property | Project>
 
 export const Card: React.FC<{
   alignItems?: 'center'
@@ -69,7 +83,13 @@ export const Card: React.FC<{
                 <p>
                   {categories?.map((category, index) => {
                     if (typeof category === 'object') {
-                      const { title: titleFromCategory } = category
+                      const { value } = category
+                      const titleFromCategory =
+                        typeof value === 'object' &&
+                        value !== null &&
+                        'title' in value
+                          ? value.title
+                          : undefined
                       const categoryTitle =
                         titleFromCategory || 'Untitled category'
                       const isLast = index === categories.length - 1

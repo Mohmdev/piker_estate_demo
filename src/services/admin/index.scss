@@ -96,10 +96,8 @@
   --main-color-dark: 0 0% 100%;
   --main-color-light: 0 0% 0%;
   --main-color-opacity: 1;
-  --main-color: light-dark(
-    hsla(var(--main-color-light) / var(--main-color-opacity)),
-    hsla(var(--main-color-dark) / var(--main-color-opacity))
-  );
+  --main-color: light-dark(hsla(var(--main-color-light) / var(--main-color-opacity)),
+      hsla(var(--main-color-dark) / var(--main-color-opacity)));
   --stroke-width: 1px;
   --shadow-opacity: 0.6;
 
@@ -129,11 +127,11 @@
     letter-spacing: 0.05em;
     color: transparent;
 
-    .textMain {
-      z-index: 1;
-      background-color: transparent;
-      text-shadow: hsl(199 91% 21% / var(--shadow-opacity)) 1.5px 1px;
-      -webkit-text-stroke: var(--stroke-width) var(--main-color);
-    }
+    // .textMain {
+    //   z-index: 1;
+    //   background-color: transparent;
+    //   text-shadow: hsl(199 91% 21% / var(--shadow-opacity)) 1.5px 1px;
+    //   -webkit-text-stroke: var(--stroke-width) var(--main-color);
+    // }
   }
 }

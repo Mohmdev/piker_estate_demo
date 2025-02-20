@@ -5,13 +5,13 @@ export const ROLES_WITH_ADMIN_ACCESS = ['admin', 'editor'] as const
 // export const SITE_NAME = 'Webora Studio' as const
 /* -------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------- */
-const mainCollections: CollectionSlug[] = [
+export const mainCollections: CollectionSlug[] = [
   'pages',
   'blog',
   'properties',
   'projects',
 ] as const
-const taxonomyCollections: CollectionSlug[] = [
+export const taxonomyCollections: CollectionSlug[] = [
   'blog-categories',
   'classifications',
   'contracts',
