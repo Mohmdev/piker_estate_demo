@@ -1,6 +1,6 @@
 {
   "name": "webora-estates",
-  "version": "0.14.0",
+  "version": "v1.0.0-beta.2",
   "private": true,
   "license": "MIT",
   "type": "module",
@@ -92,6 +92,7 @@
     "@types/react": "19.0.8",
     "@types/react-dom": "19.0.3",
     "copyfiles": "^2.4.1",
+    "dotenv": "^16.4.7",
     "globals": "^15.14.0",
     "postcss": "^8.5.1",
     "tailwindcss": "^4.0.5",
@@ -104,6 +105,8 @@
     "pnpm": ">=9"
   },
   "pnpm": {
-    "onlyBuiltDependencies": ["sharp"]
+    "onlyBuiltDependencies": [
+      "sharp"
+    ]
   }
 }

@@ -6,10 +6,11 @@ import { Card, CardPostData } from '@components/Card'
 export type Props = {
   posts: CardPostData[]
   className?: string
+  relationTo?: 'blog' | 'properties' | 'projects'
 }
 
 export const CollectionArchive: React.FC<Props> = (props) => {
-  const { posts, className } = props
+  const { posts, className, relationTo = 'blog' } = props
 
   return (
     <div className={cn('container', className)}>
@@ -22,13 +23,12 @@ export const CollectionArchive: React.FC<Props> = (props) => {
                   <Card
                     className="h-full"
                     doc={result}
-                    relationTo="posts"
+                    relationTo={relationTo}
                     showCategories
                   />
                 </div>
               )
             }
-
             return null
           })}
         </div>

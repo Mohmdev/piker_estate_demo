@@ -1,13 +1,7 @@
 import { populateAuthors } from '@CMS/_hooks/populateAuthors'
 import { populatePublishedAt } from '@CMS/_hooks/populatePublishedAt'
 import { revalidateDelete, revalidatePage } from '@CMS/_hooks/revalidatePage'
-import { Archive } from '@CMS/blocks/ArchiveBlock/config'
-import { CallToAction } from '@CMS/blocks/CallToAction/config'
-import { Content } from '@CMS/blocks/Content/config'
-import { FormBlock } from '@CMS/blocks/Form/config'
-import { MediaBlock } from '@CMS/blocks/MediaBlock/config'
-import { ListingArchiveBlock } from '@CMS/blocks/real-estate/ListingArchiveBlock/config'
-import { ListingBlock } from '@CMS/blocks/real-estate/ListingBlock/config'
+
 import { authorsField } from '@CMS/fields/shared/authorsField'
 import { categoriesField } from '@CMS/fields/shared/categoriesField'
 import { noindexField } from '@CMS/fields/shared/noindexField'
@@ -70,15 +64,18 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'blocks',
               type: 'blocks',
-              blocks: [
-                CallToAction,
-                Content,
-                MediaBlock,
-                Archive,
-                FormBlock,
-                ListingBlock,
-                ListingArchiveBlock,
+              blockReferences: [
+                'cta',
+                'content',
+                'mediaBlock',
+                'banner',
+                'code',
+                'archive',
+                'formBlock',
+                'listingBlock',
+                'listingArchiveBlock',
               ],
+              blocks: [],
               admin: {
                 initCollapsed: false,
               },
