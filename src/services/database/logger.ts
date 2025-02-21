@@ -1,5 +1,4 @@
 import chalk from 'chalk'
-import { NEXT_PUBLIC_SERVER_URL } from 'next.config'
 
 class EnvironmentLogger {
   private static instance: EnvironmentLogger
@@ -16,7 +15,7 @@ class EnvironmentLogger {
   }
 
   private formatHeader(text: string): string {
-    const line = '─'.repeat(text.length + 4)
+    const line = '─'.repeat(text.length + 3)
     return `┌${line}┐\n│  ${text}  │\n└${line}┘`
   }
 
@@ -42,21 +41,15 @@ class EnvironmentLogger {
     if (this.hasLoggedEnv) return
 
     const envTag = this.getEnvironmentTag()
-    const header = this.formatHeader('Webora Estates Environment ')
+    const header = this.formatHeader('Webora Estates Environment')
 
     console.log('\n' + chalk.bold(header))
     console.log(chalk.dim('├─ Environment'))
-    console.log(`│  ${envTag}`)
-    console.log(
-      `│  ${chalk.dim('Vercel:')} ${process.env.VERCEL_ENV || 'local'}`,
-    )
-    console.log(`│  ${chalk.dim('Build:')} ${process.env.NODE_ENV}`)
-    console.log(`│  ${chalk.dim('Server:')} ${NEXT_PUBLIC_SERVER_URL}`)
+    console.log(chalk.dim(`│ ${envTag}`))
+    console.log(chalk.dim(`│ Vercel: ${process.env.VERCEL_ENV || 'local'}`))
+    console.log(chalk.dim(`│ Build: ${process.env.NODE_ENV}`))
     console.log(chalk.dim('├─ Database'))
-    console.log(
-      `│  ${chalk.dim('Type:')} ${process.env.VERCEL_ENV === 'production' ? 'Production' : 'Development'}`,
-    )
-    console.log(`│  ${chalk.dim('Connection:')} ${this.getConnectionInfo()}`)
+    console.log(chalk.dim(`│ ${this.getConnectionInfo()}`))
     console.log(chalk.dim('└─────────────────────────────\n'))
 
     this.hasLoggedEnv = true

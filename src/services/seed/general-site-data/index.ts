@@ -1,3 +1,4 @@
+import type { Footer, GlobalSetting, MainMenu } from '@payload-types'
 import type {
   CollectionSlug,
   File,
@@ -43,24 +44,44 @@ export const seed = async ({
 }): Promise<void> => {
   payload.logger.info('Seeding database...')
 
-  // we need to clear the media directory before seeding
-  // as well as the collections and globals
-  // this is because while `yarn seed` drops the database
-  // the custom `/api/seed` endpoint does not
   payload.logger.info(`— Clearing collections and globals...`)
 
-  // clear the database
   await Promise.all(
-    targetGlobals.map((global) =>
-      payload.updateGlobal({
+    targetGlobals.map((global) => {
+      const globalCases = (() => {
+        switch (global) {
+          case 'footer':
+            return { columns: [] } as unknown as Footer
+          case 'main-menu':
+            return {
+              navGroups: [],
+              menuCta: {
+                enableCta: false, // has to be manually set to false
+                link: {},
+              },
+            } as unknown as MainMenu
+          case 'global-settings':
+            return {
+              siteIdentity: {},
+              branding: {},
+              contactInfo: {},
+              globalSeo: {},
+            } as unknown as GlobalSetting
+          default:
+            return {}
+        }
+      })()
+
+      return payload.updateGlobal({
         slug: global,
-        data: {},
         depth: 0,
+        overrideLock: true,
+        data: globalCases,
         context: {
           disableRevalidate: true,
         },
-      }),
-    ),
+      })
+    }),
   )
 
   await Promise.all(

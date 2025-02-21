@@ -60,6 +60,7 @@
     "@tanstack/react-query": "^5.66.0",
     "@vercel/toolbar": "^0.1.30",
     "babel-plugin-react-compiler": "19.0.0-beta-30d8a17-20250209",
+    "chalk": "^5.4.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cross-env": "^7.0.3",

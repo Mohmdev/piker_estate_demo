@@ -1,4 +1,5 @@
 import config from '@payload-config'
+import type { Footer, GlobalSetting, MainMenu } from '@payload-types'
 import {
   targetCollections,
   targetGlobals,
@@ -23,16 +24,41 @@ export async function POST(): Promise<Response> {
     payload.logger.info(`↪ Resetting Site's General Data...`)
 
     await Promise.all(
-      targetGlobals.map((global) =>
-        payload.updateGlobal({
+      targetGlobals.map((global) => {
+        const globalCases = (() => {
+          switch (global) {
+            case 'footer':
+              return { columns: [] } as unknown as Footer
+            case 'main-menu':
+              return {
+                navGroups: [],
+                menuCta: {
+                  enableCta: false, // has to be manually set to false
+                  link: {},
+                },
+              } as unknown as MainMenu
+            case 'global-settings':
+              return {
+                siteIdentity: {},
+                branding: {},
+                contactInfo: {},
+                globalSeo: {},
+              } as unknown as GlobalSetting
+            default:
+              return {}
+          }
+        })()
+
+        return payload.updateGlobal({
           slug: global,
-          data: {},
           depth: 0,
+          overrideLock: true,
+          data: globalCases,
           context: {
             disableRevalidate: true,
           },
-        }),
-      ),
+        })
+      }),
     )
 
     await Promise.all(
