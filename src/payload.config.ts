@@ -1,14 +1,15 @@
 import path from 'path'
 import { fileURLToPath } from 'url'
-import { Archive } from '@CMS/blocks/ArchiveBlock/config'
 import { Banner } from '@CMS/blocks/Banner/config'
 import { CallToAction } from '@CMS/blocks/CallToAction/config'
 import { Code } from '@CMS/blocks/Code/config'
 import { Content } from '@CMS/blocks/Content/config'
 import { FormBlock } from '@CMS/blocks/Form/config'
 import { MediaBlock } from '@CMS/blocks/MediaBlock/config'
-import { ListingArchiveBlock } from '@CMS/blocks/real-estate/ListingArchiveBlock/config'
-import { ListingBlock } from '@CMS/blocks/real-estate/ListingBlock/config'
+import { BlogArchive } from '@CMS/blocks/archive-blocks/blog/config'
+import { ListingArchiveBlock } from '@CMS/blocks/archive-blocks/real-estate/ListingArchiveBlock/config'
+import { ListingBlock } from '@CMS/blocks/archive-blocks/real-estate/ListingBlock/config'
+import { UniversalArchive } from '@CMS/blocks/archive-blocks/universal/config'
 import { Footer } from '@CMS/design/Footer/config'
 import { GlobalSettings } from '@CMS/design/GlobalSettings/config'
 import { MainMenu } from '@CMS/design/MainMenu/config'
@@ -66,8 +67,10 @@ export default buildConfig({
     Code,
     Content,
     MediaBlock,
-    Archive,
     FormBlock,
+    // Archive blocks
+    BlogArchive,
+    UniversalArchive,
     ListingBlock,
     ListingArchiveBlock,
   ],

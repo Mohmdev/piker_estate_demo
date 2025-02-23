@@ -324,8 +324,9 @@ export interface Config {
     code: CodeBlock;
     content: ContentBlock;
     mediaBlock: MediaBlock;
-    archive: ArchiveBlock;
     formBlock: FormBlock;
+    'blog-archive': BlogArchiveBlock;
+    'universal-archive': UniversalArchiveBlock;
     listingBlock: ListingBlock;
     listingArchiveBlock: ListingArchiveBlock;
   };
@@ -526,7 +527,7 @@ export interface Page {
         | MediaBlock
         | BannerBlock
         | CodeBlock
-        | ArchiveBlock
+        | UniversalArchiveBlock
         | FormBlock
         | ListingBlock
         | ListingArchiveBlock
@@ -1986,9 +1987,9 @@ export interface CodeBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ArchiveBlock".
+ * via the `definition` "UniversalArchiveBlock".
  */
-export interface ArchiveBlock {
+export interface UniversalArchiveBlock {
   introContent?: {
     root: {
       type: string;
@@ -2037,7 +2038,7 @@ export interface ArchiveBlock {
     | null;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'archive';
+  blockType: 'universal-archive';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2457,6 +2458,40 @@ export interface ListingCardOptions {
         | 'R'
       )
     | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BlogArchiveBlock".
+ */
+export interface BlogArchiveBlock {
+  introContent?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  populateBy?: ('collection' | 'selection') | null;
+  relationTo?: 'blog' | null;
+  categories?: (number | BlogCategory)[] | null;
+  limit?: number | null;
+  selectedDocs?:
+    | {
+        relationTo: 'blog';
+        value: number | Blog;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'blog-archive';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

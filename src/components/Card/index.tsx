@@ -26,7 +26,7 @@ type CommonFields = {
     | null
 }
 
-export type CardPostData = CommonFields & Partial<Blog | Property | Project>
+export type CardPostData = CommonFields
 
 export const Card: React.FC<{
   alignItems?: 'center'

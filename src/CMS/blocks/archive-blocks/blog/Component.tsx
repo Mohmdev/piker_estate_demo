@@ -1,12 +1,12 @@
-import { CollectionArchive } from '@components/CollectionArchive'
-import RichText from '@components/RichText'
+import { CollectionArchive } from '@/components/CollectionArchive'
+import RichText from '@/components/RichText'
 import configPromise from '@payload-config'
-import type { ArchiveBlock as ArchiveBlockProps, Blog } from '@payload-types'
+import type { Blog, BlogArchiveBlock as Props } from '@payload-types'
 import { getPayload } from 'payload'
 import React from 'react'
 
-export const ArchiveBlock: React.FC<
-  ArchiveBlockProps & {
+export const BlogArchiveBlock: React.FC<
+  Props & {
     id?: string
   }
 > = async (props) => {
@@ -17,7 +17,6 @@ export const ArchiveBlock: React.FC<
     limit: limitFromProps,
     populateBy,
     selectedDocs,
-    relationTo,
   } = props
 
   const limit = limitFromProps || 3
@@ -28,7 +27,7 @@ export const ArchiveBlock: React.FC<
     const payload = await getPayload({ config: configPromise })
 
     const flattenedCategories = categories?.map((category) => {
-      if (typeof category === 'object') return category.value
+      if (typeof category === 'object') return category.id
       else return category
     })
 
@@ -62,27 +61,14 @@ export const ArchiveBlock: React.FC<
     <div className="my-16" id={`block-${id}`}>
       {introContent && (
         <div className="container mb-16">
-          <RichText className="ms-0" data={introContent} enableGutter={false} />
+          <RichText
+            className="ms-0 max-w-[48rem]"
+            data={introContent}
+            enableGutter={false}
+          />
         </div>
       )}
-      <CollectionArchive
-        posts={posts.map((post) => ({
-          ...post,
-          categories: post.categories?.map((category) =>
-            typeof category === 'object'
-              ? {
-                  relationTo: category.relationTo,
-                  value: category.value,
-                }
-              : category,
-          ),
-        }))}
-        relationTo={
-          populateBy === 'collection'
-            ? relationTo || 'blog'
-            : selectedDocs?.[0]?.relationTo || 'blog'
-        }
-      />
+      <CollectionArchive posts={posts} />
     </div>
   )
 }
