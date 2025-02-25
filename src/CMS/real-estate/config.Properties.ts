@@ -35,15 +35,7 @@ export const Properties: CollectionConfig<'properties'> = {
   admin: {
     group: 'Real Estate',
     useAsTitle: 'title',
-    defaultColumns: [
-      'filename',
-      'gallery',
-      'thumbnail',
-      'price',
-      'title',
-      '_status',
-      'updatedAt',
-    ],
+    defaultColumns: ['gallery', 'price', 'title', '_status', 'updatedAt'],
     preview: getCollectionPreviewURL('properties'),
     livePreview: getCollectionLivePreviewURL('properties'),
   },

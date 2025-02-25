@@ -6,6 +6,19 @@ export const galleryGroup: GroupField = {
   name: 'gallery',
   label: false,
   // interfaceName: 'Gallery',
+  admin: {
+    components: {
+      Cell: {
+        path: '@CMS/real-estate/glossary/gallery/cell/client#GalleryCell',
+        clientProps: {
+          cellData: 'gallery',
+          collectionSlug: 'properties',
+          field: 'gallery.images',
+          link: true,
+        },
+      },
+    },
+  },
   fields: [
     {
       type: 'row',

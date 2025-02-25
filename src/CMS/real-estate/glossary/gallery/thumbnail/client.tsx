@@ -5,13 +5,13 @@ import { FieldDescription, useFormFields } from '@payloadcms/ui'
 import { cn } from '@utils/ui'
 import { HousePlus } from 'lucide-react'
 import Image from 'next/image'
-import type { TextFieldClientProps } from 'payload'
+import type { UIFieldClientProps } from 'payload'
 import React, { useEffect, useState } from 'react'
 
 type GalleryThumbnailProps = {
   fieldToUse: string
   description: string
-} & TextFieldClientProps
+} & UIFieldClientProps
 
 export const GalleryThumbnail: React.FC<GalleryThumbnailProps> = ({
   // field,
@@ -24,7 +24,6 @@ export const GalleryThumbnail: React.FC<GalleryThumbnailProps> = ({
   // Subscribe to the gallery field and extract the first image ID.
   const firstImageId = useFormFields<string | number | null>(([fields]) => {
     const images = fields[fieldToUse]?.value
-    console.log('images value:', images)
     if (images && Array.isArray(images) && images.length > 0) {
       return images[0]
     }

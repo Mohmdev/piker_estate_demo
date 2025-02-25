@@ -31,7 +31,6 @@ export const galleryThumbnailField: ThumbnailUrl = (
             description,
           },
         },
-        // Cell
       },
       // className: 'p-0 m-0',
     },
