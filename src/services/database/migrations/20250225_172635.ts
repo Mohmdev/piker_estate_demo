@@ -186,11 +186,10 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"title" varchar,
   	"market" "enum_projects_market",
   	"custom_market" varchar,
-  	"total_units" numeric,
   	"completion_year" numeric,
+  	"total_units" numeric,
   	"contract_id" integer,
   	"availability_id" integer,
-  	"gallery_thumb_url" varchar,
   	"gallery_video_id" integer,
   	"gallery_virtual_tour_url" varchar,
   	"location_address_line1" varchar,
@@ -275,11 +274,10 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"version_title" varchar,
   	"version_market" "enum__projects_v_version_market",
   	"version_custom_market" varchar,
-  	"version_total_units" numeric,
   	"version_completion_year" numeric,
+  	"version_total_units" numeric,
   	"version_contract_id" integer,
   	"version_availability_id" integer,
-  	"version_gallery_thumb_url" varchar,
   	"version_gallery_video_id" integer,
   	"version_gallery_virtual_tour_url" varchar,
   	"version_location_address_line1" varchar,
@@ -356,7 +354,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"price" numeric,
   	"condition" "enum_properties_condition",
   	"custom_condition" varchar,
-  	"gallery_thumb_url" varchar,
   	"gallery_video_id" integer,
   	"gallery_virtual_tour_url" varchar,
   	"specs_measurements_size_range" "enum_properties_specs_measurements_size_range",
@@ -460,7 +457,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"version_price" numeric,
   	"version_condition" "enum__properties_v_version_condition",
   	"version_custom_condition" varchar,
-  	"version_gallery_thumb_url" varchar,
   	"version_gallery_video_id" integer,
   	"version_gallery_virtual_tour_url" varchar,
   	"version_specs_measurements_size_range" "enum__properties_v_version_specs_measurements_size_range",
@@ -4579,7 +4575,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE UNIQUE INDEX IF NOT EXISTS "projects_title_idx" ON "projects" USING btree ("title");
   CREATE INDEX IF NOT EXISTS "projects_contract_idx" ON "projects" USING btree ("contract_id");
   CREATE INDEX IF NOT EXISTS "projects_availability_idx" ON "projects" USING btree ("availability_id");
-  CREATE INDEX IF NOT EXISTS "projects_gallery_gallery_thumb_url_idx" ON "projects" USING btree ("gallery_thumb_url");
   CREATE INDEX IF NOT EXISTS "projects_gallery_gallery_video_idx" ON "projects" USING btree ("gallery_video_id");
   CREATE INDEX IF NOT EXISTS "projects_meta_meta_image_idx" ON "projects" USING btree ("meta_image_id");
   CREATE UNIQUE INDEX IF NOT EXISTS "projects_slug_idx" ON "projects" USING btree ("slug");
@@ -4611,7 +4606,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX IF NOT EXISTS "_projects_v_version_version_title_idx" ON "_projects_v" USING btree ("version_title");
   CREATE INDEX IF NOT EXISTS "_projects_v_version_version_contract_idx" ON "_projects_v" USING btree ("version_contract_id");
   CREATE INDEX IF NOT EXISTS "_projects_v_version_version_availability_idx" ON "_projects_v" USING btree ("version_availability_id");
-  CREATE INDEX IF NOT EXISTS "_projects_v_version_gallery_version_gallery_thumb_url_idx" ON "_projects_v" USING btree ("version_gallery_thumb_url");
   CREATE INDEX IF NOT EXISTS "_projects_v_version_gallery_version_gallery_video_idx" ON "_projects_v" USING btree ("version_gallery_video_id");
   CREATE INDEX IF NOT EXISTS "_projects_v_version_meta_version_meta_image_idx" ON "_projects_v" USING btree ("version_meta_image_id");
   CREATE INDEX IF NOT EXISTS "_projects_v_version_version_slug_idx" ON "_projects_v" USING btree ("version_slug");
@@ -4642,7 +4636,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX IF NOT EXISTS "properties_populated_authors_order_idx" ON "properties_populated_authors" USING btree ("_order");
   CREATE INDEX IF NOT EXISTS "properties_populated_authors_parent_id_idx" ON "properties_populated_authors" USING btree ("_parent_id");
   CREATE UNIQUE INDEX IF NOT EXISTS "properties_title_idx" ON "properties" USING btree ("title");
-  CREATE INDEX IF NOT EXISTS "properties_gallery_gallery_thumb_url_idx" ON "properties" USING btree ("gallery_thumb_url");
   CREATE INDEX IF NOT EXISTS "properties_gallery_gallery_video_idx" ON "properties" USING btree ("gallery_video_id");
   CREATE INDEX IF NOT EXISTS "properties_meta_meta_image_idx" ON "properties" USING btree ("meta_image_id");
   CREATE UNIQUE INDEX IF NOT EXISTS "properties_slug_idx" ON "properties" USING btree ("slug");
@@ -4670,7 +4663,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX IF NOT EXISTS "_properties_v_version_populated_authors_parent_id_idx" ON "_properties_v_version_populated_authors" USING btree ("_parent_id");
   CREATE INDEX IF NOT EXISTS "_properties_v_parent_idx" ON "_properties_v" USING btree ("parent_id");
   CREATE INDEX IF NOT EXISTS "_properties_v_version_version_title_idx" ON "_properties_v" USING btree ("version_title");
-  CREATE INDEX IF NOT EXISTS "_properties_v_version_gallery_version_gallery_thumb_url_idx" ON "_properties_v" USING btree ("version_gallery_thumb_url");
   CREATE INDEX IF NOT EXISTS "_properties_v_version_gallery_version_gallery_video_idx" ON "_properties_v" USING btree ("version_gallery_video_id");
   CREATE INDEX IF NOT EXISTS "_properties_v_version_meta_version_meta_image_idx" ON "_properties_v" USING btree ("version_meta_image_id");
   CREATE INDEX IF NOT EXISTS "_properties_v_version_version_slug_idx" ON "_properties_v" USING btree ("version_slug");

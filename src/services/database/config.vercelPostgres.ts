@@ -7,7 +7,9 @@ import { logger } from './logger'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
-const isProd = process.env.VERCEL_ENV === 'production'
+const isProd = process.env.VERCEL_ENV
+  ? process.env.VERCEL_ENV === 'production'
+  : process.env.NODE_ENV === 'production'
 const isDev = !isProd
 
 const getConnectionString = () => {
