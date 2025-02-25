@@ -1317,12 +1317,12 @@ export interface Project {
    * Enter a custom market segment
    */
   customMarket?: string | null;
-  totalUnits: number;
   completionYear?: number | null;
+  totalUnits?: number | null;
   unitTypes?:
     | {
-        type: string;
-        quantity: number;
+        type?: string | null;
+        quantity?: number | null;
         startingPrice?: number | null;
         id?: string | null;
       }[]
@@ -1331,9 +1331,9 @@ export interface Project {
    * Individual units that are part of this project
    */
   properties?: (number | Property)[] | null;
-  classification: (number | Classification)[];
-  contract: number | Contract;
-  availability: number | Availability;
+  classification?: (number | Classification)[] | null;
+  contract?: (number | null) | Contract;
+  availability?: (number | null) | Availability;
   amenities?: (number | Amenity)[] | null;
   gallery?: {
     /**
@@ -2855,8 +2855,8 @@ export interface ProjectsSelect<T extends boolean = true> {
   title?: T;
   market?: T;
   customMarket?: T;
-  totalUnits?: T;
   completionYear?: T;
+  totalUnits?: T;
   unitTypes?:
     | T
     | {

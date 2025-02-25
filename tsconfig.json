@@ -37,7 +37,7 @@
       "@blocks/*": ["src/CMS/blocks/*"],
       "@heros/*": ["src/CMS/heros/*"],
       "@fields/*": ["src/CMS/fields/*"],
-      "@ui/*": ["src/components/_ui/*"],
+      "@ui/*": ["src/components/ui/*"],
       "@components/*": ["src/components/*"],
       "@scss/*": ["src/styles/scss/*"],
       "@styles/*": ["src/styles/*"],
