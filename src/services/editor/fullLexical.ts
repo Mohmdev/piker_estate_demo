@@ -1,6 +1,3 @@
-// import { Banner } from '@CMS/blocks/Banner/config'
-// import { Code } from '@CMS/blocks/Code/config'
-// import { MediaBlock } from '@CMS/blocks/MediaBlock/config'
 import {
   BlocksFeature,
   FixedToolbarFeature,
@@ -21,7 +18,15 @@ export const fullLexical: Config['editor'] = lexicalEditor({
       ...rootFeatures,
       HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
       BlocksFeature({
-        blocks: ['mediaBlock', 'banner', 'code', 'cta', 'content'],
+        blocks: [
+          'mediaBlock',
+          'banner',
+          'code',
+          'cta',
+          'content',
+          'blog-archive',
+          'universal-archive',
+        ],
       }),
       FixedToolbarFeature(),
       InlineToolbarFeature(),

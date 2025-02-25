@@ -7,9 +7,9 @@ import {
 import { isIncludedInSibling } from '@utils/siblingFieldCondition'
 import type { Block } from 'payload'
 
-export const Archive: Block = {
-  slug: 'archive',
-  interfaceName: 'ArchiveBlock',
+export const BlogArchive: Block = {
+  slug: 'blog-archive',
+  interfaceName: 'BlogArchiveBlock',
   fields: [
     {
       name: 'introContent',
@@ -54,14 +54,6 @@ export const Archive: Block = {
           label: 'Blog Posts',
           value: 'blog',
         },
-        {
-          label: 'Properties',
-          value: 'properties',
-        },
-        {
-          label: 'Projects',
-          value: 'projects',
-        },
       ],
     },
     {
@@ -72,7 +64,7 @@ export const Archive: Block = {
       },
       hasMany: true,
       label: 'Categories To Show',
-      relationTo: ['blog-categories', 'classifications'],
+      relationTo: 'blog-categories',
     },
     {
       name: 'limit',
@@ -92,7 +84,7 @@ export const Archive: Block = {
       },
       hasMany: true,
       label: 'Selection',
-      relationTo: ['blog', 'properties', 'projects'],
+      relationTo: ['blog'],
     },
   ],
   labels: {

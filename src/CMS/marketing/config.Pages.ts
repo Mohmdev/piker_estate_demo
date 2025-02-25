@@ -70,7 +70,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 'mediaBlock',
                 'banner',
                 'code',
-                'archive',
+                'universal-archive',
                 'formBlock',
                 'listingBlock',
                 'listingArchiveBlock',

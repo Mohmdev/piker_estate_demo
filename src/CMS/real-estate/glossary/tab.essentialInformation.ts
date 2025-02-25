@@ -1,6 +1,6 @@
 import { isIncludedInSibling } from '@utils/siblingFieldCondition'
 import type { UnnamedTab } from 'payload'
-import { galleryGroup } from './field.galleryGroup'
+import { galleryGroup } from './gallery/config.gallery'
 
 export const EssentialInformationTab: UnnamedTab = {
   label: 'Essential Information',

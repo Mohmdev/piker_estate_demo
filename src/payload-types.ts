@@ -324,8 +324,9 @@ export interface Config {
     code: CodeBlock;
     content: ContentBlock;
     mediaBlock: MediaBlock;
-    archive: ArchiveBlock;
     formBlock: FormBlock;
+    'blog-archive': BlogArchiveBlock;
+    'universal-archive': UniversalArchiveBlock;
     listingBlock: ListingBlock;
     listingArchiveBlock: ListingArchiveBlock;
   };
@@ -526,7 +527,7 @@ export interface Page {
         | MediaBlock
         | BannerBlock
         | CodeBlock
-        | ArchiveBlock
+        | UniversalArchiveBlock
         | FormBlock
         | ListingBlock
         | ListingArchiveBlock
@@ -1101,7 +1102,7 @@ export interface Property {
   amenities?: (number | Amenity)[] | null;
   gallery?: {
     /**
-     * Upload up to 24 high-quality images. The first image will be used as the main image.
+     * Upload up to 24 high-quality images.
      */
     images?: (number | Media)[] | null;
     /**
@@ -1316,12 +1317,12 @@ export interface Project {
    * Enter a custom market segment
    */
   customMarket?: string | null;
-  totalUnits: number;
   completionYear?: number | null;
+  totalUnits?: number | null;
   unitTypes?:
     | {
-        type: string;
-        quantity: number;
+        type?: string | null;
+        quantity?: number | null;
         startingPrice?: number | null;
         id?: string | null;
       }[]
@@ -1330,13 +1331,13 @@ export interface Project {
    * Individual units that are part of this project
    */
   properties?: (number | Property)[] | null;
-  classification: (number | Classification)[];
-  contract: number | Contract;
-  availability: number | Availability;
+  classification?: (number | Classification)[] | null;
+  contract?: (number | null) | Contract;
+  availability?: (number | null) | Availability;
   amenities?: (number | Amenity)[] | null;
   gallery?: {
     /**
-     * Upload up to 24 high-quality images. The first image will be used as the main image.
+     * Upload up to 24 high-quality images.
      */
     images?: (number | Media)[] | null;
     /**
@@ -1986,9 +1987,9 @@ export interface CodeBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ArchiveBlock".
+ * via the `definition` "UniversalArchiveBlock".
  */
-export interface ArchiveBlock {
+export interface UniversalArchiveBlock {
   introContent?: {
     root: {
       type: string;
@@ -2037,7 +2038,7 @@ export interface ArchiveBlock {
     | null;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'archive';
+  blockType: 'universal-archive';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2460,6 +2461,40 @@ export interface ListingCardOptions {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BlogArchiveBlock".
+ */
+export interface BlogArchiveBlock {
+  introContent?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  populateBy?: ('collection' | 'selection') | null;
+  relationTo?: 'blog' | null;
+  categories?: (number | BlogCategory)[] | null;
+  limit?: number | null;
+  selectedDocs?:
+    | {
+        relationTo: 'blog';
+        value: number | Blog;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'blog-archive';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "assets".
  */
 export interface Asset {
@@ -2820,8 +2855,8 @@ export interface ProjectsSelect<T extends boolean = true> {
   title?: T;
   market?: T;
   customMarket?: T;
-  totalUnits?: T;
   completionYear?: T;
+  totalUnits?: T;
   unitTypes?:
     | T
     | {

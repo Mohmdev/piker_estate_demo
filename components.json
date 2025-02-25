@@ -4,8 +4,8 @@
   "rsc": true,
   "tsx": true,
   "tailwind": {
-    "config": "tailwind.config.ts",
-    "css": "src/styles/globals.css",
+    "config": "src/styles/frontend/globals.css",
+    "css": "src/styles/frontend/globals.css",
     "baseColor": "gray",
     "cssVariables": true,
     "prefix": ""
@@ -14,7 +14,7 @@
     "components": "@components/*",
     "ui": "@ui/*",
     "lib": "@lib/*",
-    "utils": "@lib/utils/cn",
+    "utils": "@utils/ui",
     "hooks": "@lib/hooks"
   },
   "iconLibrary": "lucide"

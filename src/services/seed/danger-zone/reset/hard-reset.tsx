@@ -1,6 +1,7 @@
 'use client'
 
 import { toast } from '@payloadcms/ui'
+import { cn } from '@utils/ui'
 import React, { useCallback, useState } from 'react'
 import { InteractionButton } from '../interaction-button'
 
@@ -21,7 +22,13 @@ const ErrorMessage: React.FC = () => (
   <div>An error occurred while resetting the database.</div>
 )
 
-export const HardResetDatabase: React.FC = () => {
+interface HardResetDatabaseProps {
+  className?: string
+}
+
+export const HardResetDatabase: React.FC<HardResetDatabaseProps> = ({
+  className = '',
+}) => {
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState<Error | null>(null)
@@ -95,6 +102,7 @@ export const HardResetDatabase: React.FC = () => {
       loading={loading}
       success={success}
       error={!!error}
+      className={cn(className)}
     >
       {getButtonText()}
     </InteractionButton>

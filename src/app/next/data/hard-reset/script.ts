@@ -1,7 +1,5 @@
 import type { Footer, GlobalSetting, MainMenu } from '@payload-types'
-
 import { Payload } from 'payload'
-
 import type { CollectionSlug, GlobalSlug, PayloadRequest } from 'payload'
 
 const collections: CollectionSlug[] = [

@@ -28,7 +28,7 @@ export const SeedSiteGeneralData: React.FC = () => {
     if (loading) return 'Seeding...'
     if (success) return 'Database seeded'
     if (error) return 'Seeding failed - Click to retry'
-    return 'Seed demo data'
+    return '+ Site General Data'
   }
 
   const handleClick = useCallback(

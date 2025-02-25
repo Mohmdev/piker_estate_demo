@@ -21,7 +21,7 @@ import { getCollectionLivePreviewURL } from '@services/live-preview/getCollectio
 import { getCollectionPreviewURL } from '@services/live-preview/getCollectionPreviewURL'
 import { isIncludedInSibling } from '@utils/siblingFieldCondition'
 import type { CollectionConfig } from 'payload'
-import { galleryGroup } from './glossary/field.galleryGroup'
+import { galleryGroup } from './glossary/gallery/config.gallery'
 import { LocationInterface } from './glossary/interface.location'
 
 export const Projects: CollectionConfig<'projects'> = {
@@ -39,7 +39,7 @@ export const Projects: CollectionConfig<'projects'> = {
   admin: {
     group: 'Real Estate',
     useAsTitle: 'title',
-    defaultColumns: ['title', 'totalUnits', 'completionYear'],
+    defaultColumns: ['gallery', 'title', 'totalUnits', 'completionYear'],
     preview: getCollectionPreviewURL('projects'),
     livePreview: getCollectionLivePreviewURL('projects'),
   },
@@ -58,17 +58,6 @@ export const Projects: CollectionConfig<'projects'> = {
       admin: {
         placeholder:
           'e.g. Hudson Yards Development, Palm Jumeirah Villas, Burj Khalifa District',
-      },
-    },
-    {
-      type: 'ui',
-      name: 'thumbnail',
-      admin: {
-        components: {
-          Field:
-            '@CMS/real-estate/components/PropertyThumbnail#PropertyThumbnail',
-        },
-        position: 'sidebar',
       },
     },
     {
@@ -104,21 +93,6 @@ export const Projects: CollectionConfig<'projects'> = {
                     condition: isIncludedInSibling('market', 'custom'),
                   },
                 },
-              ],
-            },
-            {
-              type: 'row',
-              fields: [
-                {
-                  name: 'totalUnits',
-                  type: 'number',
-                  label: 'Total Number of Units',
-                  required: true,
-                  min: 1,
-                  admin: {
-                    step: 1,
-                  },
-                },
                 {
                   name: 'completionYear',
                   type: 'number',
@@ -132,31 +106,46 @@ export const Projects: CollectionConfig<'projects'> = {
               ],
             },
             {
-              name: 'unitTypes',
-              type: 'array',
-              label: 'Unit Types',
+              type: 'row',
               fields: [
                 {
-                  name: 'type',
-                  type: 'text',
-                  label: 'Type',
-                  required: true,
+                  name: 'totalUnits',
+                  type: 'number',
+                  label: 'Total Number of Units',
+                  // required: true,
+                  min: 1,
                   admin: {
-                    placeholder: 'e.g. 1 Bedroom, 2 Bedroom, Studio',
+                    step: 1,
                   },
                 },
                 {
-                  name: 'quantity',
-                  type: 'number',
-                  label: 'Number of Units',
-                  required: true,
-                  min: 1,
-                },
-                {
-                  name: 'startingPrice',
-                  type: 'number',
-                  label: 'Starting Price',
-                  min: 0,
+                  name: 'unitTypes',
+                  type: 'array',
+                  label: 'Unit Types',
+                  fields: [
+                    {
+                      name: 'type',
+                      type: 'text',
+                      label: 'Type',
+                      // required: true,
+                      admin: {
+                        placeholder: 'e.g. 1 Bedroom, 2 Bedroom, Studio',
+                      },
+                    },
+                    {
+                      name: 'quantity',
+                      type: 'number',
+                      label: 'Number of Units',
+                      // required: true,
+                      min: 1,
+                    },
+                    {
+                      name: 'startingPrice',
+                      type: 'number',
+                      label: 'Starting Price',
+                      min: 0,
+                    },
+                  ],
                 },
               ],
             },
@@ -178,7 +167,7 @@ export const Projects: CollectionConfig<'projects'> = {
                   name: 'classification',
                   label: 'Classification',
                   relationTo: 'classifications',
-                  required: true,
+                  // required: true,
                   hasMany: true,
                   admin: {
                     isSortable: true,
@@ -191,7 +180,7 @@ export const Projects: CollectionConfig<'projects'> = {
                   type: 'relationship',
                   relationTo: 'contracts',
                   hasMany: false,
-                  required: true,
+                  // required: true,
                 },
                 {
                   label: 'Availability',
@@ -199,7 +188,7 @@ export const Projects: CollectionConfig<'projects'> = {
                   type: 'relationship',
                   relationTo: 'availability',
                   hasMany: false,
-                  required: true,
+                  // required: true,
                 },
               ],
             },

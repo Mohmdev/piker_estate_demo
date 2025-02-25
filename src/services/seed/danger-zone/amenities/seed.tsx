@@ -28,7 +28,7 @@ export const SeedAmenities: React.FC = () => {
     if (loading) return 'Seeding amenities...'
     if (success) return 'Amenities seeded'
     if (error) return 'Seeding failed - Click to retry'
-    return 'Seed amenities data'
+    return '+ Amenities'
   }
 
   const handleClick = useCallback(

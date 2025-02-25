@@ -1,6 +1,6 @@
 {
   "name": "webora-estates",
-  "version": "v1.0.0-beta.2",
+  "version": "v1.0.0-beta.3",
   "private": true,
   "license": "MIT",
   "type": "module",
@@ -60,6 +60,7 @@
     "@tanstack/react-query": "^5.66.0",
     "@vercel/toolbar": "^0.1.30",
     "babel-plugin-react-compiler": "19.0.0-beta-30d8a17-20250209",
+    "chalk": "^5.4.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cross-env": "^7.0.3",
@@ -68,7 +69,8 @@
     "graphql": "^16.8.2",
     "juice": "^11.0.0",
     "lucide-react": "^0.475.0",
-    "motion": "^12.4.1",
+    "mapbox-gl": "^3.10.0",
+    "motion": "^12.4.7",
     "next": "^15.1.6",
     "next-sitemap": "^4.2.3",
     "payload": "latest",
@@ -105,8 +107,6 @@
     "pnpm": ">=9"
   },
   "pnpm": {
-    "onlyBuiltDependencies": [
-      "sharp"
-    ]
+    "onlyBuiltDependencies": ["sharp"]
   }
 }

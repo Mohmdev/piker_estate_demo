@@ -11,9 +11,7 @@ export const locationData: CreateLocation = {
     postcode: '12345',
     city: 'Dubai',
     state: 'Dubai',
-    countrySelect: {
-      country: 'AE',
-    },
+    countrySelect: 'AE',
     coordinates: {
       latitude: 25.1021,
       longitude: 55.1736,
@@ -35,9 +33,7 @@ export const locationData: CreateLocation = {
     postcode: '23456',
     city: 'Dubai',
     state: 'Dubai',
-    countrySelect: {
-      country: 'AE',
-    },
+    countrySelect: 'AE',
     coordinates: {
       latitude: 25.0549,
       longitude: 55.2198,
@@ -59,9 +55,7 @@ export const locationData: CreateLocation = {
     postcode: '34567',
     city: 'Dubai',
     state: 'Dubai',
-    countrySelect: {
-      country: 'AE',
-    },
+    countrySelect: 'AE',
     coordinates: {
       latitude: 25.1279,
       longitude: 55.3847,
@@ -83,9 +77,7 @@ export const locationData: CreateLocation = {
     postcode: '45678',
     city: 'Dubai',
     state: 'Dubai',
-    countrySelect: {
-      country: 'AE',
-    },
+    countrySelect: 'AE',
     coordinates: {
       latitude: 25.1437,
       longitude: 55.2316,
@@ -107,9 +99,7 @@ export const locationData: CreateLocation = {
     postcode: '56789',
     city: 'Dubai',
     state: 'Dubai',
-    countrySelect: {
-      country: 'AE',
-    },
+    countrySelect: 'AE',
     coordinates: {
       latitude: 25.1857,
       longitude: 55.2766,
@@ -131,9 +121,7 @@ export const locationData: CreateLocation = {
     postcode: '67890',
     city: 'Dubai',
     state: 'Dubai',
-    countrySelect: {
-      country: 'AE',
-    },
+    countrySelect: 'AE',
     coordinates: {
       latitude: 25.2866,
       longitude: 55.3372,
@@ -154,9 +142,7 @@ export const locationData: CreateLocation = {
     postcode: '78901',
     city: 'Dubai',
     state: 'Dubai',
-    countrySelect: {
-      country: 'AE',
-    },
+    countrySelect: 'AE',
     coordinates: {
       latitude: 25.2169,
       longitude: 55.4184,
@@ -178,9 +164,7 @@ export const locationData: CreateLocation = {
     postcode: '89012',
     city: 'Dubai',
     state: 'Dubai',
-    countrySelect: {
-      country: 'AE',
-    },
+    countrySelect: 'AE',
     coordinates: {
       latitude: 25.1608,
       longitude: 55.4089,
@@ -202,9 +186,7 @@ export const locationData: CreateLocation = {
     postcode: '90123',
     city: 'Dubai',
     state: 'Dubai',
-    countrySelect: {
-      country: 'AE',
-    },
+    countrySelect: 'AE',
     coordinates: {
       latitude: 25.0461,
       longitude: 55.2269,
@@ -226,9 +208,7 @@ export const locationData: CreateLocation = {
     postcode: '01234',
     city: 'Dubai',
     state: 'Dubai',
-    countrySelect: {
-      country: 'AE',
-    },
+    countrySelect: 'AE',
     coordinates: {
       latitude: 25.2697,
       longitude: 55.3697,
@@ -250,9 +230,7 @@ export const locationData: CreateLocation = {
     postcode: '12346',
     city: 'Dubai',
     state: 'Dubai',
-    countrySelect: {
-      country: 'AE',
-    },
+    countrySelect: 'AE',
     coordinates: {
       latitude: 25.0478,
       longitude: 55.1377,
@@ -274,9 +252,7 @@ export const locationData: CreateLocation = {
     postcode: '23457',
     city: 'Dubai',
     state: 'Dubai',
-    countrySelect: {
-      country: 'AE',
-    },
+    countrySelect: 'AE',
     coordinates: {
       latitude: 24.9982,
       longitude: 55.2217,
@@ -298,9 +274,7 @@ export const locationData: CreateLocation = {
     postcode: '34568',
     city: 'Dubai',
     state: 'Dubai',
-    countrySelect: {
-      country: 'AE',
-    },
+    countrySelect: 'AE',
     coordinates: {
       latitude: 25.0234,
       longitude: 55.2876,
@@ -322,9 +296,7 @@ export const locationData: CreateLocation = {
     postcode: '45679',
     city: 'Dubai',
     state: 'Dubai',
-    countrySelect: {
-      country: 'AE',
-    },
+    countrySelect: 'AE',
     coordinates: {
       latitude: 25.2286,
       longitude: 55.3758,
@@ -346,9 +318,7 @@ export const locationData: CreateLocation = {
     postcode: '56790',
     city: 'Dubai',
     state: 'Dubai',
-    countrySelect: {
-      country: 'AE',
-    },
+    countrySelect: 'AE',
     coordinates: {
       latitude: 25.2479,
       longitude: 55.3015,
@@ -370,9 +340,7 @@ export const locationData: CreateLocation = {
     postcode: '67891',
     city: 'Dubai',
     state: 'Dubai',
-    countrySelect: {
-      country: 'AE',
-    },
+    countrySelect: 'AE',
     coordinates: {
       latitude: 25.0972,
       longitude: 55.1738,
@@ -394,9 +362,7 @@ export const locationData: CreateLocation = {
     postcode: '78902',
     city: 'Dubai',
     state: 'Dubai',
-    countrySelect: {
-      country: 'AE',
-    },
+    countrySelect: 'AE',
     coordinates: {
       latitude: 25.2777,
       longitude: 55.3222,
@@ -418,9 +384,7 @@ export const locationData: CreateLocation = {
     postcode: '89013',
     city: 'Dubai',
     state: 'Dubai',
-    countrySelect: {
-      country: 'AE',
-    },
+    countrySelect: 'AE',
     coordinates: {
       latitude: 25.2352,
       longitude: 55.2867,
@@ -442,9 +406,7 @@ export const locationData: CreateLocation = {
     postcode: '90124',
     city: 'Dubai',
     state: 'Dubai',
-    countrySelect: {
-      country: 'AE',
-    },
+    countrySelect: 'AE',
     coordinates: {
       latitude: 25.2497,
       longitude: 55.3758,
@@ -466,9 +428,7 @@ export const locationData: CreateLocation = {
     postcode: '01235',
     city: 'Dubai',
     state: 'Dubai',
-    countrySelect: {
-      country: 'AE',
-    },
+    countrySelect: 'AE',
     coordinates: {
       latitude: 25.2397,
       longitude: 55.3515,

@@ -120,12 +120,12 @@
     display: grid;
     place-items: center;
     position: relative;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 600;
+    // font-family: 'Poppins', sans-serif;
+    // font-weight: 600;
     font-size: var(--font-size);
-    line-height: 100%;
-    letter-spacing: 0.05em;
-    color: transparent;
+    // line-height: 100%;
+    // letter-spacing: 0.05em;
+    color: var(--main-color);
 
     // .textMain {
     //   z-index: 1;

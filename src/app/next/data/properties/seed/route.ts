@@ -160,6 +160,7 @@ export async function POST(): Promise<Response> {
             amenities: amenityIds,
             // Gallery with resolved media IDs
             gallery: galleryData,
+            _status: 'published',
           },
         })
         createdCount++

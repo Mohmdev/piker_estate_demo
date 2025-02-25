@@ -43,6 +43,33 @@
     order: 1;
   }
 }
+
+.upload.upload--has-many {
+  .upload.upload--has-many__draggable-rows {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(250px, 100%), 1fr));
+    gap: 1rem;
+
+    > *:first-child {
+      border-radius: 5px;
+
+      &:before {
+        content: "";
+        display: block;
+        position: absolute;
+        inset: -2px;
+        width: calc(100% + 4px);
+        height: calc(100% + 4px);
+        background-color: var(--color-muted);
+        opacity: 1;
+        z-index: -1;
+        filter: blur(0.5px);
+        border-radius: 5px;
+        border: none;
+      }
+    }
+  }
+}
 /* ------------------------------- Auth fields ------------------------------ */
 .auth-fields {
   border: 1px solid var(--border-ui);

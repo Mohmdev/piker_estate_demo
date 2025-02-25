@@ -57,7 +57,8 @@
         "matt-meyers.vscode-dbml",
         "tomoki1207.pdf",
         "PKief.material-icon-theme",
-        "MylesMurphy.prettify-ts"
+        "MylesMurphy.prettify-ts",
+        "wix.vscode-import-cost"
       ],
 
       "settings": {

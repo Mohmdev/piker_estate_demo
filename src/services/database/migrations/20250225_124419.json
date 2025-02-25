@@ -1,5 +1,5 @@
 {
-  "id": "1d5d7dfe-23d4-4f16-8eae-aa01791170f9",
+  "id": "3a2f1048-6f40-4262-946b-f9d00dcfa03e",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -12810,8 +12810,8 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.pages_blocks_archive": {
-      "name": "pages_blocks_archive",
+    "public.pages_blocks_universal_archive": {
+      "name": "pages_blocks_universal_archive",
       "schema": "",
       "columns": {
         "_order": {
@@ -12846,7 +12846,7 @@
         },
         "populate_by": {
           "name": "populate_by",
-          "type": "enum_pages_blocks_archive_populate_by",
+          "type": "enum_pages_blocks_universal_archive_populate_by",
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": false,
@@ -12854,7 +12854,7 @@
         },
         "relation_to": {
           "name": "relation_to",
-          "type": "enum_pages_blocks_archive_relation_to",
+          "type": "enum_pages_blocks_universal_archive_relation_to",
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": false,
@@ -12875,8 +12875,8 @@
         }
       },
       "indexes": {
-        "pages_blocks_archive_order_idx": {
-          "name": "pages_blocks_archive_order_idx",
+        "pages_blocks_universal_archive_order_idx": {
+          "name": "pages_blocks_universal_archive_order_idx",
           "columns": [
             {
               "expression": "_order",
@@ -12890,8 +12890,8 @@
           "method": "btree",
           "with": {}
         },
-        "pages_blocks_archive_parent_id_idx": {
-          "name": "pages_blocks_archive_parent_id_idx",
+        "pages_blocks_universal_archive_parent_id_idx": {
+          "name": "pages_blocks_universal_archive_parent_id_idx",
           "columns": [
             {
               "expression": "_parent_id",
@@ -12905,8 +12905,8 @@
           "method": "btree",
           "with": {}
         },
-        "pages_blocks_archive_path_idx": {
-          "name": "pages_blocks_archive_path_idx",
+        "pages_blocks_universal_archive_path_idx": {
+          "name": "pages_blocks_universal_archive_path_idx",
           "columns": [
             {
               "expression": "_path",
@@ -12922,9 +12922,9 @@
         }
       },
       "foreignKeys": {
-        "pages_blocks_archive_parent_id_fk": {
-          "name": "pages_blocks_archive_parent_id_fk",
-          "tableFrom": "pages_blocks_archive",
+        "pages_blocks_universal_archive_parent_id_fk": {
+          "name": "pages_blocks_universal_archive_parent_id_fk",
+          "tableFrom": "pages_blocks_universal_archive",
           "tableTo": "pages",
           "columnsFrom": [
             "_parent_id"
@@ -15805,8 +15805,8 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public._pages_v_blocks_archive": {
-      "name": "_pages_v_blocks_archive",
+    "public._pages_v_blocks_universal_archive": {
+      "name": "_pages_v_blocks_universal_archive",
       "schema": "",
       "columns": {
         "_order": {
@@ -15841,7 +15841,7 @@
         },
         "populate_by": {
           "name": "populate_by",
-          "type": "enum__pages_v_blocks_archive_populate_by",
+          "type": "enum__pages_v_blocks_universal_archive_populate_by",
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": false,
@@ -15849,7 +15849,7 @@
         },
         "relation_to": {
           "name": "relation_to",
-          "type": "enum__pages_v_blocks_archive_relation_to",
+          "type": "enum__pages_v_blocks_universal_archive_relation_to",
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": false,
@@ -15876,8 +15876,8 @@
         }
       },
       "indexes": {
-        "_pages_v_blocks_archive_order_idx": {
-          "name": "_pages_v_blocks_archive_order_idx",
+        "_pages_v_blocks_universal_archive_order_idx": {
+          "name": "_pages_v_blocks_universal_archive_order_idx",
           "columns": [
             {
               "expression": "_order",
@@ -15891,8 +15891,8 @@
           "method": "btree",
           "with": {}
         },
-        "_pages_v_blocks_archive_parent_id_idx": {
-          "name": "_pages_v_blocks_archive_parent_id_idx",
+        "_pages_v_blocks_universal_archive_parent_id_idx": {
+          "name": "_pages_v_blocks_universal_archive_parent_id_idx",
           "columns": [
             {
               "expression": "_parent_id",
@@ -15906,8 +15906,8 @@
           "method": "btree",
           "with": {}
         },
-        "_pages_v_blocks_archive_path_idx": {
-          "name": "_pages_v_blocks_archive_path_idx",
+        "_pages_v_blocks_universal_archive_path_idx": {
+          "name": "_pages_v_blocks_universal_archive_path_idx",
           "columns": [
             {
               "expression": "_path",
@@ -15923,9 +15923,9 @@
         }
       },
       "foreignKeys": {
-        "_pages_v_blocks_archive_parent_id_fk": {
-          "name": "_pages_v_blocks_archive_parent_id_fk",
-          "tableFrom": "_pages_v_blocks_archive",
+        "_pages_v_blocks_universal_archive_parent_id_fk": {
+          "name": "_pages_v_blocks_universal_archive_parent_id_fk",
+          "tableFrom": "_pages_v_blocks_universal_archive",
           "tableTo": "_pages_v",
           "columnsFrom": [
             "_parent_id"
@@ -30327,16 +30327,16 @@
         "css"
       ]
     },
-    "public.enum_pages_blocks_archive_populate_by": {
-      "name": "enum_pages_blocks_archive_populate_by",
+    "public.enum_pages_blocks_universal_archive_populate_by": {
+      "name": "enum_pages_blocks_universal_archive_populate_by",
       "schema": "public",
       "values": [
         "collection",
         "selection"
       ]
     },
-    "public.enum_pages_blocks_archive_relation_to": {
-      "name": "enum_pages_blocks_archive_relation_to",
+    "public.enum_pages_blocks_universal_archive_relation_to": {
+      "name": "enum_pages_blocks_universal_archive_relation_to",
       "schema": "public",
       "values": [
         "blog",
@@ -30725,16 +30725,16 @@
         "css"
       ]
     },
-    "public.enum__pages_v_blocks_archive_populate_by": {
-      "name": "enum__pages_v_blocks_archive_populate_by",
+    "public.enum__pages_v_blocks_universal_archive_populate_by": {
+      "name": "enum__pages_v_blocks_universal_archive_populate_by",
       "schema": "public",
       "values": [
         "collection",
         "selection"
       ]
     },
-    "public.enum__pages_v_blocks_archive_relation_to": {
-      "name": "enum__pages_v_blocks_archive_relation_to",
+    "public.enum__pages_v_blocks_universal_archive_relation_to": {
+      "name": "enum__pages_v_blocks_universal_archive_relation_to",
       "schema": "public",
       "values": [
         "blog",

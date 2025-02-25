@@ -60,8 +60,8 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE TYPE "public"."enum_pages_blocks_content_columns_link_appearance" AS ENUM('default', 'outline');
   CREATE TYPE "public"."enum_pages_blocks_banner_style" AS ENUM('info', 'warning', 'error', 'success');
   CREATE TYPE "public"."enum_pages_blocks_code_language" AS ENUM('typescript', 'javascript', 'css');
-  CREATE TYPE "public"."enum_pages_blocks_archive_populate_by" AS ENUM('collection', 'selection');
-  CREATE TYPE "public"."enum_pages_blocks_archive_relation_to" AS ENUM('blog', 'properties', 'projects');
+  CREATE TYPE "public"."enum_pages_blocks_universal_archive_populate_by" AS ENUM('collection', 'selection');
+  CREATE TYPE "public"."enum_pages_blocks_universal_archive_relation_to" AS ENUM('blog', 'properties', 'projects');
   CREATE TYPE "public"."enum_listingBlock_card_enabled_fields" AS ENUM('price', 'bedrooms', 'bathrooms', 'lotSize', 'yearBuilt', 'areaSize', 'parkingSpaces', 'description', 'categories', 'thumbnail', 'tags');
   CREATE TYPE "public"."enum_listingBlock_view_layout" AS ENUM('grid', 'list', 'ftrd', 'crsl');
   CREATE TYPE "public"."enum_listingBlock_card_thumbnail_fit" AS ENUM('cover', 'contain', 'fill');
@@ -99,8 +99,8 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE TYPE "public"."enum__pages_v_blocks_content_columns_link_appearance" AS ENUM('default', 'outline');
   CREATE TYPE "public"."enum__pages_v_blocks_banner_style" AS ENUM('info', 'warning', 'error', 'success');
   CREATE TYPE "public"."enum__pages_v_blocks_code_language" AS ENUM('typescript', 'javascript', 'css');
-  CREATE TYPE "public"."enum__pages_v_blocks_archive_populate_by" AS ENUM('collection', 'selection');
-  CREATE TYPE "public"."enum__pages_v_blocks_archive_relation_to" AS ENUM('blog', 'properties', 'projects');
+  CREATE TYPE "public"."enum__pages_v_blocks_universal_archive_populate_by" AS ENUM('collection', 'selection');
+  CREATE TYPE "public"."enum__pages_v_blocks_universal_archive_relation_to" AS ENUM('blog', 'properties', 'projects');
   CREATE TYPE "public"."enum__listingBlock_v_card_enabled_fields" AS ENUM('price', 'bedrooms', 'bathrooms', 'lotSize', 'yearBuilt', 'areaSize', 'parkingSpaces', 'description', 'categories', 'thumbnail', 'tags');
   CREATE TYPE "public"."enum__listingBlock_v_view_layout" AS ENUM('grid', 'list', 'ftrd', 'crsl');
   CREATE TYPE "public"."enum__listingBlock_v_card_thumbnail_fit" AS ENUM('cover', 'contain', 'fill');
@@ -190,6 +190,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"completion_year" numeric,
   	"contract_id" integer,
   	"availability_id" integer,
+  	"gallery_thumb_url" varchar,
   	"gallery_video_id" integer,
   	"gallery_virtual_tour_url" varchar,
   	"location_address_line1" varchar,
@@ -278,6 +279,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"version_completion_year" numeric,
   	"version_contract_id" integer,
   	"version_availability_id" integer,
+  	"version_gallery_thumb_url" varchar,
   	"version_gallery_video_id" integer,
   	"version_gallery_virtual_tour_url" varchar,
   	"version_location_address_line1" varchar,
@@ -354,6 +356,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"price" numeric,
   	"condition" "enum_properties_condition",
   	"custom_condition" varchar,
+  	"gallery_thumb_url" varchar,
   	"gallery_video_id" integer,
   	"gallery_virtual_tour_url" varchar,
   	"specs_measurements_size_range" "enum_properties_specs_measurements_size_range",
@@ -457,6 +460,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"version_price" numeric,
   	"version_condition" "enum__properties_v_version_condition",
   	"version_custom_condition" varchar,
+  	"version_gallery_thumb_url" varchar,
   	"version_gallery_video_id" integer,
   	"version_gallery_virtual_tour_url" varchar,
   	"version_specs_measurements_size_range" "enum__properties_v_version_specs_measurements_size_range",
@@ -1041,14 +1045,14 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"block_name" varchar
   );
   
-  CREATE TABLE IF NOT EXISTS "pages_blocks_archive" (
+  CREATE TABLE IF NOT EXISTS "pages_blocks_universal_archive" (
   	"_order" integer NOT NULL,
   	"_parent_id" integer NOT NULL,
   	"_path" text NOT NULL,
   	"id" varchar PRIMARY KEY NOT NULL,
   	"intro_content" jsonb,
-  	"populate_by" "enum_pages_blocks_archive_populate_by" DEFAULT 'collection',
-  	"relation_to" "enum_pages_blocks_archive_relation_to" DEFAULT 'blog',
+  	"populate_by" "enum_pages_blocks_universal_archive_populate_by" DEFAULT 'collection',
+  	"relation_to" "enum_pages_blocks_universal_archive_relation_to" DEFAULT 'blog',
   	"limit" numeric DEFAULT 10,
   	"block_name" varchar
   );
@@ -1289,14 +1293,14 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"block_name" varchar
   );
   
-  CREATE TABLE IF NOT EXISTS "_pages_v_blocks_archive" (
+  CREATE TABLE IF NOT EXISTS "_pages_v_blocks_universal_archive" (
   	"_order" integer NOT NULL,
   	"_parent_id" integer NOT NULL,
   	"_path" text NOT NULL,
   	"id" serial PRIMARY KEY NOT NULL,
   	"intro_content" jsonb,
-  	"populate_by" "enum__pages_v_blocks_archive_populate_by" DEFAULT 'collection',
-  	"relation_to" "enum__pages_v_blocks_archive_relation_to" DEFAULT 'blog',
+  	"populate_by" "enum__pages_v_blocks_universal_archive_populate_by" DEFAULT 'collection',
+  	"relation_to" "enum__pages_v_blocks_universal_archive_relation_to" DEFAULT 'blog',
   	"limit" numeric DEFAULT 10,
   	"_uuid" varchar,
   	"block_name" varchar
@@ -3439,7 +3443,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   END $$;
   
   DO $$ BEGIN
-   ALTER TABLE "pages_blocks_archive" ADD CONSTRAINT "pages_blocks_archive_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."pages"("id") ON DELETE cascade ON UPDATE no action;
+   ALTER TABLE "pages_blocks_universal_archive" ADD CONSTRAINT "pages_blocks_universal_archive_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."pages"("id") ON DELETE cascade ON UPDATE no action;
   EXCEPTION
    WHEN duplicate_object THEN null;
   END $$;
@@ -3649,7 +3653,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   END $$;
   
   DO $$ BEGIN
-   ALTER TABLE "_pages_v_blocks_archive" ADD CONSTRAINT "_pages_v_blocks_archive_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_pages_v"("id") ON DELETE cascade ON UPDATE no action;
+   ALTER TABLE "_pages_v_blocks_universal_archive" ADD CONSTRAINT "_pages_v_blocks_universal_archive_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_pages_v"("id") ON DELETE cascade ON UPDATE no action;
   EXCEPTION
    WHEN duplicate_object THEN null;
   END $$;
@@ -4575,6 +4579,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE UNIQUE INDEX IF NOT EXISTS "projects_title_idx" ON "projects" USING btree ("title");
   CREATE INDEX IF NOT EXISTS "projects_contract_idx" ON "projects" USING btree ("contract_id");
   CREATE INDEX IF NOT EXISTS "projects_availability_idx" ON "projects" USING btree ("availability_id");
+  CREATE INDEX IF NOT EXISTS "projects_gallery_gallery_thumb_url_idx" ON "projects" USING btree ("gallery_thumb_url");
   CREATE INDEX IF NOT EXISTS "projects_gallery_gallery_video_idx" ON "projects" USING btree ("gallery_video_id");
   CREATE INDEX IF NOT EXISTS "projects_meta_meta_image_idx" ON "projects" USING btree ("meta_image_id");
   CREATE UNIQUE INDEX IF NOT EXISTS "projects_slug_idx" ON "projects" USING btree ("slug");
@@ -4606,6 +4611,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX IF NOT EXISTS "_projects_v_version_version_title_idx" ON "_projects_v" USING btree ("version_title");
   CREATE INDEX IF NOT EXISTS "_projects_v_version_version_contract_idx" ON "_projects_v" USING btree ("version_contract_id");
   CREATE INDEX IF NOT EXISTS "_projects_v_version_version_availability_idx" ON "_projects_v" USING btree ("version_availability_id");
+  CREATE INDEX IF NOT EXISTS "_projects_v_version_gallery_version_gallery_thumb_url_idx" ON "_projects_v" USING btree ("version_gallery_thumb_url");
   CREATE INDEX IF NOT EXISTS "_projects_v_version_gallery_version_gallery_video_idx" ON "_projects_v" USING btree ("version_gallery_video_id");
   CREATE INDEX IF NOT EXISTS "_projects_v_version_meta_version_meta_image_idx" ON "_projects_v" USING btree ("version_meta_image_id");
   CREATE INDEX IF NOT EXISTS "_projects_v_version_version_slug_idx" ON "_projects_v" USING btree ("version_slug");
@@ -4636,6 +4642,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX IF NOT EXISTS "properties_populated_authors_order_idx" ON "properties_populated_authors" USING btree ("_order");
   CREATE INDEX IF NOT EXISTS "properties_populated_authors_parent_id_idx" ON "properties_populated_authors" USING btree ("_parent_id");
   CREATE UNIQUE INDEX IF NOT EXISTS "properties_title_idx" ON "properties" USING btree ("title");
+  CREATE INDEX IF NOT EXISTS "properties_gallery_gallery_thumb_url_idx" ON "properties" USING btree ("gallery_thumb_url");
   CREATE INDEX IF NOT EXISTS "properties_gallery_gallery_video_idx" ON "properties" USING btree ("gallery_video_id");
   CREATE INDEX IF NOT EXISTS "properties_meta_meta_image_idx" ON "properties" USING btree ("meta_image_id");
   CREATE UNIQUE INDEX IF NOT EXISTS "properties_slug_idx" ON "properties" USING btree ("slug");
@@ -4663,6 +4670,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX IF NOT EXISTS "_properties_v_version_populated_authors_parent_id_idx" ON "_properties_v_version_populated_authors" USING btree ("_parent_id");
   CREATE INDEX IF NOT EXISTS "_properties_v_parent_idx" ON "_properties_v" USING btree ("parent_id");
   CREATE INDEX IF NOT EXISTS "_properties_v_version_version_title_idx" ON "_properties_v" USING btree ("version_title");
+  CREATE INDEX IF NOT EXISTS "_properties_v_version_gallery_version_gallery_thumb_url_idx" ON "_properties_v" USING btree ("version_gallery_thumb_url");
   CREATE INDEX IF NOT EXISTS "_properties_v_version_gallery_version_gallery_video_idx" ON "_properties_v" USING btree ("version_gallery_video_id");
   CREATE INDEX IF NOT EXISTS "_properties_v_version_meta_version_meta_image_idx" ON "_properties_v" USING btree ("version_meta_image_id");
   CREATE INDEX IF NOT EXISTS "_properties_v_version_version_slug_idx" ON "_properties_v" USING btree ("version_slug");
@@ -4904,9 +4912,9 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX IF NOT EXISTS "pages_blocks_code_order_idx" ON "pages_blocks_code" USING btree ("_order");
   CREATE INDEX IF NOT EXISTS "pages_blocks_code_parent_id_idx" ON "pages_blocks_code" USING btree ("_parent_id");
   CREATE INDEX IF NOT EXISTS "pages_blocks_code_path_idx" ON "pages_blocks_code" USING btree ("_path");
-  CREATE INDEX IF NOT EXISTS "pages_blocks_archive_order_idx" ON "pages_blocks_archive" USING btree ("_order");
-  CREATE INDEX IF NOT EXISTS "pages_blocks_archive_parent_id_idx" ON "pages_blocks_archive" USING btree ("_parent_id");
-  CREATE INDEX IF NOT EXISTS "pages_blocks_archive_path_idx" ON "pages_blocks_archive" USING btree ("_path");
+  CREATE INDEX IF NOT EXISTS "pages_blocks_universal_archive_order_idx" ON "pages_blocks_universal_archive" USING btree ("_order");
+  CREATE INDEX IF NOT EXISTS "pages_blocks_universal_archive_parent_id_idx" ON "pages_blocks_universal_archive" USING btree ("_parent_id");
+  CREATE INDEX IF NOT EXISTS "pages_blocks_universal_archive_path_idx" ON "pages_blocks_universal_archive" USING btree ("_path");
   CREATE INDEX IF NOT EXISTS "pages_blocks_form_block_order_idx" ON "pages_blocks_form_block" USING btree ("_order");
   CREATE INDEX IF NOT EXISTS "pages_blocks_form_block_parent_id_idx" ON "pages_blocks_form_block" USING btree ("_parent_id");
   CREATE INDEX IF NOT EXISTS "pages_blocks_form_block_path_idx" ON "pages_blocks_form_block" USING btree ("_path");
@@ -4972,9 +4980,9 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX IF NOT EXISTS "_pages_v_blocks_code_order_idx" ON "_pages_v_blocks_code" USING btree ("_order");
   CREATE INDEX IF NOT EXISTS "_pages_v_blocks_code_parent_id_idx" ON "_pages_v_blocks_code" USING btree ("_parent_id");
   CREATE INDEX IF NOT EXISTS "_pages_v_blocks_code_path_idx" ON "_pages_v_blocks_code" USING btree ("_path");
-  CREATE INDEX IF NOT EXISTS "_pages_v_blocks_archive_order_idx" ON "_pages_v_blocks_archive" USING btree ("_order");
-  CREATE INDEX IF NOT EXISTS "_pages_v_blocks_archive_parent_id_idx" ON "_pages_v_blocks_archive" USING btree ("_parent_id");
-  CREATE INDEX IF NOT EXISTS "_pages_v_blocks_archive_path_idx" ON "_pages_v_blocks_archive" USING btree ("_path");
+  CREATE INDEX IF NOT EXISTS "_pages_v_blocks_universal_archive_order_idx" ON "_pages_v_blocks_universal_archive" USING btree ("_order");
+  CREATE INDEX IF NOT EXISTS "_pages_v_blocks_universal_archive_parent_id_idx" ON "_pages_v_blocks_universal_archive" USING btree ("_parent_id");
+  CREATE INDEX IF NOT EXISTS "_pages_v_blocks_universal_archive_path_idx" ON "_pages_v_blocks_universal_archive" USING btree ("_path");
   CREATE INDEX IF NOT EXISTS "_pages_v_blocks_form_block_order_idx" ON "_pages_v_blocks_form_block" USING btree ("_order");
   CREATE INDEX IF NOT EXISTS "_pages_v_blocks_form_block_parent_id_idx" ON "_pages_v_blocks_form_block" USING btree ("_parent_id");
   CREATE INDEX IF NOT EXISTS "_pages_v_blocks_form_block_path_idx" ON "_pages_v_blocks_form_block" USING btree ("_path");
@@ -5367,7 +5375,7 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   DROP TABLE "pages_blocks_media_block" CASCADE;
   DROP TABLE "pages_blocks_banner" CASCADE;
   DROP TABLE "pages_blocks_code" CASCADE;
-  DROP TABLE "pages_blocks_archive" CASCADE;
+  DROP TABLE "pages_blocks_universal_archive" CASCADE;
   DROP TABLE "pages_blocks_form_block" CASCADE;
   DROP TABLE "listingBlock_card_enabled_fields" CASCADE;
   DROP TABLE "listingBlock" CASCADE;
@@ -5386,7 +5394,7 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   DROP TABLE "_pages_v_blocks_media_block" CASCADE;
   DROP TABLE "_pages_v_blocks_banner" CASCADE;
   DROP TABLE "_pages_v_blocks_code" CASCADE;
-  DROP TABLE "_pages_v_blocks_archive" CASCADE;
+  DROP TABLE "_pages_v_blocks_universal_archive" CASCADE;
   DROP TABLE "_pages_v_blocks_form_block" CASCADE;
   DROP TABLE "_listingBlock_v_card_enabled_fields" CASCADE;
   DROP TABLE "_listingBlock_v" CASCADE;
@@ -5518,8 +5526,8 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   DROP TYPE "public"."enum_pages_blocks_content_columns_link_appearance";
   DROP TYPE "public"."enum_pages_blocks_banner_style";
   DROP TYPE "public"."enum_pages_blocks_code_language";
-  DROP TYPE "public"."enum_pages_blocks_archive_populate_by";
-  DROP TYPE "public"."enum_pages_blocks_archive_relation_to";
+  DROP TYPE "public"."enum_pages_blocks_universal_archive_populate_by";
+  DROP TYPE "public"."enum_pages_blocks_universal_archive_relation_to";
   DROP TYPE "public"."enum_listingBlock_card_enabled_fields";
   DROP TYPE "public"."enum_listingBlock_view_layout";
   DROP TYPE "public"."enum_listingBlock_card_thumbnail_fit";
@@ -5557,8 +5565,8 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   DROP TYPE "public"."enum__pages_v_blocks_content_columns_link_appearance";
   DROP TYPE "public"."enum__pages_v_blocks_banner_style";
   DROP TYPE "public"."enum__pages_v_blocks_code_language";
-  DROP TYPE "public"."enum__pages_v_blocks_archive_populate_by";
-  DROP TYPE "public"."enum__pages_v_blocks_archive_relation_to";
+  DROP TYPE "public"."enum__pages_v_blocks_universal_archive_populate_by";
+  DROP TYPE "public"."enum__pages_v_blocks_universal_archive_relation_to";
   DROP TYPE "public"."enum__listingBlock_v_card_enabled_fields";
   DROP TYPE "public"."enum__listingBlock_v_view_layout";
   DROP TYPE "public"."enum__listingBlock_v_card_thumbnail_fit";
