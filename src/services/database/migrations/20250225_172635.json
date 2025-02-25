@@ -1,5 +1,5 @@
 {
-  "id": "3a2f1048-6f40-4262-946b-f9d00dcfa03e",
+  "id": "5e37e345-73a0-41b1-9080-4536abf12de1",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -297,14 +297,14 @@
           "primaryKey": false,
           "notNull": false
         },
-        "total_units": {
-          "name": "total_units",
+        "completion_year": {
+          "name": "completion_year",
           "type": "numeric",
           "primaryKey": false,
           "notNull": false
         },
-        "completion_year": {
-          "name": "completion_year",
+        "total_units": {
+          "name": "total_units",
           "type": "numeric",
           "primaryKey": false,
           "notNull": false
@@ -1532,14 +1532,14 @@
           "primaryKey": false,
           "notNull": false
         },
-        "version_total_units": {
-          "name": "version_total_units",
+        "version_completion_year": {
+          "name": "version_completion_year",
           "type": "numeric",
           "primaryKey": false,
           "notNull": false
         },
-        "version_completion_year": {
-          "name": "version_completion_year",
+        "version_total_units": {
+          "name": "version_total_units",
           "type": "numeric",
           "primaryKey": false,
           "notNull": false
