@@ -36,7 +36,6 @@ export const Properties: CollectionConfig<'properties'> = {
     group: 'Real Estate',
     useAsTitle: 'title',
     defaultColumns: [
-      `images.1`,
       'filename',
       'gallery',
       'thumbnail',
@@ -51,9 +50,6 @@ export const Properties: CollectionConfig<'properties'> = {
   defaultPopulate: {
     title: true,
     slug: true,
-    gallery: {
-      images: true,
-    },
   },
   fields: [
     {
@@ -66,17 +62,6 @@ export const Properties: CollectionConfig<'properties'> = {
       admin: {
         placeholder:
           'e.g. Luxury Penthouse in Downtown, Cozy Cottage in the Suburbs',
-      },
-    },
-    {
-      type: 'ui',
-      name: 'thumbnail',
-      admin: {
-        components: {
-          Field:
-            '@CMS/real-estate/components/PropertyThumbnail#PropertyThumbnail',
-        },
-        position: 'sidebar',
       },
     },
     {

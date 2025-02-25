@@ -21,7 +21,7 @@ import { mainMenuMock } from './main-menu'
 
 export const targetCollections: CollectionSlug[] = [
   'blog-categories',
-  'media',
+  // 'media',
   'pages',
   'blog',
   'forms',

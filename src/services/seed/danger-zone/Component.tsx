@@ -16,8 +16,8 @@ import { ResetProjects } from './projects/reset'
 import { SeedProjects } from './projects/seed'
 import { ResetProperties } from './properties/reset'
 import { SeedProperties } from './properties/seed'
-import { ResetRealEstateGroupData } from './realestate-group/reset'
-import { SeedRealEstateGroupData } from './realestate-group/seed'
+// import { ResetRealEstateGroupData } from './realestate-group/reset'
+// import { SeedRealEstateGroupData } from './realestate-group/seed'
 import { HardResetDatabase } from './reset/hard-reset'
 
 export const DbInteractionZone: React.FC = () => {
@@ -44,46 +44,23 @@ export const DbInteractionZone: React.FC = () => {
           'w-full',
         )}
       >
-        {/* General Site Data */}
         <div className="flex flex-col justify-start items-start flex-nowrap gap-2 w-full max-w-xl">
-          <h5 className="text-muted-foreground">General Site Data</h5>
-          <div
-            className={cn(
-              'flex flex-col flex-nowrap gap-4',
-              'justify-start items-stretch w-full',
-            )}
-          >
-            <SeedSiteGeneralData />
-            <ResetSiteGeneralData />
-            <HardResetDatabase />
-          </div>
-        </div>
+          <h5 className="text-muted-foreground">Site</h5>
 
-        <div className="flex flex-col justify-start items-start flex-nowrap gap-2 w-full max-w-xl">
-          <h5 className="text-muted-foreground">Real Estate Group</h5>
-          <div
-            className={cn(
-              'flex flex-col flex-nowrap gap-4',
-              'justify-start items-stretch w-full',
-            )}
-          >
-            <SeedRealEstateGroupData />
-            <ResetRealEstateGroupData />
-          </div>
-        </div>
-
-        <div className="flex flex-col justify-start items-start flex-nowrap gap-2 w-full max-w-xl">
-          <h5 className="text-muted-foreground">Projects</h5>
           <div
             className={cn(
               'flex flex-row flex-nowrap gap-4',
               'justify-between items-center w-full',
             )}
           >
-            <SeedProjects />
-            <ResetProjects />
+            <SeedSiteGeneralData />
+            <ResetSiteGeneralData />
           </div>
-          <h5 className="text-muted-foreground">Properties</h5>
+          <HardResetDatabase className="w-full" />
+        </div>
+
+        <div className="flex flex-col justify-start items-start flex-nowrap gap-2 w-full max-w-xl">
+          <h5 className="text-muted-foreground">Main Collections</h5>
           <div
             className={cn(
               'flex flex-row flex-nowrap gap-4',
@@ -93,11 +70,19 @@ export const DbInteractionZone: React.FC = () => {
             <SeedProperties />
             <ResetProperties />
           </div>
+          <div
+            className={cn(
+              'flex flex-row flex-nowrap gap-4',
+              'justify-between items-center w-full',
+            )}
+          >
+            <SeedProjects />
+            <ResetProjects />
+          </div>
         </div>
 
-        {/* Taxonomies */}
         <div className="flex flex-col justify-start items-start flex-nowrap gap-2 w-full max-w-xl">
-          <h5 className="text-muted-foreground">Classifications</h5>
+          <h5 className="text-muted-foreground">Taxonomies</h5>
           <div
             className={cn(
               'flex flex-row flex-nowrap gap-4',
@@ -107,7 +92,6 @@ export const DbInteractionZone: React.FC = () => {
             <SeedClassifications />
             <ResetClassifications />
           </div>
-          <h5 className="text-muted-foreground">Contracts</h5>
           <div
             className={cn(
               'flex flex-row flex-nowrap gap-4',
@@ -117,7 +101,6 @@ export const DbInteractionZone: React.FC = () => {
             <SeedContracts />
             <ResetContracts />
           </div>
-          <h5 className="text-muted-foreground">Availability</h5>
           <div
             className={cn(
               'flex flex-row flex-nowrap gap-4',
@@ -127,7 +110,6 @@ export const DbInteractionZone: React.FC = () => {
             <SeedAvailability />
             <ResetAvailability />
           </div>
-          <h5 className="text-muted-foreground">Amenities</h5>
           <div
             className={cn(
               'flex flex-row flex-nowrap gap-4',
@@ -138,6 +120,19 @@ export const DbInteractionZone: React.FC = () => {
             <ResetAmenities />
           </div>
         </div>
+
+        {/* <div className="flex flex-col justify-start items-start flex-nowrap gap-2 w-full max-w-xl">
+          <h5 className="text-muted-foreground">Real Estate Group</h5>
+          <div
+            className={cn(
+              'flex flex-col flex-nowrap gap-4',
+              'justify-start items-stretch w-full',
+            )}
+          >
+            <SeedRealEstateGroupData />
+            <ResetRealEstateGroupData />
+          </div>
+        </div> */}
       </div>
     </div>
   )

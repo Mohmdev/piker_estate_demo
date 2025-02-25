@@ -1,5 +1,5 @@
 {
-  "id": "05228544-034e-4705-a9d4-95f40d7409ad",
+  "id": "8f64f01a-462d-4c33-a53c-d77b8662a772",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -321,6 +321,12 @@
           "primaryKey": false,
           "notNull": false
         },
+        "gallery_thumb_url": {
+          "name": "gallery_thumb_url",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
         "gallery_video_id": {
           "name": "gallery_video_id",
           "type": "integer",
@@ -549,6 +555,21 @@
           "columns": [
             {
               "expression": "availability_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "projects_gallery_gallery_thumb_url_idx": {
+          "name": "projects_gallery_gallery_thumb_url_idx",
+          "columns": [
+            {
+              "expression": "gallery_thumb_url",
               "isExpression": false,
               "asc": true,
               "nulls": "last"
@@ -1556,6 +1577,12 @@
           "primaryKey": false,
           "notNull": false
         },
+        "version_gallery_thumb_url": {
+          "name": "version_gallery_thumb_url",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
         "version_gallery_video_id": {
           "name": "version_gallery_video_id",
           "type": "integer",
@@ -1823,6 +1850,21 @@
           "columns": [
             {
               "expression": "version_availability_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "_projects_v_version_gallery_version_gallery_thumb_url_idx": {
+          "name": "_projects_v_version_gallery_version_gallery_thumb_url_idx",
+          "columns": [
+            {
+              "expression": "version_gallery_thumb_url",
               "isExpression": false,
               "asc": true,
               "nulls": "last"
@@ -2767,6 +2809,12 @@
           "primaryKey": false,
           "notNull": false
         },
+        "gallery_thumb_url": {
+          "name": "gallery_thumb_url",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
         "gallery_video_id": {
           "name": "gallery_video_id",
           "type": "integer",
@@ -3149,6 +3197,21 @@
             }
           ],
           "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "properties_gallery_gallery_thumb_url_idx": {
+          "name": "properties_gallery_gallery_thumb_url_idx",
+          "columns": [
+            {
+              "expression": "gallery_thumb_url",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
           "concurrently": false,
           "method": "btree",
           "with": {}
@@ -4006,6 +4069,12 @@
           "primaryKey": false,
           "notNull": false
         },
+        "version_gallery_thumb_url": {
+          "name": "version_gallery_thumb_url",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
         "version_gallery_video_id": {
           "name": "version_gallery_video_id",
           "type": "integer",
@@ -4421,6 +4490,21 @@
           "columns": [
             {
               "expression": "version_title",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "_properties_v_version_gallery_version_gallery_thumb_url_idx": {
+          "name": "_properties_v_version_gallery_version_gallery_thumb_url_idx",
+          "columns": [
+            {
+              "expression": "version_gallery_thumb_url",
               "isExpression": false,
               "asc": true,
               "nulls": "last"

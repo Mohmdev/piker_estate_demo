@@ -1102,7 +1102,7 @@ export interface Property {
   amenities?: (number | Amenity)[] | null;
   gallery?: {
     /**
-     * Upload up to 24 high-quality images. The first image will be used as the main image.
+     * Upload up to 24 high-quality images.
      */
     images?: (number | Media)[] | null;
     /**
@@ -1337,7 +1337,7 @@ export interface Project {
   amenities?: (number | Amenity)[] | null;
   gallery?: {
     /**
-     * Upload up to 24 high-quality images. The first image will be used as the main image.
+     * Upload up to 24 high-quality images.
      */
     images?: (number | Media)[] | null;
     /**

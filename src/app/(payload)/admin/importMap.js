@@ -1,4 +1,4 @@
-import { PropertyThumbnail as PropertyThumbnail_c494e58363c865f3f2f283573691138b } from '@CMS/real-estate/components/PropertyThumbnail'
+import { GalleryThumbnail as GalleryThumbnail_34ac57888b71d2de43c7bf92875a8eb2 } from '@CMS/real-estate/glossary/gallery/thumbnail/client'
 import { RscEntryLexicalCell as RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
 import { RscEntryLexicalField as RscEntryLexicalField_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
 import { FixedToolbarFeatureClient as FixedToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
@@ -40,7 +40,7 @@ import { NavbarLogo as NavbarLogo_6079976f3e2ff43eeff27beac4efdd62 } from '@serv
 import { MainLogo as MainLogo_6079976f3e2ff43eeff27beac4efdd62 } from '@services/admin/DynamicLogo'
 
 export const importMap = {
-  "@CMS/real-estate/components/PropertyThumbnail#PropertyThumbnail": PropertyThumbnail_c494e58363c865f3f2f283573691138b,
+  "@CMS/real-estate/glossary/gallery/thumbnail/client#GalleryThumbnail": GalleryThumbnail_34ac57888b71d2de43c7bf92875a8eb2,
   "@payloadcms/richtext-lexical/rsc#RscEntryLexicalCell": RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e,
   "@payloadcms/richtext-lexical/rsc#RscEntryLexicalField": RscEntryLexicalField_44fe37237e0ebf4470c9990d8cb7b07e,
   "@payloadcms/richtext-lexical/client#FixedToolbarFeatureClient": FixedToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,

@@ -35,7 +35,7 @@ export const WeboraRectangleSVG: React.FC<Props> = () => {
         <WeboraSVG />
       </div>
       <div className="textWrapper">
-        <span className="textMain">Webora</span>
+        <span className="textMain">Webora Estates</span>
       </div>
     </div>
   )

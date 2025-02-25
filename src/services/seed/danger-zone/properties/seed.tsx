@@ -28,7 +28,7 @@ export const SeedProperties: React.FC = () => {
     if (loading) return 'Seeding properties...'
     if (success) return 'Properties seeded'
     if (error) return 'Seeding failed - Click to retry'
-    return 'Seed properties data'
+    return '+ Properties'
   }
 
   const handleClick = useCallback(

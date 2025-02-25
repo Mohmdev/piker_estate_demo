@@ -30,7 +30,7 @@ export const SeedClassifications: React.FC = () => {
     if (loading) return 'Seeding classifications...'
     if (success) return 'Classifications seeded'
     if (error) return 'Seeding failed - Click to retry'
-    return 'Seed classifications data'
+    return '+ Classifications'
   }
 
   const handleClick = useCallback(

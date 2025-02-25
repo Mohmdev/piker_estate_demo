@@ -28,7 +28,7 @@ export const SeedContracts: React.FC = () => {
     if (loading) return 'Seeding contracts...'
     if (success) return 'Contracts seeded'
     if (error) return 'Seeding failed - Click to retry'
-    return 'Seed contracts data'
+    return '+ Contracts'
   }
 
   const handleClick = useCallback(

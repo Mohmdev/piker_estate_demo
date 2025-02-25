@@ -21,7 +21,7 @@ import { getCollectionLivePreviewURL } from '@services/live-preview/getCollectio
 import { getCollectionPreviewURL } from '@services/live-preview/getCollectionPreviewURL'
 import { isIncludedInSibling } from '@utils/siblingFieldCondition'
 import type { CollectionConfig } from 'payload'
-import { galleryGroup } from './glossary/field.galleryGroup'
+import { galleryGroup } from './glossary/gallery/config.gallery'
 import { LocationInterface } from './glossary/interface.location'
 
 export const Projects: CollectionConfig<'projects'> = {
@@ -58,17 +58,6 @@ export const Projects: CollectionConfig<'projects'> = {
       admin: {
         placeholder:
           'e.g. Hudson Yards Development, Palm Jumeirah Villas, Burj Khalifa District',
-      },
-    },
-    {
-      type: 'ui',
-      name: 'thumbnail',
-      admin: {
-        components: {
-          Field:
-            '@CMS/real-estate/components/PropertyThumbnail#PropertyThumbnail',
-        },
-        position: 'sidebar',
       },
     },
     {
