@@ -88,6 +88,7 @@ export async function POST(): Promise<Response> {
         // Handle gallery media
         let galleryData = undefined
         if (property.gallery) {
+          // Process images
           const galleryImages = property.gallery.images
             ? await Promise.all(
                 property.gallery.images.map(async (image) => {
@@ -110,12 +111,12 @@ export async function POST(): Promise<Response> {
                     const createdMedia = await payload.create({
                       collection: 'media',
                       data: {
-                        alt: image.alt,
                         url: image.url,
-                        filename: image.filename,
-                        mimeType: image.mimeType,
-                        width: image.width,
-                        height: image.height,
+                        // filename: image.filename,
+                        // alt: image.alt,
+                        // mimeType: image.mimeType,
+                        // width: image.width,
+                        // height: image.height,
                       },
                       file: imageBuffer,
                     })
@@ -131,12 +132,91 @@ export async function POST(): Promise<Response> {
               ).then((ids) => ids.filter((id): id is number => id !== null))
             : undefined
 
+          // Process videos
+          const galleryVideos = property.gallery.videos
+            ? await Promise.all(
+                property.gallery.videos.map(async (video) => {
+                  if (!video || !video.url) return null
+                  try {
+                    // Check if media already exists
+                    const existingMedia = await payload.find({
+                      collection: 'media',
+                      where: {
+                        url: { equals: video.url },
+                      },
+                    })
+
+                    if (existingMedia.docs.length > 0) {
+                      return existingMedia.docs[0]?.id
+                    }
+
+                    // Create new media
+                    const videoBuffer = await fetchFileByURL(video.url)
+                    const createdMedia = await payload.create({
+                      collection: 'media',
+                      data: {
+                        url: video.url,
+                      },
+                      file: videoBuffer,
+                    })
+                    return createdMedia.id
+                  } catch (error) {
+                    payload.logger.error(
+                      `Error creating media for ${video.url}:`,
+                      error,
+                    )
+                    return null
+                  }
+                }),
+              ).then((ids) => ids.filter((id): id is number => id !== null))
+            : undefined
+
+          // Process documents
+          const galleryDocuments = property.gallery.documents
+            ? await Promise.all(
+                property.gallery.documents.map(async (document) => {
+                  if (!document || !document.url) return null
+                  try {
+                    // Check if media already exists
+                    const existingMedia = await payload.find({
+                      collection: 'media',
+                      where: {
+                        url: { equals: document.url },
+                      },
+                    })
+
+                    if (existingMedia.docs.length > 0) {
+                      return existingMedia.docs[0]?.id
+                    }
+
+                    // Create new media
+                    const documentBuffer = await fetchFileByURL(document.url)
+                    const createdMedia = await payload.create({
+                      collection: 'media',
+                      data: {
+                        url: document.url,
+                      },
+                      file: documentBuffer,
+                    })
+                    return createdMedia.id
+                  } catch (error) {
+                    payload.logger.error(
+                      `Error creating media for ${document.url}:`,
+                      error,
+                    )
+                    return null
+                  }
+                }),
+              ).then((ids) => ids.filter((id): id is number => id !== null))
+            : undefined
+
           galleryData = {
             ...property.gallery,
             images: galleryImages ?? null,
-            video: null,
+            videos: galleryVideos ?? null,
+            documents: galleryDocuments ?? null,
             floorPlan: null,
-            documents: null,
+            virtualTourUrl: null,
           }
         }
 

@@ -42,7 +42,7 @@ export const galleryGroup: GroupField = {
                   relationTo: 'media',
                   hasMany: true,
                   minRows: 1,
-                  maxRows: 24,
+                  maxRows: 42,
                   displayPreview: true,
                   admin: {
                     description: 'Upload up to 24 high-quality images.',
@@ -54,10 +54,14 @@ export const galleryGroup: GroupField = {
               label: 'Video / 360° Tour',
               fields: [
                 {
-                  name: 'video',
+                  name: 'videos',
                   type: 'upload',
                   relationTo: 'media',
                   label: 'Tour Video',
+                  hasMany: true,
+                  displayPreview: true,
+                  minRows: 1,
+                  maxRows: 6,
                   admin: {
                     description:
                       'Upload a walkthrough video (MP4 format recommended)',

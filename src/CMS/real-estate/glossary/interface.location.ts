@@ -10,6 +10,30 @@ export const LocationInterface: NamedTab = {
     {
       type: 'row',
       admin: {
+        className: 'm-0 p-0',
+      },
+      fields: [
+        {
+          name: 'buildingName',
+          type: 'text',
+          label: 'Building Name',
+          admin: {
+            placeholder: 'e.g., The Tower, The Plaza',
+          },
+        },
+        {
+          name: 'neighborhood',
+          type: 'text',
+          label: 'Neighborhood',
+          admin: {
+            placeholder: 'e.g., Downtown, West Side',
+          },
+        },
+      ],
+    },
+    {
+      type: 'row',
+      admin: {
         className: 'm-0 p-0 pt-4',
       },
       fields: [
@@ -35,13 +59,36 @@ export const LocationInterface: NamedTab = {
       ],
     },
     {
-      name: 'address_line2',
-      type: 'text',
-      label: 'Additional Address Info',
+      type: 'row',
       admin: {
-        placeholder: 'e.g., Building Name, Complex Name',
-        className: 'p-0 my-2',
+        className: 'm-0 p-0 pt-4',
       },
+      fields: [
+        {
+          name: 'address_line2',
+          type: 'text',
+          label: 'Additional Address Info',
+          admin: {
+            placeholder: 'e.g., Building Name, Complex Name',
+            className: 'p-0 my-2',
+          },
+        },
+        {
+          name: 'postcode',
+          type: 'text',
+          label: 'ZIP/Postal Code',
+          // required: true,
+          validate: (value: string | null | undefined) => {
+            if (!value || value.length < 3)
+              return 'Please enter a valid postal code'
+            return true
+          },
+          admin: {
+            placeholder: 'e.g., 12345',
+            className: 'p-0 my-2',
+          },
+        },
+      ],
     },
     {
       type: 'row',
@@ -64,21 +111,6 @@ export const LocationInterface: NamedTab = {
           label: 'State/Province',
           // required: true,
           admin: {
-            className: 'p-0 my-2',
-          },
-        },
-        {
-          name: 'postcode',
-          type: 'text',
-          label: 'ZIP/Postal Code',
-          // required: true,
-          validate: (value: string | null | undefined) => {
-            if (!value || value.length < 3)
-              return 'Please enter a valid postal code'
-            return true
-          },
-          admin: {
-            placeholder: 'e.g., 12345',
             className: 'p-0 my-2',
           },
         },
@@ -124,6 +156,17 @@ export const LocationInterface: NamedTab = {
       },
       fields: [
         {
+          name: 'plusCode',
+          type: 'text',
+          label: 'Plus Code',
+          admin: {
+            placeholder: '35H5+7G',
+            className: 'p-0 my-2',
+            description:
+              'A code that can make it easier to find a location on a map. It is a combination of a latitude and longitude, and is encoded in a string of letters and numbers.',
+          },
+        },
+        {
           type: 'row',
           fields: [
             {
@@ -150,80 +193,34 @@ export const LocationInterface: NamedTab = {
         },
       ],
     },
+
     {
-      type: 'group',
-      name: 'neighborhood',
-      label: 'Neighborhood Information',
+      name: 'landmarks',
+      type: 'array',
+      label: 'Nearby Landmarks',
       admin: {
-        hideGutter: true,
-        className: 'm-0 p-0 py-12',
+        description: 'Notable places near the property',
       },
       fields: [
         {
           type: 'row',
           fields: [
             {
-              type: 'select',
-              name: 'neighborhoodType',
-              label: 'Neighborhood Type',
-              dbName: 'neighborhoodType',
-              options: [
-                { label: 'City Center', value: 'city-center' },
-                { label: 'Business District', value: 'business-district' },
-                { label: 'Suburban Area', value: 'suburban-area' },
-                { label: 'Industrial Area', value: 'industrial-area' },
-                { label: 'Mixed Development', value: 'mixed-development' },
-                { label: 'Custom', value: 'custom' },
-              ],
-            },
-            {
+              name: 'name',
               type: 'text',
-              name: 'customNeighborhoodType',
-              label: 'Custom Neighborhood Type',
+              label: 'Landmark Name',
               admin: {
-                condition: isIncludedInSibling('neighborhoodType', 'custom'),
+                placeholder: 'e.g., Central Park, Shopping Mall',
               },
             },
-          ],
-        },
-        {
-          name: 'area',
-          type: 'text',
-          label: 'Area/District',
-          admin: {
-            placeholder: 'e.g., Downtown, West Side',
-            description: 'Neighborhood or district name',
-          },
-        },
-        {
-          name: 'landmarks',
-          type: 'array',
-          label: 'Nearby Landmarks',
-          admin: {
-            description: 'Notable places near the property',
-          },
-          fields: [
             {
-              type: 'row',
-              fields: [
-                {
-                  name: 'name',
-                  type: 'text',
-                  label: 'Landmark Name',
-                  admin: {
-                    placeholder: 'e.g., Central Park, Shopping Mall',
-                  },
-                },
-                {
-                  name: 'distance',
-                  type: 'number',
-                  label: 'Distance (km)',
-                  admin: {
-                    step: 0.1,
-                    placeholder: 'e.g., 0.5',
-                  },
-                },
-              ],
+              name: 'distance',
+              type: 'number',
+              label: 'Distance (km)',
+              admin: {
+                step: 0.1,
+                placeholder: 'e.g., 0.5',
+              },
             },
           ],
         },

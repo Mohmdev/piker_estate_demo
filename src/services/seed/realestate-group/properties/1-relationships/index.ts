@@ -18,7 +18,7 @@ export type PropertyRelationships = {
   amenities: Partial<Amenity>[]
   gallery?: {
     images?: Partial<Media>[]
-    video?: Partial<Media>
+    videos?: Partial<Media>[]
     virtualTourUrl?: string
     floorPlan?: Partial<Media>[]
     documents?: Partial<Media>[]

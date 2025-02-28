@@ -57,8 +57,8 @@
         "matt-meyers.vscode-dbml",
         "tomoki1207.pdf",
         "PKief.material-icon-theme",
-        "MylesMurphy.prettify-ts",
-        "wix.vscode-import-cost"
+        "wix.vscode-import-cost",
+        "yoavbls.pretty-ts-errors"
       ],
 
       "settings": {

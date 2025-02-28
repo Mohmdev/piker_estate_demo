@@ -1,5 +1,5 @@
 {
-  "id": "5e37e345-73a0-41b1-9080-4536abf12de1",
+  "id": "9d7fa2b2-1801-49f5-8e24-1064306a6beb",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -98,8 +98,8 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.projects_location_neighborhood_landmarks": {
-      "name": "projects_location_neighborhood_landmarks",
+    "public.projects_location_landmarks": {
+      "name": "projects_location_landmarks",
       "schema": "",
       "columns": {
         "_order": {
@@ -134,8 +134,8 @@
         }
       },
       "indexes": {
-        "projects_location_neighborhood_landmarks_order_idx": {
-          "name": "projects_location_neighborhood_landmarks_order_idx",
+        "projects_location_landmarks_order_idx": {
+          "name": "projects_location_landmarks_order_idx",
           "columns": [
             {
               "expression": "_order",
@@ -149,8 +149,8 @@
           "method": "btree",
           "with": {}
         },
-        "projects_location_neighborhood_landmarks_parent_id_idx": {
-          "name": "projects_location_neighborhood_landmarks_parent_id_idx",
+        "projects_location_landmarks_parent_id_idx": {
+          "name": "projects_location_landmarks_parent_id_idx",
           "columns": [
             {
               "expression": "_parent_id",
@@ -166,9 +166,9 @@
         }
       },
       "foreignKeys": {
-        "projects_location_neighborhood_landmarks_parent_id_fk": {
-          "name": "projects_location_neighborhood_landmarks_parent_id_fk",
-          "tableFrom": "projects_location_neighborhood_landmarks",
+        "projects_location_landmarks_parent_id_fk": {
+          "name": "projects_location_landmarks_parent_id_fk",
+          "tableFrom": "projects_location_landmarks",
           "tableTo": "projects",
           "columnsFrom": [
             "_parent_id"
@@ -321,14 +321,20 @@
           "primaryKey": false,
           "notNull": false
         },
-        "gallery_video_id": {
-          "name": "gallery_video_id",
-          "type": "integer",
+        "gallery_virtual_tour_url": {
+          "name": "gallery_virtual_tour_url",
+          "type": "varchar",
           "primaryKey": false,
           "notNull": false
         },
-        "gallery_virtual_tour_url": {
-          "name": "gallery_virtual_tour_url",
+        "location_building_name": {
+          "name": "location_building_name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "location_neighborhood": {
+          "name": "location_neighborhood",
           "type": "varchar",
           "primaryKey": false,
           "notNull": false
@@ -351,6 +357,12 @@
           "primaryKey": false,
           "notNull": false
         },
+        "location_postcode": {
+          "name": "location_postcode",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
         "location_city": {
           "name": "location_city",
           "type": "varchar",
@@ -359,12 +371,6 @@
         },
         "location_state": {
           "name": "location_state",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "location_postcode": {
-          "name": "location_postcode",
           "type": "varchar",
           "primaryKey": false,
           "notNull": false
@@ -389,6 +395,12 @@
           "primaryKey": false,
           "notNull": false
         },
+        "location_coordinates_plus_code": {
+          "name": "location_coordinates_plus_code",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
         "location_coordinates_latitude": {
           "name": "location_coordinates_latitude",
           "type": "numeric",
@@ -398,25 +410,6 @@
         "location_coordinates_longitude": {
           "name": "location_coordinates_longitude",
           "type": "numeric",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "location_neighborhood_neighborhood_type": {
-          "name": "location_neighborhood_neighborhood_type",
-          "type": "neighborhoodType",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "location_neighborhood_custom_neighborhood_type": {
-          "name": "location_neighborhood_custom_neighborhood_type",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "location_neighborhood_area": {
-          "name": "location_neighborhood_area",
-          "type": "varchar",
           "primaryKey": false,
           "notNull": false
         },
@@ -559,21 +552,6 @@
           "method": "btree",
           "with": {}
         },
-        "projects_gallery_gallery_video_idx": {
-          "name": "projects_gallery_gallery_video_idx",
-          "columns": [
-            {
-              "expression": "gallery_video_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
         "projects_meta_meta_image_idx": {
           "name": "projects_meta_meta_image_idx",
           "columns": [
@@ -670,19 +648,6 @@
           "tableTo": "availability",
           "columnsFrom": [
             "availability_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "set null",
-          "onUpdate": "no action"
-        },
-        "projects_gallery_video_id_media_id_fk": {
-          "name": "projects_gallery_video_id_media_id_fk",
-          "tableFrom": "projects",
-          "tableTo": "media",
-          "columnsFrom": [
-            "gallery_video_id"
           ],
           "columnsTo": [
             "id"
@@ -1315,8 +1280,8 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public._projects_v_version_location_neighborhood_landmarks": {
-      "name": "_projects_v_version_location_neighborhood_landmarks",
+    "public._projects_v_version_location_landmarks": {
+      "name": "_projects_v_version_location_landmarks",
       "schema": "",
       "columns": {
         "_order": {
@@ -1357,8 +1322,8 @@
         }
       },
       "indexes": {
-        "_projects_v_version_location_neighborhood_landmarks_order_idx": {
-          "name": "_projects_v_version_location_neighborhood_landmarks_order_idx",
+        "_projects_v_version_location_landmarks_order_idx": {
+          "name": "_projects_v_version_location_landmarks_order_idx",
           "columns": [
             {
               "expression": "_order",
@@ -1372,8 +1337,8 @@
           "method": "btree",
           "with": {}
         },
-        "_projects_v_version_location_neighborhood_landmarks_parent_id_idx": {
-          "name": "_projects_v_version_location_neighborhood_landmarks_parent_id_idx",
+        "_projects_v_version_location_landmarks_parent_id_idx": {
+          "name": "_projects_v_version_location_landmarks_parent_id_idx",
           "columns": [
             {
               "expression": "_parent_id",
@@ -1389,9 +1354,9 @@
         }
       },
       "foreignKeys": {
-        "_projects_v_version_location_neighborhood_landmarks_parent_id_fk": {
-          "name": "_projects_v_version_location_neighborhood_landmarks_parent_id_fk",
-          "tableFrom": "_projects_v_version_location_neighborhood_landmarks",
+        "_projects_v_version_location_landmarks_parent_id_fk": {
+          "name": "_projects_v_version_location_landmarks_parent_id_fk",
+          "tableFrom": "_projects_v_version_location_landmarks",
           "tableTo": "_projects_v",
           "columnsFrom": [
             "_parent_id"
@@ -1556,14 +1521,20 @@
           "primaryKey": false,
           "notNull": false
         },
-        "version_gallery_video_id": {
-          "name": "version_gallery_video_id",
-          "type": "integer",
+        "version_gallery_virtual_tour_url": {
+          "name": "version_gallery_virtual_tour_url",
+          "type": "varchar",
           "primaryKey": false,
           "notNull": false
         },
-        "version_gallery_virtual_tour_url": {
-          "name": "version_gallery_virtual_tour_url",
+        "version_location_building_name": {
+          "name": "version_location_building_name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version_location_neighborhood": {
+          "name": "version_location_neighborhood",
           "type": "varchar",
           "primaryKey": false,
           "notNull": false
@@ -1586,6 +1557,12 @@
           "primaryKey": false,
           "notNull": false
         },
+        "version_location_postcode": {
+          "name": "version_location_postcode",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
         "version_location_city": {
           "name": "version_location_city",
           "type": "varchar",
@@ -1594,12 +1571,6 @@
         },
         "version_location_state": {
           "name": "version_location_state",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "version_location_postcode": {
-          "name": "version_location_postcode",
           "type": "varchar",
           "primaryKey": false,
           "notNull": false
@@ -1624,6 +1595,12 @@
           "primaryKey": false,
           "notNull": false
         },
+        "version_location_coordinates_plus_code": {
+          "name": "version_location_coordinates_plus_code",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
         "version_location_coordinates_latitude": {
           "name": "version_location_coordinates_latitude",
           "type": "numeric",
@@ -1633,25 +1610,6 @@
         "version_location_coordinates_longitude": {
           "name": "version_location_coordinates_longitude",
           "type": "numeric",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "version_location_neighborhood_neighborhood_type": {
-          "name": "version_location_neighborhood_neighborhood_type",
-          "type": "neighborhoodType",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "version_location_neighborhood_custom_neighborhood_type": {
-          "name": "version_location_neighborhood_custom_neighborhood_type",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "version_location_neighborhood_area": {
-          "name": "version_location_neighborhood_area",
-          "type": "varchar",
           "primaryKey": false,
           "notNull": false
         },
@@ -1833,21 +1791,6 @@
           "method": "btree",
           "with": {}
         },
-        "_projects_v_version_gallery_version_gallery_video_idx": {
-          "name": "_projects_v_version_gallery_version_gallery_video_idx",
-          "columns": [
-            {
-              "expression": "version_gallery_video_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
         "_projects_v_version_meta_version_meta_image_idx": {
           "name": "_projects_v_version_meta_version_meta_image_idx",
           "columns": [
@@ -2017,19 +1960,6 @@
           "tableTo": "availability",
           "columnsFrom": [
             "version_availability_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "set null",
-          "onUpdate": "no action"
-        },
-        "_projects_v_version_gallery_video_id_media_id_fk": {
-          "name": "_projects_v_version_gallery_video_id_media_id_fk",
-          "tableFrom": "_projects_v",
-          "tableTo": "media",
-          "columnsFrom": [
-            "version_gallery_video_id"
           ],
           "columnsTo": [
             "id"
@@ -2562,8 +2492,8 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.properties_location_neighborhood_landmarks": {
-      "name": "properties_location_neighborhood_landmarks",
+    "public.properties_location_landmarks": {
+      "name": "properties_location_landmarks",
       "schema": "",
       "columns": {
         "_order": {
@@ -2598,8 +2528,8 @@
         }
       },
       "indexes": {
-        "properties_location_neighborhood_landmarks_order_idx": {
-          "name": "properties_location_neighborhood_landmarks_order_idx",
+        "properties_location_landmarks_order_idx": {
+          "name": "properties_location_landmarks_order_idx",
           "columns": [
             {
               "expression": "_order",
@@ -2613,8 +2543,8 @@
           "method": "btree",
           "with": {}
         },
-        "properties_location_neighborhood_landmarks_parent_id_idx": {
-          "name": "properties_location_neighborhood_landmarks_parent_id_idx",
+        "properties_location_landmarks_parent_id_idx": {
+          "name": "properties_location_landmarks_parent_id_idx",
           "columns": [
             {
               "expression": "_parent_id",
@@ -2630,9 +2560,9 @@
         }
       },
       "foreignKeys": {
-        "properties_location_neighborhood_landmarks_parent_id_fk": {
-          "name": "properties_location_neighborhood_landmarks_parent_id_fk",
-          "tableFrom": "properties_location_neighborhood_landmarks",
+        "properties_location_landmarks_parent_id_fk": {
+          "name": "properties_location_landmarks_parent_id_fk",
+          "tableFrom": "properties_location_landmarks",
           "tableTo": "properties",
           "columnsFrom": [
             "_parent_id"
@@ -2767,12 +2697,6 @@
           "primaryKey": false,
           "notNull": false
         },
-        "gallery_video_id": {
-          "name": "gallery_video_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
         "gallery_virtual_tour_url": {
           "name": "gallery_virtual_tour_url",
           "type": "varchar",
@@ -2874,6 +2798,18 @@
           "primaryKey": false,
           "notNull": false
         },
+        "location_building_name": {
+          "name": "location_building_name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "location_neighborhood": {
+          "name": "location_neighborhood",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
         "location_address_line1": {
           "name": "location_address_line1",
           "type": "varchar",
@@ -2892,6 +2828,12 @@
           "primaryKey": false,
           "notNull": false
         },
+        "location_postcode": {
+          "name": "location_postcode",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
         "location_city": {
           "name": "location_city",
           "type": "varchar",
@@ -2900,12 +2842,6 @@
         },
         "location_state": {
           "name": "location_state",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "location_postcode": {
-          "name": "location_postcode",
           "type": "varchar",
           "primaryKey": false,
           "notNull": false
@@ -2930,6 +2866,12 @@
           "primaryKey": false,
           "notNull": false
         },
+        "location_coordinates_plus_code": {
+          "name": "location_coordinates_plus_code",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
         "location_coordinates_latitude": {
           "name": "location_coordinates_latitude",
           "type": "numeric",
@@ -2939,25 +2881,6 @@
         "location_coordinates_longitude": {
           "name": "location_coordinates_longitude",
           "type": "numeric",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "location_neighborhood_neighborhood_type": {
-          "name": "location_neighborhood_neighborhood_type",
-          "type": "neighborhoodType",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "location_neighborhood_custom_neighborhood_type": {
-          "name": "location_neighborhood_custom_neighborhood_type",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "location_neighborhood_area": {
-          "name": "location_neighborhood_area",
-          "type": "varchar",
           "primaryKey": false,
           "notNull": false
         },
@@ -3153,21 +3076,6 @@
           "method": "btree",
           "with": {}
         },
-        "properties_gallery_gallery_video_idx": {
-          "name": "properties_gallery_gallery_video_idx",
-          "columns": [
-            {
-              "expression": "gallery_video_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
         "properties_meta_meta_image_idx": {
           "name": "properties_meta_meta_image_idx",
           "columns": [
@@ -3245,19 +3153,6 @@
         }
       },
       "foreignKeys": {
-        "properties_gallery_video_id_media_id_fk": {
-          "name": "properties_gallery_video_id_media_id_fk",
-          "tableFrom": "properties",
-          "tableTo": "media",
-          "columnsFrom": [
-            "gallery_video_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "set null",
-          "onUpdate": "no action"
-        },
         "properties_meta_image_id_media_id_fk": {
           "name": "properties_meta_image_id_media_id_fk",
           "tableFrom": "properties",
@@ -3783,8 +3678,8 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public._properties_v_version_location_neighborhood_landmarks": {
-      "name": "_properties_v_version_location_neighborhood_landmarks",
+    "public._properties_v_version_location_landmarks": {
+      "name": "_properties_v_version_location_landmarks",
       "schema": "",
       "columns": {
         "_order": {
@@ -3825,8 +3720,8 @@
         }
       },
       "indexes": {
-        "_properties_v_version_location_neighborhood_landmarks_order_idx": {
-          "name": "_properties_v_version_location_neighborhood_landmarks_order_idx",
+        "_properties_v_version_location_landmarks_order_idx": {
+          "name": "_properties_v_version_location_landmarks_order_idx",
           "columns": [
             {
               "expression": "_order",
@@ -3840,8 +3735,8 @@
           "method": "btree",
           "with": {}
         },
-        "_properties_v_version_location_neighborhood_landmarks_parent_id_idx": {
-          "name": "_properties_v_version_location_neighborhood_landmarks_parent_id_idx",
+        "_properties_v_version_location_landmarks_parent_id_idx": {
+          "name": "_properties_v_version_location_landmarks_parent_id_idx",
           "columns": [
             {
               "expression": "_parent_id",
@@ -3857,9 +3752,9 @@
         }
       },
       "foreignKeys": {
-        "_properties_v_version_location_neighborhood_landmarks_parent_id_fk": {
-          "name": "_properties_v_version_location_neighborhood_landmarks_parent_id_fk",
-          "tableFrom": "_properties_v_version_location_neighborhood_landmarks",
+        "_properties_v_version_location_landmarks_parent_id_fk": {
+          "name": "_properties_v_version_location_landmarks_parent_id_fk",
+          "tableFrom": "_properties_v_version_location_landmarks",
           "tableTo": "_properties_v",
           "columnsFrom": [
             "_parent_id"
@@ -4006,12 +3901,6 @@
           "primaryKey": false,
           "notNull": false
         },
-        "version_gallery_video_id": {
-          "name": "version_gallery_video_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
         "version_gallery_virtual_tour_url": {
           "name": "version_gallery_virtual_tour_url",
           "type": "varchar",
@@ -4113,6 +4002,18 @@
           "primaryKey": false,
           "notNull": false
         },
+        "version_location_building_name": {
+          "name": "version_location_building_name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version_location_neighborhood": {
+          "name": "version_location_neighborhood",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
         "version_location_address_line1": {
           "name": "version_location_address_line1",
           "type": "varchar",
@@ -4131,6 +4032,12 @@
           "primaryKey": false,
           "notNull": false
         },
+        "version_location_postcode": {
+          "name": "version_location_postcode",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
         "version_location_city": {
           "name": "version_location_city",
           "type": "varchar",
@@ -4139,12 +4046,6 @@
         },
         "version_location_state": {
           "name": "version_location_state",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "version_location_postcode": {
-          "name": "version_location_postcode",
           "type": "varchar",
           "primaryKey": false,
           "notNull": false
@@ -4169,6 +4070,12 @@
           "primaryKey": false,
           "notNull": false
         },
+        "version_location_coordinates_plus_code": {
+          "name": "version_location_coordinates_plus_code",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
         "version_location_coordinates_latitude": {
           "name": "version_location_coordinates_latitude",
           "type": "numeric",
@@ -4178,25 +4085,6 @@
         "version_location_coordinates_longitude": {
           "name": "version_location_coordinates_longitude",
           "type": "numeric",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "version_location_neighborhood_neighborhood_type": {
-          "name": "version_location_neighborhood_neighborhood_type",
-          "type": "neighborhoodType",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "version_location_neighborhood_custom_neighborhood_type": {
-          "name": "version_location_neighborhood_custom_neighborhood_type",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "version_location_neighborhood_area": {
-          "name": "version_location_neighborhood_area",
-          "type": "varchar",
           "primaryKey": false,
           "notNull": false
         },
@@ -4431,21 +4319,6 @@
           "method": "btree",
           "with": {}
         },
-        "_properties_v_version_gallery_version_gallery_video_idx": {
-          "name": "_properties_v_version_gallery_version_gallery_video_idx",
-          "columns": [
-            {
-              "expression": "version_gallery_video_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
         "_properties_v_version_meta_version_meta_image_idx": {
           "name": "_properties_v_version_meta_version_meta_image_idx",
           "columns": [
@@ -4589,19 +4462,6 @@
           "tableTo": "properties",
           "columnsFrom": [
             "parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "set null",
-          "onUpdate": "no action"
-        },
-        "_properties_v_version_gallery_video_id_media_id_fk": {
-          "name": "_properties_v_version_gallery_video_id_media_id_fk",
-          "tableFrom": "_properties_v",
-          "tableTo": "media",
-          "columnsFrom": [
-            "version_gallery_video_id"
           ],
           "columnsTo": [
             "id"
@@ -29048,18 +28908,6 @@
         "bus-connected",
         "car-dependent",
         "walk-friendly",
-        "custom"
-      ]
-    },
-    "public.neighborhoodType": {
-      "name": "neighborhoodType",
-      "schema": "public",
-      "values": [
-        "city-center",
-        "business-district",
-        "suburban-area",
-        "industrial-area",
-        "mixed-development",
         "custom"
       ]
     },

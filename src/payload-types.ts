@@ -937,13 +937,15 @@ export interface Tag {
     [k: string]: unknown;
   } | null;
   pages?: {
-    docs?: (number | Page)[] | null;
-    hasNextPage?: boolean | null;
-  } | null;
+    docs?: (number | Page)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
   blog?: {
-    docs?: (number | Blog)[] | null;
-    hasNextPage?: boolean | null;
-  } | null;
+    docs?: (number | Blog)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
   slug?: string | null;
   slugLock?: boolean | null;
   updatedAt: string;
@@ -976,9 +978,10 @@ export interface BlogCategory {
     [k: string]: unknown;
   } | null;
   records?: {
-    docs?: (number | Blog)[] | null;
-    hasNextPage?: boolean | null;
-  } | null;
+    docs?: (number | Blog)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
   slug?: string | null;
   slugLock?: boolean | null;
   parent?: (number | null) | BlogCategory;
@@ -1003,9 +1006,10 @@ export interface Classification {
   id: number;
   title: string;
   properties?: {
-    docs?: (number | Property)[] | null;
-    hasNextPage?: boolean | null;
-  } | null;
+    docs?: (number | Property)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
   /**
    * Describe what this property category is
    */
@@ -1108,7 +1112,7 @@ export interface Property {
     /**
      * Upload a walkthrough video (MP4 format recommended)
      */
-    video?: (number | null) | Media;
+    videos?: (number | Media)[] | null;
     /**
      * External virtual tour link (e.g., Matterport, etc.)
      */
@@ -1227,9 +1231,10 @@ export interface Contract {
   id: number;
   title: string;
   properties?: {
-    docs?: (number | Property)[] | null;
-    hasNextPage?: boolean | null;
-  } | null;
+    docs?: (number | Property)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
   /**
    * Describe this type of contract/transaction
    */
@@ -1343,7 +1348,7 @@ export interface Project {
     /**
      * Upload a walkthrough video (MP4 format recommended)
      */
-    video?: (number | null) | Media;
+    videos?: (number | Media)[] | null;
     /**
      * External virtual tour link (e.g., Matterport, etc.)
      */
@@ -1470,9 +1475,10 @@ export interface Availability {
   id: number;
   title: string;
   properties?: {
-    docs?: (number | Property)[] | null;
-    hasNextPage?: boolean | null;
-  } | null;
+    docs?: (number | Property)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
   /**
    * Can users make inquiries about properties with this status?
    */
@@ -1606,9 +1612,10 @@ export interface UserPhoto {
   id: number;
   alt?: string | null;
   user?: {
-    docs?: (number | User)[] | null;
-    hasNextPage?: boolean | null;
-  } | null;
+    docs?: (number | User)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
   prefix?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -1658,9 +1665,10 @@ export interface Amenity {
   id: number;
   title: string;
   properties?: {
-    docs?: (number | Property)[] | null;
-    hasNextPage?: boolean | null;
-  } | null;
+    docs?: (number | Property)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
   /**
    * Mark if this is a premium or luxury amenity
    */
@@ -1743,12 +1751,14 @@ export interface Amenity {
  * via the `definition` "LocationInterface".
  */
 export interface LocationInterface {
+  buildingName?: string | null;
+  neighborhood?: string | null;
   address_line1?: string | null;
   unit?: string | null;
   address_line2?: string | null;
+  postcode?: string | null;
   city?: string | null;
   state?: string | null;
-  postcode?: string | null;
   countrySelect?: CountrySelect;
   accessibility?: ('metro-connected' | 'bus-connected' | 'car-dependent' | 'walk-friendly' | 'custom') | null;
   customAccessibility?: string | null;
@@ -1756,6 +1766,10 @@ export interface LocationInterface {
    * Precise geographical coordinates for mapping
    */
   coordinates?: {
+    /**
+     * A code that can make it easier to find a location on a map. It is a combination of a latitude and longitude, and is encoded in a string of letters and numbers.
+     */
+    plusCode?: string | null;
     /**
      * North-South position
      */
@@ -1765,26 +1779,16 @@ export interface LocationInterface {
      */
     longitude?: number | null;
   };
-  neighborhood?: {
-    neighborhoodType?:
-      | ('city-center' | 'business-district' | 'suburban-area' | 'industrial-area' | 'mixed-development' | 'custom')
-      | null;
-    customNeighborhoodType?: string | null;
-    /**
-     * Neighborhood or district name
-     */
-    area?: string | null;
-    /**
-     * Notable places near the property
-     */
-    landmarks?:
-      | {
-          name?: string | null;
-          distance?: number | null;
-          id?: string | null;
-        }[]
-      | null;
-  };
+  /**
+   * Notable places near the property
+   */
+  landmarks?:
+    | {
+        name?: string | null;
+        distance?: number | null;
+        id?: string | null;
+      }[]
+    | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2874,7 +2878,7 @@ export interface ProjectsSelect<T extends boolean = true> {
     | T
     | {
         images?: T;
-        video?: T;
+        videos?: T;
         virtualTourUrl?: T;
         floorPlan?: T;
         documents?: T;
@@ -2912,34 +2916,30 @@ export interface ProjectsSelect<T extends boolean = true> {
  * via the `definition` "LocationInterface_select".
  */
 export interface LocationInterfaceSelect<T extends boolean = true> {
+  buildingName?: T;
+  neighborhood?: T;
   address_line1?: T;
   unit?: T;
   address_line2?: T;
+  postcode?: T;
   city?: T;
   state?: T;
-  postcode?: T;
   countrySelect?: T;
   accessibility?: T;
   customAccessibility?: T;
   coordinates?:
     | T
     | {
+        plusCode?: T;
         latitude?: T;
         longitude?: T;
       };
-  neighborhood?:
+  landmarks?:
     | T
     | {
-        neighborhoodType?: T;
-        customNeighborhoodType?: T;
-        area?: T;
-        landmarks?:
-          | T
-          | {
-              name?: T;
-              distance?: T;
-              id?: T;
-            };
+        name?: T;
+        distance?: T;
+        id?: T;
       };
 }
 /**
@@ -2968,7 +2968,7 @@ export interface PropertiesSelect<T extends boolean = true> {
     | T
     | {
         images?: T;
-        video?: T;
+        videos?: T;
         virtualTourUrl?: T;
         floorPlan?: T;
         documents?: T;

@@ -58,7 +58,9 @@ class EnvironmentLogger {
   logDatabaseConnection(): void {
     if (this.hasLoggedDb) return
 
-    const isProd = process.env.VERCEL_ENV === 'production'
+    const isProd = process.env.VERCEL_ENV
+      ? process.env.VERCEL_ENV === 'production'
+      : process.env.NODE_ENV === 'production'
     const dbType = isProd ? 'production' : 'development'
 
     console.log(`🔌 Connecting to ${dbType} database`)

@@ -6,6 +6,8 @@ type CreateLocation = Record<string, LocationInterface>
 export const locationData: CreateLocation = {
   // 1. barshaApartment
   barshaApartment: {
+    buildingName: 'Al Barsha Heights',
+    neighborhood: 'Al Barsha',
     address_line1: '12B Al Barsha Heights',
     unit: '304',
     postcode: '12345',
@@ -13,21 +15,21 @@ export const locationData: CreateLocation = {
     state: 'Dubai',
     countrySelect: 'AE',
     coordinates: {
+      plusCode: undefined,
       latitude: 25.1021,
       longitude: 55.1736,
     },
-    neighborhood: {
-      area: 'Al Barsha',
-      landmarks: [
-        {
-          name: 'Mall of the Emirates',
-          distance: 1.5,
-        },
-      ],
-    },
+    landmarks: [
+      {
+        name: 'Mall of the Emirates',
+        distance: 1.5,
+      },
+    ],
   },
   // 2. jvcResidence
   jvcResidence: {
+    buildingName: 'JVC Residences',
+    neighborhood: 'Jumeirah Village Circle',
     address_line1: 'District 14, JVC',
     unit: '1205',
     postcode: '23456',
@@ -35,21 +37,21 @@ export const locationData: CreateLocation = {
     state: 'Dubai',
     countrySelect: 'AE',
     coordinates: {
+      plusCode: undefined,
       latitude: 25.0549,
       longitude: 55.2198,
     },
-    neighborhood: {
-      area: 'Jumeirah Village Circle',
-      landmarks: [
-        {
-          name: 'Circle Mall',
-          distance: 0.7,
-        },
-      ],
-    },
+    landmarks: [
+      {
+        name: 'Circle Mall',
+        distance: 0.7,
+      },
+    ],
   },
   // 3. siliconOasisStudio
   siliconOasisStudio: {
+    buildingName: 'Silicon Heights',
+    neighborhood: 'Dubai Silicon Oasis',
     address_line1: 'Silicon Heights',
     unit: '506',
     postcode: '34567',
@@ -57,21 +59,21 @@ export const locationData: CreateLocation = {
     state: 'Dubai',
     countrySelect: 'AE',
     coordinates: {
+      plusCode: undefined,
       latitude: 25.1279,
       longitude: 55.3847,
     },
-    neighborhood: {
-      area: 'Dubai Silicon Oasis',
-      landmarks: [
-        {
-          name: 'DSO Mall',
-          distance: 0.5,
-        },
-      ],
-    },
+    landmarks: [
+      {
+        name: 'DSO Mall',
+        distance: 0.5,
+      },
+    ],
   },
   // 4. alQuozLoft
   alQuozLoft: {
+    buildingName: 'Al Quoz Industrial Complex',
+    neighborhood: 'Al Quoz',
     address_line1: 'Al Quoz Industrial Area 1',
     unit: '203',
     postcode: '45678',
@@ -79,21 +81,21 @@ export const locationData: CreateLocation = {
     state: 'Dubai',
     countrySelect: 'AE',
     coordinates: {
+      plusCode: undefined,
       latitude: 25.1437,
       longitude: 55.2316,
     },
-    neighborhood: {
-      area: 'Al Quoz',
-      landmarks: [
-        {
-          name: 'Alserkal Avenue',
-          distance: 1.2,
-        },
-      ],
-    },
+    landmarks: [
+      {
+        name: 'Alserkal Avenue',
+        distance: 1.2,
+      },
+    ],
   },
   // 5. businessBayFlat
   businessBayFlat: {
+    buildingName: 'The Residences at Business Central',
+    neighborhood: 'Business Bay',
     address_line1: 'The Residences at Business Central',
     unit: '1102',
     postcode: '56789',
@@ -101,21 +103,21 @@ export const locationData: CreateLocation = {
     state: 'Dubai',
     countrySelect: 'AE',
     coordinates: {
+      plusCode: undefined,
       latitude: 25.1857,
       longitude: 55.2766,
     },
-    neighborhood: {
-      area: 'Business Bay',
-      landmarks: [
-        {
-          name: 'Bay Avenue Mall',
-          distance: 0.3,
-        },
-      ],
-    },
+    landmarks: [
+      {
+        name: 'Bay Avenue Mall',
+        distance: 0.3,
+      },
+    ],
   },
   // 6. alNahdaHome
   alNahdaHome: {
+    buildingName: 'Al Nahda Residence Complex',
+    neighborhood: 'Al Nahda',
     address_line1: 'Al Nahda Residence Complex',
     unit: '705',
     postcode: '67890',
@@ -123,42 +125,42 @@ export const locationData: CreateLocation = {
     state: 'Dubai',
     countrySelect: 'AE',
     coordinates: {
+      plusCode: undefined,
       latitude: 25.2866,
       longitude: 55.3372,
     },
-    neighborhood: {
-      area: 'Al Nahda',
-      landmarks: [
-        {
-          name: 'Al Nahda Pond Park',
-          distance: 0.6,
-        },
-      ],
-    },
+    landmarks: [
+      {
+        name: 'Al Nahda Pond Park',
+        distance: 0.6,
+      },
+    ],
   },
   // 7. mirdifVilla
   mirdifVilla: {
+    buildingName: 'Mirdif Villas',
+    neighborhood: 'Mirdif',
     address_line1: '15 Mirdif Villas',
     postcode: '78901',
     city: 'Dubai',
     state: 'Dubai',
     countrySelect: 'AE',
     coordinates: {
+      plusCode: undefined,
       latitude: 25.2169,
       longitude: 55.4184,
     },
-    neighborhood: {
-      area: 'Mirdif',
-      landmarks: [
-        {
-          name: 'City Centre Mirdif',
-          distance: 1.0,
-        },
-      ],
-    },
+    landmarks: [
+      {
+        name: 'City Centre Mirdif',
+        distance: 1.0,
+      },
+    ],
   },
   // 8. internationalCityFlat
   internationalCityFlat: {
+    buildingName: 'England Cluster',
+    neighborhood: 'International City',
     address_line1: 'England Cluster',
     unit: '408',
     postcode: '89012',
@@ -166,21 +168,21 @@ export const locationData: CreateLocation = {
     state: 'Dubai',
     countrySelect: 'AE',
     coordinates: {
+      plusCode: undefined,
       latitude: 25.1608,
       longitude: 55.4089,
     },
-    neighborhood: {
-      area: 'International City',
-      landmarks: [
-        {
-          name: 'Dragon Mart',
-          distance: 1.8,
-        },
-      ],
-    },
+    landmarks: [
+      {
+        name: 'Dragon Mart',
+        distance: 1.8,
+      },
+    ],
   },
   // 9. sportsCityApartment
   sportsCityApartment: {
+    buildingName: 'Victory Heights',
+    neighborhood: 'Dubai Sports City',
     address_line1: 'Victory Heights',
     unit: '903',
     postcode: '90123',
@@ -188,21 +190,21 @@ export const locationData: CreateLocation = {
     state: 'Dubai',
     countrySelect: 'AE',
     coordinates: {
+      plusCode: undefined,
       latitude: 25.0461,
       longitude: 55.2269,
     },
-    neighborhood: {
-      area: 'Dubai Sports City',
-      landmarks: [
-        {
-          name: 'ICC Academy',
-          distance: 0.9,
-        },
-      ],
-    },
+    landmarks: [
+      {
+        name: 'ICC Academy',
+        distance: 0.9,
+      },
+    ],
   },
   // 10. alQusaisResidence
   alQusaisResidence: {
+    buildingName: 'Al Qusais Residential Complex',
+    neighborhood: 'Al Qusais',
     address_line1: 'Al Qusais Residential Area',
     unit: '605',
     postcode: '01234',
@@ -210,21 +212,21 @@ export const locationData: CreateLocation = {
     state: 'Dubai',
     countrySelect: 'AE',
     coordinates: {
+      plusCode: undefined,
       latitude: 25.2697,
       longitude: 55.3697,
     },
-    neighborhood: {
-      area: 'Al Qusais',
-      landmarks: [
-        {
-          name: 'Al Qusais Metro Station',
-          distance: 0.4,
-        },
-      ],
-    },
+    landmarks: [
+      {
+        name: 'Al Qusais Metro Station',
+        distance: 0.4,
+      },
+    ],
   },
   // 11. discoveryGardens
   discoveryGardens: {
+    buildingName: 'Mediterranean Cluster',
+    neighborhood: 'Discovery Gardens',
     address_line1: 'Mediterranean Cluster',
     unit: '802',
     postcode: '12346',
@@ -232,21 +234,21 @@ export const locationData: CreateLocation = {
     state: 'Dubai',
     countrySelect: 'AE',
     coordinates: {
+      plusCode: undefined,
       latitude: 25.0478,
       longitude: 55.1377,
     },
-    neighborhood: {
-      area: 'Discovery Gardens',
-      landmarks: [
-        {
-          name: 'Ibn Battuta Mall',
-          distance: 1.3,
-        },
-      ],
-    },
+    landmarks: [
+      {
+        name: 'Ibn Battuta Mall',
+        distance: 1.3,
+      },
+    ],
   },
   // 12. remramApartment
   remramApartment: {
+    buildingName: 'Remram Community',
+    neighborhood: 'Remram',
     address_line1: 'Remram Community',
     unit: '405',
     postcode: '23457',
@@ -254,21 +256,21 @@ export const locationData: CreateLocation = {
     state: 'Dubai',
     countrySelect: 'AE',
     coordinates: {
+      plusCode: undefined,
       latitude: 24.9982,
       longitude: 55.2217,
     },
-    neighborhood: {
-      area: 'Remram',
-      landmarks: [
-        {
-          name: 'Remram Center',
-          distance: 0.3,
-        },
-      ],
-    },
+    landmarks: [
+      {
+        name: 'Remram Center',
+        distance: 0.3,
+      },
+    ],
   },
   // 13. dubailandTownhouse
   dubailandTownhouse: {
+    buildingName: 'Mudon Community',
+    neighborhood: 'Dubailand',
     address_line1: 'Mudon Community',
     unit: '27',
     postcode: '34568',
@@ -276,21 +278,21 @@ export const locationData: CreateLocation = {
     state: 'Dubai',
     countrySelect: 'AE',
     coordinates: {
+      plusCode: undefined,
       latitude: 25.0234,
       longitude: 55.2876,
     },
-    neighborhood: {
-      area: 'Dubailand',
-      landmarks: [
-        {
-          name: 'Mudon Central Park',
-          distance: 0.5,
-        },
-      ],
-    },
+    landmarks: [
+      {
+        name: 'Mudon Central Park',
+        distance: 0.5,
+      },
+    ],
   },
   // 14. warqaaResidence
   warqaaResidence: {
+    buildingName: 'Al Warqaa Residences',
+    neighborhood: 'Al Warqaa',
     address_line1: 'Al Warqaa 1',
     unit: '503',
     postcode: '45679',
@@ -298,21 +300,21 @@ export const locationData: CreateLocation = {
     state: 'Dubai',
     countrySelect: 'AE',
     coordinates: {
+      plusCode: undefined,
       latitude: 25.2286,
       longitude: 55.3758,
     },
-    neighborhood: {
-      area: 'Al Warqaa',
-      landmarks: [
-        {
-          name: 'Warqaa Mall',
-          distance: 0.8,
-        },
-      ],
-    },
+    landmarks: [
+      {
+        name: 'Warqaa Mall',
+        distance: 0.8,
+      },
+    ],
   },
   // 15. karamaFlat
   karamaFlat: {
+    buildingName: 'Karama Shopping Complex',
+    neighborhood: 'Karama',
     address_line1: 'Karama Shopping Complex',
     unit: '304',
     postcode: '56790',
@@ -320,21 +322,21 @@ export const locationData: CreateLocation = {
     state: 'Dubai',
     countrySelect: 'AE',
     coordinates: {
+      plusCode: undefined,
       latitude: 25.2479,
       longitude: 55.3015,
     },
-    neighborhood: {
-      area: 'Karama',
-      landmarks: [
-        {
-          name: 'Zabeel Park',
-          distance: 1.1,
-        },
-      ],
-    },
+    landmarks: [
+      {
+        name: 'Zabeel Park',
+        distance: 1.1,
+      },
+    ],
   },
   // 16. tecomApartment
   tecomApartment: {
+    buildingName: 'Two Towers',
+    neighborhood: 'TECOM',
     address_line1: 'Two Towers',
     unit: '1504',
     postcode: '67891',
@@ -342,21 +344,21 @@ export const locationData: CreateLocation = {
     state: 'Dubai',
     countrySelect: 'AE',
     coordinates: {
+      plusCode: undefined,
       latitude: 25.0972,
       longitude: 55.1738,
     },
-    neighborhood: {
-      area: 'TECOM',
-      landmarks: [
-        {
-          name: 'Internet City Metro',
-          distance: 0.7,
-        },
-      ],
-    },
+    landmarks: [
+      {
+        name: 'Internet City Metro',
+        distance: 0.7,
+      },
+    ],
   },
   // 17. deiraCondo
   deiraCondo: {
+    buildingName: 'Abu Hail Residences',
+    neighborhood: 'Deira',
     address_line1: 'Abu Hail Road',
     unit: '902',
     postcode: '78902',
@@ -364,21 +366,21 @@ export const locationData: CreateLocation = {
     state: 'Dubai',
     countrySelect: 'AE',
     coordinates: {
+      plusCode: undefined,
       latitude: 25.2777,
       longitude: 55.3222,
     },
-    neighborhood: {
-      area: 'Deira',
-      landmarks: [
-        {
-          name: 'Abu Hail Metro Station',
-          distance: 0.4,
-        },
-      ],
-    },
+    landmarks: [
+      {
+        name: 'Abu Hail Metro Station',
+        distance: 0.4,
+      },
+    ],
   },
   // 18. satwaResidence
   satwaResidence: {
+    buildingName: 'Al Satwa Apartments',
+    neighborhood: 'Al Satwa',
     address_line1: 'Al Satwa Road',
     unit: '205',
     postcode: '89013',
@@ -386,21 +388,21 @@ export const locationData: CreateLocation = {
     state: 'Dubai',
     countrySelect: 'AE',
     coordinates: {
+      plusCode: undefined,
       latitude: 25.2352,
       longitude: 55.2867,
     },
-    neighborhood: {
-      area: 'Al Satwa',
-      landmarks: [
-        {
-          name: 'Satwa Bus Station',
-          distance: 0.6,
-        },
-      ],
-    },
+    landmarks: [
+      {
+        name: 'Satwa Bus Station',
+        distance: 0.6,
+      },
+    ],
   },
   // 19. rashidiyaHome
   rashidiyaHome: {
+    buildingName: 'Al Rashidiya Buildings',
+    neighborhood: 'Al Rashidiya',
     address_line1: 'Al Rashidiya Buildings',
     unit: '703',
     postcode: '90124',
@@ -408,21 +410,21 @@ export const locationData: CreateLocation = {
     state: 'Dubai',
     countrySelect: 'AE',
     coordinates: {
+      plusCode: undefined,
       latitude: 25.2497,
       longitude: 55.3758,
     },
-    neighborhood: {
-      area: 'Al Rashidiya',
-      landmarks: [
-        {
-          name: 'Rashidiya Metro Station',
-          distance: 0.9,
-        },
-      ],
-    },
+    landmarks: [
+      {
+        name: 'Rashidiya Metro Station',
+        distance: 0.9,
+      },
+    ],
   },
   // 20. garhoudApartment
   garhoudApartment: {
+    buildingName: 'Garhoud Views',
+    neighborhood: 'Garhoud',
     address_line1: 'Garhoud Views',
     unit: '1103',
     postcode: '01235',
@@ -430,17 +432,15 @@ export const locationData: CreateLocation = {
     state: 'Dubai',
     countrySelect: 'AE',
     coordinates: {
+      plusCode: undefined,
       latitude: 25.2397,
       longitude: 55.3515,
     },
-    neighborhood: {
-      area: 'Garhoud',
-      landmarks: [
-        {
-          name: 'Irish Village',
-          distance: 1.2,
-        },
-      ],
-    },
+    landmarks: [
+      {
+        name: 'Irish Village',
+        distance: 1.2,
+      },
+    ],
   },
 }
