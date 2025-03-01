@@ -28,11 +28,6 @@ type Gallery = {
 export const GalleryCell: React.FC<CellProps> = (props) => {
   const { rowData, field, collectionSlug, link = true } = props
 
-  console.log('rowData', rowData)
-  console.log('field', field)
-  console.log('collectionSlug', collectionSlug)
-  console.log('link', link)
-
   // Extract the first image ID directly from rowData
   const getFirstImageId = (): number | null => {
     // Parse the field path to navigate the nested structure
@@ -81,7 +76,6 @@ export const GalleryCell: React.FC<CellProps> = (props) => {
 
   // Get the property ID for the link
   const propertyId = rowData.id as number | undefined
-  console.log('propertyId', propertyId)
 
   // Local state to hold the URL from the fetched media item
   const [firstImageUrl, setFirstImageUrl] = useState('')
@@ -128,8 +122,6 @@ export const GalleryCell: React.FC<CellProps> = (props) => {
   const editUrl = propertyId
     ? `/admin/collections/${collectionSlug}/${propertyId}`
     : undefined
-
-  console.log('editUrl', editUrl)
 
   // Cell content to be rendered with or without a link
   const CellContent = ({ className }: { className?: string }) => (

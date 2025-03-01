@@ -25,6 +25,33 @@ export const getPropertyBySlug = cache(async ({ slug }: { slug: string }) => {
   return result.docs?.[0] || null
 })
 
+export const getProperties = async ({
+  where,
+  limit = 12,
+  page = 1,
+  sort = '-createdAt',
+}: {
+  where?: Record<string, any>
+  limit?: number
+  page?: number
+  sort?: string
+}) => {
+  const { isEnabled: draft } = await draftMode()
+  const payload = await getPayload({ config: configPromise })
+
+  const result = await payload.find({
+    collection: 'properties',
+    draft,
+    limit,
+    page,
+    sort,
+    where,
+    depth: 1, // Load related data one level deep
+  })
+
+  return result
+}
+
 export const getPaginatedProperties = async () => {
   const payload = await getPayload({ config: configPromise })
 
