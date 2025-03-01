@@ -4,22 +4,33 @@ import type { File } from 'payload'
 
 // Helper to fetch files from URLs
 export async function fetchFileByURL(url: string): Promise<File> {
-  const res = await fetch(url, {
-    credentials: 'include',
-    method: 'GET',
-  })
+  try {
+    const res = await fetch(url, {
+      credentials: 'include',
+      method: 'GET',
+    })
 
-  if (!res.ok) {
-    throw new Error(`Failed to fetch file from ${url}, status: ${res.status}`)
-  }
+    if (!res.ok) {
+      throw new Error(`Failed to fetch file from ${url}, status: ${res.status}`)
+    }
 
-  const data = await res.arrayBuffer()
+    const data = await res.arrayBuffer()
+    const filename = url.split('/').pop() || `file-${Date.now()}`
+    const extension = filename.split('.').pop() || 'png'
 
-  return {
-    name: url.split('/').pop() || `file-${Date.now()}`,
-    data: Buffer.from(data),
-    mimetype: `image/${url.split('.').pop()}`,
-    size: data.byteLength,
+    console.log(
+      `Successfully fetched file: ${filename}, size: ${data.byteLength} bytes, type: ${extension}`,
+    )
+
+    return {
+      name: filename,
+      data: Buffer.from(data),
+      mimetype: `image/${extension}`,
+      size: data.byteLength,
+    }
+  } catch (error) {
+    console.error(`Error fetching file from ${url}:`, error)
+    throw error
   }
 }
 

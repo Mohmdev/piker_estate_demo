@@ -39,6 +39,7 @@ import { FooterRowLabel as FooterRowLabel_3a8bec73fa75f7b1bb5851ec19ba70da } fro
 import { default as default_e6933a128dbf8190926ab0f5d1447c3d } from '@services/admin/AdminAvatar'
 import { NavbarLogo as NavbarLogo_6079976f3e2ff43eeff27beac4efdd62 } from '@services/admin/DynamicLogo'
 import { MainLogo as MainLogo_6079976f3e2ff43eeff27beac4efdd62 } from '@services/admin/DynamicLogo'
+import { VercelBlobClientUploadHandler as VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e } from '@payloadcms/storage-vercel-blob/client'
 
 export const importMap = {
   "@CMS/real-estate/glossary/gallery/thumbnail/client#GalleryThumbnail": GalleryThumbnail_34ac57888b71d2de43c7bf92875a8eb2,
@@ -81,5 +82,6 @@ export const importMap = {
   "@CMS/design/Footer/FooterRowLabel#FooterRowLabel": FooterRowLabel_3a8bec73fa75f7b1bb5851ec19ba70da,
   "@services/admin/AdminAvatar#default": default_e6933a128dbf8190926ab0f5d1447c3d,
   "@services/admin/DynamicLogo#NavbarLogo": NavbarLogo_6079976f3e2ff43eeff27beac4efdd62,
-  "@services/admin/DynamicLogo#MainLogo": MainLogo_6079976f3e2ff43eeff27beac4efdd62
+  "@services/admin/DynamicLogo#MainLogo": MainLogo_6079976f3e2ff43eeff27beac4efdd62,
+  "@payloadcms/storage-vercel-blob/client#VercelBlobClientUploadHandler": VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e
 }

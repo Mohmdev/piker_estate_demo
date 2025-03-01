@@ -88,11 +88,33 @@ export async function POST(): Promise<Response> {
         // Handle gallery media
         let galleryData = undefined
         if (property.gallery) {
+          // Log the gallery data from the property
+          payload.logger.info(
+            `Raw gallery data for ${property.title}:`,
+            JSON.stringify({
+              imagesCount: property.gallery.images?.length || 0,
+              videosCount: property.gallery.videos?.length || 0,
+              documentsCount: property.gallery.documents?.length || 0,
+            }),
+          )
+
+          if (property.gallery.images && property.gallery.images.length > 0) {
+            payload.logger.info(
+              `First image URL: ${property.gallery.images[0]?.url || 'none'}`,
+            )
+          }
+
           // Process images
           const galleryImages = property.gallery.images
             ? await Promise.all(
-                property.gallery.images.map(async (image) => {
-                  if (!image || !image.url) return null
+                property.gallery.images.map(async (image, index) => {
+                  if (!image || !image.url) {
+                    payload.logger.info(`Image ${index} has no URL`)
+                    return null
+                  }
+
+                  payload.logger.info(`Processing image ${index}: ${image.url}`)
+
                   try {
                     // Check if media already exists
                     const existingMedia = await payload.find({
@@ -103,23 +125,31 @@ export async function POST(): Promise<Response> {
                     })
 
                     if (existingMedia.docs.length > 0) {
+                      payload.logger.info(
+                        `Found existing media: ${existingMedia.docs[0]?.id}`,
+                      )
                       return existingMedia.docs[0]?.id
                     }
 
                     // Create new media
                     const imageBuffer = await fetchFileByURL(image.url)
+
+                    payload.logger.info(
+                      `Fetched image buffer for ${image.url}, size: ${imageBuffer.size} bytes`,
+                    )
+
+                    // Use the correct file upload format
                     const createdMedia = await payload.create({
                       collection: 'media',
                       data: {
-                        url: image.url,
-                        // filename: image.filename,
-                        // alt: image.alt,
-                        // mimeType: image.mimeType,
-                        // width: image.width,
-                        // height: image.height,
+                        alt: `Image for ${property.title}`,
                       },
                       file: imageBuffer,
                     })
+
+                    payload.logger.info(
+                      `Created media ID: ${createdMedia.id} for ${image.url}`,
+                    )
                     return createdMedia.id
                   } catch (error) {
                     payload.logger.error(
@@ -129,14 +159,28 @@ export async function POST(): Promise<Response> {
                     return null
                   }
                 }),
-              ).then((ids) => ids.filter((id): id is number => id !== null))
-            : undefined
+              ).then((ids) => {
+                const filteredIds = ids.filter(
+                  (id): id is number => id !== null,
+                )
+                payload.logger.info(
+                  `Processed ${filteredIds.length} images, IDs: ${JSON.stringify(filteredIds)}`,
+                )
+                return filteredIds
+              })
+            : []
 
           // Process videos
           const galleryVideos = property.gallery.videos
             ? await Promise.all(
-                property.gallery.videos.map(async (video) => {
-                  if (!video || !video.url) return null
+                property.gallery.videos.map(async (video, index) => {
+                  if (!video || !video.url) {
+                    payload.logger.info(`Video ${index} has no URL`)
+                    return null
+                  }
+
+                  payload.logger.info(`Processing video ${index}: ${video.url}`)
+
                   try {
                     // Check if media already exists
                     const existingMedia = await payload.find({
@@ -147,18 +191,30 @@ export async function POST(): Promise<Response> {
                     })
 
                     if (existingMedia.docs.length > 0) {
+                      payload.logger.info(
+                        `Found existing media: ${existingMedia.docs[0]?.id}`,
+                      )
                       return existingMedia.docs[0]?.id
                     }
 
                     // Create new media
                     const videoBuffer = await fetchFileByURL(video.url)
+
+                    payload.logger.info(
+                      `Fetched video buffer for ${video.url}, size: ${videoBuffer.size} bytes`,
+                    )
+
                     const createdMedia = await payload.create({
                       collection: 'media',
                       data: {
-                        url: video.url,
+                        alt: `Video for ${property.title}`,
                       },
                       file: videoBuffer,
                     })
+
+                    payload.logger.info(
+                      `Created media ID: ${createdMedia.id} for ${video.url}`,
+                    )
                     return createdMedia.id
                   } catch (error) {
                     payload.logger.error(
@@ -168,14 +224,30 @@ export async function POST(): Promise<Response> {
                     return null
                   }
                 }),
-              ).then((ids) => ids.filter((id): id is number => id !== null))
-            : undefined
+              ).then((ids) => {
+                const filteredIds = ids.filter(
+                  (id): id is number => id !== null,
+                )
+                payload.logger.info(
+                  `Processed ${filteredIds.length} videos, IDs: ${JSON.stringify(filteredIds)}`,
+                )
+                return filteredIds
+              })
+            : []
 
           // Process documents
           const galleryDocuments = property.gallery.documents
             ? await Promise.all(
-                property.gallery.documents.map(async (document) => {
-                  if (!document || !document.url) return null
+                property.gallery.documents.map(async (document, index) => {
+                  if (!document || !document.url) {
+                    payload.logger.info(`Document ${index} has no URL`)
+                    return null
+                  }
+
+                  payload.logger.info(
+                    `Processing document ${index}: ${document.url}`,
+                  )
+
                   try {
                     // Check if media already exists
                     const existingMedia = await payload.find({
@@ -186,18 +258,30 @@ export async function POST(): Promise<Response> {
                     })
 
                     if (existingMedia.docs.length > 0) {
+                      payload.logger.info(
+                        `Found existing media: ${existingMedia.docs[0]?.id}`,
+                      )
                       return existingMedia.docs[0]?.id
                     }
 
                     // Create new media
                     const documentBuffer = await fetchFileByURL(document.url)
+
+                    payload.logger.info(
+                      `Fetched document buffer for ${document.url}, size: ${documentBuffer.size} bytes`,
+                    )
+
                     const createdMedia = await payload.create({
                       collection: 'media',
                       data: {
-                        url: document.url,
+                        alt: `Document for ${property.title}`,
                       },
                       file: documentBuffer,
                     })
+
+                    payload.logger.info(
+                      `Created media ID: ${createdMedia.id} for ${document.url}`,
+                    )
                     return createdMedia.id
                   } catch (error) {
                     payload.logger.error(
@@ -207,21 +291,34 @@ export async function POST(): Promise<Response> {
                     return null
                   }
                 }),
-              ).then((ids) => ids.filter((id): id is number => id !== null))
-            : undefined
+              ).then((ids) => {
+                const filteredIds = ids.filter(
+                  (id): id is number => id !== null,
+                )
+                payload.logger.info(
+                  `Processed ${filteredIds.length} documents, IDs: ${JSON.stringify(filteredIds)}`,
+                )
+                return filteredIds
+              })
+            : []
 
+          // Create gallery data with the correct structure
           galleryData = {
-            ...property.gallery,
-            images: galleryImages ?? null,
-            videos: galleryVideos ?? null,
-            documents: galleryDocuments ?? null,
-            floorPlan: null,
-            virtualTourUrl: null,
+            images: galleryImages.length > 0 ? galleryImages : null,
+            videos: galleryVideos.length > 0 ? galleryVideos : null,
+            documents: galleryDocuments.length > 0 ? galleryDocuments : null,
+            virtualTourUrl: property.gallery.virtualTourUrl || null,
+            floorPlan: null, // We don't have floor plans in the seed data
           }
+
+          payload.logger.info(
+            `Final gallery data for ${property.title}:`,
+            JSON.stringify(galleryData),
+          )
         }
 
         // Create the property with resolved relationship IDs
-        await payload.create({
+        const createdProperty = await payload.create({
           collection: 'properties',
           data: {
             title: property.title,
@@ -243,6 +340,10 @@ export async function POST(): Promise<Response> {
             _status: 'published',
           },
         })
+
+        payload.logger.info(
+          `Created property: ${createdProperty.id} - ${property.title}`,
+        )
         createdCount++
       }
     } catch (error) {

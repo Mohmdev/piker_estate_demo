@@ -83,7 +83,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
           'transition-opacity duration-250 ease-linear bg-deep-blue',
           isLoading ? 'opacity-0' : 'opacity-100',
         )}
-        onLoadingComplete={() => setIsLoading(false)}
+        onLoad={() => setIsLoading(false)}
       />
     </>
   )
