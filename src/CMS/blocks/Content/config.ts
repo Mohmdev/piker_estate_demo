@@ -8,6 +8,7 @@ import {
 } from '@payloadcms/richtext-lexical'
 
 import { link } from '@fields/link'
+import { isSiblingTruthy } from '@utils/siblingFieldCondition'
 
 const columnFields: Field[] = [
   {
@@ -55,9 +56,7 @@ const columnFields: Field[] = [
   link({
     overrides: {
       admin: {
-        // @ts-expect-error: enableLink is not defined in the payload-types.ts
-        condition: (_, { enableLink }: { enableLink: boolean }) =>
-          Boolean(enableLink),
+        condition: isSiblingTruthy('enableLink'),
       },
     },
   }),

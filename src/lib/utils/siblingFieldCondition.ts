@@ -25,3 +25,13 @@ export const isIncludedInSibling = (
     return value === expectedValue
   }
 }
+
+/**
+ * Creates a condition function that checks if a sibling field has a truthy value.
+ *
+ * @param siblingFieldName The name of the sibling field to check.
+ * @returns A Payload CMS condition function that returns true if the sibling field is truthy.
+ */
+export const isSiblingTruthy = (siblingFieldName: string): Condition => {
+  return (_data, siblingData) => Boolean(siblingData?.[siblingFieldName])
+}
