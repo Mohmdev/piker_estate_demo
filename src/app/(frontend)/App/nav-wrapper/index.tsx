@@ -5,9 +5,9 @@ import type {
   Footer as FooterType,
   MainMenu as MainMenuType,
 } from '@payload-types'
-import { cn } from '@utils/ui'
 import { draftMode } from 'next/headers'
 import React from 'react'
+import { Navbar } from '../Navbar'
 
 export const NavWrapper: React.FC<{ children: React.ReactNode }> = async ({
   children,
@@ -27,6 +27,7 @@ export const NavWrapper: React.FC<{ children: React.ReactNode }> = async ({
   return (
     <>
       <FlyoutNav {...(mainMenuData || {})} />
+      {/* <Navbar /> */}
       {children}
       <Footer {...(footerData || {})} />
     </>

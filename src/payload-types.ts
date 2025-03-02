@@ -1795,6 +1795,10 @@ export interface LocationInterface {
  * via the `definition` "SpecificationsInterface".
  */
 export interface SpecificationsInterface {
+  averageRating?: number | null;
+  numberOfReviews?: number | null;
+  isPetsAllowed?: boolean | null;
+  isParkingIncluded?: boolean | null;
   measurements?: {
     sizeRange?: ('small' | 'medium' | 'large' | 'xlarge') | null;
     /**
@@ -3002,6 +3006,10 @@ export interface PropertiesSelect<T extends boolean = true> {
  * via the `definition` "SpecificationsInterface_select".
  */
 export interface SpecificationsInterfaceSelect<T extends boolean = true> {
+  averageRating?: T;
+  numberOfReviews?: T;
+  isPetsAllowed?: T;
+  isParkingIncluded?: T;
   measurements?:
     | T
     | {

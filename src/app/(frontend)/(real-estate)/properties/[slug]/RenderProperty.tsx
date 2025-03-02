@@ -15,7 +15,7 @@ export const RenderProperty: React.FC<{
 }> = ({ record: property }) => {
   // Extract gallery images safely
   const galleryImages = property?.gallery?.images || []
-  const [isContactModalOpen, setIsContactModalOpen] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   return (
     <article className="pt-16 pb-16">
@@ -48,15 +48,15 @@ export const RenderProperty: React.FC<{
           </div>
 
           <div className="order-1 md:order-2">
-            <ContactWidget onOpenModal={() => setIsContactModalOpen(true)} />
+            <ContactWidget onOpenModal={() => setIsModalOpen(true)} />
           </div>
         </div>
       </div>
 
       {/* Contact Modal */}
       <ContactModal
-        isOpen={isContactModalOpen}
-        onClose={() => setIsContactModalOpen(false)}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
         propertyTitle={property.title}
       />
     </article>

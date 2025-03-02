@@ -6,6 +6,36 @@ export const SpecificationsInterface: NamedTab = {
   interfaceName: 'SpecificationsInterface',
   fields: [
     {
+      type: 'row',
+      fields: [
+        {
+          type: 'number',
+          name: 'averageRating',
+          label: 'Average Rating',
+        },
+        {
+          type: 'number',
+          name: 'numberOfReviews',
+          label: 'Number of Reviews',
+        },
+      ],
+    },
+    {
+      type: 'row',
+      fields: [
+        {
+          type: 'checkbox',
+          name: 'isPetsAllowed',
+          label: 'Pets Allowed?',
+        },
+        {
+          type: 'checkbox',
+          name: 'isParkingIncluded',
+          label: 'Parking Included?',
+        },
+      ],
+    },
+    {
       type: 'group',
       name: 'measurements',
       label: 'Measurements',

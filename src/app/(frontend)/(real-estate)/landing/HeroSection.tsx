@@ -34,8 +34,8 @@ export const HeroSection = () => {
           lng: lng.toString(),
         })
 
-        // Navigate to properties page with search parameters
-        router.push(`/properties?${params.toString()}`)
+        // Navigate to search page with search parameters
+        router.push(`/search?${params.toString()}`)
       }
     } catch (error) {
       console.error('Error searching location:', error)
