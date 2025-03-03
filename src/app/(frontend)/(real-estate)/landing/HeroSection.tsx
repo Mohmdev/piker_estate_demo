@@ -2,6 +2,7 @@
 
 import { Button } from '@ui/button'
 import { Input } from '@ui/input'
+import { cn } from '@utils/ui'
 import { motion } from 'motion/react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
@@ -43,20 +44,30 @@ export const HeroSection = () => {
   }
 
   return (
-    <div className="relative h-screen">
+    <div
+      className={cn(
+        'relative full-dynamic-height',
+        'mx-auto flex justify-center items-center',
+      )}
+    >
       <Image
-        src="/landing-splash.jpg"
+        // src="/landing-splash.jpg"
+        src="/property-image/1.png"
         alt="Webora Estates Hero Section"
         fill
         className="object-cover object-center"
         priority
       />
-      <div className="absolute inset-0 bg-black bg-opacity-60"></div>
+      <div className="absolute inset-0 bg-black bg-opacity-60 -z-1" />
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="absolute top-1/3 transform -translate-x-1/2 -translate-y-1/2 text-center w-full"
+        className={cn(
+          'absolute top-[45%] left-1/2 w-full',
+          'transform -translate-x-1/2 -translate-y-1/2',
+          'text-center',
+        )}
       >
         <div className="max-w-4xl mx-auto px-16 sm:px-12">
           <h1 className="text-5xl font-bold text-white mb-4">
@@ -67,13 +78,18 @@ export const HeroSection = () => {
             and needs!
           </p>
 
-          <div className="flex justify-center">
+          <div className="flex justify-center gap-0">
             <Input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search by city, neighborhood or address"
-              className="w-full max-w-lg rounded-none rounded-l-xl border-none bg-white h-12"
+              className={cn(
+                'w-full max-w-lg h-12',
+                'px-5',
+                'rounded-none rounded-l-xl border-0 bg-white',
+                'text-accent',
+              )}
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
                   handleLocationSearch()
@@ -82,7 +98,14 @@ export const HeroSection = () => {
             />
             <Button
               onClick={handleLocationSearch}
-              className="bg-secondary-500 text-white rounded-none rounded-r-xl border-none hover:bg-secondary-600 h-12"
+              className={cn(
+                'h-12',
+                'rounded-none rounded-r-xl ',
+                'hover:bg-sky-700',
+                'bg-transparent backdrop-blur-sm',
+                'border-y-2 border-r-2 border-white',
+                'text-white',
+              )}
             >
               Search
             </Button>

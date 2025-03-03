@@ -65,7 +65,7 @@ export const FlyoutNav: React.FC<MainMenuType> = (navData) => {
             ease: [0.165, 0.84, 0.44, 1],
           }}
           className={cn(
-            'container',
+            'container lg:px-8!',
             'flex-1 h-full flex flex-row items-center justify-between',
             'rounded-0 lg:rounded-full border-0 border-border/60',
             'mt-0 lg:mt-2',

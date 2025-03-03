@@ -115,7 +115,7 @@ importers:
         version: 16.10.0
       juice:
         specifier: ^11.0.0
-        version: 11.0.0
+        version: 11.0.1
       lucide-react:
         specifier: ^0.475.0
         version: 0.475.0(react@19.0.0)
@@ -3056,8 +3056,8 @@ packages:
     resolution: {integrity: sha512-9Ag50tKhpTwS6r5wh3MJSAvpSof0UBr39Pto8OnzFT32Z/pAbxAsKHzyvsyMEHVslELvHyO/4/jaQELHk8wDcw==}
     hasBin: true
 
-  juice@11.0.0:
-    resolution: {integrity: sha512-sGF8hPz9/Wg+YXbaNDqc1Iuoaw+J/P9lBHNQKXAGc9pPNjCd4fyPai0Zxj7MRtdjMr0lcgk5PjEIkP2b8R9F3w==}
+  juice@11.0.1:
+    resolution: {integrity: sha512-R3KLud4l/sN9AMmFZs0QY7cugGSiKvPhGyIsufCV5nJ0MjSlngUE7k80TmFeK9I62wOXrjWBtYA1knVs2OkF8w==}
     engines: {node: '>=18.17'}
     hasBin: true
 
@@ -3641,8 +3641,8 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
-  prettier@3.5.2:
-    resolution: {integrity: sha512-lc6npv5PH7hVqozBR7lkBNOGXV9vMwROAPlumdBkX0wTbbzPu/U1hk5yL8p2pt4Xoc+2mkT8t/sow2YrV/M5qg==}
+  prettier@3.5.3:
+    resolution: {integrity: sha512-QQtaxnoDJeAkDvDKWCLiwIXkTgRhwYDEQCghU9Z6q03iyek/rxRh/2lC3HB7P8sWT2xC/y5JDctPLBIGzHKbhw==}
     engines: {node: '>=14'}
     hasBin: true
 
@@ -7055,7 +7055,7 @@ snapshots:
       js-yaml: 4.1.0
       lodash: 4.17.21
       minimist: 1.2.8
-      prettier: 3.5.2
+      prettier: 3.5.3
       tinyglobby: 0.2.12
 
   json-schema-traverse@1.0.0: {}
@@ -7064,10 +7064,11 @@ snapshots:
 
   jsox@1.2.121: {}
 
-  juice@11.0.0:
+  juice@11.0.1:
     dependencies:
       cheerio: 1.0.0
       commander: 12.1.0
+      entities: 4.5.0
       mensch: 0.3.4
       slick: 1.12.2
       web-resource-inliner: 7.0.0
@@ -7808,7 +7809,7 @@ snapshots:
       tar-fs: 2.1.2
       tunnel-agent: 0.6.0
 
-  prettier@3.5.2: {}
+  prettier@3.5.3: {}
 
   prism-react-renderer@2.4.1(react@19.0.0):
     dependencies:

@@ -13,6 +13,7 @@ import { App } from './App'
 import { NoiseBackground } from './App/noise-background'
 
 import '@styles/frontend/globals.css'
+import '@styles/frontend/layout.css'
 
 export default async function RootLayout({
   children,
