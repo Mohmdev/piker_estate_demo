@@ -1,5 +1,6 @@
 'use client'
 
+import { cn } from '@utils/ui'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import React from 'react'
@@ -26,10 +27,15 @@ export const DiscoverSection = () => {
       whileInView="visible"
       viewport={{ once: true, amount: 0.8 }}
       variants={containerVariants}
-      className="py-12 bg-white mb-16"
+      className={cn(
+        'py-14 ',
+        'bg-background',
+        'shadow-custom-shadow-color/15 dark:shadow-custom-shadow-color/25',
+        'shadow-[inset_0_0_4px_0] dark:shadow-[inset_0_0_8px_0]',
+      )}
     >
-      <div className="max-w-6xl xl:max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16">
-        <motion.div variants={itemVariants} className="my-12 text-center">
+      <div className={cn('container', 'flex flex-col gap-8')}>
+        <motion.div variants={itemVariants} className="text-center">
           <h2 className="text-3xl font-semibold leading-tight text-gray-800">
             Discover
           </h2>

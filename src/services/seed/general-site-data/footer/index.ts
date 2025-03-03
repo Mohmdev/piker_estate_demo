@@ -37,7 +37,7 @@ export const footerMock: Partial<Footer> = {
       ],
     },
     {
-      label: 'Company',
+      label: 'Resources',
       navItems: [
         {
           link: {
@@ -46,35 +46,11 @@ export const footerMock: Partial<Footer> = {
             label: 'Pricing',
           },
         },
-
-        {
-          link: {
-            type: 'custom',
-            url: 'https://webora.app/talk-to-us',
-            label: 'Talk to us',
-          },
-        },
         {
           link: {
             type: 'custom',
             url: 'https://webora.app/case-studies',
             label: 'Case Studies',
-          },
-        },
-
-        {
-          link: {
-            type: 'custom',
-            url: 'https://webora.app/partners',
-            label: 'Partner With Us',
-          },
-        },
-
-        {
-          link: {
-            type: 'custom',
-            url: 'https://webora.app/partners',
-            label: 'Find a Partner',
           },
         },
         {
@@ -87,15 +63,48 @@ export const footerMock: Partial<Footer> = {
         {
           link: {
             type: 'custom',
-            url: 'https://webora.app/security',
-            label: 'Security',
+            url: 'https://webora.app/compare',
+            label: 'Compare',
           },
         },
         {
           link: {
             type: 'custom',
-            url: 'https://webora.app/compare',
-            label: 'Compare',
+            url: 'https://webora.app/security',
+            label: 'Security',
+          },
+        },
+      ],
+    },
+    {
+      label: 'Company',
+      navItems: [
+        {
+          link: {
+            type: 'custom',
+            url: 'https://webora.app/talk-to-us',
+            label: 'Talk to us',
+          },
+        },
+        {
+          link: {
+            type: 'custom',
+            url: 'https://webora.app/partners',
+            label: 'Partner With Us',
+          },
+        },
+        {
+          link: {
+            type: 'custom',
+            url: 'https://webora.app/partners',
+            label: 'Find a Partner',
+          },
+        },
+        {
+          link: {
+            type: 'custom',
+            url: 'https://webora.app/contact',
+            label: 'Contact',
           },
         },
         {
@@ -113,13 +122,6 @@ export const footerMock: Partial<Footer> = {
             label: 'Privacy Policy',
           },
           id: '65e09db439c8d261526eba49',
-        },
-        {
-          link: {
-            type: 'custom',
-            url: 'https://webora.app/contact',
-            label: 'Contact',
-          },
         },
       ],
     },

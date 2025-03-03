@@ -29,7 +29,7 @@ export const NavWrapper: React.FC<{ children: React.ReactNode }> = async ({
       <FlyoutNav {...(mainMenuData || {})} />
       {/* <Navbar /> */}
       {children}
-      <Footer {...(footerData || {})} />
+      <Footer {...(footerData || {})} template="template-2" />
     </>
   )
 }

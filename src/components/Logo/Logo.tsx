@@ -34,7 +34,7 @@ export const Logo = (props: Props) => {
     <div
       className={cn(
         'max-w-[193px] w-full h-[34px] ',
-        'fill-red-700',
+        'fill-foreground',
         className,
       )}
     >

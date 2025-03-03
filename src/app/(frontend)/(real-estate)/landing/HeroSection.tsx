@@ -46,7 +46,7 @@ export const HeroSection = () => {
   return (
     <div
       className={cn(
-        'relative full-dynamic-height',
+        'relative full-dynamic-height w-screen',
         'mx-auto flex justify-center items-center',
       )}
     >
@@ -58,7 +58,7 @@ export const HeroSection = () => {
         className="object-cover object-center"
         priority
       />
-      <div className="absolute inset-0 bg-black bg-opacity-60 -z-1" />
+      <div className="absolute inset-0 bg-black/60" />
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
