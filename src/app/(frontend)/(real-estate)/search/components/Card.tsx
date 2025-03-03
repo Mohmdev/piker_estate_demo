@@ -19,13 +19,16 @@ export const SearchCard = ({
 
   const [imgSrc, setImgSrc] = useState(imageUrl)
 
+  console.log('IMAGE SRC:', imgSrc)
+  console.log('IMAGE URL:', imageUrl)
+
   return (
     <div className="bg-white rounded-xl overflow-hidden shadow-lg w-full mb-5">
       <div className="relative">
         <div className="w-full h-48 relative">
           <Image
             src={imgSrc}
-            alt={property.title}
+            alt={property.title || 'Property Image'}
             fill
             className="object-cover"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -85,7 +88,7 @@ export const SearchCard = ({
             </span>
           </div>
           <p className="text-lg font-bold mb-3">
-            ${property.price.toFixed(0)}{' '}
+            ${property.price?.toFixed(0)}{' '}
             <span className="text-gray-600 text-base font-normal"> /month</span>
           </p>
         </div>

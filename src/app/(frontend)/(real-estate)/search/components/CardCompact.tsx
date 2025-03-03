@@ -24,7 +24,7 @@ export const CardCompact: React.FC<CardCompactProps> = ({
       <div className="relative w-1/3">
         <Image
           src={imgSrc}
-          alt={property.title}
+          alt={property.title || 'Property Image'}
           fill
           className="object-cover"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -102,7 +102,7 @@ export const CardCompact: React.FC<CardCompactProps> = ({
           </div>
 
           <p className="text-base font-bold">
-            ${property.price.toFixed(0)}
+            ${property.price?.toFixed(0)}
             <span className="text-gray-600 text-xs font-normal"> /mo</span>
           </p>
         </div>

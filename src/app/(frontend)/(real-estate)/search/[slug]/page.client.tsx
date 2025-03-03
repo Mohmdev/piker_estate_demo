@@ -1,20 +1,20 @@
 'use client'
 
 import { getPropertyBySlug } from '@data/real-estate/getProperty'
-import { useAuth } from '@providers/Auth'
+// import { useAuth } from '@providers/Auth'
 import { useQuery } from '@tanstack/react-query'
 import { useParams } from 'next/navigation'
 import React, { useState } from 'react'
 import { ContactModal } from '../../properties/[slug]/ContactModal'
 import { ContactWidget } from './ContactWidget'
 import { ImagePreviews } from './ImagePreviews'
-import { PropertyDetails } from './PropertyDetails'
+// import { PropertyDetails } from './PropertyDetails'
 import { PropertyLocation } from './PropertyLocation'
 import { PropertyOverview } from './PropertyOverview'
 
 export default function SingleListingClient() {
   const { slug } = useParams()
-  const { user } = useAuth()
+  // const { user } = useAuth()
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const { data, isLoading, isError } = useQuery({
@@ -58,18 +58,18 @@ export default function SingleListingClient() {
         </div>
       </div>
 
-      {user && (
-        // <ApplicationModal
-        //   isOpen={isModalOpen}
-        //   onClose={() => setIsModalOpen(false)}
-        //   data={property}
-        // />
-        <ContactModal
+      {/* {user && (
+        <ApplicationModal
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
-          propertyTitle={property?.title}
+          data={property}
         />
-      )}
+      )} */}
+      <ContactModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        propertyTitle={property?.title}
+      />
     </div>
   )
 }

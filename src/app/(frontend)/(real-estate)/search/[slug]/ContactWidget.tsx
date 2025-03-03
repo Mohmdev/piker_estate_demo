@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button'
-import { useAuth } from '@providers/Auth'
+// import { useAuth } from '@providers/Auth'
 import { Phone } from 'lucide-react'
-import { useRouter } from 'next/navigation'
+// import { useRouter } from 'next/navigation'
 import React from 'react'
 
 type ContactWidgetProps = {
@@ -9,17 +9,17 @@ type ContactWidgetProps = {
 }
 
 export const ContactWidget: React.FC<ContactWidgetProps> = (props) => {
-  const { onOpenModal } = props
-  const { user } = useAuth()
-  const router = useRouter()
+  // const { onOpenModal } = props
+  // const { user } = useAuth()
+  // const router = useRouter()
 
-  const handleButtonClick = () => {
-    if (user) {
-      onOpenModal()
-    } else {
-      router.push('/login')
-    }
-  }
+  // const handleButtonClick = () => {
+  //   if (user) {
+  //     onOpenModal()
+  //   } else {
+  //     router.push('/login')
+  //   }
+  // }
 
   return (
     <div className="bg-white border border-primary-200 rounded-2xl p-7 h-fit min-w-[300px]">
@@ -35,12 +35,12 @@ export const ContactWidget: React.FC<ContactWidgetProps> = (props) => {
           </div>
         </div>
       </div>
-      <Button
+      {/* <Button
         className="w-full bg-primary-700 text-white hover:bg-primary-600"
         onClick={handleButtonClick}
       >
         {user ? 'Submit Application' : 'Sign In to Apply'}
-      </Button>
+      </Button> */}
 
       <hr className="my-4" />
       <div className="text-sm">

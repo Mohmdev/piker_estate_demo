@@ -12,7 +12,7 @@ import { debounce } from 'lodash'
 import { Filter, Grid, List, Search } from 'lucide-react'
 import { usePathname, useRouter } from 'next/navigation'
 import React, { useState } from 'react'
-import { PropertyTypeIcons } from './components/_constants'
+// import { PropertyTypeIcons } from './components/_constants'
 import { cleanParams, formatPriceValue } from './components/_utils'
 import { useFilters } from './components/filters-context'
 
@@ -224,14 +224,14 @@ const FiltersBar = () => {
           </SelectTrigger>
           <SelectContent className="bg-white">
             <SelectItem value="any">Any Property Type</SelectItem>
-            {Object.entries(PropertyTypeIcons).map(([type, Icon]) => (
+            {/* {Object.entries(PropertyTypeIcons).map(([type, Icon]) => (
               <SelectItem key={type} value={type}>
                 <div className="flex items-center">
                   <Icon className="w-4 h-4 mr-2" />
                   <span>{type}</span>
                 </div>
               </SelectItem>
-            ))}
+            ))} */}
           </SelectContent>
         </Select>
       </div>

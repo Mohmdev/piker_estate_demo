@@ -1,112 +1,96 @@
-import { getProperties } from '@data/real-estate/getProperty'
-// import type { Property } from '@payload-types'
-import { useAuth } from '@providers/Auth'
+'use client'
+
+import type { Property } from '@payload-types'
+// import { useAuth } from '@providers/Auth'
 import { useQuery } from '@tanstack/react-query'
 import React from 'react'
 import { SearchCard } from './components/Card'
 import { CardCompact } from './components/CardCompact'
 import { useFilters } from './components/filters-context'
+import { fetchProperties } from './utils/client-api'
 
-export const Listings: React.FC = () => {
-  const { user } = useAuth()
+interface ListingsProps {
+  records?: Property[]
+}
+
+export const Listings: React.FC<ListingsProps> = ({ records = [] }) => {
+  // const { user } = useAuth()
   const { viewMode, filters } = useFilters()
 
-  // We'll need to add viewMode to our filters context
-  // This query is redundant since records are passed as props
-  // But keeping it for reference on how to migrate from Redux RTK Query
+  // Only fetch if no records are provided
   const { data, isLoading, isError } = useQuery({
     queryKey: ['properties', filters],
     queryFn: () =>
-      getProperties({
-        where: filters
-          ? {
-              // Convert filters to the appropriate where clause format
-              // This would depend on your API structure
-              // Example:
-              ...(filters.location ? { location: filters.location } : {}),
-              ...(filters.beds && filters.beds !== 'any'
-                ? {
-                    'specs.rooms.num_bedrooms': {
-                      equals: parseInt(filters.beds, 10),
-                    },
-                  }
-                : {}),
-              // Add other filters as needed
-            }
-          : undefined,
-        limit: 12,
+      fetchProperties({
+        where: filters as unknown as Record<string, unknown>,
       }),
+    // Skip query if records are provided
+    enabled: records.length === 0,
   })
 
-  // const handleFavoriteToggle = async (propertyId: number) => {
-  //   if (!user) return
+  // Use provided records or fallback to fetched data
+  const properties = records.length > 0 ? records : data?.docs || []
 
-  //   // This functionality would need to be implemented with your new data fetching approach
-  //   // For example, using a mutation with React Query:
-  //   /*
-  //   const { mutate: toggleFavorite } = useMutation({
-  //     mutationFn: ({ propertyId, isFavorite }) =>
-  //       isFavorite
-  //         ? removeFavorite(user.id, propertyId)
-  //         : addFavorite(user.id, propertyId),
-  //     onSuccess: () => {
-  //       // Invalidate relevant queries
-  //       queryClient.invalidateQueries({ queryKey: ['properties'] })
-  //       queryClient.invalidateQueries({ queryKey: ['user', user.id] })
-  //     }
-  //   })
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
 
-  //   const isFavorite = user.favorites?.some(fav => fav.id === propertyId)
-  //   toggleFavorite({ propertyId, isFavorite })
-  //   */
-  // }
-
-  // Use the records passed as props instead of the query result
-  const properties = data?.docs
-
-  if (isLoading) return <>Loading...</>
-  if (isError || !properties) return <div>Failed to fetch properties</div>
+  if (isError) {
+    return <div>Error loading properties</div>
+  }
 
   return (
-    <div className="w-full">
-      <h3 className="text-sm px-4 font-bold">
-        {properties.length}{' '}
-        <span className="text-gray-700 font-normal">
-          Places in {filters.location}
-        </span>
-      </h3>
-      <div className="flex">
-        <div className="p-4 w-full">
-          {properties?.map((property) =>
-            viewMode === 'grid' ? (
-              <SearchCard
-                key={property.id}
-                property={property}
-                // isFavorite={
-                //   user?.favorites?.some(
-                //     (fav: Property) => fav.id === property.id,
-                //   ) || false
-                // }
-                // onFavoriteToggle={() => handleFavoriteToggle(property.id)}
-                showFavoriteButton={!!user}
-                propertyLink={`/search/${property.id}`}
-              />
-            ) : (
-              <CardCompact
-                key={property.id}
-                property={property}
-                // isFavorite={
-                //   user?.favorites?.some(
-                //     (fav: Property) => fav.id === property.id,
-                //   ) || false
-                // }
-                // onFavoriteToggle={() => handleFavoriteToggle(property.id)}
-                showFavoriteButton={!!user}
-                propertyLink={`/search/${property.id}`}
-              />
-            ),
-          )}
+    <div className="space-y-4">
+      <div className="flex justify-between items-center">
+        <h2 className="text-xl font-semibold">
+          {properties.length} Properties Found
+        </h2>
+        <div className="flex space-x-2">
+          <button
+            className={`p-2 rounded ${
+              viewMode === 'grid' ? 'bg-gray-200' : 'bg-white'
+            }`}
+            onClick={() => {
+              // Update view mode to grid
+            }}
+          >
+            Grid
+          </button>
+          <button
+            className={`p-2 rounded ${
+              viewMode === 'list' ? 'bg-gray-200' : 'bg-white'
+            }`}
+            onClick={() => {
+              // Update view mode to list
+            }}
+          >
+            List
+          </button>
         </div>
+      </div>
+
+      <div className="space-y-4">
+        {properties.length > 0 ? (
+          properties.map((property: Property) => (
+            <div key={property.id}>
+              {viewMode === 'grid' ? (
+                <CardCompact property={property} />
+              ) : (
+                <SearchCard
+                  property={property}
+                  isFavorite={false}
+                  onFavoriteToggle={() => {
+                    // Handle favorite toggle
+                  }}
+                />
+              )}
+            </div>
+          ))
+        ) : (
+          <div className="text-center py-8">
+            <p className="text-gray-500">No properties found</p>
+          </div>
+        )}
       </div>
     </div>
   )

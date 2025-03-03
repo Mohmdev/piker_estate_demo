@@ -3,7 +3,7 @@ import type { Property } from '@payload-types'
 
 declare global {
   interface CardCompactProps {
-    property: Property
+    property: Partial<Property>
     // TODO: Remove the optional flag once we have a way to get the favorite status
     isFavorite?: boolean
     onFavoriteToggle?: () => void
@@ -12,7 +12,7 @@ declare global {
   }
 
   interface ListingCardProps {
-    property: Property
+    property: Partial<Property>
     // TODO: Remove the optional flag once we have a way to get the favorite status
     isFavorite?: boolean
     onFavoriteToggle?: () => void

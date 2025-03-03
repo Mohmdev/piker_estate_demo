@@ -7,7 +7,7 @@ export interface FiltersState {
   beds: string
   baths: string
   propertyType: string
-  amenities: string[]
+  // amenities: string[]
   availableFrom: string
   priceRange: [number, number] | [null, null]
   squareFeet: [number, number] | [null, null]
@@ -29,7 +29,7 @@ const defaultFilters: FiltersState = {
   beds: 'any',
   baths: 'any',
   propertyType: 'any',
-  amenities: [],
+  // amenities: [],
   availableFrom: 'any',
   priceRange: [null, null],
   squareFeet: [null, null],

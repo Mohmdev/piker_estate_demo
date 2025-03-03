@@ -15,15 +15,23 @@ import { Search } from 'lucide-react'
 import { usePathname, useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 
-import { AmenityIcons, PropertyTypeIcons } from './components/_constants'
+// import { AmenityIcons, PropertyTypeIcons } from './components/_constants'
 
 import { cleanParams, formatEnumString } from './components/_utils'
 import { type FiltersState, useFilters } from './components/filters-context'
 
 // Define AmenityEnum type if not already defined elsewhere
-type AmenityEnum = string
+// type AmenityEnum = string
 
-const FiltersFull = () => {
+interface FilterFullProps {
+  initialFilters?: { [key: string]: string | string[] | undefined }
+  totalProperties?: number
+}
+
+const FiltersFull: React.FC<FilterFullProps> = ({
+  initialFilters = {},
+  totalProperties = 0,
+}) => {
   const router = useRouter()
   const pathname = usePathname()
   const { isFiltersFullOpen, filters, setFilters } = useFilters()
@@ -58,7 +66,7 @@ const FiltersFull = () => {
       beds: 'any',
       baths: 'any',
       propertyType: 'any',
-      amenities: [],
+      // amenities: [],
       availableFrom: 'any',
       priceRange: [null, null],
       squareFeet: [null, null],
@@ -70,14 +78,14 @@ const FiltersFull = () => {
     updateURL(defaultFilters)
   }
 
-  const handleAmenityChange = (amenity: AmenityEnum) => {
-    setLocalFilters((prev) => ({
-      ...prev,
-      amenities: prev.amenities.includes(amenity)
-        ? prev.amenities.filter((a) => a !== amenity)
-        : [...prev.amenities, amenity],
-    }))
-  }
+  // const handleAmenityChange = (amenity: AmenityEnum) => {
+  //   setLocalFilters((prev) => ({
+  //     ...prev,
+  //     amenities: prev.amenities.includes(amenity)
+  //       ? prev.amenities.filter((a) => a !== amenity)
+  //       : [...prev.amenities, amenity],
+  //   }))
+  // }
 
   const handleLocationSearch = async () => {
     try {
@@ -131,7 +139,7 @@ const FiltersFull = () => {
         <div>
           <h4 className="font-bold mb-2">Property Type</h4>
           <div className="grid grid-cols-2 gap-4">
-            {Object.entries(PropertyTypeIcons).map(([type, Icon]) => (
+            {/* {Object.entries(PropertyTypeIcons).map(([type, Icon]) => (
               <div
                 key={type}
                 className={cn(
@@ -159,7 +167,7 @@ const FiltersFull = () => {
                 <Icon className="w-6 h-6 mb-2" />
                 <span>{type}</span>
               </div>
-            ))}
+            ))} */}
           </div>
         </div>
 
@@ -259,7 +267,7 @@ const FiltersFull = () => {
         <div>
           <h4 className="font-bold mb-2">Amenities</h4>
           <div className="flex flex-wrap gap-2">
-            {Object.entries(AmenityIcons).map(([amenity, Icon]) => (
+            {/* {Object.entries(AmenityIcons).map(([amenity, Icon]) => (
               <div
                 key={amenity}
                 className={cn(
@@ -281,7 +289,7 @@ const FiltersFull = () => {
                   {formatEnumString(amenity)}
                 </Label>
               </div>
-            ))}
+            ))} */}
           </div>
         </div>
 

@@ -3,131 +3,109 @@
 import mapboxgl from 'mapbox-gl'
 import React, { useEffect, useRef } from 'react'
 import 'mapbox-gl/dist/mapbox-gl.css'
-import { getProperties } from '@data/real-estate/getProperty'
-// import { useGetPropertiesQuery } from '@/state/api'
-// import { useAppSelector } from '@/state/redux'
-// #TODO: Replace `Property` with `Search`
 import type { Property } from '@payload-types'
 import { useQuery } from '@tanstack/react-query'
 import { useFilters } from './components/filters-context'
+import { fetchProperties } from './utils/client-api'
 
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN as string
 
-export const MapBox = () => {
+interface MapBoxProps {
+  records?: Property[]
+}
+
+export const MapBox: React.FC<MapBoxProps> = ({ records = [] }) => {
   const mapContainerRef = useRef(null)
-  // const filters = useAppSelector((state) => state.global.filters)
-  // const {
-  //   data: properties,
-  //   isLoading,
-  //   isError,
-  // } = useGetPropertiesQuery(filters)
-  // const { user } = useAuth()
   const { filters } = useFilters()
-  const { data, isLoading, isError } = useQuery({
+
+  // Only fetch if no records are provided
+  const { data } = useQuery({
     queryKey: ['properties', filters],
     queryFn: () =>
-      getProperties({
-        where: filters
-          ? {
-              // Convert filters to the appropriate where clause format
-              // This would depend on your API structure
-              // Example:
-              ...(filters.location ? { location: filters.location } : {}),
-              ...(filters.beds && filters.beds !== 'any'
-                ? {
-                    'specs.rooms.num_bedrooms': {
-                      equals: parseInt(filters.beds, 10),
-                    },
-                  }
-                : {}),
-              // Add other filters as needed
-            }
-          : undefined,
-        limit: 12,
+      fetchProperties({
+        where: filters as unknown as Record<string, unknown>,
       }),
+    // Skip query if records are provided
+    enabled: records.length === 0,
   })
 
-  const properties = data?.docs
+  // Use provided records or fallback to fetched data
+  const properties = records.length > 0 ? records : data?.docs || []
 
   useEffect(() => {
-    if (isLoading || isError || !properties) return
+    if (!mapContainerRef.current) return
 
     const map = new mapboxgl.Map({
-      container: mapContainerRef.current!,
-      style: 'mapbox://styles/majesticglue/cm6u301pq008b01sl7yk1cnvb',
-      center: filters.coordinates || [-74.5, 40],
-      zoom: 9,
+      container: mapContainerRef.current,
+      style: 'mapbox://styles/mapbox/streets-v11',
+      center: [-118.25, 34.05], // Default to Los Angeles
+      zoom: 10,
     })
 
-    for (const property of properties) {
-      const marker = createPropertyMarker(property, map)
-      if (marker) {
-        const markerElement = marker.getElement()
-        const path = markerElement.querySelector("path[fill='#3FB1CE']")
-        if (path) path.setAttribute('fill', '#000000')
-      }
-    }
+    // Add navigation controls
+    map.addControl(new mapboxgl.NavigationControl(), 'top-right')
 
-    const resizeMap = () => {
-      if (map) setTimeout(() => map.resize(), 700)
-    }
-    resizeMap()
+    // Add markers for each property
+    properties.forEach((property: Property) => {
+      createPropertyMarker(property, map)
+    })
 
+    // Clean up on unmount
     return () => map.remove()
-  }, [isLoading, isError, properties, filters.coordinates])
+  }, [properties])
 
-  if (isLoading) return <>Loading...</>
-  if (isError || !properties) return <div>Failed to fetch properties</div>
+  const resizeMap = () => {
+    // This function can be used to trigger a map resize if needed
+    // For example, when the container size changes
+  }
 
   return (
-    <div className="basis-5/12 grow relative rounded-xl">
+    <div className="basis-8/12 h-full rounded-lg overflow-hidden">
       <div
-        className="map-container rounded-xl"
         ref={mapContainerRef}
-        style={{
-          height: '100%',
-          width: '100%',
-        }}
+        className="w-full h-full"
+        style={{ minHeight: '400px' }}
       />
     </div>
   )
 }
 
 const createPropertyMarker = (property: Property, map: mapboxgl.Map) => {
+  // Check if property has coordinates
   if (
-    !property.location?.coordinates?.latitude ||
-    !property.location?.coordinates?.longitude
+    property.location?.coordinates?.longitude &&
+    property.location?.coordinates?.latitude
   ) {
-    console.warn(
-      `Property "${property.title}" is missing coordinates; Skipping marker.`,
-    )
-    return null
+    const { longitude, latitude } = property.location.coordinates
+
+    // Create a marker element
+    const el = document.createElement('div')
+    el.className = 'property-marker'
+    el.style.backgroundColor = '#FF5A5F'
+    el.style.width = '25px'
+    el.style.height = '25px'
+    el.style.borderRadius = '50%'
+    el.style.display = 'flex'
+    el.style.justifyContent = 'center'
+    el.style.alignItems = 'center'
+    el.style.color = 'white'
+    el.style.fontWeight = 'bold'
+    el.style.cursor = 'pointer'
+    el.innerHTML = '$'
+
+    // Add a popup
+    const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(`
+      <div>
+        <h3>${property.title}</h3>
+        <p>${property.price ? `$${property.price.toLocaleString()}` : 'Price on request'}</p>
+        <a href="/properties/${property.slug}" target="_blank">View Details</a>
+      </div>
+    `)
+
+    // Add marker to map
+    new mapboxgl.Marker(el)
+      .setLngLat([longitude, latitude])
+      .setPopup(popup)
+      .addTo(map)
   }
-
-  const marker = new mapboxgl.Marker()
-    .setLngLat([
-      property.location.coordinates.longitude,
-      property.location.coordinates.latitude,
-    ])
-
-    .setPopup(
-      new mapboxgl.Popup().setHTML(
-        `
-        <div class="marker-popup">
-          <div class="marker-popup-image"></div>
-          <div>
-            <a href="/search/${property.id}" target="_blank" class="marker-popup-title">${property.title}</a>
-            <p class="marker-popup-price">
-              $${property.price}
-              <span class="marker-popup-price-unit"> / month</span>
-            </p>
-          </div>
-        </div>
-        `,
-      ),
-    )
-
-    .addTo(map)
-  //
-  return marker
 }
