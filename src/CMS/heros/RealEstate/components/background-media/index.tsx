@@ -4,7 +4,7 @@ import { Media } from '@components/Media'
 import type { Page } from '@payload-types'
 
 type BackgroundMediaProps = {
-  media: Page['hero']['media']
+  media: Page['heros']['media']
 }
 
 export const BackgroundMedia: React.FC<BackgroundMediaProps> = ({ media }) => {

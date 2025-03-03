@@ -13,7 +13,7 @@ const heroes = {
   advancedComponents: AdvancedComponentsHero,
 }
 
-export const RenderHero: React.FC<Page['hero']> = (props) => {
+export const RenderHero: React.FC<Page['heros']> = (props) => {
   const { type } = props || {}
 
   if (!type || type === 'none') return null

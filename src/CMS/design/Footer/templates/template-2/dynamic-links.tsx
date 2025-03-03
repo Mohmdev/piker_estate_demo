@@ -15,14 +15,22 @@ export const DynamicLinks: React.FC<DynamicLinksProps> = ({
   const { columns } = data
 
   if (!columns) return null
+
   return (
     <div
       className={cn(
+        'flex-1',
         'flex flex-col items-start md:flex-row gap-4 md:items-center',
         className,
       )}
     >
-      <nav className="flex flex-row gap-8">
+      <nav
+        className={cn(
+          //
+          'flex-1',
+          'flex flex-row gap-14',
+        )}
+      >
         {data &&
           columns.map((column, columnIndex) => {
             return (

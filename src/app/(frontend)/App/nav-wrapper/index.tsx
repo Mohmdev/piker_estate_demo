@@ -7,7 +7,7 @@ import type {
 } from '@payload-types'
 import { draftMode } from 'next/headers'
 import React from 'react'
-import { Navbar } from '../Navbar'
+// import { Navbar } from '../Navbar'
 
 export const NavWrapper: React.FC<{ children: React.ReactNode }> = async ({
   children,

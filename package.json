@@ -63,6 +63,7 @@
     "@tailwindcss/postcss": "^4.0.5",
     "@tailwindcss/typography": "^0.5.16",
     "@tanstack/react-query": "^5.66.0",
+    "@vercel/analytics": "^1.5.0",
     "@vercel/toolbar": "^0.1.30",
     "babel-plugin-react-compiler": "19.0.0-beta-30d8a17-20250209",
     "chalk": "^5.4.1",

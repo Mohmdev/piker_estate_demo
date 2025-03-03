@@ -8,7 +8,7 @@ import { IconGrid } from './components/icon-grid'
 import { MiniSlider } from './components/mini-slider'
 import { SearchFiltersForm } from './components/search-component/search-filters-form'
 
-export const AdvancedComponentsHero: React.FC<Page['hero']> = ({
+export const AdvancedComponentsHero: React.FC<Page['heros']> = ({
   links,
   media,
   richText,

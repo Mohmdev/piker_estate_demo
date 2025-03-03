@@ -9,7 +9,7 @@ import { Media } from '@components/Media'
 import RichText from '@components/RichText'
 import { cn } from '@utils/ui'
 
-export const HighImpactHero: React.FC<Page['hero']> = ({
+export const HighImpactHero: React.FC<Page['heros']> = ({
   links,
   media,
   richText,

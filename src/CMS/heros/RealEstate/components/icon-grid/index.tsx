@@ -18,7 +18,7 @@ import {
 import { motion } from 'motion/react'
 
 type IconGridProps = {
-  iconGrid: NonNullable<Page['hero']['iconGrid']>
+  iconGrid: NonNullable<Page['heros']['iconGrid']>
 }
 
 const iconMap = {

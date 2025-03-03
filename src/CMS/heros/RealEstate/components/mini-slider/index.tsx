@@ -7,8 +7,8 @@ import { cn } from '@utils/ui'
 import { motion } from 'motion/react'
 
 type MiniSliderProps = {
-  richText: Page['hero']['richText']
-  links: NonNullable<Page['hero']['links']>
+  richText: Page['heros']['richText']
+  links: NonNullable<Page['heros']['links']>
   className?: string
 }
 

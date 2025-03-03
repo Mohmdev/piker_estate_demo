@@ -15,7 +15,7 @@ import { motion } from 'motion/react'
 import { useCallback, useState } from 'react'
 
 type SearchFiltersFormProps = {
-  searchComponent: NonNullable<Page['hero']['searchComponent']>
+  searchComponent: NonNullable<Page['heros']['searchComponent']>
   className?: string
 }
 
