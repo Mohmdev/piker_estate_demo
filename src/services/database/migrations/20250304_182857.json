@@ -1,5 +1,5 @@
 {
-  "id": "2a861643-6665-4682-aa31-c7558347251a",
+  "id": "09e2be85-fc68-4f60-a832-347027720226",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -16042,8 +16042,8 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.search_categories": {
-      "name": "search_categories",
+    "public.search_taxonomies_classifications": {
+      "name": "search_taxonomies_classifications",
       "schema": "",
       "columns": {
         "_order": {
@@ -16078,8 +16078,8 @@
         }
       },
       "indexes": {
-        "search_categories_order_idx": {
-          "name": "search_categories_order_idx",
+        "search_taxonomies_classifications_order_idx": {
+          "name": "search_taxonomies_classifications_order_idx",
           "columns": [
             {
               "expression": "_order",
@@ -16093,8 +16093,8 @@
           "method": "btree",
           "with": {}
         },
-        "search_categories_parent_id_idx": {
-          "name": "search_categories_parent_id_idx",
+        "search_taxonomies_classifications_parent_id_idx": {
+          "name": "search_taxonomies_classifications_parent_id_idx",
           "columns": [
             {
               "expression": "_parent_id",
@@ -16110,12 +16110,95 @@
         }
       },
       "foreignKeys": {
-        "search_categories_parent_id_fk": {
-          "name": "search_categories_parent_id_fk",
-          "tableFrom": "search_categories",
+        "search_taxonomies_classifications_parent_id_fk": {
+          "name": "search_taxonomies_classifications_parent_id_fk",
+          "tableFrom": "search_taxonomies_classifications",
           "tableTo": "search",
           "columnsFrom": [
             "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.search_taxonomies_amenities": {
+      "name": "search_taxonomies_amenities",
+      "schema": "",
+      "columns": {
+        "order": {
+          "name": "order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "parent_id": {
+          "name": "parent_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "value": {
+          "name": "value",
+          "type": "enum_search_taxonomies_amenities",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "search_taxonomies_amenities_order_idx": {
+          "name": "search_taxonomies_amenities_order_idx",
+          "columns": [
+            {
+              "expression": "order",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "search_taxonomies_amenities_parent_idx": {
+          "name": "search_taxonomies_amenities_parent_idx",
+          "columns": [
+            {
+              "expression": "parent_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "search_taxonomies_amenities_parent_fk": {
+          "name": "search_taxonomies_amenities_parent_fk",
+          "tableFrom": "search_taxonomies_amenities",
+          "tableTo": "search",
+          "columnsFrom": [
+            "parent_id"
           ],
           "columnsTo": [
             "id"
@@ -16173,6 +16256,30 @@
         "meta_image_id": {
           "name": "meta_image_id",
           "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "meta_price": {
+          "name": "meta_price",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "taxonomies_availability_status": {
+          "name": "taxonomies_availability_status",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "taxonomies_listing_type": {
+          "name": "taxonomies_listing_type",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "taxonomies_condition": {
+          "name": "taxonomies_condition",
+          "type": "varchar",
           "primaryKey": false,
           "notNull": false
         },
@@ -16302,12 +16409,6 @@
           "primaryKey": false,
           "notNull": true
         },
-        "blog_id": {
-          "name": "blog_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
         "properties_id": {
           "name": "properties_id",
           "type": "integer",
@@ -16367,21 +16468,6 @@
           "method": "btree",
           "with": {}
         },
-        "search_rels_blog_id_idx": {
-          "name": "search_rels_blog_id_idx",
-          "columns": [
-            {
-              "expression": "blog_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
         "search_rels_properties_id_idx": {
           "name": "search_rels_properties_id_idx",
           "columns": [
@@ -16420,19 +16506,6 @@
           "tableTo": "search",
           "columnsFrom": [
             "parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        },
-        "search_rels_blog_fk": {
-          "name": "search_rels_blog_fk",
-          "tableFrom": "search_rels",
-          "tableTo": "blog",
-          "columnsFrom": [
-            "blog_id"
           ],
           "columnsTo": [
             "id"
@@ -25429,6 +25502,11 @@
         "editor",
         "public"
       ]
+    },
+    "public.enum_search_taxonomies_amenities": {
+      "name": "enum_search_taxonomies_amenities",
+      "schema": "public",
+      "values": []
     },
     "public.enum_forms_confirmation_type": {
       "name": "enum_forms_confirmation_type",

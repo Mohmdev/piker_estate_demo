@@ -135,6 +135,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE TYPE "public"."enum_tags_status" AS ENUM('draft', 'published');
   CREATE TYPE "public"."enum__tags_v_version_status" AS ENUM('draft', 'published');
   CREATE TYPE "public"."enum_users_role" AS ENUM('admin', 'editor', 'public');
+  CREATE TYPE "public"."enum_search_taxonomies_amenities" AS ENUM();
   CREATE TYPE "public"."enum_forms_confirmation_type" AS ENUM('message', 'redirect');
   CREATE TYPE "public"."enum_redirects_to_type" AS ENUM('reference', 'custom');
   CREATE TYPE "public"."enum_payload_jobs_log_task_slug" AS ENUM('inline', 'schedulePublish');
@@ -1437,12 +1438,19 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"sizes_original_filename" varchar
   );
   
-  CREATE TABLE IF NOT EXISTS "search_categories" (
+  CREATE TABLE IF NOT EXISTS "search_taxonomies_classifications" (
   	"_order" integer NOT NULL,
   	"_parent_id" integer NOT NULL,
   	"id" varchar PRIMARY KEY NOT NULL,
   	"relation_to" varchar,
   	"title" varchar
+  );
+  
+  CREATE TABLE IF NOT EXISTS "search_taxonomies_amenities" (
+  	"order" integer NOT NULL,
+  	"parent_id" integer NOT NULL,
+  	"value" "enum_search_taxonomies_amenities",
+  	"id" serial PRIMARY KEY NOT NULL
   );
   
   CREATE TABLE IF NOT EXISTS "search" (
@@ -1453,6 +1461,10 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"meta_title" varchar,
   	"meta_description" varchar,
   	"meta_image_id" integer,
+  	"meta_price" numeric,
+  	"taxonomies_availability_status" varchar,
+  	"taxonomies_listing_type" varchar,
+  	"taxonomies_condition" varchar,
   	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
   	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
   );
@@ -1462,7 +1474,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"order" integer,
   	"parent_id" integer NOT NULL,
   	"path" varchar NOT NULL,
-  	"blog_id" integer,
   	"properties_id" integer,
   	"projects_id" integer
   );
@@ -3121,7 +3132,13 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   END $$;
   
   DO $$ BEGIN
-   ALTER TABLE "search_categories" ADD CONSTRAINT "search_categories_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."search"("id") ON DELETE cascade ON UPDATE no action;
+   ALTER TABLE "search_taxonomies_classifications" ADD CONSTRAINT "search_taxonomies_classifications_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."search"("id") ON DELETE cascade ON UPDATE no action;
+  EXCEPTION
+   WHEN duplicate_object THEN null;
+  END $$;
+  
+  DO $$ BEGIN
+   ALTER TABLE "search_taxonomies_amenities" ADD CONSTRAINT "search_taxonomies_amenities_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."search"("id") ON DELETE cascade ON UPDATE no action;
   EXCEPTION
    WHEN duplicate_object THEN null;
   END $$;
@@ -3134,12 +3151,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   
   DO $$ BEGIN
    ALTER TABLE "search_rels" ADD CONSTRAINT "search_rels_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."search"("id") ON DELETE cascade ON UPDATE no action;
-  EXCEPTION
-   WHEN duplicate_object THEN null;
-  END $$;
-  
-  DO $$ BEGIN
-   ALTER TABLE "search_rels" ADD CONSTRAINT "search_rels_blog_fk" FOREIGN KEY ("blog_id") REFERENCES "public"."blog"("id") ON DELETE cascade ON UPDATE no action;
   EXCEPTION
    WHEN duplicate_object THEN null;
   END $$;
@@ -3993,8 +4004,10 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX IF NOT EXISTS "user_photos_sizes_thumbnail_sizes_thumbnail_filename_idx" ON "user_photos" USING btree ("sizes_thumbnail_filename");
   CREATE INDEX IF NOT EXISTS "user_photos_sizes_avatar_sizes_avatar_filename_idx" ON "user_photos" USING btree ("sizes_avatar_filename");
   CREATE INDEX IF NOT EXISTS "user_photos_sizes_original_sizes_original_filename_idx" ON "user_photos" USING btree ("sizes_original_filename");
-  CREATE INDEX IF NOT EXISTS "search_categories_order_idx" ON "search_categories" USING btree ("_order");
-  CREATE INDEX IF NOT EXISTS "search_categories_parent_id_idx" ON "search_categories" USING btree ("_parent_id");
+  CREATE INDEX IF NOT EXISTS "search_taxonomies_classifications_order_idx" ON "search_taxonomies_classifications" USING btree ("_order");
+  CREATE INDEX IF NOT EXISTS "search_taxonomies_classifications_parent_id_idx" ON "search_taxonomies_classifications" USING btree ("_parent_id");
+  CREATE INDEX IF NOT EXISTS "search_taxonomies_amenities_order_idx" ON "search_taxonomies_amenities" USING btree ("order");
+  CREATE INDEX IF NOT EXISTS "search_taxonomies_amenities_parent_idx" ON "search_taxonomies_amenities" USING btree ("parent_id");
   CREATE INDEX IF NOT EXISTS "search_slug_idx" ON "search" USING btree ("slug");
   CREATE INDEX IF NOT EXISTS "search_meta_meta_image_idx" ON "search" USING btree ("meta_image_id");
   CREATE INDEX IF NOT EXISTS "search_updated_at_idx" ON "search" USING btree ("updated_at");
@@ -4002,7 +4015,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX IF NOT EXISTS "search_rels_order_idx" ON "search_rels" USING btree ("order");
   CREATE INDEX IF NOT EXISTS "search_rels_parent_idx" ON "search_rels" USING btree ("parent_id");
   CREATE INDEX IF NOT EXISTS "search_rels_path_idx" ON "search_rels" USING btree ("path");
-  CREATE INDEX IF NOT EXISTS "search_rels_blog_id_idx" ON "search_rels" USING btree ("blog_id");
   CREATE INDEX IF NOT EXISTS "search_rels_properties_id_idx" ON "search_rels" USING btree ("properties_id");
   CREATE INDEX IF NOT EXISTS "search_rels_projects_id_idx" ON "search_rels" USING btree ("projects_id");
   CREATE INDEX IF NOT EXISTS "forms_blocks_checkbox_order_idx" ON "forms_blocks_checkbox" USING btree ("_order");
@@ -4252,7 +4264,8 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   DROP TABLE "assets" CASCADE;
   DROP TABLE "users" CASCADE;
   DROP TABLE "user_photos" CASCADE;
-  DROP TABLE "search_categories" CASCADE;
+  DROP TABLE "search_taxonomies_classifications" CASCADE;
+  DROP TABLE "search_taxonomies_amenities" CASCADE;
   DROP TABLE "search" CASCADE;
   DROP TABLE "search_rels" CASCADE;
   DROP TABLE "forms_blocks_checkbox" CASCADE;
@@ -4434,6 +4447,7 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   DROP TYPE "public"."enum_tags_status";
   DROP TYPE "public"."enum__tags_v_version_status";
   DROP TYPE "public"."enum_users_role";
+  DROP TYPE "public"."enum_search_taxonomies_amenities";
   DROP TYPE "public"."enum_forms_confirmation_type";
   DROP TYPE "public"."enum_redirects_to_type";
   DROP TYPE "public"."enum_payload_jobs_log_task_slug";

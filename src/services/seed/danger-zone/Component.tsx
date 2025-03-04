@@ -11,6 +11,7 @@ import { SeedProjects } from './projects/seed'
 import { ResetProperties } from './properties/reset'
 import { SeedProperties } from './properties/seed'
 import { HardResetDatabase } from './reset/hard-reset'
+import { MediaReset } from './reset/media-reset'
 
 export const DbInteractionZone: React.FC = () => {
   return (
@@ -84,6 +85,7 @@ export const DbInteractionZone: React.FC = () => {
             <SeedClassifications />
             <ResetClassifications />
           </div>
+          <MediaReset className="w-full" />
           {/* <div
             className={cn(
               'flex flex-row flex-nowrap gap-4',

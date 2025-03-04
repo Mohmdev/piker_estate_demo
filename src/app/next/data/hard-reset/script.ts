@@ -17,9 +17,6 @@ const collections: CollectionSlug[] = [
   'forms',
   'form-submissions',
   'classifications',
-  'contracts',
-  'availability',
-  'amenities',
   'properties',
   'projects',
 ]

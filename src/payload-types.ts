@@ -2257,10 +2257,6 @@ export interface Search {
   priority?: number | null;
   doc:
     | {
-        relationTo: 'blog';
-        value: number | Blog;
-      }
-    | {
         relationTo: 'properties';
         value: number | Property;
       }
@@ -2273,14 +2269,26 @@ export interface Search {
     title?: string | null;
     description?: string | null;
     image?: (number | null) | Media;
+    price?: number | null;
   };
-  categories?:
-    | {
-        relationTo?: string | null;
-        id?: string | null;
-        title?: string | null;
-      }[]
-    | null;
+  taxonomies?: {
+    classifications?:
+      | {
+          relationTo?: string | null;
+          title?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    amenities?:
+      | {
+          value?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    availabilityStatus?: string | null;
+    listingType?: string | null;
+    condition?: string | null;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -3176,13 +3184,27 @@ export interface SearchSelect<T extends boolean = true> {
         title?: T;
         description?: T;
         image?: T;
+        price?: T;
       };
-  categories?:
+  taxonomies?:
     | T
     | {
-        relationTo?: T;
-        id?: T;
-        title?: T;
+        classifications?:
+          | T
+          | {
+              relationTo?: T;
+              title?: T;
+              id?: T;
+            };
+        amenities?:
+          | T
+          | {
+              value?: T;
+              id?: T;
+            };
+        availabilityStatus?: T;
+        listingType?: T;
+        condition?: T;
       };
   updatedAt?: T;
   createdAt?: T;

@@ -39,7 +39,7 @@ export const NESTING_ENABLED_COLLECTIONS: CollectionSlug[] = [
 ] as const
 /* --------------------------------- Search --------------------------------- */
 export const SYNC_TO_SEARCH_ENABLED_COLLECTIONS: CollectionSlug[] = [
-  'blog',
+  // 'blog',
   'properties',
   'projects',
 ] as const
