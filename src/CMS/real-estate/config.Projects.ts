@@ -21,8 +21,11 @@ import { getCollectionLivePreviewURL } from '@services/live-preview/getCollectio
 import { getCollectionPreviewURL } from '@services/live-preview/getCollectionPreviewURL'
 import { isIncludedInSibling } from '@utils/siblingFieldCondition'
 import type { CollectionConfig } from 'payload'
+import { amenitiesInterface } from './glossary/amenities/interface.amenities'
+import { availabilityStatusInterface } from './glossary/availability-status/interface.availabilityStatus'
 import { galleryGroup } from './glossary/gallery/config.gallery'
 import { LocationInterface } from './glossary/interface.location'
+import { listingTypeInterface } from './glossary/listing-type/interface.listingType'
 
 export const Projects: CollectionConfig<'projects'> = {
   slug: 'projects',
@@ -174,35 +177,11 @@ export const Projects: CollectionConfig<'projects'> = {
                     allowEdit: true,
                   },
                 },
-                {
-                  label: 'Contract',
-                  name: 'contract',
-                  type: 'relationship',
-                  relationTo: 'contracts',
-                  hasMany: false,
-                  // required: true,
-                },
-                {
-                  label: 'Availability',
-                  name: 'availability',
-                  type: 'relationship',
-                  relationTo: 'availability',
-                  hasMany: false,
-                  // required: true,
-                },
+                listingTypeInterface,
+                availabilityStatusInterface,
               ],
             },
-            {
-              type: 'relationship',
-              name: 'amenities',
-              relationTo: 'amenities',
-              hasMany: true,
-              label: 'Amenities',
-              admin: {
-                isSortable: true,
-                allowEdit: true,
-              },
-            },
+            amenitiesInterface,
             galleryGroup,
           ],
         },

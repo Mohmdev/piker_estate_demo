@@ -48,14 +48,7 @@ const dirname = path.dirname(filename)
 
 export default buildConfig({
   collections: [
-    ...collectionGroup('Real Estate', [
-      Projects,
-      Properties,
-      Classifications,
-      Amenities,
-      Availability,
-      Contracts,
-    ]),
+    ...collectionGroup('Real Estate', [Projects, Properties, Classifications]),
     ...collectionGroup('Marketing', [Pages, Blog, BlogCategories, Tags]),
     ...collectionGroup('Resources', [Media, Assets]),
     ...collectionGroup('Accounts', [Users, UserPhotos]),

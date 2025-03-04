@@ -8,20 +8,79 @@
 
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "PropertyAmenities".
+ * via the `definition` "PropertyConditionInterface".
  */
-export type PropertyAmenities =
+export type PropertyConditionInterface = ('brandNew' | 'renovated' | 'wellMaintained' | 'needsRenovation')[] | null;
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ListingTypeInterface".
+ */
+export type ListingTypeInterface = ('sale' | 'rent')[] | null;
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AvailabilityStatusInterface".
+ */
+export type AvailabilityStatusInterface =
   | (
-      | 'fastInternet'
-      | 'washerDryer'
-      | 'airConditioning'
-      | 'heating'
+      | 'available'
+      | 'preLaunchRegistration'
+      | 'reserved'
+      | 'occupied'
+      | 'rented'
+      | 'sold'
+      | 'onHold'
+      | 'noLongerAvailable'
+    )[]
+  | null;
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AmenitiesInterface".
+ */
+export type AmenitiesInterface =
+  | (
+      | 'securitySystem'
+      | 'security247'
+      | 'accessControl'
+      | 'intercom'
       | 'parking'
+      | 'coveredParking'
+      | 'valetService'
+      | 'evCharging'
+      | 'bicycleStorage'
       | 'swimmingPool'
       | 'gym'
+      | 'spaFacilities'
+      | 'saunaAndSteam'
+      | 'childrensPlayArea'
+      | 'sportsCourts'
+      | 'walkingTrack'
+      | 'bbqArea'
+      | 'gamesRoom'
+      | 'businessCenter'
+      | 'coworkingSpace'
+      | 'meetingRooms'
+      | 'maintenance247'
+      | 'conciergeService'
+      | 'buildingManagement'
+      | 'packageReception'
+      | 'housekeepingServices'
+      | 'airConditioning'
+      | 'heating'
+      | 'smartHome'
+      | 'fastInternet'
+      | 'builtInWardrobes'
+      | 'fittedKitchen'
+      | 'builtInAppliances'
+      | 'laundryRoom'
+      | 'washerDryer'
+      | 'balconyTerrace'
+      | 'privateGarden'
+      | 'scenicViews'
       | 'petFriendly'
+      | 'privatePool'
+      | 'privateElevator'
+      | 'maidsRoom'
       | 'furnished'
-      | 'securitySystem'
     )[]
   | null;
 /**
@@ -352,9 +411,6 @@ export interface Config {
     projects: Project;
     properties: Property;
     classifications: Classification;
-    amenities: Amenity;
-    availability: Availability;
-    contracts: Contract;
     pages: Page;
     blog: Blog;
     'blog-categories': BlogCategory;
@@ -376,15 +432,6 @@ export interface Config {
     classifications: {
       properties: 'properties';
     };
-    amenities: {
-      properties: 'properties';
-    };
-    availability: {
-      properties: 'properties';
-    };
-    contracts: {
-      properties: 'properties';
-    };
     'blog-categories': {
       records: 'blog';
     };
@@ -400,9 +447,6 @@ export interface Config {
     projects: ProjectsSelect<false> | ProjectsSelect<true>;
     properties: PropertiesSelect<false> | PropertiesSelect<true>;
     classifications: ClassificationsSelect<false> | ClassificationsSelect<true>;
-    amenities: AmenitiesSelect<false> | AmenitiesSelect<true>;
-    availability: AvailabilitySelect<false> | AvailabilitySelect<true>;
-    contracts: ContractsSelect<false> | ContractsSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     blog: BlogSelect<false> | BlogSelect<true>;
     'blog-categories': BlogCategoriesSelect<false> | BlogCategoriesSelect<true>;
@@ -563,18 +607,6 @@ export interface Page {
         | {
             relationTo: 'classifications';
             value: number | Classification;
-          }
-        | {
-            relationTo: 'contracts';
-            value: number | Contract;
-          }
-        | {
-            relationTo: 'availability';
-            value: number | Availability;
-          }
-        | {
-            relationTo: 'amenities';
-            value: number | Amenity;
           }
       )[]
     | null;
@@ -759,18 +791,6 @@ export interface Blog {
         | {
             relationTo: 'classifications';
             value: number | Classification;
-          }
-        | {
-            relationTo: 'contracts';
-            value: number | Contract;
-          }
-        | {
-            relationTo: 'availability';
-            value: number | Availability;
-          }
-        | {
-            relationTo: 'amenities';
-            value: number | Amenity;
           }
       )[]
     | null;
@@ -1113,16 +1133,11 @@ export interface Property {
   id: number;
   title: string;
   price: number;
-  amenitiesSelect?: PropertyAmenities;
-  condition?: ('brand-new' | 'renovated' | 'well-maintained' | 'needs-renovation' | 'custom') | null;
-  /**
-   * Enter a custom condition
-   */
-  customCondition?: string | null;
-  contract: (number | Contract)[];
-  availability: (number | Availability)[];
+  condition?: PropertyConditionInterface;
+  listingType?: ListingTypeInterface;
+  availabilityStatus?: AvailabilityStatusInterface;
   classification: (number | Classification)[];
-  amenities?: (number | Amenity)[] | null;
+  amenities?: AmenitiesInterface;
   gallery?: {
     /**
      * Upload up to 24 high-quality images.
@@ -1183,18 +1198,6 @@ export interface Property {
             relationTo: 'classifications';
             value: number | Classification;
           }
-        | {
-            relationTo: 'contracts';
-            value: number | Contract;
-          }
-        | {
-            relationTo: 'availability';
-            value: number | Availability;
-          }
-        | {
-            relationTo: 'amenities';
-            value: number | Amenity;
-          }
       )[]
     | null;
   tags?: (number | Tag)[] | null;
@@ -1241,91 +1244,151 @@ export interface Property {
   _status?: ('draft' | 'published') | null;
 }
 /**
- * Define different types of property transactions (sale, rent, lease, etc.)
- *
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "contracts".
+ * via the `definition` "SpecificationsInterface".
  */
-export interface Contract {
-  id: number;
-  title: string;
-  properties?: {
-    docs?: (number | Property)[];
-    hasNextPage?: boolean;
-    totalDocs?: number;
+export interface SpecificationsInterface {
+  averageRating?: number | null;
+  numberOfReviews?: number | null;
+  isPetsAllowed?: boolean | null;
+  isParkingIncluded?: boolean | null;
+  measurements?: {
+    sizeRange?: ('small' | 'medium' | 'large' | 'xlarge') | null;
+    /**
+     * Interior living space in square meters
+     */
+    property_size?: number | null;
+    /**
+     * Total land area in square meters
+     */
+    block_size?: number | null;
+    /**
+     * Property frontage in meters
+     */
+    frontage?: number | null;
+    /**
+     * Property depth in meters
+     */
+    depth?: number | null;
+  };
+  rooms?: {
+    /**
+     * Number of bedrooms
+     */
+    num_bedrooms?: number | null;
+    /**
+     * Number of bathrooms (0.5 = powder room)
+     */
+    num_bathrooms?: number | null;
+    /**
+     * Number of car parking spaces
+     */
+    num_carspaces?: number | null;
+    /**
+     * Number of floors in the property
+     */
+    num_floors?: number | null;
+  };
+  construction?: {
+    /**
+     * Year the property was constructed
+     */
+    year_built?: number | null;
+    /**
+     * Year of last major renovation
+     */
+    last_renovated?: number | null;
+    /**
+     * Primary construction material/method
+     */
+    construction_type?: ('brick' | 'timber' | 'concrete' | 'steel' | 'mixed') | null;
+  };
+  utilities?: {
+    /**
+     * Energy efficiency rating
+     */
+    energy_rating?: ('A' | 'B' | 'C' | 'D' | 'E') | null;
+    heating_type?: ('central' | 'electric' | 'gas' | 'heat-pump' | 'none') | null;
+    cooling_type?: ('central' | 'split' | 'window' | 'none') | null;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LocationInterface".
+ */
+export interface LocationInterface {
+  buildingName?: string | null;
+  neighborhood?: string | null;
+  address_line1?: string | null;
+  unit?: string | null;
+  address_line2?: string | null;
+  postcode?: string | null;
+  city?: string | null;
+  state?: string | null;
+  countrySelect?: CountrySelect;
+  accessibility?: ('metro-connected' | 'bus-connected' | 'car-dependent' | 'walk-friendly' | 'custom') | null;
+  customAccessibility?: string | null;
+  /**
+   * Precise geographical coordinates for mapping
+   */
+  coordinates?: {
+    /**
+     * A code that can make it easier to find a location on a map. It is a combination of a latitude and longitude, and is encoded in a string of letters and numbers.
+     */
+    plusCode?: string | null;
+    /**
+     * North-South position
+     */
+    latitude?: number | null;
+    /**
+     * East-West position
+     */
+    longitude?: number | null;
   };
   /**
-   * Describe this type of contract/transaction
+   * Notable places near the property
    */
-  description?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  /**
-   * Icon or representative image for this sale type
-   */
-  image?: (number | null) | Media;
-  /**
-   * Content that are related to this one. Could be a page, or post, that you would like to feature in this document.
-   */
-  relatedDocs?:
-    | (
-        | {
-            relationTo: 'pages';
-            value: number | Page;
-          }
-        | {
-            relationTo: 'blog';
-            value: number | Blog;
-          }
-        | {
-            relationTo: 'properties';
-            value: number | Property;
-          }
-        | {
-            relationTo: 'projects';
-            value: number | Project;
-          }
-      )[]
-    | null;
-  meta?: Meta;
-  /**
-   * When checked, this page will not appear in search engines like Google. Use this for private pages or temporary content that should not be publicly searchable.
-   */
-  noindex?: boolean | null;
-  authors?: (number | User)[] | null;
-  populatedAuthors?:
+  landmarks?:
     | {
-        id?: string | null;
-        username?: string | null;
-      }[]
-    | null;
-  publishedAt?: string | null;
-  slug?: string | null;
-  slugLock?: boolean | null;
-  parent?: (number | null) | Contract;
-  breadcrumbs?:
-    | {
-        doc?: (number | null) | Contract;
-        url?: string | null;
-        label?: string | null;
+        name?: string | null;
+        distance?: number | null;
         id?: string | null;
       }[]
     | null;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FinanceInterface".
+ */
+export interface FinanceInterface {
+  market?:
+    | ('economy' | 'mid-market' | 'luxury' | 'ultra-luxury' | 'commercial' | 'industrial' | 'other' | 'custom')
+    | null;
+  /**
+   * Enter a custom market segment
+   */
+  customMarket?: string | null;
+  /**
+   * Does this transaction type require a deposit?
+   */
+  requiresDeposit?: boolean | null;
+  depositType?: ('percentage' | 'amount') | null;
+  depositAmount?: number | null;
+  depositPercentage?: number | null;
+  /**
+   * Does this property have installments?
+   */
+  hasInstallments?: boolean | null;
+  installmentsNumber?: number | null;
+  installmentAmount?: number | null;
+  targetResidents?:
+    | ('families' | 'couples' | 'professionals' | 'executives' | 'singles' | 'students' | 'retired' | 'custom')
+    | null;
+  customTargetResidents?: string | null;
+  investmentPotential?: ('high' | 'medium' | 'low' | 'custom') | null;
+  customInvestmentPotential?: string | null;
+  investmentType?: ('rental-income' | 'value-appreciation' | 'mixed-use' | 'custom') | null;
+  customInvestmentType?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1356,9 +1419,9 @@ export interface Project {
    */
   properties?: (number | Property)[] | null;
   classification?: (number | Classification)[] | null;
-  contract?: (number | null) | Contract;
-  availability?: (number | null) | Availability;
-  amenities?: (number | Amenity)[] | null;
+  listingType?: ListingTypeInterface;
+  availabilityStatus?: AvailabilityStatusInterface;
+  amenities?: AmenitiesInterface;
   gallery?: {
     /**
      * Upload up to 24 high-quality images.
@@ -1427,18 +1490,6 @@ export interface Project {
             relationTo: 'classifications';
             value: number | Classification;
           }
-        | {
-            relationTo: 'contracts';
-            value: number | Contract;
-          }
-        | {
-            relationTo: 'availability';
-            value: number | Availability;
-          }
-        | {
-            relationTo: 'amenities';
-            value: number | Amenity;
-          }
       )[]
     | null;
   tags?: (number | Tag)[] | null;
@@ -1480,109 +1531,6 @@ export interface Project {
   publishedAt?: string | null;
   slug?: string | null;
   slugLock?: boolean | null;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * Define and manage different states a property listing can have
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "availability".
- */
-export interface Availability {
-  id: number;
-  title: string;
-  properties?: {
-    docs?: (number | Property)[];
-    hasNextPage?: boolean;
-    totalDocs?: number;
-  };
-  /**
-   * Can users make inquiries about properties with this status?
-   */
-  allowInquiries?: boolean | null;
-  /**
-   * Should properties with this status appear in search results?
-   */
-  showInSearch?: boolean | null;
-  /**
-   * Describe what this availability status means
-   */
-  description?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  /**
-   * Color used to visually identify this status
-   */
-  color?: ('green' | 'blue' | 'yellow' | 'red' | 'gray' | 'purple') | null;
-  /**
-   * Representative image for this availability status
-   */
-  image?: (number | null) | Media;
-  /**
-   * Icon for this availability status
-   */
-  icon?: (number | null) | Media;
-  /**
-   * Content that are related to this one. Could be a page, or post, that you would like to feature in this document.
-   */
-  relatedDocs?:
-    | (
-        | {
-            relationTo: 'pages';
-            value: number | Page;
-          }
-        | {
-            relationTo: 'blog';
-            value: number | Blog;
-          }
-        | {
-            relationTo: 'properties';
-            value: number | Property;
-          }
-        | {
-            relationTo: 'projects';
-            value: number | Project;
-          }
-      )[]
-    | null;
-  meta?: Meta;
-  /**
-   * When checked, this page will not appear in search engines like Google. Use this for private pages or temporary content that should not be publicly searchable.
-   */
-  noindex?: boolean | null;
-  authors?: (number | User)[] | null;
-  populatedAuthors?:
-    | {
-        id?: string | null;
-        username?: string | null;
-      }[]
-    | null;
-  publishedAt?: string | null;
-  slug?: string | null;
-  slugLock?: boolean | null;
-  parent?: (number | null) | Availability;
-  breadcrumbs?:
-    | {
-        doc?: (number | null) | Availability;
-        url?: string | null;
-        label?: string | null;
-        id?: string | null;
-      }[]
-    | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -1673,244 +1621,6 @@ export interface UserPhoto {
       filename?: string | null;
     };
   };
-}
-/**
- * Manage property amenities and features that can be assigned to properties
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "amenities".
- */
-export interface Amenity {
-  id: number;
-  title: string;
-  properties?: {
-    docs?: (number | Property)[];
-    hasNextPage?: boolean;
-    totalDocs?: number;
-  };
-  /**
-   * Mark if this is a premium or luxury amenity
-   */
-  isPremium?: boolean | null;
-  /**
-   * Brief description of this amenity and its benefits
-   */
-  description?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  /**
-   * Upload an image or icon for this amenity
-   */
-  image?: (number | null) | Media;
-  /**
-   * Content that are related to this one. Could be a page, or post, that you would like to feature in this document.
-   */
-  relatedDocs?:
-    | (
-        | {
-            relationTo: 'pages';
-            value: number | Page;
-          }
-        | {
-            relationTo: 'blog';
-            value: number | Blog;
-          }
-        | {
-            relationTo: 'properties';
-            value: number | Property;
-          }
-        | {
-            relationTo: 'projects';
-            value: number | Project;
-          }
-      )[]
-    | null;
-  meta?: Meta;
-  /**
-   * When checked, this page will not appear in search engines like Google. Use this for private pages or temporary content that should not be publicly searchable.
-   */
-  noindex?: boolean | null;
-  authors?: (number | User)[] | null;
-  populatedAuthors?:
-    | {
-        id?: string | null;
-        username?: string | null;
-      }[]
-    | null;
-  publishedAt?: string | null;
-  slug?: string | null;
-  slugLock?: boolean | null;
-  parent?: (number | null) | Amenity;
-  breadcrumbs?:
-    | {
-        doc?: (number | null) | Amenity;
-        url?: string | null;
-        label?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "LocationInterface".
- */
-export interface LocationInterface {
-  buildingName?: string | null;
-  neighborhood?: string | null;
-  address_line1?: string | null;
-  unit?: string | null;
-  address_line2?: string | null;
-  postcode?: string | null;
-  city?: string | null;
-  state?: string | null;
-  countrySelect?: CountrySelect;
-  accessibility?: ('metro-connected' | 'bus-connected' | 'car-dependent' | 'walk-friendly' | 'custom') | null;
-  customAccessibility?: string | null;
-  /**
-   * Precise geographical coordinates for mapping
-   */
-  coordinates?: {
-    /**
-     * A code that can make it easier to find a location on a map. It is a combination of a latitude and longitude, and is encoded in a string of letters and numbers.
-     */
-    plusCode?: string | null;
-    /**
-     * North-South position
-     */
-    latitude?: number | null;
-    /**
-     * East-West position
-     */
-    longitude?: number | null;
-  };
-  /**
-   * Notable places near the property
-   */
-  landmarks?:
-    | {
-        name?: string | null;
-        distance?: number | null;
-        id?: string | null;
-      }[]
-    | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "SpecificationsInterface".
- */
-export interface SpecificationsInterface {
-  averageRating?: number | null;
-  numberOfReviews?: number | null;
-  isPetsAllowed?: boolean | null;
-  isParkingIncluded?: boolean | null;
-  measurements?: {
-    sizeRange?: ('small' | 'medium' | 'large' | 'xlarge') | null;
-    /**
-     * Interior living space in square meters
-     */
-    property_size?: number | null;
-    /**
-     * Total land area in square meters
-     */
-    block_size?: number | null;
-    /**
-     * Property frontage in meters
-     */
-    frontage?: number | null;
-    /**
-     * Property depth in meters
-     */
-    depth?: number | null;
-  };
-  rooms?: {
-    /**
-     * Number of bedrooms
-     */
-    num_bedrooms?: number | null;
-    /**
-     * Number of bathrooms (0.5 = powder room)
-     */
-    num_bathrooms?: number | null;
-    /**
-     * Number of car parking spaces
-     */
-    num_carspaces?: number | null;
-    /**
-     * Number of floors in the property
-     */
-    num_floors?: number | null;
-  };
-  construction?: {
-    /**
-     * Year the property was constructed
-     */
-    year_built?: number | null;
-    /**
-     * Year of last major renovation
-     */
-    last_renovated?: number | null;
-    /**
-     * Primary construction material/method
-     */
-    construction_type?: ('brick' | 'timber' | 'concrete' | 'steel' | 'mixed') | null;
-  };
-  utilities?: {
-    /**
-     * Energy efficiency rating
-     */
-    energy_rating?: ('A' | 'B' | 'C' | 'D' | 'E') | null;
-    heating_type?: ('central' | 'electric' | 'gas' | 'heat-pump' | 'none') | null;
-    cooling_type?: ('central' | 'split' | 'window' | 'none') | null;
-  };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "FinanceInterface".
- */
-export interface FinanceInterface {
-  market?:
-    | ('economy' | 'mid-market' | 'luxury' | 'ultra-luxury' | 'commercial' | 'industrial' | 'other' | 'custom')
-    | null;
-  /**
-   * Enter a custom market segment
-   */
-  customMarket?: string | null;
-  /**
-   * Does this transaction type require a deposit?
-   */
-  requiresDeposit?: boolean | null;
-  depositType?: ('percentage' | 'amount') | null;
-  depositAmount?: number | null;
-  depositPercentage?: number | null;
-  /**
-   * Does this property have installments?
-   */
-  hasInstallments?: boolean | null;
-  installmentsNumber?: number | null;
-  installmentAmount?: number | null;
-  targetResidents?:
-    | ('families' | 'couples' | 'professionals' | 'executives' | 'singles' | 'students' | 'retired' | 'custom')
-    | null;
-  customTargetResidents?: string | null;
-  investmentPotential?: ('high' | 'medium' | 'low' | 'custom') | null;
-  customInvestmentPotential?: string | null;
-  investmentType?: ('rental-income' | 'value-appreciation' | 'mixed-use' | 'custom') | null;
-  customInvestmentType?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2404,18 +2114,6 @@ export interface ListingArchiveBlock {
               relationTo: 'classifications';
               value: number | Classification;
             }
-          | {
-              relationTo: 'contracts';
-              value: number | Contract;
-            }
-          | {
-              relationTo: 'availability';
-              value: number | Availability;
-            }
-          | {
-              relationTo: 'amenities';
-              value: number | Amenity;
-            }
         )[]
       | null;
     /**
@@ -2639,18 +2337,6 @@ export interface Redirect {
       | ({
           relationTo: 'classifications';
           value: number | Classification;
-        } | null)
-      | ({
-          relationTo: 'contracts';
-          value: number | Contract;
-        } | null)
-      | ({
-          relationTo: 'availability';
-          value: number | Availability;
-        } | null)
-      | ({
-          relationTo: 'amenities';
-          value: number | Amenity;
         } | null);
     url?: string | null;
   };
@@ -2769,18 +2455,6 @@ export interface PayloadLockedDocument {
         value: number | Classification;
       } | null)
     | ({
-        relationTo: 'amenities';
-        value: number | Amenity;
-      } | null)
-    | ({
-        relationTo: 'availability';
-        value: number | Availability;
-      } | null)
-    | ({
-        relationTo: 'contracts';
-        value: number | Contract;
-      } | null)
-    | ({
         relationTo: 'pages';
         value: number | Page;
       } | null)
@@ -2894,8 +2568,8 @@ export interface ProjectsSelect<T extends boolean = true> {
       };
   properties?: T;
   classification?: T;
-  contract?: T;
-  availability?: T;
+  listingType?: T;
+  availabilityStatus?: T;
   amenities?: T;
   gallery?:
     | T
@@ -2981,11 +2655,9 @@ export interface MetaSelect<T extends boolean = true> {
 export interface PropertiesSelect<T extends boolean = true> {
   title?: T;
   price?: T;
-  amenitiesSelect?: T;
   condition?: T;
-  customCondition?: T;
-  contract?: T;
-  availability?: T;
+  listingType?: T;
+  availabilityStatus?: T;
   classification?: T;
   amenities?: T;
   gallery?:
@@ -3093,116 +2765,6 @@ export interface ClassificationsSelect<T extends boolean = true> {
   description?: T;
   image?: T;
   icon?: T;
-  relatedDocs?: T;
-  meta?: T | MetaSelect<T>;
-  noindex?: T;
-  authors?: T;
-  populatedAuthors?:
-    | T
-    | {
-        id?: T;
-        username?: T;
-      };
-  publishedAt?: T;
-  slug?: T;
-  slugLock?: T;
-  parent?: T;
-  breadcrumbs?:
-    | T
-    | {
-        doc?: T;
-        url?: T;
-        label?: T;
-        id?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  _status?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "amenities_select".
- */
-export interface AmenitiesSelect<T extends boolean = true> {
-  title?: T;
-  properties?: T;
-  isPremium?: T;
-  description?: T;
-  image?: T;
-  relatedDocs?: T;
-  meta?: T | MetaSelect<T>;
-  noindex?: T;
-  authors?: T;
-  populatedAuthors?:
-    | T
-    | {
-        id?: T;
-        username?: T;
-      };
-  publishedAt?: T;
-  slug?: T;
-  slugLock?: T;
-  parent?: T;
-  breadcrumbs?:
-    | T
-    | {
-        doc?: T;
-        url?: T;
-        label?: T;
-        id?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  _status?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "availability_select".
- */
-export interface AvailabilitySelect<T extends boolean = true> {
-  title?: T;
-  properties?: T;
-  allowInquiries?: T;
-  showInSearch?: T;
-  description?: T;
-  color?: T;
-  image?: T;
-  icon?: T;
-  relatedDocs?: T;
-  meta?: T | MetaSelect<T>;
-  noindex?: T;
-  authors?: T;
-  populatedAuthors?:
-    | T
-    | {
-        id?: T;
-        username?: T;
-      };
-  publishedAt?: T;
-  slug?: T;
-  slugLock?: T;
-  parent?: T;
-  breadcrumbs?:
-    | T
-    | {
-        doc?: T;
-        url?: T;
-        label?: T;
-        id?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  _status?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "contracts_select".
- */
-export interface ContractsSelect<T extends boolean = true> {
-  title?: T;
-  properties?: T;
-  description?: T;
-  image?: T;
   relatedDocs?: T;
   meta?: T | MetaSelect<T>;
   noindex?: T;

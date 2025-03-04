@@ -1,7 +1,9 @@
-import { isIncludedInSibling } from '@utils/siblingFieldCondition'
 import type { UnnamedTab } from 'payload'
 import { amenitiesInterface } from './amenities/interface.amenities'
+import { availabilityStatusInterface } from './availability-status/interface.availabilityStatus'
+import { propertyConditionInterface } from './condition/interface.condition'
 import { galleryGroup } from './gallery/config.gallery'
+import { listingTypeInterface } from './listing-type/interface.listingType'
 
 export const EssentialInformationTab: UnnamedTab = {
   label: 'Essential Information',
@@ -19,49 +21,30 @@ export const EssentialInformationTab: UnnamedTab = {
             step: 1000,
           },
         },
-        amenitiesInterface,
       ],
     },
     {
       type: 'row',
       fields: [
-        {
-          type: 'select',
-          name: 'condition',
-          label: 'Condition',
-          options: [
-            { label: 'Brand New', value: 'brand-new' },
-            { label: 'Renovated', value: 'renovated' },
-            { label: 'Well-Maintained', value: 'well-maintained' },
-            { label: 'Needs Renovation', value: 'needs-renovation' },
-            { label: 'Custom', value: 'custom' },
-          ],
-        },
-        {
-          type: 'text',
-          name: 'customCondition',
-          label: 'Custom Condition',
-          admin: {
-            description: 'Enter a custom condition',
-            condition: isIncludedInSibling('condition', 'custom'),
-          },
-        },
-        {
-          label: 'Contract',
-          name: 'contract',
-          type: 'relationship',
-          relationTo: 'contracts',
-          hasMany: true,
-          required: true,
-        },
-        {
-          label: 'Availability',
-          name: 'availability',
-          type: 'relationship',
-          relationTo: 'availability',
-          hasMany: true,
-          required: true,
-        },
+        propertyConditionInterface,
+        listingTypeInterface,
+        // {
+        //   label: 'Contract',
+        //   name: 'contract',
+        //   type: 'relationship',
+        //   relationTo: 'contracts',
+        //   hasMany: true,
+        //   required: true,
+        // },
+        availabilityStatusInterface,
+        // {
+        //   label: 'Availability',
+        //   name: 'availability',
+        //   type: 'relationship',
+        //   relationTo: 'availability',
+        //   hasMany: true,
+        //   required: true,
+        // },
       ],
     },
     {
@@ -79,17 +62,18 @@ export const EssentialInformationTab: UnnamedTab = {
             allowEdit: true,
           },
         },
-        {
-          type: 'relationship',
-          name: 'amenities',
-          relationTo: 'amenities',
-          hasMany: true,
-          label: 'Amenities',
-          admin: {
-            isSortable: true,
-            allowEdit: true,
-          },
-        },
+        amenitiesInterface,
+        // {
+        //   type: 'relationship',
+        //   name: 'amenities',
+        //   relationTo: 'amenities',
+        //   hasMany: true,
+        //   label: 'Amenities',
+        //   admin: {
+        //     isSortable: true,
+        //     allowEdit: true,
+        //   },
+        // },
       ],
     },
     galleryGroup,

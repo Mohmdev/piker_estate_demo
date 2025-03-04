@@ -1,3 +1,6 @@
+import { ListingTypeComponent as ListingTypeComponent_78420080d2be7041f5328b8ec2012dec } from '@CMS/real-estate/glossary/listing-type/Component'
+import { AvailabilityStatusComponent as AvailabilityStatusComponent_51227c62b7b6e83b69ad18189118112c } from '@CMS/real-estate/glossary/availability-status/Component'
+import { AmenitiesComponent as AmenitiesComponent_3adb0cf06d0b16717dac7ee7e20a7ddd } from '@CMS/real-estate/glossary/amenities/Component'
 import { GalleryThumbnail as GalleryThumbnail_34ac57888b71d2de43c7bf92875a8eb2 } from '@CMS/real-estate/glossary/gallery/thumbnail/client'
 import { GalleryCell as GalleryCell_2ff759f8e6c3a71b1e89d92923543d99 } from '@CMS/real-estate/glossary/gallery/cell/client'
 import { RscEntryLexicalCell as RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
@@ -29,7 +32,7 @@ import { MetaImageComponent as MetaImageComponent_a8a977ebc872c5d5ea7ee689724c08
 import { MetaDescriptionComponent as MetaDescriptionComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
 import { PreviewComponent as PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
 import { SlugComponent as SlugComponent_103d8e5a82af7720084293d0c1852a59 } from '@CMS/fields/shared/slug/client'
-import { AmenitiesComponent as AmenitiesComponent_3adb0cf06d0b16717dac7ee7e20a7ddd } from '@CMS/real-estate/glossary/amenities/Component'
+import { ConditionComponent as ConditionComponent_7f1bdeea3c49bc9a39dfff4cddb4bebb } from '@CMS/real-estate/glossary/condition/Component'
 import { BlocksFeatureClient as BlocksFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { DbInteractionZone as DbInteractionZone_311b9917f801c21299e20d4f7ea6a2b0 } from '@services/seed/danger-zone/Component'
 import { LinkToDoc as LinkToDoc_aead06e4cbf6b2620c5c51c9ab283634 } from '@payloadcms/plugin-search/client'
@@ -43,6 +46,9 @@ import { MainLogo as MainLogo_6079976f3e2ff43eeff27beac4efdd62 } from '@services
 import { VercelBlobClientUploadHandler as VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e } from '@payloadcms/storage-vercel-blob/client'
 
 export const importMap = {
+  "@CMS/real-estate/glossary/listing-type/Component#ListingTypeComponent": ListingTypeComponent_78420080d2be7041f5328b8ec2012dec,
+  "@CMS/real-estate/glossary/availability-status/Component#AvailabilityStatusComponent": AvailabilityStatusComponent_51227c62b7b6e83b69ad18189118112c,
+  "@CMS/real-estate/glossary/amenities/Component#AmenitiesComponent": AmenitiesComponent_3adb0cf06d0b16717dac7ee7e20a7ddd,
   "@CMS/real-estate/glossary/gallery/thumbnail/client#GalleryThumbnail": GalleryThumbnail_34ac57888b71d2de43c7bf92875a8eb2,
   "@CMS/real-estate/glossary/gallery/cell/client#GalleryCell": GalleryCell_2ff759f8e6c3a71b1e89d92923543d99,
   "@payloadcms/richtext-lexical/rsc#RscEntryLexicalCell": RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e,
@@ -74,7 +80,7 @@ export const importMap = {
   "@payloadcms/plugin-seo/client#MetaDescriptionComponent": MetaDescriptionComponent_a8a977ebc872c5d5ea7ee689724c0860,
   "@payloadcms/plugin-seo/client#PreviewComponent": PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860,
   "@CMS/fields/shared/slug/client#SlugComponent": SlugComponent_103d8e5a82af7720084293d0c1852a59,
-  "@CMS/real-estate/glossary/amenities/Component#AmenitiesComponent": AmenitiesComponent_3adb0cf06d0b16717dac7ee7e20a7ddd,
+  "@CMS/real-estate/glossary/condition/Component#ConditionComponent": ConditionComponent_7f1bdeea3c49bc9a39dfff4cddb4bebb,
   "@payloadcms/richtext-lexical/client#BlocksFeatureClient": BlocksFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@services/seed/danger-zone/Component#DbInteractionZone": DbInteractionZone_311b9917f801c21299e20d4f7ea6a2b0,
   "@payloadcms/plugin-search/client#LinkToDoc": LinkToDoc_aead06e4cbf6b2620c5c51c9ab283634,

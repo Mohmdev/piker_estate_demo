@@ -3,15 +3,15 @@
 import { SelectField } from '@payloadcms/ui'
 import type { Option, SelectFieldClient, SelectFieldClientProps } from 'payload'
 import React from 'react'
-import { amenityIcons } from './icons-map'
+import { propertyConditionIcons } from './icons-map'
 
-interface AmenitiesComponentProps extends SelectFieldClientProps {
+interface PropertyConditionComponentProps extends SelectFieldClientProps {
   iconSize?: number
 }
 
-export const AmenitiesComponent: React.FC<AmenitiesComponentProps> = (
-  props,
-) => {
+export const PropertyConditionComponent: React.FC<
+  PropertyConditionComponentProps
+> = (props) => {
   const { field, path, schemaPath, iconSize = 16 } = props
 
   // Create a modified field with custom option rendering
@@ -20,7 +20,7 @@ export const AmenitiesComponent: React.FC<AmenitiesComponentProps> = (
     options: field.options?.map((option: Option) => {
       const optionValue = typeof option === 'object' ? option.value : option
       const optionLabel = typeof option === 'object' ? option.label : option
-      const Icon = amenityIcons[optionValue]
+      const Icon = propertyConditionIcons[optionValue]
 
       if (!Icon) return option as string
 

@@ -14,9 +14,9 @@ export const mainCollections: CollectionSlug[] = [
 export const taxonomyCollections: CollectionSlug[] = [
   'blog-categories',
   'classifications',
-  'contracts',
-  'availability',
-  'amenities',
+  // 'contracts',
+  // 'availability',
+  // 'amenities',
 ] as const
 /* -------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------- */
@@ -33,9 +33,9 @@ export const NESTING_ENABLED_COLLECTIONS: CollectionSlug[] = [
   'pages',
   'blog-categories',
   'classifications',
-  'contracts',
-  'availability',
-  'amenities',
+  // 'contracts',
+  // 'availability',
+  // 'amenities',
 ] as const
 /* --------------------------------- Search --------------------------------- */
 export const SYNC_TO_SEARCH_ENABLED_COLLECTIONS: CollectionSlug[] = [
