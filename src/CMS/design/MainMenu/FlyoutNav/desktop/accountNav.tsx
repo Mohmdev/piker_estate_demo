@@ -14,6 +14,7 @@ export const AccountNav: React.FC = () => {
         'flex gap-6 items-center flex-wrap *:decoration-0',
         'opacity-100 visible',
         'transition-opacity duration-100 ease-linear',
+        'text-primary',
         user === undefined && 'opacity-0 invisible',
       )}
     >

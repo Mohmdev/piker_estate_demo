@@ -17,7 +17,14 @@ export const DesktopNav: React.FC<
   const { menuCta, navGroups, className, setHovered, hovered } = props
 
   return (
-    <div className={cn('hidden lg:flex gap-6 h-full', className)}>
+    <div
+      className={cn(
+        //
+        'hidden lg:flex gap-6 h-full',
+        'text-primary',
+        className,
+      )}
+    >
       {(navGroups || []).map((navGroup, groupIndex) => (
         <DesktopNavGroup
           group={navGroup}
@@ -33,8 +40,7 @@ export const DesktopNav: React.FC<
       <div
         className={cn(
           'flex-1',
-          'flex gap-3',
-          'justify-between items-center',
+          'flex gap-3 justify-between items-center',
           '*:transition-colors *:duration-400 *:ease-in-out text-sm text-white',
         )}
       >

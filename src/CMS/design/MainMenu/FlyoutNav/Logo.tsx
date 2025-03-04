@@ -1,6 +1,8 @@
 import React from 'react'
 
-export const Logo = ({ color = 'white' }: { color?: string }) => {
+export const Logo = ({
+  color = 'var(--color-primary)',
+}: { color?: string }) => {
   // Temp logo from https://logoipsum.com/
   return (
     <div className="flex items-center gap-2">

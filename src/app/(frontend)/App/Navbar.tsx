@@ -17,7 +17,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import React from 'react'
-import { NAVBAR_HEIGHT } from '../(real-estate)/search/components/_constants'
+import { NAVBAR_HEIGHT } from '../(real-estate)/search-2/components/_constants'
 
 export const Navbar: React.FC = () => {
   const { user, logout } = useAuth()

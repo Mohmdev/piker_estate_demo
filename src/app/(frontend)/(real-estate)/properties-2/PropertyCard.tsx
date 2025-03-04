@@ -1,4 +1,4 @@
-import { formatPrice } from '@/app/(frontend)/(real-estate)/properties/formatters'
+import { formatPrice } from '@/app/(frontend)/(real-estate)/properties-2/formatters'
 import type { Media, Property } from '@payload-types'
 import { cn } from '@utils/ui'
 import { Bath, Bed, Home, MapPin, Ruler } from 'lucide-react'
