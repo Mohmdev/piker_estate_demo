@@ -10,30 +10,28 @@ import {
   useForm,
   useFormFields,
 } from '@payloadcms/ui'
-
 import { TextFieldClientProps } from 'payload'
-
 import { formatSlug } from './formatSlug'
 
 import './index.scss'
 
 type SlugComponentProps = {
   fieldToUse: string
-  checkboxFieldPath: string
+  checkboxFieldName: string
 } & TextFieldClientProps
 
 export const SlugComponent: React.FC<SlugComponentProps> = ({
   field,
   fieldToUse,
-  checkboxFieldPath: checkboxFieldPathFromProps,
+  checkboxFieldName,
   path,
   readOnly: readOnlyFromProps,
 }) => {
   const { label } = field
 
   const checkboxFieldPath = path?.includes('.')
-    ? `${path}.${checkboxFieldPathFromProps}`
-    : checkboxFieldPathFromProps
+    ? `${path}.${checkboxFieldName}`
+    : checkboxFieldName
 
   const { value, setValue } = useField<string>({ path: path || field.name })
 

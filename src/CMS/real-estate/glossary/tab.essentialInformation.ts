@@ -1,5 +1,6 @@
 import { isIncludedInSibling } from '@utils/siblingFieldCondition'
 import type { UnnamedTab } from 'payload'
+import { amenitiesInterface } from './amenities/interface.amenities'
 import { galleryGroup } from './gallery/config.gallery'
 
 export const EssentialInformationTab: UnnamedTab = {
@@ -18,6 +19,7 @@ export const EssentialInformationTab: UnnamedTab = {
             step: 1000,
           },
         },
+        amenitiesInterface,
       ],
     },
     {

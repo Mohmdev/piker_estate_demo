@@ -1,5 +1,4 @@
 import type { CheckboxField, TextField } from 'payload'
-
 import { formatSlugHook } from './formatSlug'
 
 type Overrides = {
@@ -47,7 +46,7 @@ export const slugField: Slug = (fieldToUse = 'title', overrides = {}) => {
           path: '@CMS/fields/shared/slug/client#SlugComponent',
           clientProps: {
             fieldToUse,
-            checkboxFieldPath: checkBoxField.name,
+            checkboxFieldName: checkBoxField.name,
           },
         },
       },

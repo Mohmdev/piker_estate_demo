@@ -8,6 +8,24 @@
 
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PropertyAmenities".
+ */
+export type PropertyAmenities =
+  | (
+      | 'fastInternet'
+      | 'washerDryer'
+      | 'airConditioning'
+      | 'heating'
+      | 'parking'
+      | 'swimmingPool'
+      | 'gym'
+      | 'petFriendly'
+      | 'furnished'
+      | 'securitySystem'
+    )[]
+  | null;
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "CountrySelect".
  */
 export type CountrySelect =
@@ -1095,6 +1113,7 @@ export interface Property {
   id: number;
   title: string;
   price: number;
+  amenitiesSelect?: PropertyAmenities;
   condition?: ('brand-new' | 'renovated' | 'well-maintained' | 'needs-renovation' | 'custom') | null;
   /**
    * Enter a custom condition
@@ -2962,6 +2981,7 @@ export interface MetaSelect<T extends boolean = true> {
 export interface PropertiesSelect<T extends boolean = true> {
   title?: T;
   price?: T;
+  amenitiesSelect?: T;
   condition?: T;
   customCondition?: T;
   contract?: T;
