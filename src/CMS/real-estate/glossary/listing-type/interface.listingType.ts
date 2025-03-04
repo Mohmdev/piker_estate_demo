@@ -5,7 +5,8 @@ export const listingTypeInterface: SelectField = {
   name: 'listingType',
   label: 'Listing Type',
   interfaceName: 'ListingTypeInterface',
-  hasMany: true,
+  required: true,
+  hasMany: false,
   admin: {
     components: {
       Field: {

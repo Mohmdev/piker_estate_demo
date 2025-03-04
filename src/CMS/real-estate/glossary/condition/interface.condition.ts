@@ -5,11 +5,11 @@ export const propertyConditionInterface: SelectField = {
   name: 'condition',
   label: 'Condition',
   interfaceName: 'PropertyConditionInterface',
-  hasMany: true,
+  hasMany: false,
   admin: {
     components: {
       Field: {
-        path: '@CMS/real-estate/glossary/condition/Component#ConditionComponent',
+        path: '@CMS/real-estate/glossary/condition/Component#PropertyConditionComponent',
       },
     },
   },

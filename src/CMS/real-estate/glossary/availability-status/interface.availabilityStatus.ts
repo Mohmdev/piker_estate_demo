@@ -5,7 +5,7 @@ export const availabilityStatusInterface: SelectField = {
   name: 'availabilityStatus',
   label: 'Availability Status',
   interfaceName: 'AvailabilityStatusInterface',
-  hasMany: true,
+  hasMany: false,
   admin: {
     components: {
       Field: {

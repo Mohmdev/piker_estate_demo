@@ -32,7 +32,7 @@ import { MetaImageComponent as MetaImageComponent_a8a977ebc872c5d5ea7ee689724c08
 import { MetaDescriptionComponent as MetaDescriptionComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
 import { PreviewComponent as PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
 import { SlugComponent as SlugComponent_103d8e5a82af7720084293d0c1852a59 } from '@CMS/fields/shared/slug/client'
-import { ConditionComponent as ConditionComponent_7f1bdeea3c49bc9a39dfff4cddb4bebb } from '@CMS/real-estate/glossary/condition/Component'
+import { PropertyConditionComponent as PropertyConditionComponent_7f1bdeea3c49bc9a39dfff4cddb4bebb } from '@CMS/real-estate/glossary/condition/Component'
 import { BlocksFeatureClient as BlocksFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { DbInteractionZone as DbInteractionZone_311b9917f801c21299e20d4f7ea6a2b0 } from '@services/seed/danger-zone/Component'
 import { LinkToDoc as LinkToDoc_aead06e4cbf6b2620c5c51c9ab283634 } from '@payloadcms/plugin-search/client'
@@ -80,7 +80,7 @@ export const importMap = {
   "@payloadcms/plugin-seo/client#MetaDescriptionComponent": MetaDescriptionComponent_a8a977ebc872c5d5ea7ee689724c0860,
   "@payloadcms/plugin-seo/client#PreviewComponent": PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860,
   "@CMS/fields/shared/slug/client#SlugComponent": SlugComponent_103d8e5a82af7720084293d0c1852a59,
-  "@CMS/real-estate/glossary/condition/Component#ConditionComponent": ConditionComponent_7f1bdeea3c49bc9a39dfff4cddb4bebb,
+  "@CMS/real-estate/glossary/condition/Component#PropertyConditionComponent": PropertyConditionComponent_7f1bdeea3c49bc9a39dfff4cddb4bebb,
   "@payloadcms/richtext-lexical/client#BlocksFeatureClient": BlocksFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@services/seed/danger-zone/Component#DbInteractionZone": DbInteractionZone_311b9917f801c21299e20d4f7ea6a2b0,
   "@payloadcms/plugin-search/client#LinkToDoc": LinkToDoc_aead06e4cbf6b2620c5c51c9ab283634,

@@ -10,12 +10,12 @@
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "PropertyConditionInterface".
  */
-export type PropertyConditionInterface = ('brandNew' | 'renovated' | 'wellMaintained' | 'needsRenovation')[] | null;
+export type PropertyConditionInterface = ('brandNew' | 'renovated' | 'wellMaintained' | 'needsRenovation') | null;
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ListingTypeInterface".
  */
-export type ListingTypeInterface = ('sale' | 'rent')[] | null;
+export type ListingTypeInterface = 'sale' | 'rent';
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "AvailabilityStatusInterface".
@@ -30,7 +30,7 @@ export type AvailabilityStatusInterface =
       | 'sold'
       | 'onHold'
       | 'noLongerAvailable'
-    )[]
+    )
   | null;
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1134,7 +1134,7 @@ export interface Property {
   title: string;
   price: number;
   condition?: PropertyConditionInterface;
-  listingType?: ListingTypeInterface;
+  listingType: ListingTypeInterface;
   availabilityStatus?: AvailabilityStatusInterface;
   classification: (number | Classification)[];
   amenities?: AmenitiesInterface;
@@ -1419,7 +1419,7 @@ export interface Project {
    */
   properties?: (number | Property)[] | null;
   classification?: (number | Classification)[] | null;
-  listingType?: ListingTypeInterface;
+  listingType: ListingTypeInterface;
   availabilityStatus?: AvailabilityStatusInterface;
   amenities?: AmenitiesInterface;
   gallery?: {

@@ -1,8 +1,5 @@
 import type {
-  Amenity,
-  Availability,
   Classification,
-  Contract,
   Media,
   Meta,
   Project,
@@ -10,12 +7,12 @@ import type {
   Tag,
   User,
 } from '@payload-types'
+import { classificationRelationships } from './rels-classification'
+import { galleryRelationships } from './rels-gallery'
+import { metadataRelationships } from './rels-metadata'
 
 export type PropertyRelationships = {
   classification: Partial<Classification>[]
-  contract: Partial<Contract>[]
-  availability: Partial<Availability>[]
-  amenities: Partial<Amenity>[]
   gallery?: {
     images?: Partial<Media>[]
     videos?: Partial<Media>[]
@@ -24,8 +21,7 @@ export type PropertyRelationships = {
     documents?: Partial<Media>[]
   }
   categories?: {
-    relationTo: 'classifications' | 'contracts' | 'availability' | 'amenities'
-    value: Classification | Contract | Availability | Amenity
+    relationTo: 'classifications'
   }[]
   tags?: Partial<Tag>[]
   relatedDocs?: {
@@ -36,20 +32,10 @@ export type PropertyRelationships = {
   authors?: Partial<User>[]
 }
 
-import { amenityRelationships } from './rels-amenity'
-import { availabilityRelationships } from './rels-availability'
-import { classificationRelationships } from './rels-classification'
-import { contractRelationships } from './rels-contract'
-import { galleryRelationships } from './rels-gallery'
-import { metadataRelationships } from './rels-metadata'
-
 export const propertiesRelationships: Record<string, PropertyRelationships> = {
   // 1. barshaApartment
   barshaApartment: {
     classification: classificationRelationships.barshaApartment ?? [],
-    contract: contractRelationships.barshaApartment ?? [],
-    availability: availabilityRelationships.barshaApartment ?? [],
-    amenities: amenityRelationships.barshaApartment ?? [],
     gallery: galleryRelationships.barshaApartment,
     categories: [],
     tags: [],
@@ -60,9 +46,6 @@ export const propertiesRelationships: Record<string, PropertyRelationships> = {
   // 2. jvcResidence
   jvcResidence: {
     classification: classificationRelationships.jvcResidence ?? [],
-    contract: contractRelationships.jvcResidence ?? [],
-    availability: availabilityRelationships.jvcResidence ?? [],
-    amenities: amenityRelationships.jvcResidence ?? [],
     gallery: galleryRelationships.jvcResidence,
     categories: [],
     tags: [],
@@ -73,9 +56,6 @@ export const propertiesRelationships: Record<string, PropertyRelationships> = {
   // 3. siliconOasisStudio
   siliconOasisStudio: {
     classification: classificationRelationships.siliconOasisStudio ?? [],
-    contract: contractRelationships.siliconOasisStudio ?? [],
-    availability: availabilityRelationships.siliconOasisStudio ?? [],
-    amenities: amenityRelationships.siliconOasisStudio ?? [],
     gallery: galleryRelationships.siliconOasisStudio,
     categories: [],
     tags: [],
@@ -86,9 +66,6 @@ export const propertiesRelationships: Record<string, PropertyRelationships> = {
   // 4. alQuozLoft
   alQuozLoft: {
     classification: classificationRelationships.alQuozLoft ?? [],
-    contract: contractRelationships.alQuozLoft ?? [],
-    availability: availabilityRelationships.alQuozLoft ?? [],
-    amenities: amenityRelationships.alQuozLoft ?? [],
     gallery: galleryRelationships.alQuozLoft,
     categories: [],
     tags: [],
@@ -99,9 +76,6 @@ export const propertiesRelationships: Record<string, PropertyRelationships> = {
   // 5. businessBayFlat
   businessBayFlat: {
     classification: classificationRelationships.businessBayFlat ?? [],
-    contract: contractRelationships.businessBayFlat ?? [],
-    availability: availabilityRelationships.businessBayFlat ?? [],
-    amenities: amenityRelationships.businessBayFlat ?? [],
     gallery: galleryRelationships.businessBayFlat,
     categories: [],
     tags: [],
@@ -112,9 +86,6 @@ export const propertiesRelationships: Record<string, PropertyRelationships> = {
   // 6. alNahdaHome
   alNahdaHome: {
     classification: classificationRelationships.alNahdaHome ?? [],
-    contract: contractRelationships.alNahdaHome ?? [],
-    availability: availabilityRelationships.alNahdaHome ?? [],
-    amenities: amenityRelationships.alNahdaHome ?? [],
     gallery: galleryRelationships.alNahdaHome,
     categories: [],
     tags: [],
@@ -125,9 +96,6 @@ export const propertiesRelationships: Record<string, PropertyRelationships> = {
   // 7. mirdifVilla
   mirdifVilla: {
     classification: classificationRelationships.mirdifVilla ?? [],
-    contract: contractRelationships.mirdifVilla ?? [],
-    availability: availabilityRelationships.mirdifVilla ?? [],
-    amenities: amenityRelationships.mirdifVilla ?? [],
     gallery: galleryRelationships.mirdifVilla,
     categories: [],
     tags: [],
@@ -138,9 +106,6 @@ export const propertiesRelationships: Record<string, PropertyRelationships> = {
   // 8. internationalCityFlat
   internationalCityFlat: {
     classification: classificationRelationships.internationalCityFlat ?? [],
-    contract: contractRelationships.internationalCityFlat ?? [],
-    availability: availabilityRelationships.internationalCityFlat ?? [],
-    amenities: amenityRelationships.internationalCityFlat ?? [],
     gallery: galleryRelationships.internationalCityFlat,
     categories: [],
     tags: [],
@@ -151,9 +116,6 @@ export const propertiesRelationships: Record<string, PropertyRelationships> = {
   // 9. sportsCityApartment
   sportsCityApartment: {
     classification: classificationRelationships.sportsCityApartment ?? [],
-    contract: contractRelationships.sportsCityApartment ?? [],
-    availability: availabilityRelationships.sportsCityApartment ?? [],
-    amenities: amenityRelationships.sportsCityApartment ?? [],
     gallery: galleryRelationships.sportsCityApartment,
     categories: [],
     tags: [],
@@ -164,9 +126,6 @@ export const propertiesRelationships: Record<string, PropertyRelationships> = {
   // 10. alQusaisResidence
   alQusaisResidence: {
     classification: classificationRelationships.alQusaisResidence ?? [],
-    contract: contractRelationships.alQusaisResidence ?? [],
-    availability: availabilityRelationships.alQusaisResidence ?? [],
-    amenities: amenityRelationships.alQusaisResidence ?? [],
     gallery: galleryRelationships.alQusaisResidence,
     categories: [],
     tags: [],
@@ -177,9 +136,6 @@ export const propertiesRelationships: Record<string, PropertyRelationships> = {
   // 11. discoveryGardens
   discoveryGardens: {
     classification: classificationRelationships.discoveryGardens ?? [],
-    contract: contractRelationships.discoveryGardens ?? [],
-    availability: availabilityRelationships.discoveryGardens ?? [],
-    amenities: amenityRelationships.discoveryGardens ?? [],
     gallery: galleryRelationships.discoveryGardens,
     categories: [],
     tags: [],
@@ -190,9 +146,6 @@ export const propertiesRelationships: Record<string, PropertyRelationships> = {
   // 12. remramApartment
   remramApartment: {
     classification: classificationRelationships.remramApartment ?? [],
-    contract: contractRelationships.remramApartment ?? [],
-    availability: availabilityRelationships.remramApartment ?? [],
-    amenities: amenityRelationships.remramApartment ?? [],
     gallery: galleryRelationships.remramApartment,
     categories: [],
     tags: [],
@@ -203,9 +156,6 @@ export const propertiesRelationships: Record<string, PropertyRelationships> = {
   // 13. dubailandTownhouse
   dubailandTownhouse: {
     classification: classificationRelationships.dubailandTownhouse ?? [],
-    contract: contractRelationships.dubailandTownhouse ?? [],
-    availability: availabilityRelationships.dubailandTownhouse ?? [],
-    amenities: amenityRelationships.dubailandTownhouse ?? [],
     gallery: galleryRelationships.dubailandTownhouse,
     categories: [],
     tags: [],
@@ -216,9 +166,6 @@ export const propertiesRelationships: Record<string, PropertyRelationships> = {
   // 14. warqaaResidence
   warqaaResidence: {
     classification: classificationRelationships.warqaaResidence ?? [],
-    contract: contractRelationships.warqaaResidence ?? [],
-    availability: availabilityRelationships.warqaaResidence ?? [],
-    amenities: amenityRelationships.warqaaResidence ?? [],
     gallery: galleryRelationships.warqaaResidence,
     categories: [],
     tags: [],
@@ -229,9 +176,6 @@ export const propertiesRelationships: Record<string, PropertyRelationships> = {
   // 15. karamaFlat
   karamaFlat: {
     classification: classificationRelationships.karamaFlat ?? [],
-    contract: contractRelationships.karamaFlat ?? [],
-    availability: availabilityRelationships.karamaFlat ?? [],
-    amenities: amenityRelationships.karamaFlat ?? [],
     gallery: galleryRelationships.karamaFlat,
     categories: [],
     tags: [],
@@ -242,9 +186,6 @@ export const propertiesRelationships: Record<string, PropertyRelationships> = {
   // 16. tecomApartment
   tecomApartment: {
     classification: classificationRelationships.tecomApartment ?? [],
-    contract: contractRelationships.tecomApartment ?? [],
-    availability: availabilityRelationships.tecomApartment ?? [],
-    amenities: amenityRelationships.tecomApartment ?? [],
     gallery: galleryRelationships.tecomApartment,
     categories: [],
     tags: [],
@@ -255,9 +196,6 @@ export const propertiesRelationships: Record<string, PropertyRelationships> = {
   // 17. deiraCondo
   deiraCondo: {
     classification: classificationRelationships.deiraCondo ?? [],
-    contract: contractRelationships.deiraCondo ?? [],
-    availability: availabilityRelationships.deiraCondo ?? [],
-    amenities: amenityRelationships.deiraCondo ?? [],
     gallery: galleryRelationships.deiraCondo,
     categories: [],
     tags: [],
@@ -268,9 +206,6 @@ export const propertiesRelationships: Record<string, PropertyRelationships> = {
   // 18. satwaResidence
   satwaResidence: {
     classification: classificationRelationships.satwaResidence ?? [],
-    contract: contractRelationships.satwaResidence ?? [],
-    availability: availabilityRelationships.satwaResidence ?? [],
-    amenities: amenityRelationships.satwaResidence ?? [],
     gallery: galleryRelationships.satwaResidence,
     categories: [],
     tags: [],
@@ -281,9 +216,6 @@ export const propertiesRelationships: Record<string, PropertyRelationships> = {
   // 19. rashidiyaHome
   rashidiyaHome: {
     classification: classificationRelationships.rashidiyaHome ?? [],
-    contract: contractRelationships.rashidiyaHome ?? [],
-    availability: availabilityRelationships.rashidiyaHome ?? [],
-    amenities: amenityRelationships.rashidiyaHome ?? [],
     gallery: galleryRelationships.rashidiyaHome,
     categories: [],
     tags: [],
@@ -294,9 +226,6 @@ export const propertiesRelationships: Record<string, PropertyRelationships> = {
   // 20. garhoudApartment
   garhoudApartment: {
     classification: classificationRelationships.garhoudApartment ?? [],
-    contract: contractRelationships.garhoudApartment ?? [],
-    availability: availabilityRelationships.garhoudApartment ?? [],
-    amenities: amenityRelationships.garhoudApartment ?? [],
     gallery: galleryRelationships.garhoudApartment,
     categories: [],
     tags: [],

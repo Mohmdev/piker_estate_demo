@@ -43,48 +43,6 @@ export async function POST(): Promise<Response> {
           )
         ).filter((id): id is number => typeof id === 'number')
 
-        const contractIds = (
-          await Promise.all(
-            property.contract.map(async (contract) => {
-              const existingContract = await payload.find({
-                collection: 'contracts',
-                where: {
-                  slug: { equals: contract.slug },
-                },
-              })
-              return existingContract.docs[0]?.id
-            }),
-          )
-        ).filter((id): id is number => typeof id === 'number')
-
-        const availabilityIds = (
-          await Promise.all(
-            property.availability.map(async (availability) => {
-              const existingAvailability = await payload.find({
-                collection: 'availability',
-                where: {
-                  slug: { equals: availability.slug },
-                },
-              })
-              return existingAvailability.docs[0]?.id
-            }),
-          )
-        ).filter((id): id is number => typeof id === 'number')
-
-        const amenityIds = (
-          await Promise.all(
-            property.amenities.map(async (amenity) => {
-              const existingAmenity = await payload.find({
-                collection: 'amenities',
-                where: {
-                  slug: { equals: amenity.slug },
-                },
-              })
-              return existingAmenity.docs[0]?.id
-            }),
-          )
-        ).filter((id): id is number => typeof id === 'number')
-
         // Handle gallery media
         let galleryData = undefined
         if (property.gallery) {
@@ -324,6 +282,9 @@ export async function POST(): Promise<Response> {
             title: property.title,
             slug: property.slug,
             price: property.price,
+            amenities: property.amenities,
+            availabilityStatus: property.availabilityStatus,
+            listingType: property.listingType,
             condition: property.condition,
             isFeatured: property.isFeatured,
             description: property.description,
@@ -332,9 +293,6 @@ export async function POST(): Promise<Response> {
             finance: property.finance,
             // Required relationships with resolved IDs
             classification: classificationIds,
-            contract: contractIds,
-            availability: availabilityIds,
-            amenities: amenityIds,
             // Gallery with resolved media IDs
             gallery: galleryData,
             _status: 'published',
