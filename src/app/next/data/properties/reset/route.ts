@@ -18,6 +18,29 @@ export async function POST(): Promise<Response> {
 
     payload.logger.info(`↪ Resetting Properties...`)
 
+    // First, delete search documents related to properties
+    try {
+      payload.logger.info(
+        `↪ Deleting search documents related to properties...`,
+      )
+      await payload.db.deleteMany({
+        collection: 'search',
+        req,
+        where: {
+          'doc.relationTo': {
+            equals: 'properties',
+          },
+        },
+      })
+      payload.logger.info(
+        `✓ Successfully deleted search documents related to properties`,
+      )
+    } catch (searchError) {
+      payload.logger.error(`Error deleting search documents: ${searchError}`)
+      // Continue with property deletion even if search deletion fails
+    }
+
+    // Then delete properties
     await payload.db.deleteMany({
       collection: 'properties',
       req,

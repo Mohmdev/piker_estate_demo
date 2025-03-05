@@ -16,6 +16,8 @@ export async function POST(): Promise<Response> {
   }
 
   let createdCount = 0
+  let errorCount = 0
+  const errors: string[] = []
 
   for (const property of propertiesDepthOne) {
     try {
@@ -65,10 +67,8 @@ export async function POST(): Promise<Response> {
                     return null
                   }
 
-                  // payload.logger.info(`Processing image ${index}: ${image.url}`)
-
                   try {
-                    // Check if media already exists
+                    // Check if media already exists by URL
                     const existingMedia = await payload.find({
                       collection: 'media',
                       where: {
@@ -86,10 +86,6 @@ export async function POST(): Promise<Response> {
                     // Create new media
                     const imageBuffer = await fetchFileByURL(image.url)
 
-                    // payload.logger.info(
-                    //   `Fetched image buffer for ${image.url}, size: ${imageBuffer.size} bytes`,
-                    // )
-
                     // Use the correct file upload format
                     const createdMedia = await payload.create({
                       collection: 'media',
@@ -99,9 +95,6 @@ export async function POST(): Promise<Response> {
                       file: imageBuffer,
                     })
 
-                    // payload.logger.info(
-                    //   `Created media ID: ${createdMedia.id} for ${image.url}`,
-                    // )
                     return createdMedia.id
                   } catch (error) {
                     payload.logger.error(
@@ -131,10 +124,8 @@ export async function POST(): Promise<Response> {
                     return null
                   }
 
-                  // payload.logger.info(`Processing video ${index}: ${video.url}`)
-
                   try {
-                    // Check if media already exists
+                    // Check if media already exists by URL
                     const existingMedia = await payload.find({
                       collection: 'media',
                       where: {
@@ -152,10 +143,6 @@ export async function POST(): Promise<Response> {
                     // Create new media
                     const videoBuffer = await fetchFileByURL(video.url)
 
-                    // payload.logger.info(
-                    //   `Fetched video buffer for ${video.url}, size: ${videoBuffer.size} bytes`,
-                    // )
-
                     const createdMedia = await payload.create({
                       collection: 'media',
                       data: {
@@ -164,9 +151,6 @@ export async function POST(): Promise<Response> {
                       file: videoBuffer,
                     })
 
-                    // payload.logger.info(
-                    //   `Created media ID: ${createdMedia.id} for ${video.url}`,
-                    // )
                     return createdMedia.id
                   } catch (error) {
                     payload.logger.error(
@@ -196,12 +180,8 @@ export async function POST(): Promise<Response> {
                     return null
                   }
 
-                  // payload.logger.info(
-                  //   `Processing document ${index}: ${document.url}`,
-                  // )
-
                   try {
-                    // Check if media already exists
+                    // Check if media already exists by URL
                     const existingMedia = await payload.find({
                       collection: 'media',
                       where: {
@@ -219,10 +199,6 @@ export async function POST(): Promise<Response> {
                     // Create new media
                     const documentBuffer = await fetchFileByURL(document.url)
 
-                    // payload.logger.info(
-                    //   `Fetched document buffer for ${document.url}, size: ${documentBuffer.size} bytes`,
-                    // )
-
                     const createdMedia = await payload.create({
                       collection: 'media',
                       data: {
@@ -231,9 +207,6 @@ export async function POST(): Promise<Response> {
                       file: documentBuffer,
                     })
 
-                    // payload.logger.info(
-                    //   `Created media ID: ${createdMedia.id} for ${document.url}`,
-                    // )
                     return createdMedia.id
                   } catch (error) {
                     payload.logger.error(
@@ -255,14 +228,17 @@ export async function POST(): Promise<Response> {
             : []
 
           // Create gallery data with the correct structure
+          // Only include non-empty arrays in the gallery data
           galleryData = {
-            images: galleryImages.length > 0 ? galleryImages : null,
-            videos: galleryVideos.length > 0 ? galleryVideos : null,
-            documents: galleryDocuments.length > 0 ? galleryDocuments : null,
-            virtualTourUrl: property.gallery.virtualTourUrl || null,
-            floorPlan: null, // We don't have floor plans in the seed data
+            images: galleryImages.length > 0 ? galleryImages : undefined,
+            videos: galleryVideos.length > 0 ? galleryVideos : undefined,
+            documents:
+              galleryDocuments.length > 0 ? galleryDocuments : undefined,
+            virtualTourUrl: property.gallery.virtualTourUrl || undefined,
+            floorPlan: undefined, // We don't have floor plans in the seed data
           }
 
+          // Log the final gallery data for debugging
           payload.logger.info(
             `Final gallery data for ${property.title}:`,
             JSON.stringify(galleryData),
@@ -291,6 +267,15 @@ export async function POST(): Promise<Response> {
             gallery: galleryData,
             _status: 'published',
           },
+          // Disable hooks to prevent search plugin from running
+          disableVerificationEmail: true,
+          overrideAccess: true,
+          overwriteExistingFiles: false,
+          draft: false,
+          // This is the key option to disable the search plugin
+          // context: {
+          //   skipSearchSync: true,
+          // },
         })
 
         payload.logger.info(
@@ -299,19 +284,45 @@ export async function POST(): Promise<Response> {
         createdCount++
       }
     } catch (error) {
+      errorCount++
+      const errorMessage =
+        error instanceof Error ? error.message : String(error)
+      errors.push(
+        `Error creating property "${property.title}": ${errorMessage}`,
+      )
+
       payload.logger.error(
         `Error creating property "${property.title}":`,
         error,
       )
-      throw error
+      // Continue with the next property instead of throwing the error
+      // This allows the script to process other properties even if one fails
     }
   }
 
+  // Log summary of results
   if (createdCount > 0) {
     payload.logger.info(`✓ Successfully seeded ${createdCount} properties.`)
   } else {
     payload.logger.info(`No new properties were seeded.`)
   }
 
-  return Response.json({ success: true })
+  if (errorCount > 0) {
+    payload.logger.error(`Failed to seed ${errorCount} properties.`)
+    payload.logger.error(`Errors: ${errors.join('\n')}`)
+    return Response.json(
+      {
+        success: createdCount > 0,
+        created: createdCount,
+        failed: errorCount,
+        errors,
+      },
+      { status: errorCount > 0 && createdCount === 0 ? 500 : 207 },
+    )
+  }
+
+  return Response.json({
+    success: true,
+    created: createdCount,
+  })
 }

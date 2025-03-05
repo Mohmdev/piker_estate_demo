@@ -85,11 +85,10 @@ export const propertyBeforeSyncWithSearch: BeforeSync = async ({
   ) {
     try {
       const mappedClassifications = classifications.map((classification) => {
-        const { title, id } = classification as Classification
+        const { title } = classification as Classification
 
         return {
           relationTo: 'classifications',
-          id,
           title,
         }
       })

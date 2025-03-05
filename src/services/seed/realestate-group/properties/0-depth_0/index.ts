@@ -6,6 +6,7 @@ import { specsData } from './specs'
 
 export type PropertyDepthZero = Pick<
   Property,
+  | 'id'
   | 'title'
   | 'slug'
   | 'description'
@@ -24,6 +25,7 @@ export type PropertyDepthZero = Pick<
 export const propertiesDepthZero: Record<string, PropertyDepthZero> = {
   // 1. barshaApartment
   barshaApartment: {
+    id: 10001,
     title: 'Modern Al Barsha Heights Apartment',
     slug: 'modern-al-barsha-heights-apartment',
     price: 425000,
@@ -48,6 +50,7 @@ export const propertiesDepthZero: Record<string, PropertyDepthZero> = {
   },
   // 2. jvcResidence
   jvcResidence: {
+    id: 10002,
     title: 'Spacious JVC Family Home',
     slug: 'spacious-jvc-family-home',
     price: 520000,
@@ -72,6 +75,7 @@ export const propertiesDepthZero: Record<string, PropertyDepthZero> = {
   },
   // 3. siliconOasisStudio
   siliconOasisStudio: {
+    id: 10003,
     title: 'Silicon Oasis Smart Studio',
     slug: 'silicon-oasis-smart-studio',
     price: 165000,
@@ -95,6 +99,7 @@ export const propertiesDepthZero: Record<string, PropertyDepthZero> = {
   },
   // 4. alQuozLoft
   alQuozLoft: {
+    id: 10004,
     title: 'Al Quoz Industrial Loft',
     slug: 'al-quoz-industrial-loft',
     price: 480000,
@@ -117,6 +122,7 @@ export const propertiesDepthZero: Record<string, PropertyDepthZero> = {
   },
   // 5. businessBayFlat
   businessBayFlat: {
+    id: 10005,
     title: 'Business Bay Executive Apartment',
     slug: 'business-bay-executive-apartment',
     price: 495000,
@@ -142,6 +148,7 @@ export const propertiesDepthZero: Record<string, PropertyDepthZero> = {
   },
   // 6. alNahdaHome
   alNahdaHome: {
+    id: 10006,
     title: 'Al Nahda Family Residence',
     slug: 'al-nahda-family-residence',
     price: 380000,
@@ -164,6 +171,7 @@ export const propertiesDepthZero: Record<string, PropertyDepthZero> = {
   },
   // 7. mirdifVilla
   mirdifVilla: {
+    id: 10007,
     title: 'Mirdif Luxury Villa',
     slug: 'mirdif-luxury-villa',
     price: 980000,
@@ -190,6 +198,7 @@ export const propertiesDepthZero: Record<string, PropertyDepthZero> = {
   },
   // 8. internationalCityFlat
   internationalCityFlat: {
+    id: 10008,
     title: 'International City Starter Home',
     slug: 'international-city-starter-home',
     price: 195000,
@@ -211,6 +220,7 @@ export const propertiesDepthZero: Record<string, PropertyDepthZero> = {
   },
   // 9. sportsCityApartment
   sportsCityApartment: {
+    id: 10009,
     title: 'Sports City Modern Apartment',
     slug: 'sports-city-modern-apartment',
     price: 385000,
@@ -235,6 +245,7 @@ export const propertiesDepthZero: Record<string, PropertyDepthZero> = {
   },
   // 10. alQusaisResidence
   alQusaisResidence: {
+    id: 10010,
     title: 'Al Qusais Metro Apartment',
     slug: 'al-qusais-metro-apartment',
     price: 320000,
@@ -257,6 +268,7 @@ export const propertiesDepthZero: Record<string, PropertyDepthZero> = {
   },
   // 11. discoveryGardens
   discoveryGardens: {
+    id: 10011,
     title: 'Discovery Gardens Mediterranean Apartment',
     slug: 'discovery-gardens-mediterranean-apartment',
     price: 275000,
@@ -280,6 +292,7 @@ export const propertiesDepthZero: Record<string, PropertyDepthZero> = {
   },
   // 12. remramApartment
   remramApartment: {
+    id: 10012,
     title: 'Remram Community Residence',
     slug: 'remram-community-residence',
     price: 340000,
@@ -303,6 +316,7 @@ export const propertiesDepthZero: Record<string, PropertyDepthZero> = {
   },
   // 13. dubailandTownhouse
   dubailandTownhouse: {
+    id: 10013,
     title: 'Dubailand Townhouse',
     slug: 'dubailand-townhouse',
     price: 720000,
@@ -330,6 +344,7 @@ export const propertiesDepthZero: Record<string, PropertyDepthZero> = {
   },
   // 14. warqaaResidence
   warqaaResidence: {
+    id: 10014,
     title: 'Al Warqaa Family Apartment',
     slug: 'al-warqaa-family-apartment',
     price: 420000,
@@ -352,6 +367,7 @@ export const propertiesDepthZero: Record<string, PropertyDepthZero> = {
   },
   // 15. karamaFlat
   karamaFlat: {
+    id: 10015,
     title: 'Karama Urban Apartment',
     slug: 'karama-urban-apartment',
     price: 245000,
@@ -373,6 +389,7 @@ export const propertiesDepthZero: Record<string, PropertyDepthZero> = {
   },
   // 16. tecomApartment
   tecomApartment: {
+    id: 10016,
     title: 'TECOM Professional Residence',
     slug: 'tecom-professional-residence',
     price: 460000,
@@ -399,6 +416,7 @@ export const propertiesDepthZero: Record<string, PropertyDepthZero> = {
   },
   // 17. deiraCondo
   deiraCondo: {
+    id: 10017,
     title: 'Deira City Apartment',
     slug: 'deira-city-apartment',
     price: 295000,
@@ -420,6 +438,7 @@ export const propertiesDepthZero: Record<string, PropertyDepthZero> = {
   },
   // 18. satwaResidence
   satwaResidence: {
+    id: 10018,
     title: 'Satwa Budget Studio',
     slug: 'satwa-budget-studio',
     price: 185000,
@@ -435,6 +454,7 @@ export const propertiesDepthZero: Record<string, PropertyDepthZero> = {
   },
   // 19. rashidiyaHome
   rashidiyaHome: {
+    id: 10019,
     title: 'Al Rashidiya Metro Home',
     slug: 'al-rashidiya-metro-home',
     price: 365000,
@@ -457,6 +477,7 @@ export const propertiesDepthZero: Record<string, PropertyDepthZero> = {
   },
   // 20. garhoudApartment
   garhoudApartment: {
+    id: 10020,
     title: 'Garhoud Premium Apartment',
     slug: 'garhoud-premium-apartment',
     price: 410000,

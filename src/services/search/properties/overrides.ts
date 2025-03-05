@@ -131,10 +131,6 @@ export const propertyOverrides: Field[] = [
             type: 'text',
           },
           {
-            name: 'id',
-            type: 'text',
-          },
-          {
             name: 'title',
             type: 'text',
           },

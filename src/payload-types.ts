@@ -2310,8 +2310,8 @@ export interface Search {
     classifications?:
       | {
           relationTo?: string | null;
-          id?: string | null;
           title?: string | null;
+          id?: string | null;
         }[]
       | null;
     amenities?:
@@ -3231,8 +3231,8 @@ export interface SearchSelect<T extends boolean = true> {
           | T
           | {
               relationTo?: T;
-              id?: T;
               title?: T;
+              id?: T;
             };
         amenities?:
           | T

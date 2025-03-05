@@ -16,16 +16,31 @@ export async function fetchFileByURL(url: string): Promise<File> {
 
     const data = await res.arrayBuffer()
     const filename = url.split('/').pop() || `file-${Date.now()}`
-    const extension = filename.split('.').pop() || 'png'
+    const extension = filename.split('.').pop()?.toLowerCase()
 
-    // console.log(
-    //   `Successfully fetched file: ${filename}, size: ${data.byteLength} bytes, type: ${extension}`,
-    // )
+    if (!extension) {
+      throw new Error(`No extension found for the file ${url}`)
+    }
+
+    // Determine the correct MIME type based on file extension
+    let mimetype = 'application/octet-stream' // Default MIME type
+
+    if (['jpg', 'jpeg'].includes(extension)) {
+      mimetype = 'image/jpeg'
+    } else if (['png', 'gif', 'webp', 'svg'].includes(extension)) {
+      mimetype = `image/${extension}`
+    } else if (['mp4', 'webm', 'mov'].includes(extension)) {
+      mimetype = `video/${extension}`
+    } else if (extension === 'pdf') {
+      mimetype = 'application/pdf'
+    } else if (['doc', 'docx'].includes(extension)) {
+      mimetype = 'application/msword'
+    }
 
     return {
       name: filename,
       data: Buffer.from(data),
-      mimetype: `image/${extension}`,
+      mimetype,
       size: data.byteLength,
     }
   } catch (error) {
@@ -41,13 +56,28 @@ export const fetchLocalFile = async (filepath: string): Promise<File> => {
   const fullPath = path.join(basePath, path.basename(filepath))
   const buffer = await fs.promises.readFile(fullPath)
   const filename = path.basename(filepath)
-  const ext = path.extname(filepath).substring(1)
+  const ext = path.extname(filepath).substring(1).toLowerCase()
   const stats = await fs.promises.stat(fullPath)
 
+  // Determine the correct MIME type based on file extension
+  let mimetype = 'application/octet-stream' // Default MIME type
+
+  if (['jpg', 'jpeg'].includes(ext)) {
+    mimetype = 'image/jpeg'
+  } else if (['png', 'gif', 'webp', 'svg'].includes(ext)) {
+    mimetype = `image/${ext}`
+  } else if (['mp4', 'webm', 'mov'].includes(ext)) {
+    mimetype = `video/${ext}`
+  } else if (ext === 'pdf') {
+    mimetype = 'application/pdf'
+  } else if (['doc', 'docx'].includes(ext)) {
+    mimetype = 'application/msword'
+  }
+
   return {
-    name: filename, // Added name property
+    name: filename,
     data: buffer,
-    mimetype: `image/${ext}`, // Changed mimeType to mimetype
-    size: stats.size, // Added size property
+    mimetype,
+    size: stats.size,
   }
 }
