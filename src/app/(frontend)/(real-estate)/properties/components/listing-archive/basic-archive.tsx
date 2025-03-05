@@ -1,15 +1,15 @@
-import { Card } from '@components/Card'
 import type { Search } from '@payload-types'
 import { cn } from '@utils/ui'
 import React from 'react'
-
-export type ListingArchiveProps = {
+// import { Card1 } from '../listing-card/card-1'
+import { Card2 } from '../listing-card/card-2'
+export type BasicArchiveProps = {
   records: Search[]
   className?: string
   relationTo?: 'properties' | 'projects'
 }
 
-export const ListingArchive: React.FC<ListingArchiveProps> = (props) => {
+export const BasicArchive: React.FC<BasicArchiveProps> = (props) => {
   const { records, className, relationTo = 'properties' } = props
 
   return (
@@ -20,12 +20,17 @@ export const ListingArchive: React.FC<ListingArchiveProps> = (props) => {
             if (typeof result === 'object' && result !== null) {
               return (
                 <div className="col-span-4" key={index}>
-                  <Card
+                  <Card2
                     className="h-full"
-                    doc={result}
+                    record={result}
+                    relationTo={relationTo}
+                  />
+                  {/* <Card1
+                    className="h-full"
+                    record={result}
                     relationTo={relationTo}
                     showCategories
-                  />
+                  /> */}
                 </div>
               )
             }

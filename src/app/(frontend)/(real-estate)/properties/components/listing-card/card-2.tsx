@@ -1,41 +1,54 @@
-import type { Media } from '@payload-types'
+import { Media } from '@components/Media'
+import type { Media as MediaType, Search } from '@payload-types'
+import { cn } from '@utils/ui'
 import { Bath, Bed, Heart, House, Star } from 'lucide-react'
-import Image from 'next/image'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React from 'react'
 
-export const SearchCard = ({
-  property,
+interface Card2Props {
+  record: Search
+  // TODO: Remove the optional flag once we have a way to get the favorite status
+  isFavorite?: boolean
+  onFavoriteToggle?: () => void
+  showFavoriteButton?: boolean
+  propertyLink?: string
+  className?: string
+  relationTo?: 'properties' | 'projects'
+}
+
+export const Card2 = ({
+  record,
   isFavorite,
   onFavoriteToggle,
   showFavoriteButton = true,
   propertyLink,
-}: ListingCardProps) => {
-  const firstImage = property.gallery?.images?.[0]
-  const imageUrl =
-    typeof firstImage === 'object' && firstImage !== null
-      ? (firstImage as Media)?.url || '/placeholder-property.jpg'
-      : '/placeholder-property.jpg'
+  className,
+  relationTo = 'properties',
+}: Card2Props) => {
+  const { slug, taxonomies, meta } = record || {}
+  const { title, price, description, images } = meta || {}
+  const { availabilityStatus, listingType, condition, classifications } =
+    taxonomies || {}
 
-  const [imgSrc, setImgSrc] = useState(imageUrl)
-
-  console.log('IMAGE SRC:', imgSrc)
-  console.log('IMAGE URL:', imageUrl)
+  const thumbnail = images?.[0]
 
   return (
-    <div className="bg-white rounded-xl overflow-hidden shadow-lg w-full mb-5">
+    <div
+      className={cn(
+        'bg-white rounded-xl overflow-hidden shadow-lg w-full mb-5',
+        className,
+      )}
+    >
       <div className="relative">
         <div className="w-full h-48 relative">
-          <Image
-            src={imgSrc}
-            alt={property.title || 'Property Image'}
+          <Media
+            resource={thumbnail}
             fill
             className="object-cover"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            onError={() => setImgSrc('/placeholder.jpg')}
+            size="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         </div>
-        <div className="absolute bottom-4 left-4 flex gap-2">
+        {/* <div className="absolute bottom-4 left-4 flex gap-2">
           {property.specs?.isPetsAllowed && (
             <span className="bg-white/80 text-black text-xs font-semibold px-2 py-1 rounded-full">
               Pets Allowed
@@ -46,7 +59,7 @@ export const SearchCard = ({
               Parking Included
             </span>
           )}
-        </div>
+        </div> */}
         {showFavoriteButton && (
           <button
             className="absolute bottom-4 right-4 bg-white hover:bg-white/90 rounded-full p-2 cursor-pointer"
@@ -64,21 +77,21 @@ export const SearchCard = ({
         <h2 className="text-xl font-bold mb-1">
           {propertyLink ? (
             <Link
-              href={propertyLink}
+              href={`/${relationTo}/${slug}`}
               className="hover:underline hover:text-blue-600"
               scroll={false}
             >
-              {property.title}
+              {title}
             </Link>
           ) : (
-            property.title
+            title
           )}
         </h2>
-        <p className="text-gray-600 mb-2">
+        {/* <p className="text-gray-600 mb-2">
           {property?.location?.neighborhood}, {property?.location?.city}
-        </p>
+        </p> */}
         <div className="flex justify-between items-center">
-          <div className="flex items-center mb-2">
+          {/* <div className="flex items-center mb-2">
             <Star className="w-4 h-4 text-yellow-400 mr-1" />
             <span className="font-semibold">
               {property.specs?.averageRating?.toFixed(1)}
@@ -86,14 +99,14 @@ export const SearchCard = ({
             <span className="text-gray-600 ml-1">
               ({property.specs?.numberOfReviews} Reviews)
             </span>
-          </div>
+          </div> */}
           <p className="text-lg font-bold mb-3">
-            ${property.price?.toFixed(0)}{' '}
+            ${price?.toFixed(0)}{' '}
             <span className="text-gray-600 text-base font-normal"> /month</span>
           </p>
         </div>
         <hr />
-        <div className="flex justify-between items-center gap-4 text-gray-600 mt-5">
+        {/* <div className="flex justify-between items-center gap-4 text-gray-600 mt-5">
           <span className="flex items-center">
             <Bed className="w-5 h-5 mr-2" />
             {property.specs?.rooms?.num_bedrooms} Bed
@@ -106,7 +119,7 @@ export const SearchCard = ({
             <House className="w-5 h-5 mr-2" />
             {property.specs?.measurements?.property_size} sq ft
           </span>
-        </div>
+        </div> */}
       </div>
     </div>
   )

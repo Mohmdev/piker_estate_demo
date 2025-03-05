@@ -39,21 +39,7 @@ export const propertyOverrides: Field[] = [
             name: 'title',
             label: 'Meta Title',
           },
-          {
-            type: 'number',
-            name: 'price',
-            label: 'Meta Price',
-          },
         ],
-      },
-      {
-        type: 'richText',
-        name: 'description',
-        label: 'Meta Description',
-        admin: {
-          readOnly: true,
-          className: '*:*:*:*:*:p-0',
-        },
       },
       {
         type: 'row',
@@ -70,6 +56,83 @@ export const propertyOverrides: Field[] = [
             relationTo: 'media',
             hasMany: true,
             maxRows: 5,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: 'specs',
+    label: 'Specifications',
+    type: 'group',
+    index: true,
+    admin: {
+      readOnly: true,
+    },
+    fields: [
+      {
+        type: 'row',
+        fields: [
+          {
+            type: 'number',
+            name: 'price',
+            label: 'Meta Price',
+          },
+          {
+            type: 'number',
+            name: 'areaSize',
+            label: 'Area Size',
+          },
+        ],
+      },
+      {
+        type: 'row',
+        fields: [
+          {
+            type: 'number',
+            name: 'rooms',
+            label: 'Rooms',
+          },
+          {
+            type: 'number',
+            name: 'bathrooms',
+            label: 'Bathrooms',
+          },
+          {
+            type: 'number',
+            name: 'yearBuilt',
+            label: 'Year Built',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: 'location',
+    label: 'Location',
+    type: 'group',
+    index: true,
+    admin: {
+      readOnly: true,
+    },
+    fields: [
+      {
+        type: 'row',
+        fields: [
+          {
+            type: 'text',
+            name: 'neighborhood',
+            label: 'Neighborhood',
+          },
+          {
+            type: 'text',
+            name: 'city',
+            label: 'City',
+          },
+          {
+            type: 'text',
+            name: 'country',
+            label: 'Country',
           },
         ],
       },
@@ -155,6 +218,21 @@ export const propertyOverrides: Field[] = [
           {
             name: 'value',
             type: 'text',
+          },
+        ],
+      },
+      {
+        type: 'row',
+        fields: [
+          {
+            type: 'checkbox',
+            name: 'hasParking',
+            label: 'Has Parking?',
+          },
+          {
+            type: 'checkbox',
+            name: 'petsAllowed',
+            label: 'Pets Allowed?',
           },
         ],
       },

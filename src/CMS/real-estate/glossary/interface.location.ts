@@ -1,6 +1,6 @@
 import { isIncludedInSibling } from '@utils/siblingFieldCondition'
 import type { NamedTab } from 'payload'
-import { countrySelectField } from './interface.countrySelect'
+import { countrySelectField } from './interface.country'
 
 export const LocationInterface: NamedTab = {
   name: 'location',

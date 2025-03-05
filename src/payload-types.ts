@@ -85,9 +85,9 @@ export type AmenitiesInterface =
   | null;
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CountrySelect".
+ * via the `definition` "CountryInterface".
  */
-export type CountrySelect =
+export type CountryInterface =
   | (
       | 'AF'
       | 'AX'
@@ -1259,67 +1259,40 @@ export interface Property {
 export interface SpecificationsInterface {
   averageRating?: number | null;
   numberOfReviews?: number | null;
-  isPetsAllowed?: boolean | null;
-  isParkingIncluded?: boolean | null;
-  measurements?: {
-    sizeRange?: ('small' | 'medium' | 'large' | 'xlarge') | null;
-    /**
-     * Interior living space in square meters
-     */
-    property_size?: number | null;
-    /**
-     * Total land area in square meters
-     */
-    block_size?: number | null;
-    /**
-     * Property frontage in meters
-     */
-    frontage?: number | null;
-    /**
-     * Property depth in meters
-     */
-    depth?: number | null;
-  };
-  rooms?: {
-    /**
-     * Number of bedrooms
-     */
-    num_bedrooms?: number | null;
-    /**
-     * Number of bathrooms (0.5 = powder room)
-     */
-    num_bathrooms?: number | null;
-    /**
-     * Number of car parking spaces
-     */
-    num_carspaces?: number | null;
-    /**
-     * Number of floors in the property
-     */
-    num_floors?: number | null;
-  };
-  construction?: {
-    /**
-     * Year the property was constructed
-     */
-    year_built?: number | null;
-    /**
-     * Year of last major renovation
-     */
-    last_renovated?: number | null;
-    /**
-     * Primary construction material/method
-     */
-    construction_type?: ('brick' | 'timber' | 'concrete' | 'steel' | 'mixed') | null;
-  };
-  utilities?: {
-    /**
-     * Energy efficiency rating
-     */
-    energy_rating?: ('A' | 'B' | 'C' | 'D' | 'E') | null;
-    heating_type?: ('central' | 'electric' | 'gas' | 'heat-pump' | 'none') | null;
-    cooling_type?: ('central' | 'split' | 'window' | 'none') | null;
-  };
+  petsAllowed?: boolean | null;
+  hasParking?: boolean | null;
+  /**
+   * Interior living space in square meters
+   */
+  areaSize?: number | null;
+  /**
+   * Total land area in square meters
+   */
+  landAreaSize?: number | null;
+  /**
+   * Number of bedrooms
+   */
+  rooms?: number | null;
+  /**
+   * Number of bathrooms (0.5 = powder room)
+   */
+  bathrooms?: number | null;
+  /**
+   * Number of car parking spaces
+   */
+  parkingSpaces?: number | null;
+  /**
+   * Number of floors in the property
+   */
+  floors?: number | null;
+  /**
+   * Year the property was constructed
+   */
+  yearBuilt?: number | null;
+  /**
+   * Year of last major renovation
+   */
+  lastRenovated?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1334,7 +1307,7 @@ export interface LocationInterface {
   postcode?: string | null;
   city?: string | null;
   state?: string | null;
-  countrySelect?: CountrySelect;
+  country?: CountryInterface;
   accessibility?: ('metro-connected' | 'bus-connected' | 'car-dependent' | 'walk-friendly' | 'custom') | null;
   customAccessibility?: string | null;
   /**
@@ -2285,23 +2258,19 @@ export interface Search {
   slug?: string | null;
   meta?: {
     title?: string | null;
-    price?: number | null;
-    description?: {
-      root: {
-        type: string;
-        children: {
-          type: string;
-          version: number;
-          [k: string]: unknown;
-        }[];
-        direction: ('ltr' | 'rtl') | null;
-        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-        indent: number;
-        version: number;
-      };
-      [k: string]: unknown;
-    } | null;
     images?: (number | Media)[] | null;
+  };
+  specs?: {
+    price?: number | null;
+    areaSize?: number | null;
+    rooms?: number | null;
+    bathrooms?: number | null;
+    yearBuilt?: number | null;
+  };
+  location?: {
+    neighborhood?: string | null;
+    city?: string | null;
+    country?: string | null;
   };
   taxonomies?: {
     availabilityStatus?: string | null;
@@ -2321,6 +2290,8 @@ export interface Search {
           id?: string | null;
         }[]
       | null;
+    hasParking?: boolean | null;
+    petsAllowed?: boolean | null;
   };
   updatedAt: string;
   createdAt: string;
@@ -2663,7 +2634,7 @@ export interface LocationInterfaceSelect<T extends boolean = true> {
   postcode?: T;
   city?: T;
   state?: T;
-  countrySelect?: T;
+  country?: T;
   accessibility?: T;
   customAccessibility?: T;
   coordinates?:
@@ -2743,39 +2714,16 @@ export interface PropertiesSelect<T extends boolean = true> {
 export interface SpecificationsInterfaceSelect<T extends boolean = true> {
   averageRating?: T;
   numberOfReviews?: T;
-  isPetsAllowed?: T;
-  isParkingIncluded?: T;
-  measurements?:
-    | T
-    | {
-        sizeRange?: T;
-        property_size?: T;
-        block_size?: T;
-        frontage?: T;
-        depth?: T;
-      };
-  rooms?:
-    | T
-    | {
-        num_bedrooms?: T;
-        num_bathrooms?: T;
-        num_carspaces?: T;
-        num_floors?: T;
-      };
-  construction?:
-    | T
-    | {
-        year_built?: T;
-        last_renovated?: T;
-        construction_type?: T;
-      };
-  utilities?:
-    | T
-    | {
-        energy_rating?: T;
-        heating_type?: T;
-        cooling_type?: T;
-      };
+  petsAllowed?: T;
+  hasParking?: T;
+  areaSize?: T;
+  landAreaSize?: T;
+  rooms?: T;
+  bathrooms?: T;
+  parkingSpaces?: T;
+  floors?: T;
+  yearBuilt?: T;
+  lastRenovated?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3217,9 +3165,23 @@ export interface SearchSelect<T extends boolean = true> {
     | T
     | {
         title?: T;
-        price?: T;
-        description?: T;
         images?: T;
+      };
+  specs?:
+    | T
+    | {
+        price?: T;
+        areaSize?: T;
+        rooms?: T;
+        bathrooms?: T;
+        yearBuilt?: T;
+      };
+  location?:
+    | T
+    | {
+        neighborhood?: T;
+        city?: T;
+        country?: T;
       };
   taxonomies?:
     | T
@@ -3241,6 +3203,8 @@ export interface SearchSelect<T extends boolean = true> {
               value?: T;
               id?: T;
             };
+        hasParking?: T;
+        petsAllowed?: T;
       };
   updatedAt?: T;
   createdAt?: T;

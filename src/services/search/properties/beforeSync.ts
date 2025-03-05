@@ -16,29 +16,35 @@ export const propertyBeforeSyncWithSearch: BeforeSync = async ({
   } = searchDoc
 
   const {
-    slug,
+    // slug,
     id,
     // meta
-    title,
-    price,
-    description,
+    // title,
+    // price,
     gallery,
     meta,
+    // specs: {
+    //   areaSize,
+    //   rooms,
+    //   bathrooms,
+    //   // petsAllowed,
+    //   // hasParking,
+    //   yearBuilt,
+    // } = {},
+    // location: { neighborhood, city, country } = {},
     // taxonomies
     classification: classifications,
     amenitiesMeta,
-    availabilityStatus,
-    listingType,
-    condition,
+    // availabilityStatus,
+    // listingType,
+    // condition,
   } = originalDoc
 
   const generatedSearchDoc: DocToSync = {
     ...searchDoc,
-    slug,
+    slug: originalDoc.slug || undefined,
     meta: {
-      ...meta,
-      title: meta?.title || title,
-      // images:  (gallery?.images && gallery?.images.slice(0, 5)) || [],
+      title: originalDoc.meta?.title || originalDoc.title,
       images:
         // if meta.image is available
         (meta?.image
@@ -49,15 +55,28 @@ export const propertyBeforeSyncWithSearch: BeforeSync = async ({
         // if gallery.images is available
         (gallery?.images && gallery?.images.slice(0, 5)) ||
         [],
-      description: meta?.description || description,
-      price,
+    },
+    specs: {
+      price: originalDoc.price || undefined,
+      areaSize: originalDoc.specs?.areaSize || undefined,
+      rooms: originalDoc.specs?.rooms || undefined,
+      bathrooms: originalDoc.specs?.bathrooms || undefined,
+      yearBuilt: originalDoc.specs?.yearBuilt || undefined,
+    },
+    location: {
+      neighborhood: originalDoc.location?.neighborhood || undefined,
+      city: originalDoc.location?.city || undefined,
+      country: originalDoc.location?.country || undefined,
     },
     taxonomies: {
       classifications,
       amenitiesMeta,
-      availabilityStatus,
-      listingType,
-      condition,
+      //
+      listingType: originalDoc.listingType || undefined,
+      availabilityStatus: originalDoc.availabilityStatus || undefined,
+      condition: originalDoc.condition || undefined,
+      petsAllowed: originalDoc.specs?.petsAllowed || undefined,
+      hasParking: originalDoc.specs?.hasParking || undefined,
     },
   }
 
@@ -122,19 +141,19 @@ export const propertyBeforeSyncWithSearch: BeforeSync = async ({
   }
 
   // availabilityStatus
-  if (availabilityStatus) {
-    generatedSearchDoc.taxonomies.availabilityStatus = availabilityStatus
-  }
+  // if (availabilityStatus) {
+  //   generatedSearchDoc.taxonomies.availabilityStatus = availabilityStatus
+  // }
 
-  // listingType
-  if (listingType) {
-    generatedSearchDoc.taxonomies.listingType = listingType
-  }
+  // // listingType
+  // if (listingType) {
+  //   generatedSearchDoc.taxonomies.listingType = listingType
+  // }
 
   // condition
-  if (condition) {
-    generatedSearchDoc.taxonomies.condition = condition
-  }
+  // if (condition) {
+  //   generatedSearchDoc.taxonomies.condition = condition
+  // }
 
   return generatedSearchDoc
 }

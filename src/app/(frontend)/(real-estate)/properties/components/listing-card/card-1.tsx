@@ -1,37 +1,17 @@
 'use client'
 
 import { Media } from '@components/Media'
-import type {
-  Blog,
-  Media as MediaType,
-  Project,
-  Property,
-} from '@payload-types'
+import RichText from '@components/RichText'
+import type { Search } from '@payload-types'
 import { cn } from '@utils/ui'
 import useClickableCard from '@utils/useClickableCard'
 import Link from 'next/link'
 import React, { Fragment } from 'react'
 
-type CommonFields = {
-  slug?: string | null
-  title: string
-  meta?: {
-    description?: string | null
-    image?: MediaType | number | null
-  } | null
-  categories?:
-    | Blog['categories']
-    | Property['categories']
-    | Project['categories']
-    | null
-}
-
-export type CardPostData = CommonFields
-
-export const Card: React.FC<{
+export const Card1: React.FC<{
   alignItems?: 'center'
   className?: string
-  doc?: CardPostData
+  record?: Search
   relationTo?: string
   showCategories?: boolean
   title?: string
@@ -39,19 +19,24 @@ export const Card: React.FC<{
   const { card, link } = useClickableCard({})
   const {
     className,
-    doc,
+    record,
     relationTo,
     showCategories,
     title: titleFromProps,
   } = props
 
-  const { slug, categories, meta, title } = doc || {}
-  const { description, image: metaImage } = meta || {}
+  const { slug, taxonomies, meta } = record || {}
+  const { title, price, description, images } = meta || {}
+  const { availabilityStatus, listingType, condition, classifications } =
+    taxonomies || {}
+
+  const thumbnail = images?.[0]
 
   const hasCategories =
-    categories && Array.isArray(categories) && categories.length > 0
+    classifications &&
+    Array.isArray(classifications) &&
+    classifications.length > 0
   const titleToUse = titleFromProps || title
-  const sanitizedDescription = description?.replace(/\s/g, ' ') // replace non-breaking space with white space
   const href = `/${relationTo}/${slug}`
 
   return (
@@ -64,9 +49,9 @@ export const Card: React.FC<{
       ref={card.ref}
     >
       <div className="relative w-full ">
-        {!metaImage && <div className="">No image</div>}
-        {metaImage && typeof metaImage !== 'string' && (
-          <Media resource={metaImage} size="33vw" />
+        {!thumbnail && <div className="">No image</div>}
+        {thumbnail && typeof thumbnail !== 'string' && (
+          <Media resource={thumbnail} size="33vw" />
         )}
       </div>
       <div
@@ -81,21 +66,13 @@ export const Card: React.FC<{
             <div className="uppercase text-sm mb-4 prose">
               {showCategories && hasCategories && (
                 <p>
-                  {categories?.map((category, index) => {
-                    if (typeof category === 'object') {
-                      const { value } = category
-                      const titleFromCategory =
-                        typeof value === 'object' &&
-                        value !== null &&
-                        'title' in value
-                          ? value.title
-                          : undefined
-                      const categoryTitle =
-                        titleFromCategory || 'Untitled category'
-                      const isLast = index === categories.length - 1
+                  {classifications?.map((classification, index) => {
+                    if (typeof classification === 'object') {
+                      const { title } = classification
+                      const isLast = index === classifications.length - 1
                       return (
                         <Fragment key={index}>
-                          {categoryTitle}
+                          {title}
                           {!isLast && <Fragment>, &nbsp;</Fragment>}
                         </Fragment>
                       )
@@ -118,7 +95,7 @@ export const Card: React.FC<{
         </div>
         {description && (
           <div className="mt-2 grid h-full place-content-center prose">
-            {description && <p>{sanitizedDescription}</p>}
+            <RichText data={description} />
           </div>
         )}
       </div>

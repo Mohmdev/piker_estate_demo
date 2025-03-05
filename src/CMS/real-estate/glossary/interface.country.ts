@@ -2,9 +2,9 @@ import type { SelectField } from 'payload'
 
 export const countrySelectField: SelectField = {
   type: 'select',
-  name: 'countrySelect',
+  name: 'country',
   label: 'Country',
-  interfaceName: 'CountrySelect',
+  interfaceName: 'CountryInterface',
   options: [
     {
       label: 'Afghanistan',
