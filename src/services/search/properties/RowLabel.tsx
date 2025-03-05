@@ -20,7 +20,7 @@ export const AmenityRowLabel: React.FC<RowLabelProps> = () => {
       NonNullable<NonNullable<Search['taxonomies']>['amenities']>[number]
     >()
 
-  const label = amenity?.value || '...'
+  const label = amenity?.label || '...'
 
   return <span>{label}</span>
 }

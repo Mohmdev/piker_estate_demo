@@ -1138,6 +1138,15 @@ export interface Property {
   availabilityStatus?: AvailabilityStatusInterface;
   classification: (number | Classification)[];
   amenities?: AmenitiesInterface;
+  amenitiesMeta?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   gallery?: {
     /**
      * Upload up to 24 high-quality images.
@@ -1422,6 +1431,15 @@ export interface Project {
   listingType: ListingTypeInterface;
   availabilityStatus?: AvailabilityStatusInterface;
   amenities?: AmenitiesInterface;
+  amenitiesMeta?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   gallery?: {
     /**
      * Upload up to 24 high-quality images.
@@ -2298,6 +2316,7 @@ export interface Search {
       | null;
     amenities?:
       | {
+          label?: string | null;
           value?: string | null;
           id?: string | null;
         }[]
@@ -2593,6 +2612,7 @@ export interface ProjectsSelect<T extends boolean = true> {
   listingType?: T;
   availabilityStatus?: T;
   amenities?: T;
+  amenitiesMeta?: T;
   gallery?:
     | T
     | {
@@ -2682,6 +2702,7 @@ export interface PropertiesSelect<T extends boolean = true> {
   availabilityStatus?: T;
   classification?: T;
   amenities?: T;
+  amenitiesMeta?: T;
   gallery?:
     | T
     | {
@@ -3216,6 +3237,7 @@ export interface SearchSelect<T extends boolean = true> {
         amenities?:
           | T
           | {
+              label?: T;
               value?: T;
               id?: T;
             };

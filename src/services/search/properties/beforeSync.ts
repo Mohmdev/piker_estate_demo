@@ -1,5 +1,6 @@
 import type { Classification, Media, Property, Search } from '@payload-types'
 import { BeforeSync, DocToSync } from '@payloadcms/plugin-search/types'
+import { parseAmenitiesMeta } from '../../../CMS/real-estate/glossary/amenities/types'
 
 type beforeSyncProps = {
   originalDoc: Partial<Property>
@@ -25,7 +26,7 @@ export const propertyBeforeSyncWithSearch: BeforeSync = async ({
     meta,
     // taxonomies
     classification: classifications,
-    amenities,
+    amenitiesMeta,
     availabilityStatus,
     listingType,
     condition,
@@ -53,7 +54,7 @@ export const propertyBeforeSyncWithSearch: BeforeSync = async ({
     },
     taxonomies: {
       classifications,
-      amenities,
+      amenitiesMeta,
       availabilityStatus,
       listingType,
       condition,
@@ -102,13 +103,23 @@ export const propertyBeforeSyncWithSearch: BeforeSync = async ({
   }
 
   // amenities
-  if (amenities) {
-    generatedSearchDoc.taxonomies.amenities = amenities.map(
-      (amenity, index) => ({
-        value: amenity,
-        id: `amenity_${index}`,
-      }),
-    )
+  if (amenitiesMeta) {
+    try {
+      const parsedAmenitiesMeta = parseAmenitiesMeta(amenitiesMeta)
+
+      if (parsedAmenitiesMeta) {
+        generatedSearchDoc.taxonomies.amenities = parsedAmenitiesMeta.map(
+          (amenity) => ({
+            label: amenity.label,
+            value: amenity.value,
+          }),
+        )
+      }
+    } catch (err) {
+      console.error(
+        `Failed to process amenitiesMeta when syncing collection '${collection}' with id: '${id}' to search. | ${err}`,
+      )
+    }
   }
 
   // availabilityStatus

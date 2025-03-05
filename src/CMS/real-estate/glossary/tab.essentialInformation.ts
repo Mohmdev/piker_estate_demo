@@ -63,6 +63,7 @@ export const EssentialInformationTab: UnnamedTab = {
           },
         },
         amenitiesInterface,
+        // amenitiesWithLabelsField,
         // {
         //   type: 'relationship',
         //   name: 'amenities',

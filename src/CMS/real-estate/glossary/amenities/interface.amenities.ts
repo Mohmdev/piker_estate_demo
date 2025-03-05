@@ -1,208 +1,71 @@
-import type { SelectField } from 'payload'
+import type { Field, RowField } from 'payload'
+import { amenityOptions } from './options'
 
-export const amenitiesInterface: SelectField = {
-  type: 'select',
-  name: 'amenities',
-  label: 'Amenities',
-  interfaceName: 'AmenitiesInterface',
-  hasMany: true,
+// Define the type for amenity metadata objects
+export type AmenityMeta = {
+  value: string
+  label: string
+}
+
+export const amenitiesMetaField: Field = {
+  name: 'amenitiesMeta',
+  type: 'json',
   admin: {
-    components: {
-      Field: {
-        path: '@CMS/real-estate/glossary/amenities/Component#AmenitiesComponent',
-      },
-    },
+    hidden: true,
   },
-  options: [
-    // Security & Access
-    {
-      label: 'Security System',
-      value: 'securitySystem',
-    },
-    {
-      label: '24/7 Security & CCTV',
-      value: 'security247',
-    },
-    {
-      label: 'Access Control System',
-      value: 'accessControl',
-    },
-    {
-      label: 'Intercom System',
-      value: 'intercom',
-    },
+  hooks: {
+    beforeChange: [
+      () => {
+        // Don't store anything for this field in the database
+        return undefined
+      },
+    ],
+    afterRead: [
+      ({ data }) => {
+        if (!data?.amenities || !Array.isArray(data.amenities)) return null
 
-    // Parking
-    {
-      label: 'Parking',
-      value: 'parking',
-    },
-    {
-      label: 'Covered Parking',
-      value: 'coveredParking',
-    },
-    {
-      label: 'Valet Service',
-      value: 'valetService',
-    },
-    {
-      label: 'EV Charging Stations',
-      value: 'evCharging',
-    },
-    {
-      label: 'Bicycle Storage',
-      value: 'bicycleStorage',
-    },
+        // Create an array of objects with label and value
+        return data.amenities.map((value) => ({
+          value,
+          label: amenityValueToLabelMap[value] || value,
+        }))
+      },
+    ],
+  },
+}
 
-    // Wellness & Recreation
+export const amenitiesInterface: RowField = {
+  type: 'row',
+  fields: [
     {
-      label: 'Swimming Pool',
-      value: 'swimmingPool',
+      type: 'select',
+      name: 'amenities',
+      label: 'Amenities',
+      interfaceName: 'AmenitiesInterface',
+      hasMany: true,
+      admin: {
+        components: {
+          Field: {
+            path: '@CMS/real-estate/glossary/amenities/Component#AmenitiesComponent',
+          },
+        },
+        isClearable: true,
+        isSortable: true,
+      },
+      custom: {
+        // Is it possible to put our options labels and values in custom and use them in the options field?
+      },
+      options: amenityOptions,
     },
-    {
-      label: 'Gym/Fitness Center',
-      value: 'gym',
-    },
-    {
-      label: 'Spa Facilities',
-      value: 'spaFacilities',
-    },
-    {
-      label: 'Sauna & Steam Room',
-      value: 'saunaAndSteam',
-    },
-    {
-      label: "Children's Play Area",
-      value: 'childrensPlayArea',
-    },
-    {
-      label: 'Sports Courts',
-      value: 'sportsCourts',
-    },
-    {
-      label: 'Walking/Jogging Track',
-      value: 'walkingTrack',
-    },
-    {
-      label: 'BBQ Area',
-      value: 'bbqArea',
-    },
-    {
-      label: 'Games Room',
-      value: 'gamesRoom',
-    },
-
-    // Business & Work
-    {
-      label: 'Business Center',
-      value: 'businessCenter',
-    },
-    {
-      label: 'Co-working Space',
-      value: 'coworkingSpace',
-    },
-    {
-      label: 'Meeting Rooms',
-      value: 'meetingRooms',
-    },
-
-    // Building Services
-    {
-      label: '24/7 Maintenance',
-      value: 'maintenance247',
-    },
-    {
-      label: 'Concierge Service',
-      value: 'conciergeService',
-    },
-    {
-      label: 'Building Management',
-      value: 'buildingManagement',
-    },
-    {
-      label: 'Package Reception',
-      value: 'packageReception',
-    },
-    {
-      label: 'Housekeeping Services',
-      value: 'housekeepingServices',
-    },
-
-    // Core Unit Features
-    {
-      label: 'Air Conditioning',
-      value: 'airConditioning',
-    },
-    {
-      label: 'Heating',
-      value: 'heating',
-    },
-    {
-      label: 'Smart Home System',
-      value: 'smartHome',
-    },
-    {
-      label: 'High-Speed Internet',
-      value: 'fastInternet',
-    },
-    {
-      label: 'Built-in Wardrobes',
-      value: 'builtInWardrobes',
-    },
-
-    // Kitchen & Laundry
-    {
-      label: 'Fully Fitted Kitchen',
-      value: 'fittedKitchen',
-    },
-    {
-      label: 'Built-in Appliances',
-      value: 'builtInAppliances',
-    },
-    {
-      label: 'Laundry Room',
-      value: 'laundryRoom',
-    },
-    {
-      label: 'Washer/Dryer',
-      value: 'washerDryer',
-    },
-
-    // Outdoor Features
-    {
-      label: 'Balcony/Terrace',
-      value: 'balconyTerrace',
-    },
-    {
-      label: 'Private Garden',
-      value: 'privateGarden',
-    },
-    {
-      label: 'Scenic Views',
-      value: 'scenicViews',
-    },
-    {
-      label: 'Pet Friendly',
-      value: 'petFriendly',
-    },
-
-    // Premium Features
-    {
-      label: 'Private Pool',
-      value: 'privatePool',
-    },
-    {
-      label: 'Private Elevator',
-      value: 'privateElevator',
-    },
-    {
-      label: "Maid's Room",
-      value: 'maidsRoom',
-    },
-    // Other
-    {
-      label: 'Furnished',
-      value: 'furnished',
-    },
+    amenitiesMetaField,
   ],
 }
+
+// Create a mapping of values to labels for easy lookup
+export const amenityValueToLabelMap: Record<string, string> =
+  amenityOptions.reduce((acc, option) => {
+    if (typeof option === 'string') {
+      return { ...acc, [option]: option }
+    }
+    return { ...acc, [option.value]: option.label }
+  }, {})
