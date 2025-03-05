@@ -18,6 +18,7 @@ export const searchService: Plugin = searchPlugin({
     },
     admin: {
       group: 'Resources',
+      defaultColumns: ['meta', 'title', 'taxonomies', 'updatedAt'],
     },
   },
 })

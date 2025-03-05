@@ -2267,6 +2267,7 @@ export interface Search {
   slug?: string | null;
   meta?: {
     title?: string | null;
+    price?: number | null;
     description?: {
       root: {
         type: string;
@@ -2282,10 +2283,12 @@ export interface Search {
       };
       [k: string]: unknown;
     } | null;
-    image?: (number | null) | Media;
-    price?: number | null;
+    images?: (number | Media)[] | null;
   };
   taxonomies?: {
+    availabilityStatus?: string | null;
+    listingType?: string | null;
+    condition?: string | null;
     classifications?:
       | {
           relationTo?: string | null;
@@ -2299,9 +2302,6 @@ export interface Search {
           id?: string | null;
         }[]
       | null;
-    availabilityStatus?: string | null;
-    listingType?: string | null;
-    condition?: string | null;
   };
   updatedAt: string;
   createdAt: string;
@@ -3196,13 +3196,16 @@ export interface SearchSelect<T extends boolean = true> {
     | T
     | {
         title?: T;
-        description?: T;
-        image?: T;
         price?: T;
+        description?: T;
+        images?: T;
       };
   taxonomies?:
     | T
     | {
+        availabilityStatus?: T;
+        listingType?: T;
+        condition?: T;
         classifications?:
           | T
           | {
@@ -3216,9 +3219,6 @@ export interface SearchSelect<T extends boolean = true> {
               value?: T;
               id?: T;
             };
-        availabilityStatus?: T;
-        listingType?: T;
-        condition?: T;
       };
   updatedAt?: T;
   createdAt?: T;

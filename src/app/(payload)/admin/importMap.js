@@ -2,7 +2,7 @@ import { ListingTypeComponent as ListingTypeComponent_78420080d2be7041f5328b8ec2
 import { AvailabilityStatusComponent as AvailabilityStatusComponent_51227c62b7b6e83b69ad18189118112c } from '@CMS/real-estate/glossary/availability-status/Component'
 import { AmenitiesComponent as AmenitiesComponent_3adb0cf06d0b16717dac7ee7e20a7ddd } from '@CMS/real-estate/glossary/amenities/Component'
 import { GalleryThumbnail as GalleryThumbnail_34ac57888b71d2de43c7bf92875a8eb2 } from '@CMS/real-estate/glossary/gallery/thumbnail/client'
-import { GalleryCell as GalleryCell_2ff759f8e6c3a71b1e89d92923543d99 } from '@CMS/real-estate/glossary/gallery/cell/client'
+import { GalleryCellThumbnail as GalleryCellThumbnail_bfe0c64086c2431f98d20350e1f993f9 } from '@CMS/real-estate/glossary/gallery/cell-thumbnail/client'
 import { RscEntryLexicalCell as RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
 import { RscEntryLexicalField as RscEntryLexicalField_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
 import { FixedToolbarFeatureClient as FixedToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
@@ -36,6 +36,8 @@ import { PropertyConditionComponent as PropertyConditionComponent_7f1bdeea3c49bc
 import { BlocksFeatureClient as BlocksFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { DbInteractionZone as DbInteractionZone_311b9917f801c21299e20d4f7ea6a2b0 } from '@services/seed/danger-zone/Component'
 import { LinkToDoc as LinkToDoc_aead06e4cbf6b2620c5c51c9ab283634 } from '@payloadcms/plugin-search/client'
+import { ClassificationRowLabel as ClassificationRowLabel_bde73dd76fb0fc0bc34954299e3dc5d7 } from '@services/search/properties/RowLabel'
+import { AmenityRowLabel as AmenityRowLabel_bde73dd76fb0fc0bc34954299e3dc5d7 } from '@services/search/properties/RowLabel'
 import { ReindexButton as ReindexButton_aead06e4cbf6b2620c5c51c9ab283634 } from '@payloadcms/plugin-search/client'
 import { NavItemRowLabel as NavItemRowLabel_89630d85da8118b8e772cd055f9d4c52 } from '@CMS/design/MainMenu/NavItemRowLabel'
 import { NavGroupRowLabel as NavGroupRowLabel_f94ce73936521f063d446a42c84fc876 } from '@CMS/design/MainMenu/NavGroupRowLabel'
@@ -50,7 +52,7 @@ export const importMap = {
   "@CMS/real-estate/glossary/availability-status/Component#AvailabilityStatusComponent": AvailabilityStatusComponent_51227c62b7b6e83b69ad18189118112c,
   "@CMS/real-estate/glossary/amenities/Component#AmenitiesComponent": AmenitiesComponent_3adb0cf06d0b16717dac7ee7e20a7ddd,
   "@CMS/real-estate/glossary/gallery/thumbnail/client#GalleryThumbnail": GalleryThumbnail_34ac57888b71d2de43c7bf92875a8eb2,
-  "@CMS/real-estate/glossary/gallery/cell/client#GalleryCell": GalleryCell_2ff759f8e6c3a71b1e89d92923543d99,
+  "@CMS/real-estate/glossary/gallery/cell-thumbnail/client#GalleryCellThumbnail": GalleryCellThumbnail_bfe0c64086c2431f98d20350e1f993f9,
   "@payloadcms/richtext-lexical/rsc#RscEntryLexicalCell": RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e,
   "@payloadcms/richtext-lexical/rsc#RscEntryLexicalField": RscEntryLexicalField_44fe37237e0ebf4470c9990d8cb7b07e,
   "@payloadcms/richtext-lexical/client#FixedToolbarFeatureClient": FixedToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
@@ -84,6 +86,8 @@ export const importMap = {
   "@payloadcms/richtext-lexical/client#BlocksFeatureClient": BlocksFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@services/seed/danger-zone/Component#DbInteractionZone": DbInteractionZone_311b9917f801c21299e20d4f7ea6a2b0,
   "@payloadcms/plugin-search/client#LinkToDoc": LinkToDoc_aead06e4cbf6b2620c5c51c9ab283634,
+  "@services/search/properties/RowLabel#ClassificationRowLabel": ClassificationRowLabel_bde73dd76fb0fc0bc34954299e3dc5d7,
+  "@services/search/properties/RowLabel#AmenityRowLabel": AmenityRowLabel_bde73dd76fb0fc0bc34954299e3dc5d7,
   "@payloadcms/plugin-search/client#ReindexButton": ReindexButton_aead06e4cbf6b2620c5c51c9ab283634,
   "@CMS/design/MainMenu/NavItemRowLabel#NavItemRowLabel": NavItemRowLabel_89630d85da8118b8e772cd055f9d4c52,
   "@CMS/design/MainMenu/NavGroupRowLabel#NavGroupRowLabel": NavGroupRowLabel_f94ce73936521f063d446a42c84fc876,

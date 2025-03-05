@@ -1458,9 +1458,8 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"priority" numeric,
   	"slug" varchar,
   	"meta_title" varchar,
-  	"meta_description" varchar,
-  	"meta_image_id" integer,
   	"meta_price" numeric,
+  	"meta_description" jsonb,
   	"taxonomies_availability_status" varchar,
   	"taxonomies_listing_type" varchar,
   	"taxonomies_condition" varchar,
@@ -1474,7 +1473,8 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"parent_id" integer NOT NULL,
   	"path" varchar NOT NULL,
   	"properties_id" integer,
-  	"projects_id" integer
+  	"projects_id" integer,
+  	"media_id" integer
   );
   
   CREATE TABLE IF NOT EXISTS "forms_blocks_checkbox" (
@@ -3143,12 +3143,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   END $$;
   
   DO $$ BEGIN
-   ALTER TABLE "search" ADD CONSTRAINT "search_meta_image_id_media_id_fk" FOREIGN KEY ("meta_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
-  EXCEPTION
-   WHEN duplicate_object THEN null;
-  END $$;
-  
-  DO $$ BEGIN
    ALTER TABLE "search_rels" ADD CONSTRAINT "search_rels_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."search"("id") ON DELETE cascade ON UPDATE no action;
   EXCEPTION
    WHEN duplicate_object THEN null;
@@ -3162,6 +3156,12 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   
   DO $$ BEGIN
    ALTER TABLE "search_rels" ADD CONSTRAINT "search_rels_projects_fk" FOREIGN KEY ("projects_id") REFERENCES "public"."projects"("id") ON DELETE cascade ON UPDATE no action;
+  EXCEPTION
+   WHEN duplicate_object THEN null;
+  END $$;
+  
+  DO $$ BEGIN
+   ALTER TABLE "search_rels" ADD CONSTRAINT "search_rels_media_fk" FOREIGN KEY ("media_id") REFERENCES "public"."media"("id") ON DELETE cascade ON UPDATE no action;
   EXCEPTION
    WHEN duplicate_object THEN null;
   END $$;
@@ -4008,7 +4008,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX IF NOT EXISTS "search_taxonomies_amenities_order_idx" ON "search_taxonomies_amenities" USING btree ("_order");
   CREATE INDEX IF NOT EXISTS "search_taxonomies_amenities_parent_id_idx" ON "search_taxonomies_amenities" USING btree ("_parent_id");
   CREATE INDEX IF NOT EXISTS "search_slug_idx" ON "search" USING btree ("slug");
-  CREATE INDEX IF NOT EXISTS "search_meta_meta_image_idx" ON "search" USING btree ("meta_image_id");
   CREATE INDEX IF NOT EXISTS "search_updated_at_idx" ON "search" USING btree ("updated_at");
   CREATE INDEX IF NOT EXISTS "search_created_at_idx" ON "search" USING btree ("created_at");
   CREATE INDEX IF NOT EXISTS "search_rels_order_idx" ON "search_rels" USING btree ("order");
@@ -4016,6 +4015,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX IF NOT EXISTS "search_rels_path_idx" ON "search_rels" USING btree ("path");
   CREATE INDEX IF NOT EXISTS "search_rels_properties_id_idx" ON "search_rels" USING btree ("properties_id");
   CREATE INDEX IF NOT EXISTS "search_rels_projects_id_idx" ON "search_rels" USING btree ("projects_id");
+  CREATE INDEX IF NOT EXISTS "search_rels_media_id_idx" ON "search_rels" USING btree ("media_id");
   CREATE INDEX IF NOT EXISTS "forms_blocks_checkbox_order_idx" ON "forms_blocks_checkbox" USING btree ("_order");
   CREATE INDEX IF NOT EXISTS "forms_blocks_checkbox_parent_id_idx" ON "forms_blocks_checkbox" USING btree ("_parent_id");
   CREATE INDEX IF NOT EXISTS "forms_blocks_checkbox_path_idx" ON "forms_blocks_checkbox" USING btree ("_path");

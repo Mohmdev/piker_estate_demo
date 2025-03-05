@@ -25,7 +25,7 @@ type Gallery = {
   documents?: (number | Media)[] | null
 }
 
-export const GalleryCell: React.FC<CellProps> = (props) => {
+export const GalleryCellThumbnail: React.FC<CellProps> = (props) => {
   const { rowData, field, collectionSlug, link = true } = props
 
   // Extract the first image ID directly from rowData
@@ -33,7 +33,45 @@ export const GalleryCell: React.FC<CellProps> = (props) => {
     // Parse the field path to navigate the nested structure
     const fieldPath = field.split('.')
 
-    // If we have gallery.images, we need to access rowData.gallery.images
+    // Handle direct images array (for search collection)
+    if (
+      fieldPath[0] === 'images' &&
+      Array.isArray(rowData.images) &&
+      rowData.images.length > 0
+    ) {
+      const firstItem = rowData.images[0]
+      if (
+        typeof firstItem === 'object' &&
+        firstItem !== null &&
+        'id' in firstItem
+      ) {
+        return firstItem.id
+      }
+      return null
+    }
+
+    // Handle meta.images path (for search collection)
+    if (fieldPath[0] === 'meta' && fieldPath[1] === 'images' && rowData.meta) {
+      const meta = rowData.meta as Record<string, unknown>
+      const images = meta.images
+
+      if (Array.isArray(images) && images.length > 0) {
+        const firstItem = images[0]
+        if (typeof firstItem === 'number') {
+          return firstItem
+        }
+        if (
+          typeof firstItem === 'object' &&
+          firstItem !== null &&
+          'id' in firstItem
+        ) {
+          return firstItem.id
+        }
+      }
+      return null
+    }
+
+    // Original gallery.images handling (for properties collection)
     if (
       fieldPath.length === 2 &&
       fieldPath[0] === 'gallery' &&

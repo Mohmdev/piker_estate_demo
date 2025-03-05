@@ -9,7 +9,7 @@ export const galleryGroup: GroupField = {
   admin: {
     components: {
       Cell: {
-        path: '@CMS/real-estate/glossary/gallery/cell/client#GalleryCell',
+        path: '@CMS/real-estate/glossary/gallery/cell-thumbnail/client#GalleryCellThumbnail',
         clientProps: {
           cellData: 'gallery',
           collectionSlug: 'properties',

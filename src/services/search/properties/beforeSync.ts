@@ -22,6 +22,7 @@ export const propertyBeforeSyncWithSearch: BeforeSync = async ({
     price,
     description,
     gallery,
+    meta,
     // taxonomies
     classification: classifications,
     amenities,
@@ -34,10 +35,21 @@ export const propertyBeforeSyncWithSearch: BeforeSync = async ({
     ...searchDoc,
     slug,
     meta: {
-      title,
+      ...meta,
+      title: meta?.title || title,
+      // images:  (gallery?.images && gallery?.images.slice(0, 5)) || [],
+      images:
+        // if meta.image is available
+        (meta?.image
+          ? typeof meta.image === 'number'
+            ? meta.image
+            : meta.image.id
+          : null) ||
+        // if gallery.images is available
+        (gallery?.images && gallery?.images.slice(0, 5)) ||
+        [],
+      description: meta?.description || description,
       price,
-      description,
-      image: (gallery?.images && gallery?.images[0]) || {},
     },
     taxonomies: {
       classifications,
@@ -51,11 +63,12 @@ export const propertyBeforeSyncWithSearch: BeforeSync = async ({
   const imagesArray = gallery?.images
   if (imagesArray && Array.isArray(imagesArray) && imagesArray.length > 0) {
     try {
-      const firstImage = imagesArray[0] as Media
-      generatedSearchDoc.image = {
-        id: firstImage.id,
+      const firstFiveImages = imagesArray.slice(0, 5)
+
+      generatedSearchDoc.images = firstFiveImages.map((image) => ({
+        id: typeof image === 'number' ? image : image.id,
         relationTo: 'media',
-      }
+      }))
     } catch (error) {
       console.error(
         `Failed to map image when syncing collection '${collection}' with id: '${id}' to Search. Document will be indexed without an image. | ${error}`,
