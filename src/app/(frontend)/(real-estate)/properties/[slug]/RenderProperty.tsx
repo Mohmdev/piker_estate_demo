@@ -26,7 +26,7 @@ export const RenderProperty: React.FC<{
         <div className="container">
           {/* <RichText
             className="max-w-[48rem] mx-auto"
-            data={property.description as SerializedEditorState}
+            data={property.description as DefaultTypedEditorState}
             enableGutter={false}
           /> */}
           <ImagePreviews images={galleryImages as Media[]} />

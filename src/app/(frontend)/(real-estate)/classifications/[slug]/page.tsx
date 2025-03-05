@@ -6,7 +6,7 @@ import RichText from '@components/RichText'
 import { getDynamicMeta } from '@data/getDynamicMeta'
 import { getClassificationBySlug } from '@data/real-estate/getClassification'
 import configPromise from '@payload-config'
-import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
+import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 import { generateMeta } from '@services/seo/generateMeta'
 import type { Metadata } from 'next'
 import { draftMode } from 'next/headers'
@@ -65,7 +65,7 @@ export default async function ClassificationPost({
         <div className="container">
           <RichText
             className="max-w-[48rem] mx-auto"
-            data={classification.description as SerializedEditorState}
+            data={classification.description as DefaultTypedEditorState}
             enableGutter={false}
           />
           {classification.relatedDocs &&

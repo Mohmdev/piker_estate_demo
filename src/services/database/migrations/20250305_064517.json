@@ -1,5 +1,5 @@
 {
-  "id": "09e2be85-fc68-4f60-a832-347027720226",
+  "id": "293187ad-453e-49f1-ba94-500b02f7fe6f",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -16134,30 +16134,29 @@
       "name": "search_taxonomies_amenities",
       "schema": "",
       "columns": {
-        "order": {
-          "name": "order",
+        "_order": {
+          "name": "_order",
           "type": "integer",
           "primaryKey": false,
           "notNull": true
         },
-        "parent_id": {
-          "name": "parent_id",
+        "_parent_id": {
+          "name": "_parent_id",
           "type": "integer",
           "primaryKey": false,
+          "notNull": true
+        },
+        "id": {
+          "name": "id",
+          "type": "varchar",
+          "primaryKey": true,
           "notNull": true
         },
         "value": {
           "name": "value",
-          "type": "enum_search_taxonomies_amenities",
-          "typeSchema": "public",
+          "type": "varchar",
           "primaryKey": false,
           "notNull": false
-        },
-        "id": {
-          "name": "id",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true
         }
       },
       "indexes": {
@@ -16165,7 +16164,7 @@
           "name": "search_taxonomies_amenities_order_idx",
           "columns": [
             {
-              "expression": "order",
+              "expression": "_order",
               "isExpression": false,
               "asc": true,
               "nulls": "last"
@@ -16176,11 +16175,11 @@
           "method": "btree",
           "with": {}
         },
-        "search_taxonomies_amenities_parent_idx": {
-          "name": "search_taxonomies_amenities_parent_idx",
+        "search_taxonomies_amenities_parent_id_idx": {
+          "name": "search_taxonomies_amenities_parent_id_idx",
           "columns": [
             {
-              "expression": "parent_id",
+              "expression": "_parent_id",
               "isExpression": false,
               "asc": true,
               "nulls": "last"
@@ -16193,12 +16192,12 @@
         }
       },
       "foreignKeys": {
-        "search_taxonomies_amenities_parent_fk": {
-          "name": "search_taxonomies_amenities_parent_fk",
+        "search_taxonomies_amenities_parent_id_fk": {
+          "name": "search_taxonomies_amenities_parent_id_fk",
           "tableFrom": "search_taxonomies_amenities",
           "tableTo": "search",
           "columnsFrom": [
-            "parent_id"
+            "_parent_id"
           ],
           "columnsTo": [
             "id"
@@ -25502,11 +25501,6 @@
         "editor",
         "public"
       ]
-    },
-    "public.enum_search_taxonomies_amenities": {
-      "name": "enum_search_taxonomies_amenities",
-      "schema": "public",
-      "values": []
     },
     "public.enum_forms_confirmation_type": {
       "name": "enum_forms_confirmation_type",

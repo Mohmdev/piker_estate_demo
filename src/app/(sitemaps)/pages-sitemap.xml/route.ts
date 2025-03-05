@@ -52,18 +52,6 @@ const getPagesSitemap = unstable_cache(
         loc: `${SITE_URL}/classifications`,
         lastmod: dateFallback,
       },
-      {
-        loc: `${SITE_URL}/contracts`,
-        lastmod: dateFallback,
-      },
-      {
-        loc: `${SITE_URL}/amenities`,
-        lastmod: dateFallback,
-      },
-      {
-        loc: `${SITE_URL}/availability`,
-        lastmod: dateFallback,
-      },
     ]
 
     const sitemap = results.docs

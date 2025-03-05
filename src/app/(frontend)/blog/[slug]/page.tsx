@@ -6,7 +6,7 @@ import RichText from '@components/RichText'
 import { getDynamicMeta } from '@data/getDynamicMeta'
 import { getPostBySlug } from '@data/getPost'
 import configPromise from '@payload-config'
-import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
+import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 import { generateMeta } from '@services/seo/generateMeta'
 import type { Metadata } from 'next'
 import { draftMode } from 'next/headers'
@@ -63,7 +63,7 @@ export default async function BlogPost({ params: paramsPromise }: Args) {
         <div className="container">
           <RichText
             className="max-w-[48rem] mx-auto"
-            data={blogPost.content as SerializedEditorState}
+            data={blogPost.content as DefaultTypedEditorState}
             enableGutter={false}
           />
           {blogPost.relatedDocs && blogPost.relatedDocs.length > 0 && (

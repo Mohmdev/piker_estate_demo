@@ -7,7 +7,7 @@ import type {
 
 import RichText from '@components/RichText'
 import { Button } from '@components/ui/button'
-import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
+import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 import { useRouter } from 'next/navigation'
 import React, { useCallback, useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
@@ -20,7 +20,7 @@ export type FormBlockType = {
   blockType?: 'formBlock'
   enableIntro: boolean
   form: FormType
-  introContent?: SerializedEditorState
+  introContent?: DefaultTypedEditorState
 }
 
 export const FormBlock: React.FC<
@@ -42,8 +42,7 @@ export const FormBlock: React.FC<
   } = props
 
   const formMethods = useForm({
-    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-    defaultValues: formFromProps.fields as any,
+    defaultValues: formFromProps.fields,
   })
   const {
     control,

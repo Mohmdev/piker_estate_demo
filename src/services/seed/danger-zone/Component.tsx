@@ -53,7 +53,16 @@ export const DbInteractionZone: React.FC = () => {
         </div>
 
         <div className="flex flex-col justify-start items-start flex-nowrap gap-2 w-full max-w-xl">
-          <h5 className="text-muted-foreground">Main Collections</h5>
+          <h5 className="text-muted-foreground">Real Estate Data Management</h5>
+          <div
+            className={cn(
+              'flex flex-row flex-nowrap gap-4',
+              'justify-between items-center w-full',
+            )}
+          >
+            <SeedClassifications />
+            <ResetClassifications />
+          </div>
           <div
             className={cn(
               'flex flex-row flex-nowrap gap-4',
@@ -72,47 +81,7 @@ export const DbInteractionZone: React.FC = () => {
             <SeedProjects />
             <ResetProjects />
           </div>
-        </div>
-
-        <div className="flex flex-col justify-start items-start flex-nowrap gap-2 w-full max-w-xl">
-          <h5 className="text-muted-foreground">Taxonomies</h5>
-          <div
-            className={cn(
-              'flex flex-row flex-nowrap gap-4',
-              'justify-between items-center w-full',
-            )}
-          >
-            <SeedClassifications />
-            <ResetClassifications />
-          </div>
           <MediaReset className="w-full" />
-          {/* <div
-            className={cn(
-              'flex flex-row flex-nowrap gap-4',
-              'justify-between items-center w-full',
-            )}
-          >
-            <SeedContracts />
-            <ResetContracts />
-          </div>
-          <div
-            className={cn(
-              'flex flex-row flex-nowrap gap-4',
-              'justify-between items-center w-full',
-            )}
-          >
-            <SeedAvailability />
-            <ResetAvailability />
-          </div>
-          <div
-            className={cn(
-              'flex flex-row flex-nowrap gap-4',
-              'justify-between items-center w-full',
-            )}
-          >
-            <SeedAmenities />
-            <ResetAmenities />
-          </div> */}
         </div>
       </div>
     </div>

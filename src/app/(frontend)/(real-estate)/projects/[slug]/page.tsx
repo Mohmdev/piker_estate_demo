@@ -6,7 +6,7 @@ import RichText from '@components/RichText'
 import { getDynamicMeta } from '@data/getDynamicMeta'
 import { getProjectBySlug } from '@data/real-estate/getProject'
 import configPromise from '@payload-config'
-import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
+import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 import { generateMeta } from '@services/seo/generateMeta'
 import type { Metadata } from 'next'
 import { draftMode } from 'next/headers'
@@ -63,7 +63,7 @@ export default async function ProjectPost({ params: paramsPromise }: Args) {
         <div className="container">
           <RichText
             className="max-w-[48rem] mx-auto"
-            data={project.description as SerializedEditorState}
+            data={project.description as DefaultTypedEditorState}
             enableGutter={false}
           />
           {project.relatedDocs && project.relatedDocs.length > 0 && (

@@ -1,6 +1,6 @@
 import RichText from '@components/RichText'
 import type { Property } from '@payload-types'
-import { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
+import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 import { cn } from '@utils/ui'
 import React from 'react'
 import { ListingCard } from '../glossary/listing-card'
@@ -8,7 +8,7 @@ import { ListingCard } from '../glossary/listing-card'
 export type ListingBlockProps = {
   className?: string
   listings?: Property[]
-  introContent?: SerializedEditorState
+  introContent?: DefaultTypedEditorState
 }
 
 export const ListingBlock: React.FC<ListingBlockProps> = (props) => {

@@ -135,7 +135,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE TYPE "public"."enum_tags_status" AS ENUM('draft', 'published');
   CREATE TYPE "public"."enum__tags_v_version_status" AS ENUM('draft', 'published');
   CREATE TYPE "public"."enum_users_role" AS ENUM('admin', 'editor', 'public');
-  CREATE TYPE "public"."enum_search_taxonomies_amenities" AS ENUM();
   CREATE TYPE "public"."enum_forms_confirmation_type" AS ENUM('message', 'redirect');
   CREATE TYPE "public"."enum_redirects_to_type" AS ENUM('reference', 'custom');
   CREATE TYPE "public"."enum_payload_jobs_log_task_slug" AS ENUM('inline', 'schedulePublish');
@@ -1447,10 +1446,10 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   );
   
   CREATE TABLE IF NOT EXISTS "search_taxonomies_amenities" (
-  	"order" integer NOT NULL,
-  	"parent_id" integer NOT NULL,
-  	"value" "enum_search_taxonomies_amenities",
-  	"id" serial PRIMARY KEY NOT NULL
+  	"_order" integer NOT NULL,
+  	"_parent_id" integer NOT NULL,
+  	"id" varchar PRIMARY KEY NOT NULL,
+  	"value" varchar
   );
   
   CREATE TABLE IF NOT EXISTS "search" (
@@ -3138,7 +3137,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   END $$;
   
   DO $$ BEGIN
-   ALTER TABLE "search_taxonomies_amenities" ADD CONSTRAINT "search_taxonomies_amenities_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."search"("id") ON DELETE cascade ON UPDATE no action;
+   ALTER TABLE "search_taxonomies_amenities" ADD CONSTRAINT "search_taxonomies_amenities_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."search"("id") ON DELETE cascade ON UPDATE no action;
   EXCEPTION
    WHEN duplicate_object THEN null;
   END $$;
@@ -4006,8 +4005,8 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX IF NOT EXISTS "user_photos_sizes_original_sizes_original_filename_idx" ON "user_photos" USING btree ("sizes_original_filename");
   CREATE INDEX IF NOT EXISTS "search_taxonomies_classifications_order_idx" ON "search_taxonomies_classifications" USING btree ("_order");
   CREATE INDEX IF NOT EXISTS "search_taxonomies_classifications_parent_id_idx" ON "search_taxonomies_classifications" USING btree ("_parent_id");
-  CREATE INDEX IF NOT EXISTS "search_taxonomies_amenities_order_idx" ON "search_taxonomies_amenities" USING btree ("order");
-  CREATE INDEX IF NOT EXISTS "search_taxonomies_amenities_parent_idx" ON "search_taxonomies_amenities" USING btree ("parent_id");
+  CREATE INDEX IF NOT EXISTS "search_taxonomies_amenities_order_idx" ON "search_taxonomies_amenities" USING btree ("_order");
+  CREATE INDEX IF NOT EXISTS "search_taxonomies_amenities_parent_id_idx" ON "search_taxonomies_amenities" USING btree ("_parent_id");
   CREATE INDEX IF NOT EXISTS "search_slug_idx" ON "search" USING btree ("slug");
   CREATE INDEX IF NOT EXISTS "search_meta_meta_image_idx" ON "search" USING btree ("meta_image_id");
   CREATE INDEX IF NOT EXISTS "search_updated_at_idx" ON "search" USING btree ("updated_at");
@@ -4447,7 +4446,6 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   DROP TYPE "public"."enum_tags_status";
   DROP TYPE "public"."enum__tags_v_version_status";
   DROP TYPE "public"."enum_users_role";
-  DROP TYPE "public"."enum_search_taxonomies_amenities";
   DROP TYPE "public"."enum_forms_confirmation_type";
   DROP TYPE "public"."enum_redirects_to_type";
   DROP TYPE "public"."enum_payload_jobs_log_task_slug";

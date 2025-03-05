@@ -1,14 +1,14 @@
 import { Card, type CardPostData } from '@components/Card'
 import RichText from '@components/RichText'
 import type { Blog } from '@payload-types'
-import { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
+import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 import { cn } from '@utils/ui'
 import React from 'react'
 
 export type RelatedDocsProps = {
   className?: string
   docs?: Blog['relatedDocs']
-  introContent?: SerializedEditorState
+  introContent?: DefaultTypedEditorState
 }
 
 export const RelatedDocs: React.FC<RelatedDocsProps> = (props) => {

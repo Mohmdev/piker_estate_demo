@@ -16,14 +16,8 @@ module.exports = {
     '/properties/*',
     '/projects-sitemap.xml',
     '/projects/*',
-    '/contracts-sitemap.xml',
-    '/contracts/*',
     '/classifications-sitemap.xml',
     '/classifications/*',
-    '/amenities-sitemap.xml',
-    '/amenities/*',
-    '/availability-sitemap.xml',
-    '/availability/*',
   ],
   robotsTxtOptions: {
     policies: [
@@ -37,10 +31,7 @@ module.exports = {
       `${SITE_URL}/blog-sitemap.xml`,
       `${SITE_URL}/properties-sitemap.xml`,
       `${SITE_URL}/projects-sitemap.xml`,
-      `${SITE_URL}/contracts-sitemap.xml`,
       `${SITE_URL}/classifications-sitemap.xml`,
-      `${SITE_URL}/amenities-sitemap.xml`,
-      `${SITE_URL}/availability-sitemap.xml`,
     ],
   },
 }

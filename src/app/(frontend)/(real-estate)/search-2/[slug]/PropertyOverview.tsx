@@ -1,6 +1,6 @@
 import RichText from '@components/RichText'
 import type { Property } from '@payload-types'
-import { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
+import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 import { MapPin, Star } from 'lucide-react'
 import React from 'react'
 
@@ -80,7 +80,7 @@ export const PropertyOverview: React.FC<PropertyOverviewProps> = (props) => {
         <h2 className="text-xl font-semibold mb-5">About {title}</h2>
         <RichText
           className="text-gray-500 leading-7"
-          data={description as SerializedEditorState}
+          data={description as DefaultTypedEditorState}
           enableGutter={false}
         />
       </div>
