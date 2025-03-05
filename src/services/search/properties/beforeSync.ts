@@ -1,4 +1,4 @@
-import type { Classification, Property } from '@payload-types'
+import type { Classification, Media, Property, Search } from '@payload-types'
 import { BeforeSync, DocToSync } from '@payloadcms/plugin-search/types'
 
 type beforeSyncProps = {
@@ -37,7 +37,7 @@ export const propertyBeforeSyncWithSearch: BeforeSync = async ({
       title,
       price,
       description,
-      gallery,
+      image: (gallery?.images && gallery?.images[0]) || {},
     },
     taxonomies: {
       classifications,
@@ -48,6 +48,21 @@ export const propertyBeforeSyncWithSearch: BeforeSync = async ({
     },
   }
 
+  const imagesArray = gallery?.images
+  if (imagesArray && Array.isArray(imagesArray) && imagesArray.length > 0) {
+    try {
+      const firstImage = imagesArray[0] as Media
+      generatedSearchDoc.image = {
+        id: firstImage.id,
+        relationTo: 'media',
+      }
+    } catch (error) {
+      console.error(
+        `Failed to map image when syncing collection '${collection}' with id: '${id}' to Search. Document will be indexed without an image. | ${error}`,
+      )
+    }
+  }
+
   // classifications
   if (
     classifications &&
@@ -56,11 +71,11 @@ export const propertyBeforeSyncWithSearch: BeforeSync = async ({
   ) {
     try {
       const mappedClassifications = classifications.map((classification) => {
-        const { title } = classification as Classification
+        const { title, id } = classification as Classification
 
         return {
           relationTo: 'classifications',
-          // id,
+          id,
           title,
         }
       })

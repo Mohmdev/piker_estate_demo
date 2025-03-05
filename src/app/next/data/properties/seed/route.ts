@@ -56,12 +56,6 @@ export async function POST(): Promise<Response> {
             }),
           )
 
-          if (property.gallery.images && property.gallery.images.length > 0) {
-            payload.logger.info(
-              `First image URL: ${property.gallery.images[0]?.url || 'none'}`,
-            )
-          }
-
           // Process images
           const galleryImages = property.gallery.images
             ? await Promise.all(
@@ -71,7 +65,7 @@ export async function POST(): Promise<Response> {
                     return null
                   }
 
-                  payload.logger.info(`Processing image ${index}: ${image.url}`)
+                  // payload.logger.info(`Processing image ${index}: ${image.url}`)
 
                   try {
                     // Check if media already exists
@@ -92,9 +86,9 @@ export async function POST(): Promise<Response> {
                     // Create new media
                     const imageBuffer = await fetchFileByURL(image.url)
 
-                    payload.logger.info(
-                      `Fetched image buffer for ${image.url}, size: ${imageBuffer.size} bytes`,
-                    )
+                    // payload.logger.info(
+                    //   `Fetched image buffer for ${image.url}, size: ${imageBuffer.size} bytes`,
+                    // )
 
                     // Use the correct file upload format
                     const createdMedia = await payload.create({
@@ -105,9 +99,9 @@ export async function POST(): Promise<Response> {
                       file: imageBuffer,
                     })
 
-                    payload.logger.info(
-                      `Created media ID: ${createdMedia.id} for ${image.url}`,
-                    )
+                    // payload.logger.info(
+                    //   `Created media ID: ${createdMedia.id} for ${image.url}`,
+                    // )
                     return createdMedia.id
                   } catch (error) {
                     payload.logger.error(
@@ -137,7 +131,7 @@ export async function POST(): Promise<Response> {
                     return null
                   }
 
-                  payload.logger.info(`Processing video ${index}: ${video.url}`)
+                  // payload.logger.info(`Processing video ${index}: ${video.url}`)
 
                   try {
                     // Check if media already exists
@@ -158,9 +152,9 @@ export async function POST(): Promise<Response> {
                     // Create new media
                     const videoBuffer = await fetchFileByURL(video.url)
 
-                    payload.logger.info(
-                      `Fetched video buffer for ${video.url}, size: ${videoBuffer.size} bytes`,
-                    )
+                    // payload.logger.info(
+                    //   `Fetched video buffer for ${video.url}, size: ${videoBuffer.size} bytes`,
+                    // )
 
                     const createdMedia = await payload.create({
                       collection: 'media',
@@ -170,9 +164,9 @@ export async function POST(): Promise<Response> {
                       file: videoBuffer,
                     })
 
-                    payload.logger.info(
-                      `Created media ID: ${createdMedia.id} for ${video.url}`,
-                    )
+                    // payload.logger.info(
+                    //   `Created media ID: ${createdMedia.id} for ${video.url}`,
+                    // )
                     return createdMedia.id
                   } catch (error) {
                     payload.logger.error(
@@ -202,9 +196,9 @@ export async function POST(): Promise<Response> {
                     return null
                   }
 
-                  payload.logger.info(
-                    `Processing document ${index}: ${document.url}`,
-                  )
+                  // payload.logger.info(
+                  //   `Processing document ${index}: ${document.url}`,
+                  // )
 
                   try {
                     // Check if media already exists
@@ -225,9 +219,9 @@ export async function POST(): Promise<Response> {
                     // Create new media
                     const documentBuffer = await fetchFileByURL(document.url)
 
-                    payload.logger.info(
-                      `Fetched document buffer for ${document.url}, size: ${documentBuffer.size} bytes`,
-                    )
+                    // payload.logger.info(
+                    //   `Fetched document buffer for ${document.url}, size: ${documentBuffer.size} bytes`,
+                    // )
 
                     const createdMedia = await payload.create({
                       collection: 'media',
@@ -237,9 +231,9 @@ export async function POST(): Promise<Response> {
                       file: documentBuffer,
                     })
 
-                    payload.logger.info(
-                      `Created media ID: ${createdMedia.id} for ${document.url}`,
-                    )
+                    // payload.logger.info(
+                    //   `Created media ID: ${createdMedia.id} for ${document.url}`,
+                    // )
                     return createdMedia.id
                   } catch (error) {
                     payload.logger.error(

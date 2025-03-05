@@ -24,9 +24,12 @@ export const propertyOverrides: Field[] = [
         label: 'Title',
       },
       {
-        type: 'text',
+        type: 'richText',
         name: 'description',
         label: 'Description',
+        admin: {
+          readOnly: true,
+        },
       },
       {
         name: 'image',
@@ -62,10 +65,10 @@ export const propertyOverrides: Field[] = [
             name: 'relationTo',
             type: 'text',
           },
-          // {
-          //   name: 'id',
-          //   type: 'text',
-          // },
+          {
+            name: 'id',
+            type: 'text',
+          },
           {
             name: 'title',
             type: 'text',

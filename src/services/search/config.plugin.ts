@@ -1,8 +1,8 @@
 import { searchPlugin } from '@payloadcms/plugin-search'
 import { SYNC_TO_SEARCH_ENABLED_COLLECTIONS } from '@services/control-board'
-import { propertyOverrides } from '@services/search/propertyOverrides'
+import { propertyOverrides } from '@services/search/properties/overrides'
 import type { Plugin } from 'payload'
-import { propertyBeforeSyncWithSearch } from './propertybeforeSync'
+import { propertyBeforeSyncWithSearch } from './properties/beforeSync'
 
 export const searchService: Plugin = searchPlugin({
   collections: [...SYNC_TO_SEARCH_ENABLED_COLLECTIONS],

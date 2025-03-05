@@ -18,9 +18,9 @@ export async function fetchFileByURL(url: string): Promise<File> {
     const filename = url.split('/').pop() || `file-${Date.now()}`
     const extension = filename.split('.').pop() || 'png'
 
-    console.log(
-      `Successfully fetched file: ${filename}, size: ${data.byteLength} bytes, type: ${extension}`,
-    )
+    // console.log(
+    //   `Successfully fetched file: ${filename}, size: ${data.byteLength} bytes, type: ${extension}`,
+    // )
 
     return {
       name: filename,
