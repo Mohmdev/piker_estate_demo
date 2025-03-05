@@ -69,26 +69,26 @@ export const queryProperties = async (
       ? {
           where: {
             or: [
+              // {
+              //   title: {
+              //     like: query,
+              //   },
+              // },
               {
-                title: {
+                'taxonomies.amenities.label': {
                   like: query,
                 },
               },
               {
-                'meta.description': {
+                'meta.price': {
                   like: query,
                 },
               },
-              {
-                'meta.title': {
-                  like: query,
-                },
-              },
-              {
-                slug: {
-                  like: query,
-                },
-              },
+              // {
+              //   slug: {
+              //     like: query,
+              //   },
+              // },
             ],
           },
         }
@@ -100,3 +100,24 @@ export const queryProperties = async (
     totalDocs: results.totalDocs || 0,
   }
 }
+
+export const preFetchProperties = cache(async () => {
+  const { isEnabled: draft } = await draftMode()
+  const payload = await getPayload({ config: configPromise })
+
+  const unPaginatedResult = await payload.find({
+    collection: 'search',
+    depth: 1,
+    limit: 12,
+    overrideAccess: draft,
+    draft,
+    select: {
+      title: true,
+      slug: true,
+      categories: true,
+      meta: true,
+    },
+  })
+
+  return unPaginatedResult
+})

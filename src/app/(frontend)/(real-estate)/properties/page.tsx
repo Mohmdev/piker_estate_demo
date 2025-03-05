@@ -1,11 +1,11 @@
-import { CardPostData } from '@components/Card'
 import { getDynamicMeta } from '@data/getDynamicMeta'
-import { queryPosts } from '@data/getPost'
+import type { Search } from '@payload-types'
 import { mergeOpenGraph } from '@services/seo/mergeOpenGraph'
 import type { Metadata } from 'next/types'
 import React from 'react'
 import { ListingArchive } from './components/Archive'
 import { SearchInput } from './components/search-input'
+import { preFetchProperties, queryProperties } from './data/properties'
 import PageClient from './page.client'
 
 export const dynamic = 'force-dynamic'
@@ -15,11 +15,14 @@ type Args = {
     q?: string
   }>
 }
+
 export default async function PropertiesArchive({ searchParams }: Args) {
   const { q: query } = await searchParams
-  const searchQuery = await queryPosts(query)
+  const searchQuery = await queryProperties(query)
 
-  const { results: posts, totalDocs } = searchQuery
+  const { results: queryResults, totalDocs } = searchQuery
+
+  const staticProperties = await preFetchProperties()
 
   return (
     <>
@@ -32,12 +35,20 @@ export default async function PropertiesArchive({ searchParams }: Args) {
         <SearchInput className="max-w-[30rem] mx-auto w-full mb-6" />
 
         {totalDocs > 0 ? (
-          <ListingArchive posts={posts as CardPostData[]} className="px-0!" />
+          <ListingArchive
+            records={queryResults as Search[]}
+            className="px-0!"
+          />
         ) : (
           <p className="text-muted-foreground font-normal mx-auto">
             No properties found.
           </p>
         )}
+
+        <ListingArchive
+          records={staticProperties.docs as Search[]}
+          className="px-0!"
+        />
       </div>
     </>
   )

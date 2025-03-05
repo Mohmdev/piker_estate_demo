@@ -1,22 +1,22 @@
+import { Card } from '@components/Card'
+import type { Search } from '@payload-types'
 import { cn } from '@utils/ui'
 import React from 'react'
 
-import { Card, CardPostData } from '@components/Card'
-
-export type Props = {
-  posts: CardPostData[]
+export type ListingArchiveProps = {
+  records: Search[]
   className?: string
-  relationTo?: 'blog' | 'properties' | 'projects'
+  relationTo?: 'properties' | 'projects'
 }
 
-export const ListingArchive: React.FC<Props> = (props) => {
-  const { posts, className, relationTo = 'blog' } = props
+export const ListingArchive: React.FC<ListingArchiveProps> = (props) => {
+  const { records, className, relationTo = 'properties' } = props
 
   return (
     <div className={cn('container', className)}>
       <div>
         <div className="grid grid-cols-4 sm:grid-cols-8 xl:grid-cols-12 gap-y-4 gap-x-4 lg:gap-y-8 lg:gap-x-8 xl:gap-x-8">
-          {posts?.map((result, index) => {
+          {records?.map((result, index) => {
             if (typeof result === 'object' && result !== null) {
               return (
                 <div className="col-span-4" key={index}>

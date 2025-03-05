@@ -1441,6 +1441,47 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"sizes_original_filename" varchar
   );
   
+  CREATE TABLE IF NOT EXISTS "search_taxonomies_classifications" (
+  	"_order" integer NOT NULL,
+  	"_parent_id" integer NOT NULL,
+  	"id" varchar PRIMARY KEY NOT NULL,
+  	"relation_to" varchar,
+  	"title" varchar
+  );
+  
+  CREATE TABLE IF NOT EXISTS "search_taxonomies_amenities" (
+  	"_order" integer NOT NULL,
+  	"_parent_id" integer NOT NULL,
+  	"id" varchar PRIMARY KEY NOT NULL,
+  	"label" varchar,
+  	"value" varchar
+  );
+  
+  CREATE TABLE IF NOT EXISTS "search" (
+  	"id" serial PRIMARY KEY NOT NULL,
+  	"title" varchar,
+  	"priority" numeric,
+  	"slug" varchar,
+  	"meta_title" varchar,
+  	"meta_price" numeric,
+  	"meta_description" jsonb,
+  	"taxonomies_availability_status" varchar,
+  	"taxonomies_listing_type" varchar,
+  	"taxonomies_condition" varchar,
+  	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
+  	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
+  );
+  
+  CREATE TABLE IF NOT EXISTS "search_rels" (
+  	"id" serial PRIMARY KEY NOT NULL,
+  	"order" integer,
+  	"parent_id" integer NOT NULL,
+  	"path" varchar NOT NULL,
+  	"properties_id" integer,
+  	"projects_id" integer,
+  	"media_id" integer
+  );
+  
   CREATE TABLE IF NOT EXISTS "forms_blocks_checkbox" (
   	"_order" integer NOT NULL,
   	"_parent_id" integer NOT NULL,
@@ -1672,6 +1713,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"assets_id" integer,
   	"users_id" integer,
   	"user_photos_id" integer,
+  	"search_id" integer,
   	"forms_id" integer,
   	"form_submissions_id" integer,
   	"redirects_id" integer,
@@ -3094,6 +3136,42 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   END $$;
   
   DO $$ BEGIN
+   ALTER TABLE "search_taxonomies_classifications" ADD CONSTRAINT "search_taxonomies_classifications_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."search"("id") ON DELETE cascade ON UPDATE no action;
+  EXCEPTION
+   WHEN duplicate_object THEN null;
+  END $$;
+  
+  DO $$ BEGIN
+   ALTER TABLE "search_taxonomies_amenities" ADD CONSTRAINT "search_taxonomies_amenities_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."search"("id") ON DELETE cascade ON UPDATE no action;
+  EXCEPTION
+   WHEN duplicate_object THEN null;
+  END $$;
+  
+  DO $$ BEGIN
+   ALTER TABLE "search_rels" ADD CONSTRAINT "search_rels_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."search"("id") ON DELETE cascade ON UPDATE no action;
+  EXCEPTION
+   WHEN duplicate_object THEN null;
+  END $$;
+  
+  DO $$ BEGIN
+   ALTER TABLE "search_rels" ADD CONSTRAINT "search_rels_properties_fk" FOREIGN KEY ("properties_id") REFERENCES "public"."properties"("id") ON DELETE cascade ON UPDATE no action;
+  EXCEPTION
+   WHEN duplicate_object THEN null;
+  END $$;
+  
+  DO $$ BEGIN
+   ALTER TABLE "search_rels" ADD CONSTRAINT "search_rels_projects_fk" FOREIGN KEY ("projects_id") REFERENCES "public"."projects"("id") ON DELETE cascade ON UPDATE no action;
+  EXCEPTION
+   WHEN duplicate_object THEN null;
+  END $$;
+  
+  DO $$ BEGIN
+   ALTER TABLE "search_rels" ADD CONSTRAINT "search_rels_media_fk" FOREIGN KEY ("media_id") REFERENCES "public"."media"("id") ON DELETE cascade ON UPDATE no action;
+  EXCEPTION
+   WHEN duplicate_object THEN null;
+  END $$;
+  
+  DO $$ BEGIN
    ALTER TABLE "forms_blocks_checkbox" ADD CONSTRAINT "forms_blocks_checkbox_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."forms"("id") ON DELETE cascade ON UPDATE no action;
   EXCEPTION
    WHEN duplicate_object THEN null;
@@ -3287,6 +3365,12 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   
   DO $$ BEGIN
    ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_user_photos_fk" FOREIGN KEY ("user_photos_id") REFERENCES "public"."user_photos"("id") ON DELETE cascade ON UPDATE no action;
+  EXCEPTION
+   WHEN duplicate_object THEN null;
+  END $$;
+  
+  DO $$ BEGIN
+   ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_search_fk" FOREIGN KEY ("search_id") REFERENCES "public"."search"("id") ON DELETE cascade ON UPDATE no action;
   EXCEPTION
    WHEN duplicate_object THEN null;
   END $$;
@@ -3924,6 +4008,19 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX IF NOT EXISTS "user_photos_sizes_thumbnail_sizes_thumbnail_filename_idx" ON "user_photos" USING btree ("sizes_thumbnail_filename");
   CREATE INDEX IF NOT EXISTS "user_photos_sizes_avatar_sizes_avatar_filename_idx" ON "user_photos" USING btree ("sizes_avatar_filename");
   CREATE INDEX IF NOT EXISTS "user_photos_sizes_original_sizes_original_filename_idx" ON "user_photos" USING btree ("sizes_original_filename");
+  CREATE INDEX IF NOT EXISTS "search_taxonomies_classifications_order_idx" ON "search_taxonomies_classifications" USING btree ("_order");
+  CREATE INDEX IF NOT EXISTS "search_taxonomies_classifications_parent_id_idx" ON "search_taxonomies_classifications" USING btree ("_parent_id");
+  CREATE INDEX IF NOT EXISTS "search_taxonomies_amenities_order_idx" ON "search_taxonomies_amenities" USING btree ("_order");
+  CREATE INDEX IF NOT EXISTS "search_taxonomies_amenities_parent_id_idx" ON "search_taxonomies_amenities" USING btree ("_parent_id");
+  CREATE INDEX IF NOT EXISTS "search_slug_idx" ON "search" USING btree ("slug");
+  CREATE INDEX IF NOT EXISTS "search_updated_at_idx" ON "search" USING btree ("updated_at");
+  CREATE INDEX IF NOT EXISTS "search_created_at_idx" ON "search" USING btree ("created_at");
+  CREATE INDEX IF NOT EXISTS "search_rels_order_idx" ON "search_rels" USING btree ("order");
+  CREATE INDEX IF NOT EXISTS "search_rels_parent_idx" ON "search_rels" USING btree ("parent_id");
+  CREATE INDEX IF NOT EXISTS "search_rels_path_idx" ON "search_rels" USING btree ("path");
+  CREATE INDEX IF NOT EXISTS "search_rels_properties_id_idx" ON "search_rels" USING btree ("properties_id");
+  CREATE INDEX IF NOT EXISTS "search_rels_projects_id_idx" ON "search_rels" USING btree ("projects_id");
+  CREATE INDEX IF NOT EXISTS "search_rels_media_id_idx" ON "search_rels" USING btree ("media_id");
   CREATE INDEX IF NOT EXISTS "forms_blocks_checkbox_order_idx" ON "forms_blocks_checkbox" USING btree ("_order");
   CREATE INDEX IF NOT EXISTS "forms_blocks_checkbox_parent_id_idx" ON "forms_blocks_checkbox" USING btree ("_parent_id");
   CREATE INDEX IF NOT EXISTS "forms_blocks_checkbox_path_idx" ON "forms_blocks_checkbox" USING btree ("_path");
@@ -4002,6 +4099,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX IF NOT EXISTS "payload_locked_documents_rels_assets_id_idx" ON "payload_locked_documents_rels" USING btree ("assets_id");
   CREATE INDEX IF NOT EXISTS "payload_locked_documents_rels_users_id_idx" ON "payload_locked_documents_rels" USING btree ("users_id");
   CREATE INDEX IF NOT EXISTS "payload_locked_documents_rels_user_photos_id_idx" ON "payload_locked_documents_rels" USING btree ("user_photos_id");
+  CREATE INDEX IF NOT EXISTS "payload_locked_documents_rels_search_id_idx" ON "payload_locked_documents_rels" USING btree ("search_id");
   CREATE INDEX IF NOT EXISTS "payload_locked_documents_rels_forms_id_idx" ON "payload_locked_documents_rels" USING btree ("forms_id");
   CREATE INDEX IF NOT EXISTS "payload_locked_documents_rels_form_submissions_id_idx" ON "payload_locked_documents_rels" USING btree ("form_submissions_id");
   CREATE INDEX IF NOT EXISTS "payload_locked_documents_rels_redirects_id_idx" ON "payload_locked_documents_rels" USING btree ("redirects_id");
@@ -4170,6 +4268,10 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   DROP TABLE "assets" CASCADE;
   DROP TABLE "users" CASCADE;
   DROP TABLE "user_photos" CASCADE;
+  DROP TABLE "search_taxonomies_classifications" CASCADE;
+  DROP TABLE "search_taxonomies_amenities" CASCADE;
+  DROP TABLE "search" CASCADE;
+  DROP TABLE "search_rels" CASCADE;
   DROP TABLE "forms_blocks_checkbox" CASCADE;
   DROP TABLE "forms_blocks_country" CASCADE;
   DROP TABLE "forms_blocks_email" CASCADE;
